@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/registration_bg_Color"
+>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_marginLeft="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_policy_3"
+                android:layout_marginTop="35sp"
+                android:textColor="@color/text_black_color"
+                android:textSize="25sp"
+        />
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Working Days"
+                    android:textColor="@color/text_black_color"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="30dp"/>
+
+            <Button
+                    android:id="@+id/information_signup_working_days_button_ID"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:background="@drawable/info"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:id="@+id/working_days_ET_ID"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="22 days"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/text_black_color"
+                android:textSize="25sp" />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:layout_marginBottom="15dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Delay Count"
+                    android:textColor="@color/text_black_color"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="30dp"/>
+
+            <Button
+                    android:id="@+id/information_signup_delay_count_button_ID"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:background="@drawable/info"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"/>
+            <!--<Button
+                    android:id="@+id/information_signup_button"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:background="@drawable/info"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginBottom="19dp"/>-->
+            <EditText
+                android:id="@+id/delay_count_ET_ID"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="5 days"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/text_black_color"
+                android:textSize="25sp" />
+
+        </androidx.cardview.widget.CardView>
+        <Button
+                android:id="@+id/sign_up_btn"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/signup_btn_bg"
+                android:textColor="@color/text_white_color"
+                android:text="Sign Up"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+        />
+    </LinearLayout>
+</ScrollView>

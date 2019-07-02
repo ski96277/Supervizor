@@ -1,0 +1,215 @@
+package com.example.supervizor.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
+import com.example.supervizor.Java_Class.CheckInternet;
+import com.example.supervizor.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
+
+import java.util.ArrayList;
+
+public class Login_Activity extends AppCompatActivity implements View.OnClickListener {
+    Button button_login;
+    TextView register_company;
+    EditText email_ET;
+    EditText password_ET;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    KAlertDialog kAlertDialog;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initialize();
+//hide action bar
+        getSupportActionBar().hide();
+//hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        button_login = findViewById(R.id.login_btn_ID);
+        register_company = findViewById(R.id.register_company_TV_ID);
+
+        button_login.setOnClickListener(this);
+        register_company.setOnClickListener(this);
+
+    }
+
+    private void initialize() {
+        email_ET = findViewById(R.id.email_login_ET_ID);
+        password_ET = findViewById(R.id.password_login_ET_ID);
+
+// Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+    }
+
+    //set on click on the button_login Start
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_btn_ID:
+                String email_st = email_ET.getText().toString();
+                String pass_st = password_ET.getText().toString();
+
+                if (email_st.isEmpty()) {
+                    email_ET.requestFocus();
+                    email_ET.setError("Email ?");
+                    return;
+                }
+                if (pass_st.isEmpty()) {
+                    password_ET.requestFocus();
+                    password_ET.setError("Password ?");
+                    return;
+                }
+                //check Internet Connection is ok
+                if (!CheckInternet.isInternet(getApplicationContext())) {
+                    Toasty.error(getApplicationContext(), "Internet Error").show();
+                    return;
+                }
+                kAlertDialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
+                kAlertDialog.setCancelable(false);
+                kAlertDialog.setTitleText("Loading...");
+                kAlertDialog.show();
+
+
+                mAuth.signInWithEmailAndPassword(email_st, pass_st)
+                        .addOnCompleteListener(this, task -> {
+
+                            if (task.isSuccessful()) {
+
+                                Toasty.success(getApplicationContext(), "Success").show();
+                                kAlertDialog.setTitleText("Checking user Data");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                checkUserType(user.getUid());
+
+                            } else {
+                                Toast.makeText(Login_Activity.this, "Login failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                kAlertDialog.dismiss();
+
+                            }
+
+                            // ...
+                        });
+
+                break;
+            case R.id.register_company_TV_ID:
+                startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+        }
+    }
+//check usr Type
+
+    private void checkUserType(String uid) {
+        ArrayList<String> companyUi_list=new ArrayList<>();
+
+        firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
+                if (company_true){
+                    kAlertDialog.dismiss();
+                    startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    return;
+                }
+
+                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true){
+                    Toasty.info(getApplicationContext(),"Employee").show();
+                    return;
+                }
+                boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
+
+                if (receptionist_true){
+                    Toasty.info(getApplicationContext(),"Receptionist").show();
+                    return;
+                }
+
+//                Toasty.info(getApplicationContext()," company ="+company_true).show();
+//                Toasty.info(getApplicationContext()," employee ="+employee_true,Toasty.LENGTH_LONG).show();
+
+
+//                if (employee_true) {
+//                    Toasty.info(getApplicationContext(), "Employee true").show();
+//                }
+
+                /*if (user_type.equals("Company")) {
+                    //start another after login
+                    kAlertDialog.dismiss();
+                    startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                } else {
+                    kAlertDialog.dismiss();
+                    Toasty.error(getApplicationContext(), "add more user! message for developer").show();
+
+                }
+                if (user_type.isEmpty()) {
+                    kAlertDialog.dismiss();
+                    Toasty.error(getApplicationContext(), "No User Data Found").show();
+                }*/
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+    //set on click on the button_login END
+
+    //check the user is login or not
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        kAlertDialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog.setCancelable(false);
+        kAlertDialog.setTitleText("Loading....");
+        kAlertDialog.show();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            kAlertDialog.dismiss();
+        } else {
+            kAlertDialog.setTitleText("Getting the user Data");
+            checkUserType(currentUser.getUid());
+        }
+//        updateUI(currentUser);
+    }
+
+}

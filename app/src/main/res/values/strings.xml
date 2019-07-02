@@ -1,0 +1,56 @@
+<resources>
+
+    <string name="app_name">Supervizor</string>
+    <string name="login_text">Login</string>
+    <string name="register_company">Register Company</string>
+    <string name="powered_by_rocktechit">Powered by ©Rocktechit</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="password_hint">Password</string>
+    <string name="e_mail_hint">E-mail</string>
+    <string name="company_profile_1">1. Company profile</string>
+    <string name="company_name_hint">Company Name</string>
+    <string name="location_hint">Location</string>
+    <string name="contact_hint">Contact</string>
+    <string name="e_mail_hint_singup">E-mail</string>
+    <string name="arrow_button"><![CDATA[> > >]]></string>
+    <string name="penalty_time_signup">Penalty Time :</string>
+    <string name="exit_time_signup">Exit Time :</string>
+    <string name="entry_time_signup">Entry Time :</string>
+    <string name="attendance_rule_2">2. Attendance Rule</string>
+    <string name="payment_policy_3">3. Payment Policy</string>
+    <string name="title_activity_company_main">CompanyMainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string-array name="employee_home">
+        <item>All</item>
+        <item>Employee</item>
+        <item>Moderator</item>
+    </string-array>
+
+    <string-array name="contact_period">
+        <item>Years</item>
+        <item>Month</item>
+    </string-array>
+
+    <string-array name="month_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+    </string-array>
+    <string-array name="year_array">
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+    </string-array>
+</resources>

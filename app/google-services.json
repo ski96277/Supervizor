@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "403528377576",
+    "firebase_url": "https://supervizor-oms.firebaseio.com",
+    "project_id": "supervizor-oms",
+    "storage_bucket": "supervizor-oms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403528377576:android:c395b905abe4b27c",
+        "android_client_info": {
+          "package_name": "com.example.supervizor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403528377576-44uejav7n06o0g9rjgbme6d3i3p3m306.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbDVTuvAhCV2pLel416zfIkFkmD2TOMEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403528377576-44uejav7n06o0g9rjgbme6d3i3p3m306.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

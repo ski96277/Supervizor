@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_leave_application"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Leave Application"
+            app:actionViewClass="android.widget.TextView"/>
+      <item
+            android:id="@+id/nav_Team_Leader"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Team Leader" />
+        <item
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="User Attendance" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_logOut"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
+</menu>
