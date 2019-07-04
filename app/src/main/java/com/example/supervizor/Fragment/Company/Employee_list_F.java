@@ -3,6 +3,7 @@ package com.example.supervizor.Fragment.Company;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,29 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.AdapterClass.All_Employee_List_Adapter;
 import com.example.supervizor.Fragment.Company.Add_Employee;
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
+import com.example.supervizor.Java_Class.CheckInternet;
+import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import es.dmoral.toasty.Toasty;
 
 public class Employee_list_F extends Fragment {
@@ -34,7 +50,17 @@ public class Employee_list_F extends Fragment {
     Button add_receptionist_btn;
     LinearLayout add_emplo_layout, all_search_layout;
 
-    SignUp_Pojo signUp_pojo;
+    //    SignUp_Pojo signUp_pojo;
+    AddEmployee_PojoClass addEmployee_pojoClass;
+
+    ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
+
+
+    // Write a message to the database
+    FirebaseDatabase database;
+    DatabaseReference myDatabaseRef;
+
+    RecyclerView recyclerview_all_employee_ID;
 
 
     @Nullable
@@ -59,6 +85,7 @@ public class Employee_list_F extends Fragment {
         plus_icon_button.requestFocus();
         search_ET.requestFocus();
         spinner_ET.requestFocus();
+
 
         plus_icon_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +164,56 @@ public class Employee_list_F extends Fragment {
                 }
             }
         });
+
+        Check_User_information check_user_information = new Check_User_information();
+        String userID_company = check_user_information.getUserID();
+        String email_company = check_user_information.getEmail();
+
+        Toasty.info(getContext(), userID_company).show();
+
+        if (!CheckInternet.isInternet(getContext())){
+            Toasty.info(getContext(),"internet Error").show();
+            return;
+        }
+
+        KAlertDialog kAlertDialog=new KAlertDialog(getContext(),KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog.setTitleText("Data Loading");
+        kAlertDialog.show();
+
+        myDatabaseRef.child("employee_list_by_company").child(userID_company)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        addEmployee_pojoClasses.clear();
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
+
+                            Log.e("TAG", "onDataChange: " + addEmployeePojoClass.getEmployee_User_id());
+                            Toasty.info(getContext(), addEmployeePojoClass.getCompany_User_id()).show();
+                            addEmployee_pojoClasses.add(addEmployeePojoClass);
+
+                        }
+
+                        All_Employee_List_Adapter all_employee_list_adapter=new All_Employee_List_Adapter(addEmployee_pojoClasses);
+
+                        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+                        recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
+
+                        recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
+                        //dismiss alert dialog
+                        kAlertDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
     }
 
 
@@ -148,6 +225,15 @@ public class Employee_list_F extends Fragment {
         add_receptionist_btn = view.findViewById(R.id.add_receptionist_btn);
         add_emplo_layout = view.findViewById(R.id.add_emplo_layout);
         all_search_layout = view.findViewById(R.id.all_search_plus_layout);
+
+        // Write a message to the database
+        database = FirebaseDatabase.getInstance();
+        myDatabaseRef = database.getReference();
+
+        addEmployee_pojoClasses = new ArrayList<>();
+
+        recyclerview_all_employee_ID=view.findViewById(R.id.recyclerview_all_employee_ID);
+
     }
 
     //set title

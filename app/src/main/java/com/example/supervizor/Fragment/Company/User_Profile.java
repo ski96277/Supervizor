@@ -1,4 +1,4 @@
-package com.example.supervizor.Fragment;
+package com.example.supervizor.Fragment.Company;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

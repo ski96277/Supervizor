@@ -12,7 +12,6 @@ import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
 import com.example.supervizor.Fragment.Company.User_Attendance_F;
-import com.example.supervizor.Fragment.User_Profile;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.R;
 
@@ -151,7 +150,7 @@ public class CompanyMainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                employee_list_fragment();
+                load_Employee_list(signUp_pojo);
             }
         });
 //Calender View show button_login
@@ -236,8 +235,6 @@ public class CompanyMainActivity extends AppCompatActivity
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("singup_information", signUp_pojo);
-
-
         //Load default Fragment
         fragment = new Employee_list_F();
         if (fragment != null) {
@@ -248,6 +245,7 @@ public class CompanyMainActivity extends AppCompatActivity
         }
     }
 
+    /*
     private void employee_list_fragment() {
 
         Fragment fragment = new Employee_list_F();
@@ -262,6 +260,7 @@ public class CompanyMainActivity extends AppCompatActivity
         }
     }
 
+    */
     private void calender_Fragment() {
 
         Fragment fragment = new Calender_F();
@@ -367,7 +366,7 @@ public class CompanyMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            employee_list_fragment();
+            load_Employee_list(signUp_pojo);
         } else if (id == R.id.nav_leave_application) {
             fragment = new LeaveApplication_Pending_F();
             if (fragment != null) {

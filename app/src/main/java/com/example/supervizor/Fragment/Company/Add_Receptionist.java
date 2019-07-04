@@ -56,6 +56,8 @@ public class Add_Receptionist extends Fragment {
 
     DatePickerDialog datePickerDialog;
 
+    String password_Receptionist = "123456";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -147,7 +149,7 @@ public class Add_Receptionist extends Fragment {
         kAlertDialog.setTitleText("Creating User");
         kAlertDialog.show();
 
-        mAuth.createUserWithEmailAndPassword(email_Receptionist, "123456")
+        mAuth.createUserWithEmailAndPassword(email_Receptionist, password_Receptionist)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -156,9 +158,10 @@ public class Add_Receptionist extends Fragment {
 
                             AddReceptionist_PojoClass addReceptionist_pojoClass = new AddReceptionist_PojoClass(
                                     name_Reception, designation_Receptionist, email_Receptionist,
-                                    join_Receptionist, salary_Receptionist, contact_period_Receptionist, spinner_month_Year,
-                                    "null"
-                            );
+                                    join_Receptionist, salary_Receptionist, contact_period_Receptionist,
+                                    spinner_month_Year, "null", password_Receptionist,
+                                    uID_company);
+
                             kAlertDialog.setTitleText("information Uploading...");
 
                             FirebaseUser firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
@@ -215,17 +218,12 @@ public class Add_Receptionist extends Fragment {
 
                                                 }
                                             });
-
-
                                         }
                                     });
-
                         } else {
 
                             Toasty.error(getContext(), "Error creating user").show();
                         }
-
-                        // ...
                     }
                 });
 

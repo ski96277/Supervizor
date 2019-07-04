@@ -58,7 +58,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
     String job_status = "Permanent";
     String userID_company;
     String email_company;
-    String password_company="123456";
+    String password_company;
     FirebaseAuth firebaseAuth;
     FirebaseUser currentuser;
 
@@ -73,6 +73,8 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
     Calendar calendar;
 
     DatePickerDialog datePickerDialog;
+
+    String employee_password="123456";
 
     @Nullable
     @Override
@@ -205,7 +207,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                 kAlertDialog.setTitleText("Loading......");
                 kAlertDialog.show();
 
-                firebaseAuth.createUserWithEmailAndPassword(employee_email, "123456")
+                firebaseAuth.createUserWithEmailAndPassword(employee_email, employee_password)
                         .addOnCompleteListener(getActivity(), task -> {
                             kAlertDialog.setTitleText("User Creating......");
                             if (task.isSuccessful()) {
@@ -249,7 +251,8 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
 
                                 AddEmployee_PojoClass addEmployee_pojoClass
                                         = new AddEmployee_PojoClass(employee_name, employee_designation,
-                                        employee_email, employee_join_Date, employee_salary, "123", job_status,
+                                        employee_email, employee_join_Date, employee_salary,
+                                        employee_password, job_status,
                                         employee_contact_priodNumber, employee_month_year,
                                         userID_company, userid,
                                         "null", "Employee");

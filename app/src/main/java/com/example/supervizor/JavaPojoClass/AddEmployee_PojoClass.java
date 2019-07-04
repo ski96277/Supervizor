@@ -16,6 +16,9 @@ public class AddEmployee_PojoClass {
     String employee_profile_image_link;
     String user_type;
 
+    public AddEmployee_PojoClass() {
+    }
+
     public AddEmployee_PojoClass(String employee_name, String employee_designation, String employee_email, String employee_joinDate, String employee_salary, String employee_password, String employee_status, String employee_Contact_period_number, String employee_Contact_period_year_OR_month, String company_User_id, String employee_User_id, String employee_profile_image_link, String user_type) {
         this.employee_name = employee_name;
         this.employee_designation = employee_designation;

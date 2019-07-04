@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -47,7 +49,6 @@ dependencies {
 
 
     //Alert Dialog
-//    implementation 'com.github.TutorialsAndroid:KAlertDialog:v5.0.19'
     implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.1'
 
     //Toast Library
@@ -55,7 +56,15 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //animation
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
 
 }
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}

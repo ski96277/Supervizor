@@ -110,7 +110,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                                 Toasty.success(getApplicationContext(), "Success").show();
                                 kAlertDialog.setTitleText("Checking user Data");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                checkUserType(user.getUid());
+                                checkUserType(user.getUid(),pass_st);
 
                             } else {
                                 Toast.makeText(Login_Activity.this, "Login failed.",
@@ -129,8 +129,8 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
     }
 //check usr Type
 
-    private void checkUserType(String uid) {
-        ArrayList<String> companyUi_list=new ArrayList<>();
+    private void checkUserType(String uid,String pass_st) {
+
 
         firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -138,46 +138,39 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
                 boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
                 if (company_true){
-                    kAlertDialog.dismiss();
+                    //set password in data base
+                    firebaseDatabase.getReference().child("company_list").child(uid).child("company_password")
+                            .setValue(pass_st);
+
                     startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    kAlertDialog.dismiss();
+
                     return;
                 }
 
                 boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
                 if (employee_true){
+
+                    //set password in data base
+                    firebaseDatabase.getReference().child("employee_list").child(uid)
+                            .child("employee_password").setValue(pass_st);
+
+
                     Toasty.info(getApplicationContext(),"Employee").show();
                     return;
                 }
                 boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
 
                 if (receptionist_true){
+
+                    //set password in data base
+                    firebaseDatabase.getReference().child("receptionist_list").child(uid)
+                            .child("password_Receptionist").setValue(pass_st);
+
                     Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
                 }
-
-//                Toasty.info(getApplicationContext()," company ="+company_true).show();
-//                Toasty.info(getApplicationContext()," employee ="+employee_true,Toasty.LENGTH_LONG).show();
-
-
-//                if (employee_true) {
-//                    Toasty.info(getApplicationContext(), "Employee true").show();
-//                }
-
-                /*if (user_type.equals("Company")) {
-                    //start another after login
-                    kAlertDialog.dismiss();
-                    startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                } else {
-                    kAlertDialog.dismiss();
-                    Toasty.error(getApplicationContext(), "add more user! message for developer").show();
-
-                }
-                if (user_type.isEmpty()) {
-                    kAlertDialog.dismiss();
-                    Toasty.error(getApplicationContext(), "No User Data Found").show();
-                }*/
 
             }
 
@@ -186,8 +179,6 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
-
     }
     //set on click on the button_login END
 
@@ -207,9 +198,56 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
             kAlertDialog.dismiss();
         } else {
             kAlertDialog.setTitleText("Getting the user Data");
+            //check user data when not login
             checkUserType(currentUser.getUid());
         }
 //        updateUI(currentUser);
     }
 
+//check user Type without Login
+    private void checkUserType(String uid) {
+        /*
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        myRef.setValue("Hello, World!");
+
+        */
+
+        firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
+                if (company_true){
+                    startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    kAlertDialog.dismiss();
+
+                    return;
+                }
+
+                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true){
+                    Toasty.info(getApplicationContext(),"Employee").show();
+                    return;
+                }
+                boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
+
+                if (receptionist_true){
+                    Toasty.info(getApplicationContext(),"Receptionist").show();
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
 }

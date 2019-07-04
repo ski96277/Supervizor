@@ -8,9 +8,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="10dp"
+        card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
@@ -19,61 +18,127 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/profile_photo"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo_item_imageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile" />
+                android:src="@drawable/profile"
+                card_view:civ_border_color="#000"
+                card_view:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/employee_name"
+                android:id="@+id/employee_name_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Employee name"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/profile_photo_item_imageView"
                 android:gravity="left"
                 android:paddingLeft="20sp"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
+                android:text="Employee name"
                 android:textColor="@color/text_black_color"
-                android:layout_toRightOf="@id/profile_photo"/>
+                android:textSize="20sp" />
 
 
             <TextView
                 android:id="@+id/employee_designation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Employee Designation"
+                android:layout_below="@id/employee_name_item"
+                android:layout_toRightOf="@id/profile_photo_item_imageView"
                 android:gravity="left"
                 android:paddingLeft="20sp"
-                android:textSize="20sp"
-                android:layout_toRightOf="@id/profile_photo"
+                android:text="Employee Designation"
                 android:textColor="@color/text_black_color"
-                android:layout_below="@id/employee_name"/>
-            <LinearLayout
+                android:textSize="20sp" />
 
+            <LinearLayout
+                android:id="@+id/item_action_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/profile_photo_item_imageView"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="30sp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                android:layout_below="@id/profile_photo">
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5sp"
-                    android:background="@drawable/round_button_shape"
+                android:visibility="gone">
 
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:background="@drawable/round_button_shape"
+                <LinearLayout
+                    android:id="@+id/profile_view_item_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5sp" />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:background="@drawable/round_button_shape"
-                    android:layout_height="wrap_content" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round_button_shape"
+                        android:padding="25dp"
+                        android:src="@drawable/profile_item" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Profile"
+                        android:textColor="#000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/attendance_item_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round_button_shape"
+                        android:padding="25dp"
+                        android:src="@drawable/calendar_32" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Attendance"
+                        android:textColor="#000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/remove_item_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round_button_shape"
+                        android:padding="25dp"
+                        android:src="@drawable/cross_32" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Remove User"
+                        android:textColor="#000" />
+                </LinearLayout>
+
             </LinearLayout>
         </RelativeLayout>
 
