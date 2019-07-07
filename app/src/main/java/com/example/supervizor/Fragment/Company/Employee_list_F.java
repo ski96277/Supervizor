@@ -154,8 +154,6 @@ public class Employee_list_F extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment = new Add_Receptionist();
-
-
                 if (fragment != null) {
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.company_main_screen, fragment);
@@ -169,7 +167,7 @@ public class Employee_list_F extends Fragment {
         String userID_company = check_user_information.getUserID();
         String email_company = check_user_information.getEmail();
 
-        Toasty.info(getContext(), userID_company).show();
+//        Toasty.info(getContext(), userID_company).show();
 
         if (!CheckInternet.isInternet(getContext())){
             Toasty.info(getContext(),"internet Error").show();
@@ -192,13 +190,15 @@ public class Employee_list_F extends Fragment {
                             AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
 
                             Log.e("TAG", "onDataChange: " + addEmployeePojoClass.getEmployee_User_id());
-                            Toasty.info(getContext(), addEmployeePojoClass.getCompany_User_id()).show();
+//                            Toasty.info(getContext(), addEmployeePojoClass.getCompany_User_id()).show();
                             addEmployee_pojoClasses.add(addEmployeePojoClass);
 
                         }
 
                         All_Employee_List_Adapter all_employee_list_adapter=new All_Employee_List_Adapter(addEmployee_pojoClasses);
 
+                        all_employee_list_adapter.notifyDataSetChanged();
+                        
                         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
                         recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
 

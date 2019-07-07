@@ -40,9 +40,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/name_tv_profile_view_page_1"
+                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Imran Sk"
                     android:textColor="#000"
                     android:textSize="20sp" />
 
@@ -86,9 +87,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/phone_number_tv_profile_view_page_1"
+                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="01687870058"
                     android:textColor="#000"
                     android:textSize="20sp" />
 
@@ -131,9 +133,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/email_tv_profile_view_page_1"
+                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="imran.bu96@gmail.com"
                     android:textColor="#000"
                     android:textSize="20sp" />
 
@@ -177,9 +180,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/date_tv_profile_view_page_1"
+                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12/02/2019"
                     android:textColor="#000"
                     android:textSize="20sp" />
 

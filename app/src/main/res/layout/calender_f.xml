@@ -4,10 +4,14 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/textView3"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView_ID"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Calender Fragment"
-        android:layout_marginTop="50dp"/>
+        android:layout_height="400dp"
+        app:mcv_showOtherDates="all"
+        android:textAlignment="center"
+        app:mcv_selectionColor="#617D8A"
+        android:layout_margin="10dp"/>
+
 </LinearLayout>

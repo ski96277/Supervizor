@@ -13,7 +13,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
+                android:id="@+id/profile_image_user_profile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -23,20 +23,22 @@
                 app:layout_collapseMode="parallax" />
 
             <TextView
+                android:id="@+id/name_tv_profile_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="Imran Sk"
+                android:text="loading...."
                 android:textColor="#FFF"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/designation_profile_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="Android Developer"
+                android:text="loading..."
                 android:textColor="#FFF"
                 android:textSize="20sp" />
 
