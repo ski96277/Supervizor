@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.R;
 import com.kinda.alert.KAlertDialog;
@@ -80,26 +82,57 @@ public class Registartion_page_1 extends Fragment {
             }
 
             if (company_name.isEmpty()) {
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_name_ET_ID_singup));
+
                 company_name_ET.requestFocus();
                 company_name_ET.setError("Company name");
                 return;
             }
             if (company_location.isEmpty()) {
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_location_ET_ID_singup));
+
                 company_location_ET.requestFocus();
                 company_location_ET.setError("Location ?");
                 return;
             }
             if (company_contact_number.isEmpty()) {
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_contact_ET_ID_singup));
+
                 company_contact_number_ET.requestFocus();
                 company_contact_number_ET.setError("Contact Number ?");
                 return;
             }
             if (company_email.isEmpty()) {
+
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_email_ET_ID_singup));
+
                 company_email_ET.requestFocus();
                 company_email_ET.setError("Email ?");
                 return;
             }
             if (company_password.isEmpty()) {
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_password_ET_ID_singup));
+
                 company_password_ET.requestFocus();
                 company_password_ET.setError("Password ?");
                 return;

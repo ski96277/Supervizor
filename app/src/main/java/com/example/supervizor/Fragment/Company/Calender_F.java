@@ -1,5 +1,6 @@
 package com.example.supervizor.Fragment.Company;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.icu.util.Calendar;
@@ -7,11 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.R;
+import com.kinda.alert.KAlertDialog;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -51,35 +56,56 @@ public class Calender_F extends Fragment {
         CompanyMainActivity.employee_button_layout.setBackgroundColor(Color.parseColor("#000000"));
         CompanyMainActivity.calender_button_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
 
-        return inflater.inflate(R.layout.calender_f,container,false);
+        return inflater.inflate(R.layout.calender_f, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        materialCalendarView=view.findViewById(R.id.calendarView_ID);
+        materialCalendarView = view.findViewById(R.id.calendarView_ID);
 
-        CalendarDay date  = materialCalendarView.getCurrentDate();
+        CalendarDay date = materialCalendarView.getCurrentDate();
         materialCalendarView.setBackgroundColor(Color.parseColor("#EFEFEF"));
 //        Toasty.info(getContext(),date.toString()).show();
 // highlight today date
         materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
         materialCalendarView.setSelectedDate(LocalDate.parse("2019-07-08"));
-        Toasty.info(getContext(),LocalDate.now().toString()).show();
+        Toasty.info(getContext(), LocalDate.now().toString()).show();
 
 
         materialCalendarView.setOnDateChangedListener((materialCalendarView, calendarDay, b) -> {
-            if (materialCalendarView.getSelectedDate()!=null){
-
-                Toasty.info(getContext(),materialCalendarView.getSelectedDate().toString()).show();
+            if (materialCalendarView.getSelectedDate() != null) {
+                /*Toasty.info(getContext(),materialCalendarView.getSelectedDate().toString()).show();
                 materialCalendarView.setSelectionColor(Color.parseColor("#926C24"));
+*/
+                final Dialog dialog = new Dialog(getActivity());
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.custom_alert_dialog_event_add);
+                Button button_ok = dialog.findViewById(R.id.button_ok_dialog);
+                TextView textView=dialog.findViewById(R.id.event_date_TV_ID);
+                textView.setText("Event : "+materialCalendarView.getSelectedDate().getDate());
+                button_ok.setOnClickListener(v -> {
+                    dialog.dismiss();
+
+                    KAlertDialog kAlertDialog=new KAlertDialog(getActivity(),KAlertDialog.SUCCESS_TYPE);
+                    kAlertDialog.setTitleText("Done");
+
+                    kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+                       kAlertDialog.dismissWithAnimation();
+                    });
+                    kAlertDialog.show();
+                });
+                dialog.show();
+
             }
         });
 
     }
+
     //set title
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         // Set title bar
         ((CompanyMainActivity) getActivity())

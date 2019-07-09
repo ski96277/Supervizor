@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import es.dmoral.toasty.Toasty;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.R;
 
@@ -52,6 +55,7 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
     String format;
     Calendar calendar;
     TimePickerDialog timepickerdialog;
+    Vibrator vibrator;
 
 
     @Nullable
@@ -229,16 +233,34 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                 String penalty_time = penalty_time_TV.getText().toString();
 
                 if (entry_Time.isEmpty()) {
+
+ //vibrator Start
+                    vibrator= (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
+//vibrator End
+
                     entry_time_TV.requestFocus();
                     entry_time_TV.setError("Set Entry Time");
                     return;
                 }
                 if (exit_Time.isEmpty()) {
+
+                    //vibrator Start
+                    vibrator= (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
+//vibrator End
+
                     exit_time_TV.requestFocus();
                     exit_time_TV.setError("set exit time");
                     return;
                 }
                 if (penalty_time.isEmpty()) {
+
+                    //vibrator Start
+                    vibrator= (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
+//vibrator End
+
                     penalty_time_TV.requestFocus();
                     penalty_time_TV.setError("Set Penalty Time");
                     return;

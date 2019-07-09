@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="0dp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginRight="5sp">
+
+    <TextView
+        android:id="@+id/event_date_TV_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Event :"
+        android:textColor="#000" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:hint="Event title"
+        android:maxLines="1"
+        android:inputType="text"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/edt_task_disc"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="top"
+        android:hint="Task Discription"
+        android:textSize="15sp"
+        android:paddingLeft="5dp"
+        android:maxHeight="35dp"
+        android:layout_marginTop="5sp"
+        android:scrollbars="vertical"
+        />
+
+
+    <Button
+        android:id="@+id/button_ok_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event"
+        android:textAllCaps="false"
+        android:layout_marginTop="10sp"
+        android:textSize="20sp"
+        android:textColor="#000000" />
+
+
+</LinearLayout>

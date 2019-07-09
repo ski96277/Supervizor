@@ -4,17 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import es.dmoral.toasty.Toasty;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
@@ -44,6 +49,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
     private FirebaseDatabase firebaseDatabase;
     KAlertDialog kAlertDialog;
 
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
         register_company = findViewById(R.id.register_company_TV_ID);
 
         button_login.setOnClickListener(this);
+
         register_company.setOnClickListener(this);
 
     }
@@ -82,17 +89,34 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                 String pass_st = password_ET.getText().toString();
 
                 if (email_st.isEmpty()) {
+                    //animation
+                    YoYo.with(Techniques.Tada)
+                            .duration(100)
+                            .repeat(1)
+                            .playOn(findViewById(R.id.email_login_ET_ID));
+
                     email_ET.requestFocus();
                     email_ET.setError("Email ?");
                     return;
                 }
                 if (pass_st.isEmpty()) {
+                    //animation
+                    YoYo.with(Techniques.Tada)
+                            .duration(100)
+                            .repeat(1)
+                            .playOn(findViewById(R.id.password_login_ET_ID));
+
                     password_ET.requestFocus();
                     password_ET.setError("Password ?");
                     return;
                 }
                 //check Internet Connection is ok
                 if (!CheckInternet.isInternet(getApplicationContext())) {
+
+ //vibrator Start
+                     vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                     vibrator.vibrate(1000);
+//vibrator End
                     Toasty.error(getApplicationContext(), "Internet Error").show();
                     return;
                 }
@@ -113,7 +137,27 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                                 checkUserType(user.getUid(),pass_st);
 
                             } else {
-                                Toast.makeText(Login_Activity.this, "Login failed.",
+                                //animation email input
+                                YoYo.with(Techniques.Tada)
+                                        .duration(100)
+                                        .repeat(1)
+                                        .playOn(findViewById(R.id.email_login_ET_ID));
+                                //animation login input
+                                YoYo.with(Techniques.Tada)
+                                        .duration(100)
+                                        .repeat(1)
+                                        .playOn(findViewById(R.id.password_login_ET_ID));
+  //animation on login button
+                                YoYo.with(Techniques.Tada)
+                                        .duration(100)
+                                        .repeat(1)
+                                        .playOn(findViewById(R.id.login_btn_ID));
+//vibrator
+                                vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                                vibrator.vibrate(1000);
+//vibrator End
+
+                                Toasty.error(Login_Activity.this, "Login failed.",
                                         Toast.LENGTH_SHORT).show();
                                 kAlertDialog.dismiss();
 

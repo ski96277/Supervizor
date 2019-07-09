@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import es.dmoral.toasty.Toasty;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -54,7 +57,7 @@ public class Registartion_page_3 extends Fragment {
     String company_penalty_time;
 
     String filePath;
-    String logo_download_url=null;
+    String logo_download_url = null;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -63,6 +66,8 @@ public class Registartion_page_3 extends Fragment {
 
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    Vibrator vibrator;
 
     @Nullable
     @Override
@@ -131,11 +136,20 @@ public class Registartion_page_3 extends Fragment {
             String delay_count = delayCount_ET.getText().toString();
 
             if (working_days.isEmpty()) {
+
+                //vibrator Start
+                vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                vibrator.vibrate(1000);
+//vibrator End
                 workingDays_ET.requestFocus();
                 workingDays_ET.setError("Set Working Days");
                 return;
             }
             if (delay_count.isEmpty()) {
+                //vibrator Start
+                vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                vibrator.vibrate(1000);
+//vibrator End
                 delayCount_ET.requestFocus();
                 delayCount_ET.setError("Set delay count");
                 return;
@@ -159,6 +173,11 @@ public class Registartion_page_3 extends Fragment {
 */
 
             if (!CheckInternet.isInternet(getContext())) {
+
+//vibrator Start
+                vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                vibrator.vibrate(1000);
+//vibrator End
                 Toasty.error(getContext(), "Internet Error").show();
                 return;
 
@@ -183,7 +202,7 @@ public class Registartion_page_3 extends Fragment {
                                 user = mAuth.getCurrentUser();
 //Upload Image to server Start
                                 storageReference.child("images").child(user.getUid()).child(company_name)
-                                .putFile(Uri.parse(filePath)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        .putFile(Uri.parse(filePath)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
@@ -197,7 +216,7 @@ public class Registartion_page_3 extends Fragment {
 
                                                 SignUp_Pojo signUp_pojo1 = new SignUp_Pojo(company_name, company_location, company_contact_number
                                                         , company_email, company_password, company_entry_time, company_exit_time,
-                                                        company_penalty_time, working_days, delay_count, "Company", user.getUid(),logo_download_url);
+                                                        company_penalty_time, working_days, delay_count, "Company", user.getUid(), logo_download_url);
                                                 myRef.child(user.getUid()).setValue(signUp_pojo1).addOnSuccessListener(aVoid -> {
                                                     kAlertDialog.dismiss();
                                                     startActivity(new Intent(getContext(), CompanyMainActivity.class)
@@ -209,11 +228,11 @@ public class Registartion_page_3 extends Fragment {
                                         });
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toasty.error(getContext(), "logo is not uploaded").show();
-                                            }
-                                        });
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toasty.error(getContext(), "logo is not uploaded").show();
+                                    }
+                                });
 
 //Upload Image to server END
 //
@@ -232,7 +251,7 @@ public class Registartion_page_3 extends Fragment {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(getActivity(), "Authentication failed."+task.getException(),
+                                Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
                                         Toast.LENGTH_SHORT).show();
                                 kAlertDialog.dismiss();
 //                                updateUI(null);
