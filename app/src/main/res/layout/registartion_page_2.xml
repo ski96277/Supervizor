@@ -40,6 +40,7 @@
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:text="@string/entry_time_signup"
+                    android:fontFamily="@font/raleway_regular"
                     android:textColor="@color/text_black_color"
                     android:textSize="20sp" />
 
@@ -49,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="@font/doppio_one_regular"
                     android:paddingLeft="5dp"
                     android:textColor="#284A81"
                     android:textSize="20sp" />
@@ -77,6 +79,7 @@
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:text="@string/exit_time_signup"
+                    android:fontFamily="@font/raleway_regular"
                     android:textColor="@color/text_black_color"
                     android:textSize="20sp" />
 
@@ -87,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="@font/doppio_one_regular"
                     android:paddingLeft="5dp"
                     android:textColor="#284A81"
                     android:textSize="20sp" />
@@ -114,6 +118,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
+                    android:fontFamily="@font/raleway_regular"
                     android:text="@string/penalty_time_signup"
                     android:textColor="@color/text_black_color"
                     android:textSize="20sp" />
@@ -125,6 +130,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
+                    android:fontFamily="@font/doppio_one_regular"
                     android:textColor="#284A81"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -136,6 +142,7 @@
             android:layout_height="40dp"
             android:layout_gravity="right"
             android:layout_margin="20dp"
+            android:fontFamily="@font/raleway_regular"
             android:background="@drawable/signup_btn_bg"
             android:text="@string/arrow_button" />
 

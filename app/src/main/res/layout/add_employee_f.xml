@@ -29,6 +29,7 @@
                 android:drawableLeft="@drawable/profile_item"
                 android:drawablePadding="20sp"
                 android:hint="Name"
+                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -49,6 +50,7 @@
                 android:drawablePadding="20sp"
                 android:hint="Designation"
                 android:inputType="text"
+                android:fontFamily="@font/raleway_italic"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
 
@@ -67,6 +69,7 @@
                 android:drawableLeft="@drawable/email_icon"
                 android:drawablePadding="20sp"
                 android:hint="E-mail"
+                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -87,6 +90,7 @@
                 android:drawableLeft="@drawable/date_icon"
                 android:drawablePadding="20sp"
                 android:focusable="false"
+                android:fontFamily="@font/raleway_italic"
                 android:hint="Join Date" />
         </androidx.cardview.widget.CardView>
 
@@ -105,6 +109,7 @@
                 android:drawableLeft="@drawable/salary_icon_on_black_24dp"
                 android:drawablePadding="25sp"
                 android:hint="Salary"
+                android:fontFamily="@font/raleway_italic"
                 android:inputType="numberDecimal" />
         </androidx.cardview.widget.CardView>
 
@@ -127,6 +132,7 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/raleway_bolditalic"
                 android:background="@drawable/button_background_employee_type_dark"
                 android:text="Permanent"
                 android:textAllCaps="false" />
@@ -137,6 +143,8 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/raleway_bolditalic"
+
                 android:background="@drawable/button_background_employee_type"
                 android:text="Probationary"
                 android:textAllCaps="false" />
@@ -162,6 +170,8 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:fontFamily="@font/raleway_italic"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Contract period"
@@ -183,6 +193,8 @@
                         android:layout_marginRight="5dp"
                         android:gravity="center"
                         android:hint="10"
+                        android:fontFamily="@font/doppio_one_regular"
+
                         android:inputType="numberDecimal"
                         android:textSize="30sp" />
 
@@ -191,6 +203,8 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/raleway_italic"
+
                         android:entries="@array/contact_period"
                         android:textAlignment="textStart" />
                 </LinearLayout>
@@ -209,6 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/raleway_bolditalic"
                 android:background="@drawable/add_employee_btn_bg"
                 android:paddingLeft="40sp"
                 android:paddingRight="40sp"

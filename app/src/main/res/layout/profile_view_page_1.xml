@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
+                    android:fontFamily="@font/raleway_regular"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -92,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
+                    android:fontFamily="@font/raleway_regular"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -135,6 +137,7 @@
                 <TextView
                     android:id="@+id/email_tv_profile_view_page_1"
                     android:text="loading...."
+                    android:fontFamily="@font/raleway_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
@@ -182,6 +185,7 @@
                 <TextView
                     android:id="@+id/date_tv_profile_view_page_1"
                     android:text="loading...."
+                    android:fontFamily="@font/raleway_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"

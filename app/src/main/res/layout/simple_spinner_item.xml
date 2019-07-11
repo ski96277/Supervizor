@@ -6,4 +6,5 @@
     android:gravity="center"
     android:textColor="#FFF"
     android:layout_height="50dp"
+    android:fontFamily="@font/raleway_regular"
     android:id="@+id/spinnerText"/>

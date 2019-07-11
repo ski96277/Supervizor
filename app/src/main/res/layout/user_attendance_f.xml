@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="Imran Sk"
                     android:textColor="#FFF"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:textSize="20sp" />
 
                 <TextView
@@ -53,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="Android Developer"
                     android:textColor="#FFF"
+                    android:fontFamily="@font/raleway_italic"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -99,6 +101,8 @@
                 <TableRow>
 
                     <TextView
+                        android:fontFamily="@font/raleway_regular"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -109,6 +113,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:fontFamily="@font/raleway_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -119,6 +124,8 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:fontFamily="@font/raleway_regular"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -158,6 +165,7 @@
                 <TableRow>
 
                     <TextView
+
                         android:id="@+id/date_TV_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

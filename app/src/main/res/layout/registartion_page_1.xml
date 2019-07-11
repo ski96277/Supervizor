@@ -19,6 +19,7 @@
                 android:layout_marginTop="10sp"
                 android:textColor="@color/text_black_color"
                 android:textSize="25sp"
+            android:fontFamily="@font/raleway_regular"
         />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -45,6 +46,7 @@
                     android:layout_height="55dp"
                     android:hint="@string/company_name_hint"
                     android:maxLines="1"
+                android:fontFamily="@font/raleway_regular"
                     android:inputType="text"
                     android:drawableLeft="@drawable/company"
                     android:drawablePadding="15dp"
@@ -64,6 +66,7 @@
                     android:hint="@string/location_hint"
                     android:maxLines="1"
                     android:inputType="text"
+                android:fontFamily="@font/raleway_regular"
                     android:drawableLeft="@drawable/location"
                     android:drawablePadding="15dp"
             />
@@ -82,6 +85,7 @@
                     android:hint="@string/contact_hint"
                     android:maxLines="1"
                     android:inputType="numberDecimal"
+                android:fontFamily="@font/raleway_regular"
                     android:drawableLeft="@drawable/phone"
                     android:drawablePadding="15dp"
             />
@@ -98,6 +102,7 @@
                     android:layout_height="55dp"
                     android:hint="@string/e_mail_hint_singup"
                     android:maxLines="1"
+                android:fontFamily="@font/raleway_regular"
                     android:inputType="textEmailAddress"
                     android:drawableLeft="@drawable/email_icon"
                     android:drawablePadding="15dp"
@@ -114,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/password_hint"
+                android:fontFamily="@font/raleway_regular"
                     android:maxLines="1"
                     android:inputType="textWebPassword"
                     android:drawableLeft="@drawable/pass_icon"
@@ -128,6 +134,7 @@
                 android:background="@drawable/signup_btn_bg"
                 android:text="@string/arrow_button"
                 android:layout_margin="10dp"
+            android:fontFamily="@font/raleway_regular"
         android:layout_marginBottom="10dp"/>
     </LinearLayout>
 

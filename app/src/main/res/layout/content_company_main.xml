@@ -30,6 +30,7 @@
                 android:layout_marginBottom="5sp"
                 android:background="#000"
                 android:text="Employee"
+                android:fontFamily="@font/raleway_bold"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color" />
         </LinearLayout>
@@ -46,6 +47,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5sp"
                 android:background="#000"
+                android:fontFamily="@font/raleway_bold"
+
                 android:text="Calender"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color" />
@@ -74,6 +77,7 @@
                 android:layout_marginBottom="5sp"
                 android:background="#000"
                 android:text="Pending"
+                android:fontFamily="@font/raleway_bold"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color" />
         </LinearLayout>
@@ -91,6 +95,7 @@
                 android:layout_marginBottom="5sp"
                 android:background="#000"
                 android:text="Approved"
+                android:fontFamily="@font/raleway_bold"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color" />
         </LinearLayout>

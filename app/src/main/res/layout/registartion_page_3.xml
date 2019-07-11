@@ -20,6 +20,7 @@
                 android:layout_marginTop="35sp"
                 android:textColor="@color/text_black_color"
                 android:textSize="25sp"
+            android:fontFamily="@font/doppio_one_regular"
         />
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -34,8 +35,9 @@
                     android:text="Working Days"
                     android:textColor="@color/text_black_color"
                     android:paddingLeft="5dp"
-                    android:gravity="center"
-                    android:textSize="20sp"
+                    android:gravity="center"            android:fontFamily="@font/doppio_one_regular"
+
+                android:textSize="20sp"
                     android:layout_marginBottom="30dp"/>
 
             <Button
@@ -43,7 +45,7 @@
                     android:layout_width="20sp"
                     android:layout_height="20sp"
                     android:background="@drawable/info"
-                    android:layout_gravity="right"
+                android:layout_gravity="right"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"/>
 
@@ -55,6 +57,8 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="22 days"
+                android:fontFamily="@font/raleway_regular"
+
                 android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:textColor="@color/text_black_color"
@@ -78,6 +82,7 @@
                     android:textColor="@color/text_black_color"
                     android:paddingLeft="5dp"
                     android:gravity="center"
+                android:fontFamily="@font/doppio_one_regular"
                     android:textSize="20sp"
                     android:layout_marginBottom="30dp"/>
 
@@ -102,6 +107,8 @@
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:fontFamily="@font/raleway_regular"
+
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="5 days"

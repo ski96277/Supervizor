@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:textSize="25sp"
+        android:fontFamily="@font/raleway_bold"
         android:textColor="@color/text_white_color"
         android:text="@string/LOADING"
         android:layout_gravity="center"
@@ -37,7 +38,7 @@
     <TextView
         android:layout_gravity="center"
         android:textSize="20sp"
-
+android:fontFamily="@font/raleway_regular"
         android:id="@+id/profile_company_email_TV_ID_nav"
         android:textColor="@color/text_white_color"
         android:layout_width="wrap_content"

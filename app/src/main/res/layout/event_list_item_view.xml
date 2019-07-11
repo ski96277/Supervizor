@@ -12,13 +12,15 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:maxLines="1"
+        android:fontFamily="@font/raleway_bolditalic"
         android:text="Event - event name"
         android:textColor="#000"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="12.00 pm"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:fontFamily="@font/raleway_italic"/>
 
 
 </LinearLayout>
