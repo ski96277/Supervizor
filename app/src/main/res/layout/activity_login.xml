@@ -43,6 +43,7 @@
                     android:textSize="@dimen/text_Size_email_20"
                     android:hint="@string/e_mail_hint"
                 android:fontFamily="@font/ebrima"
+
                     android:inputType="textEmailAddress"
                     android:drawableLeft="@drawable/email_icon"
                     android:drawablePadding="15dp"

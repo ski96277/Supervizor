@@ -3,6 +3,7 @@ package com.example.supervizor.Fragment.Company;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.All_Employee_List_Adapter;
 import com.example.supervizor.Fragment.Company.Add_Employee;
@@ -92,10 +95,11 @@ public class Employee_list_F extends Fragment {
             public void onClick(View v) {
                 count++;
                 if (count % 2 != 0) {
-/*//font style
-                    Typeface DoppioOne = Typeface.createFromAsset(getResources(),
-                            "font/doppio_one_regular.ttf");
-                    add_employee_btn.setTypeface(DoppioOne);*/
+
+                    YoYo.with(Techniques.SlideInDown)
+                            .duration(700)
+                            .repeat(0)
+                            .playOn(add_emplo_layout);
 
                     add_emplo_layout.setVisibility(View.VISIBLE);
                     all_search_layout.setBackgroundColor(Color.parseColor("#000000"));
@@ -115,6 +119,11 @@ public class Employee_list_F extends Fragment {
 //Hide key pad End
 
                 } else {
+
+                    YoYo.with(Techniques.SlideInUp)
+                            .duration(700)
+                            .repeat(0)
+                            .playOn(add_emplo_layout);
 
                     add_emplo_layout.setVisibility(View.GONE);
                     all_search_layout.setBackgroundColor(Color.parseColor("#F5F5F5"));
@@ -167,7 +176,6 @@ public class Employee_list_F extends Fragment {
         String userID_company = check_user_information.getUserID();
         String email_company = check_user_information.getEmail();
 
-//        Toasty.info(getContext(), userID_company).show();
 
         if (!CheckInternet.isInternet(getContext())){
             Toasty.info(getContext(),"internet Error").show();
@@ -189,8 +197,6 @@ public class Employee_list_F extends Fragment {
 
                             AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
 
-                            Log.e("TAG", "onDataChange: " + addEmployeePojoClass.getEmployee_User_id());
-//                            Toasty.info(getContext(), addEmployeePojoClass.getCompany_User_id()).show();
                             addEmployee_pojoClasses.add(addEmployeePojoClass);
 
                         }

@@ -2,25 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:orientation="vertical"
-    android:layout_marginLeft="5sp"
+    android:orientation="horizontal"
     android:layout_marginRight="5sp"
-    android:paddingLeft="25sp">
+    android:paddingLeft="5sp"
+    android:gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:maxLines="1"
-        android:fontFamily="@font/raleway_bolditalic"
-        android:text="Event - event name"
-        android:textColor="#000"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="12.00 pm"
-        android:textSize="20sp"
-        android:fontFamily="@font/raleway_italic"/>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:layout_marginRight="5sp"
+        android:paddingLeft="5sp">
 
+        <TextView
+            android:id="@+id/event_title_TV_item_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:maxLines="1"
+            android:fontFamily="@font/raleway_bolditalic"
+            android:text="Event - event name"
+            android:textColor="#000"/>
+        <TextView
+            android:id="@+id/event_Date_TV_item_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2019/07/31"
+            android:textColor="#489A53"
+            android:textSize="20sp"
+            android:fontFamily="@font/raleway_italic"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_weight=".3"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:layout_marginRight="5sp"
+        android:paddingLeft="5sp"
+        android:gravity="center"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/event_time_TV_item_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#EB1111"
+            android:textSize="15sp"
+            android:text="12.00 PM"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
 </LinearLayout>
