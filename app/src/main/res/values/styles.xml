@@ -37,4 +37,15 @@
 
     </style>
 
+
+    <style name="DialogAnimation_right_TO_Center">
+        <item name="android:windowEnterAnimation">@anim/slide_right_to_center_alert</item>
+        <item name="android:windowExitAnimation">@anim/slide_center_to_left_alert</item>
+    </style>
+
+    <style name="DialogAnimation_Left_TO_Center">
+        <item name="android:windowEnterAnimation">@anim/slide_left_to_center_alert</item>
+        <item name="android:windowExitAnimation">@anim/slide_center_to_right_alert</item>
+    </style>
+
 </resources>

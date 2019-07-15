@@ -10,7 +10,7 @@
         android:layout_height="300dp"
         android:layout_margin="5dp"
         android:textAlignment="center"
-        app:mcv_selectionColor="#617D8A"
+        app:mcv_selectionColor="#F1F5F7"
         app:mcv_showOtherDates="all" />
 
     <LinearLayout

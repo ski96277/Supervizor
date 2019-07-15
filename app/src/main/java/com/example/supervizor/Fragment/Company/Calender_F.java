@@ -47,12 +47,14 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.dmoral.toasty.Toasty;
 
 public class Calender_F extends Fragment {
 
+    private static TimePickerDialog timepickerdialog;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -66,9 +68,9 @@ public class Calender_F extends Fragment {
     KAlertDialog kAlertDialog;
 
 
-    int CalendarHour, CalendarMinute;
-    String format;
-    TimePickerDialog timepickerdialog;
+    static int CalendarHour;
+    static int CalendarMinute;
+    static String format;
 
     @Override
     public void onStart() {
@@ -101,7 +103,7 @@ public class Calender_F extends Fragment {
 
         CalendarDay date = materialCalendarView.getCurrentDate();
 
-        materialCalendarView.setBackgroundColor(Color.parseColor("#499C54"));
+        materialCalendarView.setBackgroundColor(Color.parseColor("#FFF7F7"));
 
 // highlight today date
         materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
@@ -166,94 +168,106 @@ public class Calender_F extends Fragment {
 
             if (materialCalendarView.getSelectedDate() != null) {
 
+
                 String date_child = calendarDay.getDate().toString();
                 String day_date = String.valueOf(calendarDay.getDay());
                 String month = String.valueOf(calendarDay.getMonth());
                 String year = String.valueOf(calendarDay.getYear());
 
-                final Dialog dialog = new Dialog(getActivity());
+                showAddEvent_Alert(getActivity(),date_child,day_date,month,year,
+                        calendarDay,check_user_information,databaseReference);
 
-                dialog.setCancelable(false);
-
-                dialog.setContentView(R.layout.custom_alert_dialog_event_add);
-                Button add_Event_button = dialog.findViewById(R.id.button_ok_dialog);
-                Button cross_btn = dialog.findViewById(R.id.cross_image_button_ID);
-                TextView textView = dialog.findViewById(R.id.event_date_TV_ID);
-                TextView event_time=dialog.findViewById(R.id.event_Time_ET_ID);
-                EditText title_event_ET = dialog.findViewById(R.id.event_title_ET_ID);
-                EditText details_event_ET = dialog.findViewById(R.id.event_details_ET_ID);
-
-                textView.setText("Event : " + calendarDay.getDate());
-
-                event_time.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setTime(v,event_time);
-                    }
-                });
-
-                cross_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                add_Event_button.setOnClickListener(v -> {
-                    String event_title = title_event_ET.getText().toString();
-                    String event_details = details_event_ET.getText().toString();
-                    String event_time_set=event_time.getText().toString();
-
-                    String user_ID = check_user_information.getUserID();
-
-                    if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
-                        Toasty.info(getActivity(), "Fill up the input field").show();
-                        dialog.dismiss();
-                        return;
-                    }
-
-                    Event_details_PojoClass event_details_pojoClass
-                            = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details,event_time_set);
-
-                    if (!CheckInternet.isInternet(getActivity())) {
-                        Toasty.error(getActivity(), "Internet Connection Error");
-                        return;
-                    }
-                    dialog.dismiss();
-
-                    KAlertDialog kAlertDialog1 = new KAlertDialog(getActivity(), KAlertDialog.PROGRESS_TYPE);
-                    kAlertDialog1.setTitleText("Saving Data to Database");
-                    kAlertDialog1.show();
-                    databaseReference.child("Event_list").child(user_ID).child(date_child).setValue(event_details_pojoClass).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toasty.success(getContext(), "Event Saved").show();
-                            kAlertDialog1.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                            kAlertDialog1.setTitleText("Done");
-                            kAlertDialog1.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(KAlertDialog kAlertDialog) {
-                                    kAlertDialog1.dismissWithAnimation();
-                                }
-                            });
-                        }
-                    });
-                });
-                dialog.show();
 
             }
         });
 
     }
 
-    private void setTime(View v, TextView event_time) {
+    private static void showAddEvent_Alert(FragmentActivity activity, String date_child, String day_date,
+                                           String month, String year,
+                                           CalendarDay calendarDay, Check_User_information check_user_information, DatabaseReference databaseReference) {
+
+
+        final Dialog dialog = new Dialog(activity);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.custom_alert_dialog_event_add);
+//set animation
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Left_TO_Center;
+        Button add_Event_button = dialog.findViewById(R.id.button_ok_dialog);
+        Button cross_btn = dialog.findViewById(R.id.cross_image_button_ID);
+        TextView textView = dialog.findViewById(R.id.event_date_TV_ID);
+        TextView event_time=dialog.findViewById(R.id.event_Time_ET_ID);
+        EditText title_event_ET = dialog.findViewById(R.id.event_title_ET_ID);
+        EditText details_event_ET = dialog.findViewById(R.id.event_details_ET_ID);
+
+        textView.setText("Event : " + calendarDay.getDate());
+
+        event_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTime(v,event_time);
+            }
+        });
+
+        cross_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        add_Event_button.setOnClickListener(v -> {
+            String event_title = title_event_ET.getText().toString();
+            String event_details = details_event_ET.getText().toString();
+            String event_time_set=event_time.getText().toString();
+
+            String user_ID = check_user_information.getUserID();
+
+            if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
+                Toasty.info(activity, "Fill up the input field").show();
+                dialog.dismiss();
+                return;
+            }
+
+            Event_details_PojoClass event_details_pojoClass
+                    = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details,event_time_set);
+
+            if (!CheckInternet.isInternet(activity)) {
+                Toasty.error(activity, "Internet Connection Error");
+                return;
+            }
+            dialog.dismiss();
+
+            KAlertDialog kAlertDialog1 = new KAlertDialog(activity, KAlertDialog.PROGRESS_TYPE);
+            kAlertDialog1.setTitleText("Saving Data to Database");
+            kAlertDialog1.show();
+            databaseReference.child("Event_list").child(user_ID).child(date_child).setValue(event_details_pojoClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toasty.success(activity, "Event Saved").show();
+                    kAlertDialog1.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                    kAlertDialog1.setTitleText("Done");
+                    kAlertDialog1.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(KAlertDialog kAlertDialog) {
+                            kAlertDialog1.dismissWithAnimation();
+                        }
+                    });
+                }
+            });
+        });
+        dialog.show();
+
+    }
+
+    private static void setTime(View v, TextView event_time) {
 
         Calendar calendar = java.util.Calendar.getInstance();
         CalendarHour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
         CalendarMinute = calendar.get(Calendar.MINUTE);
 
 
-        timepickerdialog = new TimePickerDialog(getContext(),
+        timepickerdialog = new TimePickerDialog(v.getContext(),
                 (view, hourOfDay, minute) -> {
 
                     if (hourOfDay == 0) {
