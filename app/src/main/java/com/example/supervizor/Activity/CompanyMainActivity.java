@@ -245,22 +245,7 @@ public class CompanyMainActivity extends AppCompatActivity
         }
     }
 
-    /*
-    private void employee_list_fragment() {
 
-        Fragment fragment = new Employee_list_F();
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.company_main_screen, fragment);
-            //clear the back stack of fragment
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-            fragmentTransaction.commit();
-        }
-    }
-
-    */
     private void calender_Fragment() {
 
         Fragment fragment = new Calender_F();

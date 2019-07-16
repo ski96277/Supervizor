@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_call_notification"
+        android:icon="@drawable/notification"
         android:orderInCategory="100"
         android:title="Call notification"
-        app:showAsAction="always"
-        android:icon="@drawable/notification"/>
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/set_event_to_this_employee"
+        android:orderInCategory="100"
+        android:title="Add Event"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
-import com.example.supervizor.AdapterClass.Event_List_Adapter;
+import com.example.supervizor.AdapterClass.All_Event_List_Adapter;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -145,7 +146,7 @@ public class Calender_F extends Fragment {
                             materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
                             materialCalendarView.setSelectedDate(LocalDate.parse(event_details_pojoClass.getDate()));
 
-                            Event_List_Adapter event_list_adapter=new Event_List_Adapter(getContext(),event_date_list);
+                            All_Event_List_Adapter event_list_adapter=new All_Event_List_Adapter(getContext(),event_date_list);
 
                             LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -193,6 +194,7 @@ public class Calender_F extends Fragment {
         dialog.setContentView(R.layout.custom_alert_dialog_event_add);
 //set animation
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Left_TO_Center;
+
         Button add_Event_button = dialog.findViewById(R.id.button_ok_dialog);
         Button cross_btn = dialog.findViewById(R.id.cross_image_button_ID);
         TextView textView = dialog.findViewById(R.id.event_date_TV_ID);
@@ -222,7 +224,7 @@ public class Calender_F extends Fragment {
             String event_time_set=event_time.getText().toString();
 
             String user_ID = check_user_information.getUserID();
-
+//check the alert input field is empty ?
             if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
                 Toasty.info(activity, "Fill up the input field").show();
                 dialog.dismiss();
