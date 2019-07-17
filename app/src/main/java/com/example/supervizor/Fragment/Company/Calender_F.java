@@ -5,27 +5,24 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.All_Event_List_Adapter;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
+import com.example.supervizor.JavaPojoClass.Holiday_information;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,13 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 
-import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -102,12 +97,10 @@ public class Calender_F extends Fragment {
         initialize(view);
 
 
-        CalendarDay date = materialCalendarView.getCurrentDate();
-
         materialCalendarView.setBackgroundColor(Color.parseColor("#FFF7F7"));
 
 // highlight today date
-        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
+//        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
 
 
 //get event date list
@@ -116,16 +109,16 @@ public class Calender_F extends Fragment {
         check_user_information = new Check_User_information();
         user_ID = check_user_information.getUserID();
 
-        if (!CheckInternet.isInternet(getActivity())){
-            Toasty.info(getActivity(),"Check Internet Connection").show();
+        if (!CheckInternet.isInternet(getActivity())) {
+            Toasty.info(getActivity(), "Check Internet Connection").show();
             return;
         }
-         kAlertDialog=new KAlertDialog(getContext(),KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Loading.....");
 
 
         kAlertDialog.show();
-//get the event list from firebase END
+//get the event list from firebase
 
         databaseReference.child("Event_list")
                 .child(user_ID)
@@ -146,9 +139,9 @@ public class Calender_F extends Fragment {
                             materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
                             materialCalendarView.setSelectedDate(LocalDate.parse(event_details_pojoClass.getDate()));
 
-                            All_Event_List_Adapter event_list_adapter=new All_Event_List_Adapter(getContext(),event_date_list);
+                            All_Event_List_Adapter event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list);
 
-                            LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_ID.setLayoutManager(linearLayoutManager);
                             recyclerView_ID.setAdapter(event_list_adapter);
@@ -157,6 +150,7 @@ public class Calender_F extends Fragment {
 
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -175,8 +169,43 @@ public class Calender_F extends Fragment {
                 String month = String.valueOf(calendarDay.getMonth());
                 String year = String.valueOf(calendarDay.getYear());
 
-                showAddEvent_Alert(getActivity(),date_child,day_date,month,year,
-                        calendarDay,check_user_information,databaseReference);
+                final Dialog dialog_chooser = new Dialog(getActivity());
+                dialog_chooser.setCancelable(false);
+                dialog_chooser.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog_chooser.setContentView(R.layout.custom_alert_option_chooser_dialog);
+//set animation
+                dialog_chooser.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Top_TO_Center;
+                Button cancel_bt = dialog_chooser.findViewById(R.id.cancel_alert_button_ID);
+                Button add_general_event_btn = dialog_chooser.findViewById(R.id.general_event_btn_ID);
+                Button add_holiday_btn = dialog_chooser.findViewById(R.id.holiday_btn_ID);
+
+                add_general_event_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAddEvent_Alert(getActivity(), date_child, day_date, month, year,
+                                calendarDay, check_user_information, databaseReference, dialog_chooser);
+                    }
+                });
+
+                add_holiday_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        show_holiday_alert(getActivity(), date_child, day_date, month, year,
+                                calendarDay, check_user_information, databaseReference, dialog_chooser);
+
+
+                    }
+                });
+
+                cancel_bt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_chooser.dismiss();
+                    }
+                });
+
+                dialog_chooser.show();
 
 
             }
@@ -184,21 +213,113 @@ public class Calender_F extends Fragment {
 
     }
 
-    private static void showAddEvent_Alert(FragmentActivity activity, String date_child, String day_date,
-                                           String month, String year,
-                                           CalendarDay calendarDay, Check_User_information check_user_information, DatabaseReference databaseReference) {
+    private void show_holiday_alert(FragmentActivity activity,
+                                    String date_child,
+                                    String day_date,
+                                    String month,
+                                    String year,
+                                    CalendarDay calendarDay,
+                                    Check_User_information check_user_information,
+                                    DatabaseReference databaseReference,
+                                    Dialog dialog_chooser) {
 
 
         final Dialog dialog = new Dialog(activity);
         dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_alert_show_holiday_dialog);
+
+        //set animation
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_right_TO_Center;
+
+        TextView event_date_TV = dialog.findViewById(R.id.holiday_date_date_TV_ID);
+        event_date_TV.setText("Event :" + String.valueOf(date_child));
+
+        Button cancel_btn = dialog.findViewById(R.id.cancel_button_holiday_ID);
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button add_holiday_event = dialog.findViewById(R.id.ok_button_show_holiday_dialog_ID);
+
+        EditText details_ET = dialog.findViewById(R.id.holiday_event_details_ET_ID);
+
+
+        add_holiday_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String details_holiday = details_ET.getText().toString();
+
+                if (details_holiday.isEmpty()) {
+                    Toasty.info(getContext(), "Fill up the input field").show();
+                    return;
+                }
+
+
+                Holiday_information holiday_information = new Holiday_information(date_child, day_date, month, year, details_holiday);
+
+//check information
+                if (!CheckInternet.isInternet(getContext())) {
+                    Toasty.info(getContext(), "Check internet Connection").show();
+                    return;
+                }
+                KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+                kAlertDialog.setTitleText("Loading.....");
+                kAlertDialog.show();
+
+                databaseReference.child("holiday_list")
+                        .child(check_user_information.getUserID())
+                        .child(date_child).setValue(holiday_information)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                                kAlertDialog.setTitleText("Done..");
+                                kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(KAlertDialog kAlertDialog) {
+                                        kAlertDialog.dismissWithAnimation();
+                                        dialog.dismiss();
+                                        dialog_chooser.dismiss();
+                                    }
+                                });
+                            }
+                        });
+
+
+                dialog.dismiss();
+                dialog_chooser.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+    private static void showAddEvent_Alert(FragmentActivity activity, String date_child, String day_date,
+                                           String month, String year,
+                                           CalendarDay calendarDay,
+                                           Check_User_information check_user_information,
+                                           DatabaseReference databaseReference,
+                                           Dialog dialog_chooser) {
+
+
+        final Dialog dialog = new Dialog(activity);
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_alert_dialog_event_add);
+
 //set animation
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Left_TO_Center;
 
         Button add_Event_button = dialog.findViewById(R.id.button_ok_dialog);
         Button cross_btn = dialog.findViewById(R.id.cross_image_button_ID);
         TextView textView = dialog.findViewById(R.id.event_date_TV_ID);
-        TextView event_time=dialog.findViewById(R.id.event_Time_ET_ID);
+        TextView event_time = dialog.findViewById(R.id.event_Time_ET_ID);
         EditText title_event_ET = dialog.findViewById(R.id.event_title_ET_ID);
         EditText details_event_ET = dialog.findViewById(R.id.event_details_ET_ID);
 
@@ -207,7 +328,7 @@ public class Calender_F extends Fragment {
         event_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTime(v,event_time);
+                setTime(v, event_time);
             }
         });
 
@@ -221,18 +342,17 @@ public class Calender_F extends Fragment {
         add_Event_button.setOnClickListener(v -> {
             String event_title = title_event_ET.getText().toString();
             String event_details = details_event_ET.getText().toString();
-            String event_time_set=event_time.getText().toString();
+            String event_time_set = event_time.getText().toString();
 
             String user_ID = check_user_information.getUserID();
 //check the alert input field is empty ?
             if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
                 Toasty.info(activity, "Fill up the input field").show();
-                dialog.dismiss();
                 return;
             }
 
             Event_details_PojoClass event_details_pojoClass
-                    = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details,event_time_set);
+                    = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details, event_time_set);
 
             if (!CheckInternet.isInternet(activity)) {
                 Toasty.error(activity, "Internet Connection Error");
@@ -253,6 +373,7 @@ public class Calender_F extends Fragment {
                         @Override
                         public void onClick(KAlertDialog kAlertDialog) {
                             kAlertDialog1.dismissWithAnimation();
+                            dialog_chooser.dismiss();
                         }
                     });
                 }
@@ -292,10 +413,10 @@ public class Calender_F extends Fragment {
                         format = "AM";
                     }
 
-                    if (minute<10){
+                    if (minute < 10) {
                         event_time.setText(hourOfDay + " : 0" + minute + " " + format);
 
-                    }else {
+                    } else {
                         event_time.setText(hourOfDay + " : " + minute + " " + format);
 
                     }
@@ -307,7 +428,7 @@ public class Calender_F extends Fragment {
 
     private void initialize(View view) {
         materialCalendarView = view.findViewById(R.id.calendarView_ID);
-        recyclerView_ID=view.findViewById(R.id.event_list_recycler_ID);
+        recyclerView_ID = view.findViewById(R.id.event_list_recycler_ID);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
