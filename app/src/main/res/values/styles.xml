@@ -22,6 +22,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     //For animation
+
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
 
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
@@ -30,7 +31,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
 
     </style>
-
 
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
@@ -49,6 +49,7 @@
         <item name="android:windowExitAnimation">@anim/slide_center_to_left_alert</item>
         <!--<item name="android:windowExitAnimation">@anim/slide_center_to_right_alert</item>-->
     </style>
+
     <style name="DialogAnimation_Top_TO_Center">
         <item name="android:windowEnterAnimation">@anim/slide_top_to_middle</item>
         <item name="android:windowExitAnimation">@anim/slide_center_to_top</item>

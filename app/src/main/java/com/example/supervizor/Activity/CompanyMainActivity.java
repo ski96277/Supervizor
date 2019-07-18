@@ -355,7 +355,8 @@ public class CompanyMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_leave_application) {
             fragment = new LeaveApplication_Pending_F();
             if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                        .beginTransaction();
                 fragmentTransaction.replace(R.id.company_main_screen, fragment);
                 fragmentTransaction.commit();
             }
@@ -363,7 +364,8 @@ public class CompanyMainActivity extends AppCompatActivity
 
             fragment = new TeamLeader_F();
             if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                        .beginTransaction();
                 fragmentTransaction.replace(R.id.company_main_screen, fragment);
                 fragmentTransaction.commit();
             }
@@ -371,7 +373,8 @@ public class CompanyMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_attendance) {
             fragment = new User_Attendance_F();
             if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                        .beginTransaction();
                 fragmentTransaction.replace(R.id.company_main_screen, fragment);
                 fragmentTransaction.commit();
             }

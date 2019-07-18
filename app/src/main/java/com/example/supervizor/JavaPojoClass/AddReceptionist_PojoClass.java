@@ -10,9 +10,10 @@ public class AddReceptionist_PojoClass {
     String spinner_month_Year;
     String profile_image_Receptionist;
     String password_Receptionist;
-    String company_profile_receptionist;
+    String company_user_ID;
+    String receptionist_user_ID;
 
-    public AddReceptionist_PojoClass(String name_Reception, String designation_Receptionist, String email_Receptionist, String join_Receptionist, String salary_Receptionist, String contact_period_Receptionist, String spinner_month_Year, String profile_image_Receptionist, String password_Receptionist, String company_profile_receptionist) {
+    public AddReceptionist_PojoClass(String name_Reception, String designation_Receptionist, String email_Receptionist, String join_Receptionist, String salary_Receptionist, String contact_period_Receptionist, String spinner_month_Year, String profile_image_Receptionist, String password_Receptionist, String company_user_ID, String receptionist_user_ID) {
         this.name_Reception = name_Reception;
         this.designation_Receptionist = designation_Receptionist;
         this.email_Receptionist = email_Receptionist;
@@ -22,23 +23,8 @@ public class AddReceptionist_PojoClass {
         this.spinner_month_Year = spinner_month_Year;
         this.profile_image_Receptionist = profile_image_Receptionist;
         this.password_Receptionist = password_Receptionist;
-        this.company_profile_receptionist = company_profile_receptionist;
-    }
-
-    public String getPassword_Receptionist() {
-        return password_Receptionist;
-    }
-
-    public void setPassword_Receptionist(String password_Receptionist) {
-        this.password_Receptionist = password_Receptionist;
-    }
-
-    public String getCompany_profile_receptionist() {
-        return company_profile_receptionist;
-    }
-
-    public void setCompany_profile_receptionist(String company_profile_receptionist) {
-        this.company_profile_receptionist = company_profile_receptionist;
+        this.company_user_ID = company_user_ID;
+        this.receptionist_user_ID = receptionist_user_ID;
     }
 
     public String getName_Reception() {
@@ -103,5 +89,29 @@ public class AddReceptionist_PojoClass {
 
     public void setProfile_image_Receptionist(String profile_image_Receptionist) {
         this.profile_image_Receptionist = profile_image_Receptionist;
+    }
+
+    public String getPassword_Receptionist() {
+        return password_Receptionist;
+    }
+
+    public void setPassword_Receptionist(String password_Receptionist) {
+        this.password_Receptionist = password_Receptionist;
+    }
+
+    public String getCompany_user_ID() {
+        return company_user_ID;
+    }
+
+    public void setCompany_user_ID(String company_user_ID) {
+        this.company_user_ID = company_user_ID;
+    }
+
+    public String getReceptionist_user_ID() {
+        return receptionist_user_ID;
+    }
+
+    public void setReceptionist_user_ID(String receptionist_user_ID) {
+        this.receptionist_user_ID = receptionist_user_ID;
     }
 }

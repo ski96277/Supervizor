@@ -4,15 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import es.dmoral.toasty.Toasty;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,24 +16,15 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
-
-import java.util.ArrayList;
 
 public class Login_Activity extends AppCompatActivity implements View.OnClickListener {
     Button button_login;
@@ -50,6 +37,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
     KAlertDialog kAlertDialog;
 
     Vibrator vibrator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +169,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
+
                 if (company_true){
                     //set password in data base
                     firebaseDatabase.getReference().child("company_list").child(uid).child("company_password")
@@ -200,6 +189,9 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                     firebaseDatabase.getReference().child("employee_list").child(uid)
                             .child("employee_password").setValue(pass_st);
 
+                   startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
+                   .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
 
                     Toasty.info(getApplicationContext(),"Employee").show();
                     return;
@@ -207,6 +199,9 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                 boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
 
                 if (receptionist_true){
+
+                    startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
                     //set password in data base
                     firebaseDatabase.getReference().child("receptionist_list").child(uid)
@@ -250,14 +245,6 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
 //check user Type without Login
     private void checkUserType(String uid) {
-        /*
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        myRef.setValue("Hello, World!");
-
-        */
 
         firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -274,12 +261,18 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
                 boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
                 if (employee_true){
+                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
                     Toasty.info(getApplicationContext(),"Employee").show();
                     return;
                 }
                 boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
 
                 if (receptionist_true){
+                    startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
                     Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
                 }

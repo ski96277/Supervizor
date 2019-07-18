@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -19,7 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.RegistrationActivity"></activity>
+        <activity
+            android:name=".Activity.ReceptionistMainActivity"
+            android:label="@string/title_activity_receptionist_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.EmployeeMainActivity"
+            android:label="@string/title_activity_employee_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.RegistrationActivity" />
         <activity
             android:name=".Activity.CompanyMainActivity"
             android:label="@string/title_activity_company_main"

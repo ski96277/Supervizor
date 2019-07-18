@@ -156,18 +156,20 @@ public class Add_Receptionist extends Fragment {
                         if (task.isSuccessful()) {
                             kAlertDialog.setTitleText("User Created...");
 
+                            FirebaseUser firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
+                            String user_ID_receptionist=firebaseUser1.getUid();
+
                             AddReceptionist_PojoClass addReceptionist_pojoClass = new AddReceptionist_PojoClass(
                                     name_Reception, designation_Receptionist, email_Receptionist,
                                     join_Receptionist, salary_Receptionist, contact_period_Receptionist,
                                     spinner_month_Year, "null", password_Receptionist,
-                                    uID_company);
+                                    uID_company,user_ID_receptionist);
 
                             kAlertDialog.setTitleText("information Uploading...");
 
-                            FirebaseUser firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
                             //information upload under company
                             myRef.child("receptionist_list_company")
-                                    .child(uID_company).child(firebaseUser1.getUid())
+                                    .child(uID_company).child(user_ID_receptionist)
                                     .setValue(addReceptionist_pojoClass)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

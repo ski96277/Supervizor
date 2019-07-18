@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.*
 import kotlinx.android.synthetic.main.event_list_item_view.view.*
 import java.util.*
 
-class All_Event_List_Adapter(var context: Context, var event_date_list: MutableList<Event_details_PojoClass>) : RecyclerView.Adapter<All_Event_List_Adapter.ViewHolder>()  {
+class All_Event_List_Adapter(var context: Context?, var event_date_list: MutableList<Event_details_PojoClass>) : RecyclerView.Adapter<All_Event_List_Adapter.ViewHolder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.event_list_item_view, parent, false);

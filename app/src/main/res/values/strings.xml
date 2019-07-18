@@ -53,4 +53,9 @@
         <item>2020</item>
         <item>2021</item>
     </string-array>
+    <string name="title_activity_employee_main">EmployeeMainActivity</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_receptionist_main">ReceptionistMainActivity</string>
 </resources>

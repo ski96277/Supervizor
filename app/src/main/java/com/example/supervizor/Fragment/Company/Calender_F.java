@@ -68,6 +68,9 @@ public class Calender_F extends Fragment {
     static int CalendarMinute;
     static String format;
 
+    All_Event_List_Adapter event_list_adapter;
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -138,17 +141,19 @@ public class Calender_F extends Fragment {
                             // highlight today date
                             materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
                             materialCalendarView.setSelectedDate(LocalDate.parse(event_details_pojoClass.getDate()));
-
-                            All_Event_List_Adapter event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list);
+                        }
+                        if (event_date_list!=null){
+                            event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list);
 
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_ID.setLayoutManager(linearLayoutManager);
                             recyclerView_ID.setAdapter(event_list_adapter);
-
                             kAlertDialog.dismissWithAnimation();
-
                         }
+
+
+
                     }
 
                     @Override
