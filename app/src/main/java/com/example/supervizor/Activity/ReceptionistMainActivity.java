@@ -1,11 +1,12 @@
 package com.example.supervizor.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
+import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -18,13 +19,26 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import es.dmoral.toasty.Toasty;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class ReceptionistMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    LinearLayout qr_code_layout;
+    LinearLayout attendance_form_layout;
+    Button qr_code_btn;
+    Button attendance_form_btn;
+
+    Fragment fragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +47,10 @@ public class ReceptionistMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        initialize();
+//set default color in button background
+        qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,6 +60,35 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        qr_code_btn.setOnClickListener(this);
+        attendance_form_btn.setOnClickListener(this);
+
+//        loadDefaultFragment
+receptionistHomeFragment();
+
+    }
+
+    private void receptionistHomeFragment() {
+        fragment=new Receptionist_Home_page();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
+        fragmentTransaction.commit();
+    }
+    private void receptionist_Form_Fragment() {
+        fragment=new Attandence_Form_Receptionist_F();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void initialize() {
+        qr_code_layout=findViewById(R.id.qr_code_button_layout);
+        attendance_form_layout=findViewById(R.id.attendance_button_form_layout);
+
+        qr_code_btn=findViewById(R.id.qr_code_generate_button);
+        attendance_form_btn=findViewById(R.id.attendance_submission_form_button);
+
     }
 
     @Override
@@ -116,5 +155,22 @@ public class ReceptionistMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.qr_code_generate_button:
+                qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
+                attendance_form_layout.setBackgroundColor(Color.parseColor("#010D1B"));
+                receptionistHomeFragment();
+
+                break;
+            case R.id.attendance_submission_form_button:
+                receptionist_Form_Fragment();
+                qr_code_layout.setBackgroundColor(Color.parseColor("#010D1B"));
+                attendance_form_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
+                break;
+        }
     }
 }

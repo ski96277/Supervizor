@@ -1,10 +1,13 @@
 package com.example.supervizor.AdapterClass
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.createDeviceProtectedStorageContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
@@ -17,6 +20,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.example.supervizor.Activity.CompanyMainActivity
 import com.example.supervizor.Fragment.Company.User_Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -98,6 +102,7 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             itemView.remove_item_layout.setOnClickListener {
                 //                Toasty.info(itemView.context,"Remove",Toasty.LENGTH_LONG).show()
 
+
                 val kAlertDialog = KAlertDialog(itemView.context, KAlertDialog.WARNING_TYPE)
                 kAlertDialog.titleText = "Delete ? "
                 kAlertDialog.contentText = "Do you want to remove this user?"
@@ -110,33 +115,45 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                 kAlertDialog.setConfirmClickListener {
                     kAlertDialog.dismissWithAnimation()
 
-                    var firebaseAuth=FirebaseAuth.getInstance();
+                    var firebaseAuth = FirebaseAuth.getInstance();
                     firebaseAuth
 
-                    var firebaseDatabase=FirebaseDatabase.getInstance()
-                    var databaseReference=firebaseDatabase.reference
-
+                    var firebaseDatabase = FirebaseDatabase.getInstance()
+                    var databaseReference = firebaseDatabase.reference
+//remove value from employee_list_by_company
                     databaseReference.child("employee_list_by_company")
                             .child(addEmployee_PojoClass.company_User_id)
                             .child(addEmployee_PojoClass.employee_User_id)
                             .removeValue()
+
+//remove value from receptionist_list
+                    databaseReference.child("receptionist_list")
+                            .child(addEmployee_PojoClass.employee_User_id)
+                            .removeValue()
+                            .addOnSuccessListener {
+                            }
+
+//remove value from receptionist_list_by_company
+                    databaseReference.child("receptionist_list_by_company")
+                            .child(addEmployee_PojoClass.company_User_id)
+                            .child(addEmployee_PojoClass.employee_User_id)
+                            .removeValue()
+                            .addOnSuccessListener {
+                            }
+//remove value from employee_list
                     databaseReference.child("employee_list")
                             .child(addEmployee_PojoClass.employee_User_id)
                             .removeValue()
                             .addOnSuccessListener {
-                                Toasty.info(itemView.context,"Removed").show()
-                            }
+                                Toasty.info(itemView.context, "Removed").show()
 
-
+                               }
                 }
                 kAlertDialog.show()
-
             }
         }
 
         init {
-
-
             itemview.setOnClickListener {
                 i++
                 if (i % 2 == 0) {

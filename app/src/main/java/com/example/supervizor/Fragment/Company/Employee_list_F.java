@@ -174,8 +174,6 @@ public class Employee_list_F extends Fragment {
 
         Check_User_information check_user_information = new Check_User_information();
         String userID_company = check_user_information.getUserID();
-        String email_company = check_user_information.getEmail();
-
 
         if (!CheckInternet.isInternet(getContext())){
             Toasty.info(getContext(),"internet Error").show();
@@ -186,14 +184,14 @@ public class Employee_list_F extends Fragment {
         kAlertDialog.setTitleText("Data Loading");
         kAlertDialog.show();
 
-        myDatabaseRef.child("employee_list_by_company").child(userID_company)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         addEmployee_pojoClasses.clear();
 
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot snapshot : dataSnapshot.child("employee_list_by_company").child(userID_company)
+                                .getChildren()) {
 
                             AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
 

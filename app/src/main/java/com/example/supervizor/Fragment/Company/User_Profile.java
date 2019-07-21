@@ -100,7 +100,7 @@ public class User_Profile extends Fragment {
                         addEmployee_pojoClass = dataSnapshot.getValue(AddEmployee_PojoClass.class);
 
 
-                        if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
+                        if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null") ) {
 
                             Picasso.get().load(Uri.parse(addEmployee_pojoClass.getEmployee_profile_image_link())).into(circleImageView);
                         } else {

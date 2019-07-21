@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -159,6 +160,10 @@ public class Add_Receptionist extends Fragment {
                             FirebaseUser firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
                             String user_ID_receptionist=firebaseUser1.getUid();
 
+
+                            AddEmployee_PojoClass addEmployee_pojoClass=new AddEmployee_PojoClass(name_Reception,designation_Receptionist,email_Receptionist,
+                                    join_Receptionist,salary_Receptionist,password_Receptionist,contact_period_Receptionist,contact_period_Receptionist,spinner_month_Year,check_user_information.getUserID(),user_ID_receptionist,"null","receptionist");
+
                             AddReceptionist_PojoClass addReceptionist_pojoClass = new AddReceptionist_PojoClass(
                                     name_Reception, designation_Receptionist, email_Receptionist,
                                     join_Receptionist, salary_Receptionist, contact_period_Receptionist,
@@ -168,7 +173,14 @@ public class Add_Receptionist extends Fragment {
                             kAlertDialog.setTitleText("information Uploading...");
 
                             //information upload under company
-                            myRef.child("receptionist_list_company")
+
+                            myRef.child("employee_list_by_company").child(check_user_information.getUserID())
+                                    .child(user_ID_receptionist).setValue(addEmployee_pojoClass);
+                            //save information in employee section
+                            myRef.child("employee_list")
+                                    .child(user_ID_receptionist).setValue(addEmployee_pojoClass);
+
+                            myRef.child("receptionist_list_by_company")
                                     .child(uID_company).child(user_ID_receptionist)
                                     .setValue(addReceptionist_pojoClass)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {

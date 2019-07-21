@@ -7,6 +7,7 @@ import es.dmoral.toasty.Toasty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -182,22 +183,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
 
-                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
-                if (employee_true){
-
-                    //set password in data base
-                    firebaseDatabase.getReference().child("employee_list").child(uid)
-                            .child("employee_password").setValue(pass_st);
-
-                   startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
-                   .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
-
-                    Toasty.info(getApplicationContext(),"Employee").show();
-                    return;
-                }
                 boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
-
                 if (receptionist_true){
 
                     startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
@@ -209,6 +195,23 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
                     Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
+
+                }
+
+                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true){
+
+                    //set password in data base
+                    firebaseDatabase.getReference().child("employee_list").child(uid)
+                            .child("employee_password").setValue(pass_st);
+
+                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
+
+                    Toasty.info(getApplicationContext(),"Employee").show();
+                    return;
+
                 }
 
             }
@@ -259,14 +262,6 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
 
-                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
-                if (employee_true){
-                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
-                    Toasty.info(getApplicationContext(),"Employee").show();
-                    return;
-                }
                 boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
 
                 if (receptionist_true){
@@ -274,6 +269,14 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
                     Toasty.info(getApplicationContext(),"Receptionist").show();
+                    return;
+                }
+                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true){
+                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
+                    Toasty.info(getApplicationContext(),"Employee").show();
                     return;
                 }
 
