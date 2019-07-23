@@ -1,11 +1,15 @@
 package com.example.supervizor.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
+import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
 import android.view.View;
@@ -13,7 +17,15 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,18 +38,28 @@ import es.dmoral.toasty.Toasty;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReceptionistMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     LinearLayout qr_code_layout;
+    LinearLayout linearLayout_qr_code_form_btn;
     LinearLayout attendance_form_layout;
     Button qr_code_btn;
     Button attendance_form_btn;
 
     Fragment fragment;
 
+    ImageView nav_Image_profile_receptionist;
+    TextView nav_name_profile_receptionist;
+    TextView nav_email_profile_receptionist;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
 
     @Override
@@ -47,6 +69,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setActionBarTitle("DashBoard");
+//initilaze the widget
         initialize();
 //set default color in button background
         qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
@@ -60,35 +84,125 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View nav_header = navigationView.getHeaderView(0);
+
+        nav_Image_profile_receptionist = nav_header.findViewById(R.id.profile_image_receptionist_nav);
+        nav_name_profile_receptionist = nav_header.findViewById(R.id.profile_receptionist_name_TV_ID_nav);
+        nav_email_profile_receptionist = nav_header.findViewById(R.id.profile_receptionist_email_TV_ID_nav);
 
         qr_code_btn.setOnClickListener(this);
         attendance_form_btn.setOnClickListener(this);
 
-//        loadDefaultFragment
-receptionistHomeFragment();
+        nav_Image_profile_receptionist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ReceptionistMainActivity.this, "name TV", Toast.LENGTH_SHORT).show();
+                loadProfileFragment();
+            }
+        });
 
+        nav_name_profile_receptionist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProfileFragment();
+            }
+        });
+        nav_email_profile_receptionist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProfileFragment();
+            }
+        });
+        //get user information and set to nav bar view
+        Check_User_information check_user_information = new Check_User_information();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(check_user_information.getUserID())
+                        .getValue(AddEmployee_PojoClass.class);
+
+                if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
+
+                    Picasso.get().load(addEmployee_pojoClass.getEmployee_profile_image_link())
+                            .into(nav_Image_profile_receptionist);
+                }
+
+                nav_name_profile_receptionist.setText(addEmployee_pojoClass.getEmployee_name());
+                nav_email_profile_receptionist.setText(addEmployee_pojoClass.getEmployee_email());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//        loadDefaultFragment
+        receptionistHomeFragment();
+
+    }
+
+    //Profile Fragment Call
+    private void loadProfileFragment() {
+        linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+
+        fragment = new Profile_view_receptionist_F();
+        if (fragment != null) {
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
+//close the nav drawerLayout
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
 
     private void receptionistHomeFragment() {
-        fragment=new Receptionist_Home_page();
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
+        fragment = new Receptionist_Home_page();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
     }
+
     private void receptionist_Form_Fragment() {
-        fragment=new Attandence_Form_Receptionist_F();
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
+        fragment = new Attandence_Form_Receptionist_F();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
     }
 
     private void initialize() {
-        qr_code_layout=findViewById(R.id.qr_code_button_layout);
-        attendance_form_layout=findViewById(R.id.attendance_button_form_layout);
+        linearLayout_qr_code_form_btn = findViewById(R.id.linearLayout);
 
-        qr_code_btn=findViewById(R.id.qr_code_generate_button);
-        attendance_form_btn=findViewById(R.id.attendance_submission_form_button);
+        qr_code_layout = findViewById(R.id.qr_code_button_layout);
+        attendance_form_layout = findViewById(R.id.attendance_button_form_layout);
+        qr_code_btn = findViewById(R.id.qr_code_generate_button);
+        attendance_form_btn = findViewById(R.id.attendance_submission_form_button);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
+    }
+
+
+    private void show_Alert_to_Exit_The_App() {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Exit App")
+                .setMessage("Are you sure you want to Exit this App?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
@@ -97,7 +211,16 @@ receptionistHomeFragment();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            int count = getSupportFragmentManager().getBackStackEntryCount();
+
+            if (count == 0) {
+//                super.onBackPressed();
+                //additional code
+                show_Alert_to_Exit_The_App();
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
         }
     }
 
@@ -129,14 +252,20 @@ receptionistHomeFragment();
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home_reception) {
+            linearLayout_qr_code_form_btn.setVisibility(View.VISIBLE);
+
+            qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
+            attendance_form_layout.setBackgroundColor(Color.parseColor("#010D1B"));
+
+            receptionistHomeFragment();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_log_out) {
-            
+
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null) {
@@ -159,7 +288,7 @@ receptionistHomeFragment();
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.qr_code_generate_button:
                 qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
                 attendance_form_layout.setBackgroundColor(Color.parseColor("#010D1B"));
@@ -173,4 +302,10 @@ receptionistHomeFragment();
                 break;
         }
     }
+
+    //set title method
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
 }

@@ -4,14 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAllCaps="false"
-        android:textSize="50sp"
-        android:text="QR Code"
-        android:textColor="#180F0F"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/qrcode_set_IV"
+        android:layout_marginTop="30sp"
+        android:layout_width="450dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop" />
 
 </LinearLayout>

@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.example.supervizor.Fragment.Employee.Employee_Calender_Page_F;
+import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
+import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
+import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -15,7 +19,14 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 import android.view.Menu;
@@ -31,10 +43,10 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class EmployeeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
 
 
     Fragment fragment;
@@ -42,21 +54,33 @@ public class EmployeeMainActivity extends AppCompatActivity
 
     Button calender_Btn;
     Button scan_Btn;
+    LinearLayout scan_calender_layout;
     LinearLayout calender_layout;
     LinearLayout scan_layout;
+
+    CircleImageView circleImageView_nav;
+    TextView name_TV_nav;
+    TextView email_TV_nav;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    Check_User_information check_user_information;
+    String user_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_main);
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setActionBarTitle("Dashboard");
 //hide Notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        setActionBarTitle("Dashboard");
+//initialize the view
         initialize();
-
+        check_user_information =new Check_User_information();
+        user_ID=check_user_information.getUserID();
 
         calender_Btn.setOnClickListener(this);
         scan_Btn.setOnClickListener(this);
@@ -79,22 +103,103 @@ public class EmployeeMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //load default Fragment
-        fragment=new Employee_Calender_Page_F();
+        View nav_view=navigationView.getHeaderView(0);
+
+        circleImageView_nav=nav_view.findViewById(R.id.profile_image_employee_nav);
+        name_TV_nav=nav_view.findViewById(R.id.profile_employee_name_TV_ID_nav);
+        email_TV_nav=nav_view.findViewById(R.id.profile_employee_email_TV_ID_nav);
+//get user data from firebase and set it on the nav bar view
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID)
+                        .getValue(AddEmployee_PojoClass.class);
+
+                if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
+
+                    Picasso.get().load(addEmployee_pojoClass.getEmployee_profile_image_link())
+                            .into(circleImageView_nav);
+                }
+                name_TV_nav.setText(addEmployee_pojoClass.getEmployee_name());
+                email_TV_nav.setText(addEmployee_pojoClass.getEmployee_email());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        circleImageView_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProfileFragment();
+            }
+        });
+        name_TV_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProfileFragment();
+
+            }
+        });
+        email_TV_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProfileFragment();
+
+            }
+        });
+
+        //load default home fragment
+        loadDefault_Home_Fragment();
+    }
+
+    private void loadProfileFragment() {
+        scan_calender_layout.setVisibility(View.GONE);
+
+//close the nav drawerLayout
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+        fragment=new ProfileView_Employee_F();
         if (fragment!=null){
             FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+            fragmentTransaction.commit();
+
+        }
+
+    }
+
+    private void loadDefault_Home_Fragment() {
+
+        scan_calender_layout.setVisibility(View.VISIBLE);
+        //load default Fragment
+        fragment = new Employee_Calender_Home_Page_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
         }
     }
 
     private void initialize() {
-        calender_layout=findViewById(R.id.calender_employee_button_layout);
-        scan_layout=findViewById(R.id.scan_employee_button_layout);
+
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+
+        scan_calender_layout=findViewById(R.id.linearLayout_id);
+
+        calender_layout = findViewById(R.id.calender_employee_button_layout);
+        scan_layout = findViewById(R.id.scan_employee_button_layout);
         calender_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
 
-        calender_Btn=findViewById(R.id.calender_employee_button);
-        scan_Btn=findViewById(R.id.scan_employee_button);
+        calender_Btn = findViewById(R.id.calender_employee_button);
+        scan_Btn = findViewById(R.id.scan_employee_button);
 
     }
 
@@ -166,8 +271,10 @@ public class EmployeeMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home_employee) {
             // Handle the camera action
+            loadDefault_Home_Fragment();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -196,7 +303,7 @@ public class EmployeeMainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.calender_employee_button:
                 calender_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
                 scan_layout.setBackgroundColor(Color.parseColor("#000000"));
