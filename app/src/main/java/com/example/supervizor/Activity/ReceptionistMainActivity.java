@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
+import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -167,6 +168,12 @@ public class ReceptionistMainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
     }
+    private void receptionist_Attandence_Fragment() {
+        fragment = new Receptionist_Attendance_F();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+        fragmentTransaction.commit();
+    }
 
     private void receptionist_Form_Fragment() {
         fragment = new Attandence_Form_Receptionist_F();
@@ -260,7 +267,10 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
             receptionistHomeFragment();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_attandence_receptionist) {
+            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            receptionist_Attandence_Fragment();
+
 
         } else if (id == R.id.nav_slideshow) {
 

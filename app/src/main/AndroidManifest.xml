@@ -19,19 +19,32 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".Activity.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Forget_Password"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activity.ReceptionistMainActivity"
             android:label="@string/title_activity_receptionist_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EmployeeMainActivity"
             android:label="@string/title_activity_employee_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.RegistrationActivity" />
+        <activity
+            android:name=".Activity.RegistrationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.CompanyMainActivity"
             android:label="@string/title_activity_company_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Login_Activity">
+        <activity
+            android:name=".Activity.Login_Activity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

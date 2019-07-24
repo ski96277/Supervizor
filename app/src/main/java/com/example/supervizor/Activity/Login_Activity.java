@@ -28,16 +28,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
 public class Login_Activity extends AppCompatActivity implements View.OnClickListener {
-    Button button_login;
-    TextView register_company;
-    EditText email_ET;
-    EditText password_ET;
+   private Button button_login;
+   private TextView forget_pass_TV;
+    private  TextView register_company;
+    private EditText email_ET;
+    private EditText password_ET;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
-    KAlertDialog kAlertDialog;
+    private KAlertDialog kAlertDialog;
 
-    Vibrator vibrator;
+    private Vibrator vibrator;
 
 
     @Override
@@ -55,6 +56,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
         register_company = findViewById(R.id.register_company_TV_ID);
 
         button_login.setOnClickListener(this);
+forget_pass_TV.setOnClickListener(this);
 
         register_company.setOnClickListener(this);
 
@@ -62,6 +64,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
 
     private void initialize() {
         email_ET = findViewById(R.id.email_login_ET_ID);
+        forget_pass_TV=findViewById(R.id.forget_password_TV_ID);
         password_ET = findViewById(R.id.password_login_ET_ID);
 
 // Initialize Firebase Auth
@@ -73,6 +76,10 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.forget_password_TV_ID:
+                startActivity(new Intent(this,ChangePasswordActivity.class));
+                break;
+
             case R.id.login_btn_ID:
                 String email_st = email_ET.getText().toString();
                 String pass_st = password_ET.getText().toString();

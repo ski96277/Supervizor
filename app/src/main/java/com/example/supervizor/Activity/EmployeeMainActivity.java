@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
 import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
 import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
@@ -175,6 +176,17 @@ public class EmployeeMainActivity extends AppCompatActivity
 
     }
 
+    private void load_Attendance_employee_Fragment() {
+
+        scan_calender_layout.setVisibility(View.GONE);
+        //load default Fragment
+        fragment = new Employee_Attendance_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
+    }
     private void loadDefault_Home_Fragment() {
 
         scan_calender_layout.setVisibility(View.VISIBLE);
@@ -275,7 +287,8 @@ public class EmployeeMainActivity extends AppCompatActivity
             // Handle the camera action
             loadDefault_Home_Fragment();
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_attandence_employee) {
+            load_Attendance_employee_Fragment();
 
         } else if (id == R.id.nav_slideshow) {
 
