@@ -305,7 +305,9 @@ public class Calender_F extends Fragment {
 
     }
 
-    private static void showAddEvent_Alert(FragmentActivity activity, String date_child, String day_date,
+    private static void showAddEvent_Alert(FragmentActivity activity,
+                                           String date_child,
+                                           String day_date,
                                            String month, String year,
                                            CalendarDay calendarDay,
                                            Check_User_information check_user_information,

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
 import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
+import com.example.supervizor.Fragment.Employee.Leave_Application_Employee_F;
 import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
@@ -86,14 +87,6 @@ public class EmployeeMainActivity extends AppCompatActivity
         calender_Btn.setOnClickListener(this);
         scan_Btn.setOnClickListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -290,7 +283,8 @@ public class EmployeeMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_attandence_employee) {
             load_Attendance_employee_Fragment();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_leave_application_employee) {
+            leave_application_Fragment();
 
         } else if (id == R.id.nav_logout) {
 
@@ -311,6 +305,17 @@ public class EmployeeMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void leave_application_Fragment() {
+        scan_calender_layout.setVisibility(View.GONE);
+        //load default Fragment
+        fragment = new Leave_Application_Employee_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
 

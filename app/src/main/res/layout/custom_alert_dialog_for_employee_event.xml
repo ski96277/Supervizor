@@ -38,7 +38,7 @@
         android:fontFamily="@font/raleway_italic"
         android:gravity="top"
         android:textColor="#000"
-        android:hint="Task Discription"
+        android:hint="Task Description"
         android:maxHeight="35dp"
         android:paddingLeft="5dp"
         android:scrollbars="vertical"

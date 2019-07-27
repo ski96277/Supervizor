@@ -23,7 +23,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Forget_Password"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activity.Login_Activity"/>
         <activity
             android:name=".Activity.ReceptionistMainActivity"
             android:label="@string/title_activity_receptionist_main"

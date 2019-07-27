@@ -77,7 +77,7 @@ forget_pass_TV.setOnClickListener(this);
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.forget_password_TV_ID:
-                startActivity(new Intent(this,ChangePasswordActivity.class));
+                startActivity(new Intent(this,Forget_Password.class));
                 break;
 
             case R.id.login_btn_ID:
