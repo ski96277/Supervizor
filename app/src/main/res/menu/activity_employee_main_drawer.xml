@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Leave Application" />
         <item
+            android:id="@+id/nav_My_leave_application_employee"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Leave Application" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Log out" />

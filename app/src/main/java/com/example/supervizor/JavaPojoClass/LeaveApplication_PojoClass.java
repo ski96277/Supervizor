@@ -8,16 +8,29 @@ public class LeaveApplication_PojoClass {
     String leave_description;
     String leave_start_date;
     String leave_End_Date;
+    String leave_applying_Date;
     boolean leave_seen;
 
-    public LeaveApplication_PojoClass(String user_ID_Employee, String user_ID_company, String leave_Title, String leave_description, String leave_start_date, String leave_End_Date, boolean leave_seen) {
+    public LeaveApplication_PojoClass() {
+    }
+
+    public LeaveApplication_PojoClass(String user_ID_Employee, String user_ID_company, String leave_Title, String leave_description, String leave_start_date, String leave_End_Date, String leave_applying_Date, boolean leave_seen) {
         this.user_ID_Employee = user_ID_Employee;
         this.user_ID_company = user_ID_company;
         this.leave_Title = leave_Title;
         this.leave_description = leave_description;
         this.leave_start_date = leave_start_date;
         this.leave_End_Date = leave_End_Date;
+        this.leave_applying_Date = leave_applying_Date;
         this.leave_seen = leave_seen;
+    }
+
+    public String getLeave_applying_Date() {
+        return leave_applying_Date;
+    }
+
+    public void setLeave_applying_Date(String leave_applying_Date) {
+        this.leave_applying_Date = leave_applying_Date;
     }
 
     public String getUser_ID_Employee() {

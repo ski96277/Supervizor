@@ -26,6 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
@@ -85,7 +89,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             Toasty.info(getContext(), "check Internet Connection").show();
             return;
         }
-
+//show loading
         KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Sending Information");
         kAlertDialog.show();
@@ -125,14 +129,15 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                 addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID_employee).getValue(AddEmployee_PojoClass.class);
 
 
-
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                LocalDate current_Date = LocalDate.now();
 //save value to Database
                 LeaveApplication_PojoClass leaveApplication_pojoClass = new LeaveApplication_PojoClass(user_ID_employee,
                         addEmployee_pojoClass.getCompany_User_id(),
-                        leave_Title, description, startDate, endDate, false);
+                        leave_Title, description, startDate, endDate,current_Date.toString() ,false);
 
                 databaseReference.child("leave_application").child(addEmployee_pojoClass.getCompany_User_id())
-                        .child(user_ID_employee).setValue(leaveApplication_pojoClass)
+                        .child(addEmployee_pojoClass.getEmployee_User_id()).setValue(leaveApplication_pojoClass)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
