@@ -8,14 +8,12 @@ import android.os.Bundle;
 import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
 import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
 import com.example.supervizor.Fragment.Employee.Leave_Application_Employee_F;
-import com.example.supervizor.Fragment.Employee.MyLeaveApplication_F;
+import com.example.supervizor.Fragment.Employee.MyLeaveApplication_Employee_F;
 import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
-import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
+import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -151,47 +149,6 @@ public class EmployeeMainActivity extends AppCompatActivity
         loadDefault_Home_Fragment();
     }
 
-    private void loadProfileFragment() {
-        scan_calender_layout.setVisibility(View.GONE);
-
-//close the nav drawerLayout
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-
-        fragment=new ProfileView_Employee_F();
-        if (fragment!=null){
-            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
-            fragmentTransaction.commit();
-
-        }
-
-    }
-
-    private void load_Attendance_employee_Fragment() {
-
-        scan_calender_layout.setVisibility(View.GONE);
-        //load default Fragment
-        fragment = new Employee_Attendance_F();
-        if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
-            fragmentTransaction.commit();
-        }
-    }
-    private void loadDefault_Home_Fragment() {
-
-        scan_calender_layout.setVisibility(View.VISIBLE);
-        //load default Fragment
-        fragment = new Employee_Calender_Home_Page_F();
-        if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
-            fragmentTransaction.commit();
-        }
-    }
 
     private void initialize() {
 
@@ -314,7 +271,7 @@ public class EmployeeMainActivity extends AppCompatActivity
     private void my_leave_application_Fragment() {
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
-        fragment = new MyLeaveApplication_F();
+        fragment = new MyLeaveApplication_Employee_F();
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
@@ -333,6 +290,58 @@ public class EmployeeMainActivity extends AppCompatActivity
         }
     }
 
+    private void loadProfileFragment() {
+        scan_calender_layout.setVisibility(View.GONE);
+
+//close the nav drawerLayout
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+        fragment=new ProfileView_Employee_F();
+        if (fragment!=null){
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+            fragmentTransaction.commit();
+
+        }
+
+    }
+
+    private void load_Attendance_employee_Fragment() {
+
+        scan_calender_layout.setVisibility(View.GONE);
+        //load default Fragment
+        fragment = new Employee_Attendance_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+    private void loadDefault_Home_Fragment() {
+
+        scan_calender_layout.setVisibility(View.VISIBLE);
+        //load default Fragment
+        fragment = new Employee_Calender_Home_Page_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+    private void load_Scan_Fragment() {
+
+        scan_calender_layout.setVisibility(View.VISIBLE);
+        //load default Fragment
+        fragment = new Scan_Employee_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -340,12 +349,13 @@ public class EmployeeMainActivity extends AppCompatActivity
             case R.id.calender_employee_button:
                 calender_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
                 scan_layout.setBackgroundColor(Color.parseColor("#000000"));
+                loadDefault_Home_Fragment();
 
                 break;
             case R.id.scan_employee_button:
                 scan_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
                 calender_layout.setBackgroundColor(Color.parseColor("#000000"));
-
+                load_Scan_Fragment();
                 break;
         }
     }

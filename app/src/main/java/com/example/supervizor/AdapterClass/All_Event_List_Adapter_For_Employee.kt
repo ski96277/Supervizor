@@ -60,8 +60,5 @@ class All_Event_List_Adapter_For_Employee(var context: Context?, var event_date_
             }
             dialog.show()
         }
-
     }
-
-
 }

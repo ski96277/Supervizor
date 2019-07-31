@@ -20,20 +20,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import es.dmoral.toasty.Toasty;
 
-public class MyLeaveApplication_F extends Fragment {
+public class MyLeaveApplication_Employee_F extends Fragment {
     protected RecyclerView leaveApplicationList;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference_for_company_UI;
-    private DatabaseReference databaseReference_for_leave_information;
     private AddEmployee_PojoClass addEmployee_pojoClass;
-    private   LeaveApplication_PojoClass leaveApplication_pojoClass;
+    private LeaveApplication_PojoClass leaveApplication_pojoClass;
+    private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses_list = new ArrayList<>();
+
     private All_Leave_Application_List_Adapter all_leave_application_list_adapter;
     private Check_User_information check_user_information;
     String user_id;
@@ -49,32 +52,52 @@ public class MyLeaveApplication_F extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        user_id=check_user_information.getUserID();
-        databaseReference_for_leave_information.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                LeaveApplication_PojoClass leaveApplication_pojoClass = dataSnapshot.child("leave_application")
-                        .child("2xc8CYa24aVGhHEMAwcbyx0hweF3")
-                        .getValue(LeaveApplication_PojoClass.class);
-                Log.e("TAG - ", "onDataChange: "+leaveApplication_pojoClass.getLeave_applying_Date() );
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        leaveApplicationList.setLayoutManager(linearLayoutManager);
 
-            }
-        });
+        user_id = check_user_information.getUserID();
 
-        /*
+
 //get user company ID
         databaseReference_for_company_UI.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_id).getValue(AddEmployee_PojoClass.class);
 
-                String userID_company=addEmployee_pojoClass.getCompany_User_id();
-                String image_link=addEmployee_pojoClass.getEmployee_profile_image_link();
+                String userID_company = addEmployee_pojoClass.getCompany_User_id();
+                String image_link = addEmployee_pojoClass.getEmployee_profile_image_link();
+
+                databaseReference_for_company_UI.child("leave_application").child(userID_company).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+                        for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
+
+                            if (check_user_information.getUserID().equals(leaveApplication_pojoClass.getUser_ID_Employee())){
+                                leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
+                            }
+                        }
+
+                        Log.e("TAG", "onDataChange: size = "+leaveApplication_pojoClasses_list.size());
+                        Log.e("TAG", "onDataChange: date = "+leaveApplication_pojoClass.getLeave_applying_Date());
+                        Log.e("TAG", "onDataChange: title = "+leaveApplication_pojoClass.getLeave_Title());
+                       All_Leave_Application_List_Adapter all_leave_application_list_adapter = new All_Leave_Application_List_Adapter(
+                                leaveApplication_pojoClasses_list,
+                                image_link);
+//set adapter
+                        leaveApplicationList.setAdapter(all_leave_application_list_adapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
 
@@ -83,15 +106,13 @@ public class MyLeaveApplication_F extends Fragment {
 
             }
         });
-*/
     }
 
     private void initView(View rootView) {
         leaveApplicationList = (RecyclerView) rootView.findViewById(R.id.leave_application_list);
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference_for_company_UI=firebaseDatabase.getReference();
-        databaseReference_for_leave_information=firebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference_for_company_UI = firebaseDatabase.getReference();
 
-        check_user_information=new Check_User_information();
+        check_user_information = new Check_User_information();
     }
 }

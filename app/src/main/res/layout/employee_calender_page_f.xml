@@ -28,22 +28,31 @@
         android:layout_gravity="center"
         android:gravity="center">
         <Button
+            android:id="@+id/all_event_btn_ID"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="All Event"
+            android:background="@drawable/button_background_event_type_dark"
             android:textAllCaps="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="50sp" />
         <Button
+            android:id="@+id/personal_event_btn_ID"
+android:background="@drawable/button_background_event"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="Personal Event"
             android:textAllCaps="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="50sp"  />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_ID_Employee_Event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_ID_Personal_Event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 </LinearLayout>

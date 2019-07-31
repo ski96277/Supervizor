@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-
-    android:layout_height="wrap_content">
-
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:id="@+id/leave_title_TV"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:id="@+id/date_TV"/>
+    android:elevation="10sp"
+    android:layout_margin="10sp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:text="Hello "
+            android:textColor="#000"
+            android:paddingLeft="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:id="@+id/leave_title_TV"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Hello "
+            android:paddingLeft="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#000"
+            android:id="@+id/date_TV"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
-</LinearLayout>
