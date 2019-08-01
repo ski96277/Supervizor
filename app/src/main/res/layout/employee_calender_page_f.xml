@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<androidx.core.widget.NestedScrollView
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -54,5 +54,5 @@ android:background="@drawable/button_background_event"
         android:layout_height="match_parent"
         android:visibility="gone"/>
 </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
 </LinearLayout>

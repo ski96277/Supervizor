@@ -9,4 +9,5 @@
     <color name="text_white_color">#FFF</color>
     <color name="registration_bg_Color">#EAEAEA</color>
     <color name="border_color_profile_image">#FF000000</color>
+    <color name="red_Color">#FC0303</color>
 </resources>

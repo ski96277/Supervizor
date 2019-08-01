@@ -2,6 +2,7 @@ package com.example.supervizor.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -49,36 +50,34 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CompanyMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     Fragment fragment = null;
 
-    Button button_employee, button_calender;
-    Button button_pending, button_approved;
-    ImageView profile_image_nav;
-    TextView profile_company_name_nav;
-    TextView profile_company_email_nav;
-    TextView leave_notification_nav;
+    private Button button_employee, button_calender;
+    private Button button_pending, button_approved;
+    private ImageView profile_image_nav;
+    private TextView profile_company_name_nav;
+    private TextView profile_company_email_nav;
+    private TextView leave_notification_nav;
 
-    public static LinearLayout employee_and_calender_layout;
-    public static LinearLayout pending_and_approved_layout;
-
-    public static LinearLayout employee_button_layout;
-    public static LinearLayout calender_button_layout;
-
-    public static LinearLayout pending_button_layout;
-    public static LinearLayout approved_button_layout;
-
-    FirebaseDatabase database;
-    DatabaseReference myDatabaseRef;
+    private FirebaseDatabase database;
+    private DatabaseReference myDatabaseRef;
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
-    SignUp_Pojo signUp_pojo;
+    private FirebaseUser currentUser;
+    private SignUp_Pojo signUp_pojo;
 
 
     public static NavigationView navigationView;
-
+    public  static LinearLayout employee_and_calender_layout;
+    public  static LinearLayout pending_and_approved_layout;
+    public  static LinearLayout employee_button_layout;
+    public  static LinearLayout calender_button_layout;
+    public  static LinearLayout pending_button_layout ;
+    public  static LinearLayout approved_button_layout;
 
     Toolbar toolbar;
 
@@ -96,7 +95,6 @@ public class CompanyMainActivity extends AppCompatActivity
 
         initialize();
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -113,32 +111,23 @@ public class CompanyMainActivity extends AppCompatActivity
 //set profile information in navigation
         LoadCompanyinformation_On_The_Nav();
 
-        profile_image_nav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("singup_information", (Parcelable) signUp_pojo);
-                fragment = new Company_Profile_View();
-                if (fragment != null) {
-                    fragment.setArguments(bundle);
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                    fragmentTransaction.commit();
-
-                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                    if (drawer.isDrawerOpen(GravityCompat.START)) {
-                        drawer.closeDrawer(GravityCompat.START);
-                    }
-                }
-            }
+//set action into nav profile image and text
+        profile_image_nav.setOnClickListener(v -> {
+            load_profile_From_navBar();
         });
+        profile_company_name_nav.setOnClickListener(v -> {
+            load_profile_From_navBar();
+        });
+        profile_company_email_nav.setOnClickListener(v -> {
+            load_profile_From_navBar();
+        });
+
 //set leave notification count
         leave_notification_nav = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_leave_application));
         //Gravity property aligns the text
         leave_notification_nav.setGravity(Gravity.CENTER_VERTICAL);
         leave_notification_nav.setTypeface(null, Typeface.BOLD);
-        leave_notification_nav.setTextColor(getResources().getColor(R.color.colorAccent));
-        leave_notification_nav.setText("99+");
+        leave_notification_nav.setTextColor(getResources().getColor(R.color.red_Color));
 //End Leave Application Count END
 
 //load default fragment
@@ -146,36 +135,31 @@ public class CompanyMainActivity extends AppCompatActivity
 
 
 //employee list show button_login
-        button_employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                load_Employee_list(signUp_pojo);
-            }
-        });
+        button_employee.setOnClickListener(v -> load_Employee_list(signUp_pojo));
 //Calender View show button_login
-        button_calender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calender_Fragment();
+        button_calender.setOnClickListener(v -> calender_Fragment());
+//load leave application Pending
+        button_pending.setOnClickListener(v -> leave_application_pending_fragment());
+//load leave application Approve
+        button_approved.setOnClickListener(v -> leave_application_approved_fragment());
 
+    }
+
+    private void load_profile_From_navBar() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("singup_information", signUp_pojo);
+        fragment = new Company_Profile_View();
+        if (fragment != null) {
+            fragment.setArguments(bundle);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentTransaction.commit();
+
+            DrawerLayout drawer1 = findViewById(R.id.drawer_layout);
+            if (drawer1.isDrawerOpen(GravityCompat.START)) {
+                drawer1.closeDrawer(GravityCompat.START);
             }
-        });
-
-        button_pending.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leave_application_pending_fragment();
-            }
-        });
-        button_approved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leave_application_approved_fragment();
-
-            }
-        });
-
+        }
     }
 //set profile information in navigation
 
@@ -194,11 +178,25 @@ public class CompanyMainActivity extends AppCompatActivity
                 Picasso.get().load(logo_download_link).into(profile_image_nav);
                 profile_company_name_nav.setText(name);
                 profile_company_email_nav.setText(email);
+
+                //get count leave application
+                long count_leave = dataSnapshot.child("leave_application")
+                        .child(signUp_pojo.getCompany_user_id())
+                        .child("pending")
+                        .getChildrenCount();
+
+                //set count number in the nav bar
+                if (count_leave < 1) {
+                    leave_notification_nav.setText(String.valueOf(0));
+                } else {
+                    leave_notification_nav.setText(String.valueOf(count_leave));
+                }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toasty.info(getApplicationContext(), "Data Loading Failed").show();
+                Toasty.info(getApplicationContext(), "Data Loading Failed, Try It later").show();
             }
         });
 
@@ -214,14 +212,14 @@ public class CompanyMainActivity extends AppCompatActivity
         button_approved = findViewById(R.id.approved_button);
 
 
-        employee_and_calender_layout = findViewById(R.id.employee_and_calender_layout_ID);
-        pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
+         employee_and_calender_layout = findViewById(R.id.employee_and_calender_layout_ID);
+         pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
 
-        employee_button_layout = findViewById(R.id.employee_button_layout);
-        calender_button_layout = findViewById(R.id.calender_button_layout);
+         employee_button_layout = findViewById(R.id.employee_button_layout);
+         calender_button_layout = findViewById(R.id.calender_button_layout);
 
-        pending_button_layout = findViewById(R.id.pending_button_layout);
-        approved_button_layout = findViewById(R.id.approved_button_layout);
+         pending_button_layout = findViewById(R.id.pending_button_layout);
+         approved_button_layout = findViewById(R.id.approved_button_layout);
 
         database = FirebaseDatabase.getInstance();
         myDatabaseRef = database.getReference();
@@ -269,6 +267,7 @@ public class CompanyMainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
     }
+
 //replace leave approved fragment in main screen of Company
 
     private void leave_application_approved_fragment() {
@@ -332,13 +331,11 @@ public class CompanyMainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button_login, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_call_notification) {
+            Toasty.info(this, "Alert show ").show();
             return true;
         }
 
@@ -351,15 +348,13 @@ public class CompanyMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
+
             load_Employee_list(signUp_pojo);
+
         } else if (id == R.id.nav_leave_application) {
-            fragment = new LeaveApplication_Pending_F();
-            if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-                        .beginTransaction();
-                fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                fragmentTransaction.commit();
-            }
+
+            leave_application_pending_fragment();
+
         } else if (id == R.id.nav_Team_Leader) {
 
             fragment = new TeamLeader_F();
@@ -371,13 +366,7 @@ public class CompanyMainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_attendance) {
-            fragment = new User_Attendance_F();
-            if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-                        .beginTransaction();
-                fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                fragmentTransaction.commit();
-            }
+            load_User_Attendance();
 
         } else if (id == R.id.nav_share) {
 
@@ -393,9 +382,20 @@ public class CompanyMainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void load_User_Attendance() {
+        fragment = new User_Attendance_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
 
 }

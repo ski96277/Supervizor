@@ -13,8 +13,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:text="Hello "
+            android:fontFamily="@font/raleway_bolditalic"
             android:textColor="#000"
             android:paddingLeft="20sp"
             android:maxLines="1"
@@ -24,14 +25,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:text="Hello "
+            android:fontFamily="@font/raleway_italic"
             android:paddingLeft="20sp"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="#000"
             android:id="@+id/date_TV"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="40sp"
+                android:layout_marginRight="40sp"
+                android:background="#397AA8"/>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 

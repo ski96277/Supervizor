@@ -1,13 +1,10 @@
 package com.example.supervizor.AdapterClass
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.createDeviceProtectedStorageContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
@@ -20,7 +17,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.example.supervizor.Activity.CompanyMainActivity
+import com.example.supervizor.Fragment.Company.User_Attendance_F
 import com.example.supervizor.Fragment.Company.User_Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -41,17 +38,18 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
 
-        return holder.setData(addEmployee_pojoClasses[position], position, addEmployee_pojoClasses)
+        return holder.setData(addEmployee_pojoClasses[position])
     }
 
 
     class ViewHolderClass(itemview: View) : RecyclerView.ViewHolder(itemview) {
         var i = 0
-        fun setData(addEmployee_PojoClass: AddEmployee_PojoClass, position: Int, addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>) {
+        fun setData(addEmployee_PojoClass: AddEmployee_PojoClass) {
 
             var image_link = addEmployee_PojoClass.employee_profile_image_link
             var name = addEmployee_PojoClass.employee_name
             var employee_position = addEmployee_PojoClass.employee_designation
+
             if (!image_link.equals("null")) {
 
                 Picasso.get().load(Uri.parse(image_link)).into(itemView.profile_photo_item_imageView)
@@ -62,43 +60,19 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             itemView.employee_name_item.text = name
             itemView.employee_designation.text = employee_position
 
+            //profile View By company
             itemView.profile_view_item_layout.setOnClickListener {
-
-                /*  var addEmployee_PojoClass = AddEmployee_PojoClass(
-                          addEmployee_PojoClass.employee_name,
-                          addEmployee_PojoClass.employee_designation,
-                          addEmployee_PojoClass.employee_email,
-                          addEmployee_PojoClass.employee_joinDate,
-                          addEmployee_PojoClass.employee_salary,
-                          addEmployee_PojoClass.employee_password,
-                          addEmployee_PojoClass.employee_status,
-                          addEmployee_PojoClass.employee_Contact_period_number,
-                          addEmployee_PojoClass.employee_Contact_period_year_OR_month,
-                          addEmployee_PojoClass.company_User_id,
-                          addEmployee_PojoClass.employee_User_id,
-                          addEmployee_PojoClass.employee_profile_image_link,
-                          addEmployee_PojoClass.user_type
-                          )
-  */
                 var bundle = Bundle()
                 bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
-
-                var fragment: Fragment?
-                fragment = User_Profile()
-
-                if (fragment != null) {
-                    fragment.arguments = bundle
-
-                    val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                    fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
-                    fragmentTransaction.addToBackStack("")
-                    fragmentTransaction.commit()
-                }
-
+                load_Profile_Fragment(bundle)
             }
+            //Attendance View By company
             itemView.attendance_item_layout.setOnClickListener {
-                Toasty.info(itemView.context, "Attendance", Toasty.LENGTH_LONG).show()
+                var bundle = Bundle()
+                bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
+                load_attandence_Fragment(bundle)
             }
+            //remove user by Company
             itemView.remove_item_layout.setOnClickListener {
                 //                Toasty.info(itemView.context,"Remove",Toasty.LENGTH_LONG).show()
 
@@ -147,9 +121,39 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                             .addOnSuccessListener {
                                 Toasty.info(itemView.context, "Removed").show()
 
-                               }
+                            }
                 }
                 kAlertDialog.show()
+            }
+        }
+
+        private fun load_attandence_Fragment(bundle: Bundle) {
+
+
+            var fragment: Fragment?
+            fragment = User_Attendance_F()
+
+            if (fragment != null) {
+                fragment.arguments = bundle
+
+                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.commit()
+            }
+        }
+
+        private fun load_Profile_Fragment(bundle: Bundle) {
+
+
+            var fragment: Fragment?
+            fragment = User_Profile()
+
+            if (fragment != null) {
+                fragment.arguments = bundle
+
+                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.commit()
             }
         }
 

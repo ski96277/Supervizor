@@ -12,6 +12,8 @@ import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.Activity.ReceptionistMainActivity;
 import com.example.supervizor.R;
 
+import java.util.Calendar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -34,7 +36,7 @@ public class Employee_Attendance_F extends Fragment {
         year_spinner.getBackground().setColorFilter(getResources().getColor(R.color.text_white_color), PorterDuff.Mode.SRC_ATOP);
 
         String[] month_array = {"January", "February", "March", "April", "May", "june", "July", "August", "September", "October", "November", "December"};
-        ArrayAdapter<String> adapter_month=
+        ArrayAdapter<String> adapter_month =
                 new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, month_array);
         adapter_month.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         month_spinner.setAdapter(adapter_month);
@@ -44,6 +46,13 @@ public class Employee_Attendance_F extends Fragment {
                 new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, year_array);
         adapter_year.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         year_spinner.setAdapter(adapter_year);
+
+//SET current month
+        Calendar cal = Calendar.getInstance();
+        String current_month = month_array[cal.get(Calendar.MONTH)];
+        int selectionPosition = adapter_month.getPosition(current_month);
+        month_spinner.setSelection(selectionPosition);
+//SET current month End
 
     }
 

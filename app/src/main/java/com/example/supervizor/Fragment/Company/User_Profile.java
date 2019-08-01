@@ -41,12 +41,12 @@ import es.dmoral.toasty.Toasty;
 
 public class User_Profile extends Fragment {
 
-    TextView name_Tv;
-    TextView phone_TV;
-    TextView email_TV;
-    TextView calender_TV;
-    TextView name_profile_TV;
-    TextView designation_profile_TV;
+    private TextView name_Tv;
+    private TextView phone_TV;
+    private TextView email_TV;
+    private TextView calender_TV;
+    private TextView name_profile_TV;
+    private TextView designation_profile_TV;
     CircleImageView circleImageView;
 
     String user_id_employee;
@@ -172,7 +172,7 @@ public class User_Profile extends Fragment {
 
 
         Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.custom_alert_dialog_for_employee_event);
+        dialog.setContentView(R.layout.custom_alert_dialog_for_add_employee_event);
         dialog.setCancelable(false);
 
         TextView name_TV = dialog.findViewById(R.id.event_employee_name_TV_ID);
@@ -229,21 +229,15 @@ public class User_Profile extends Fragment {
             databaseReference.child("personal_event")
                     .child(user_ID_company).child(user_id_employee)
                     .child(date).setValue(event_details_pojoClass)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                            kAlertDialog.setTitleText("Done");
-                            kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(KAlertDialog kAlertDialog) {
+                    .addOnSuccessListener(aVoid -> {
+                        kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                        kAlertDialog.setTitleText("Done");
+                        kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
 
-                               kAlertDialog.dismissWithAnimation();
-                                    dialog.dismiss();
-                                }
-                            });
+                       kAlertDialog1.dismissWithAnimation();
+                            dialog.dismiss();
+                        });
 
-                        }
                     });
 
 

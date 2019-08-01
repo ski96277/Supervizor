@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentActivity
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.*
+import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.cancel_btn_alert_show_ID
+import kotlinx.android.synthetic.main.custom_alert_dialog_my_leave_application_show_employee.*
 import kotlinx.android.synthetic.main.item_all_leave_application.view.*
 import kotlin.math.log
 
@@ -51,8 +53,12 @@ class All_Leave_Application_List_Adapter(var leaveApplication_pojoClasses_list: 
 
             var dialog = Dialog(itemView.context)
             dialog.setCancelable(false)
-//            dialog.setContentView(R.layout.custom_alert_dialog_event_show_for_employee)
+            dialog.setContentView(R.layout.custom_alert_dialog_my_leave_application_show_employee)
 
+            dialog.leave_apply_date_TV_ID.text=leaveApplication_PojoClass.leave_applying_Date
+           dialog.leave_title_TV_ID.text=leaveApplication_PojoClass.leave_Title
+            dialog.leave_duration_TV_ID.text="${leaveApplication_PojoClass.leave_start_date} to ${leaveApplication_PojoClass.leave_End_Date}"
+            dialog.leave_details_details_TV_ID.text=leaveApplication_PojoClass.leave_description
 
             dialog.cancel_btn_alert_show_ID.setOnClickListener {
                 dialog.dismiss()

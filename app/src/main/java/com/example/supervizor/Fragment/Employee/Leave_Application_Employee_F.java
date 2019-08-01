@@ -2,7 +2,6 @@ package com.example.supervizor.Fragment.Employee;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.Calendar;
@@ -39,22 +35,21 @@ import es.dmoral.toasty.Toasty;
 
 public class Leave_Application_Employee_F extends Fragment implements View.OnClickListener {
 
-    protected EditText leaveTitleETID;
-    protected EditText leaveDescriptionETID;
-    protected TextView leaveStartTimeTVID;
-    protected TextView leaveENDTimeTVID;
-    protected Button LeaveSubmitBtnID;
+    private EditText leaveTitleETID;
+    private EditText leaveDescriptionETID;
+    private TextView leaveStartTimeTVID;
+    private TextView leaveENDTimeTVID;
     private AddEmployee_PojoClass addEmployee_pojoClass;
+    private int year;
+    private int month;
+    private int day;
+    private Calendar calendar;
 
-    int year;
-    int month;
-    int day;
-    Calendar calendar;
+    private DatePickerDialog datePickerDialog;
 
-    DatePickerDialog datePickerDialog;
+    private FirebaseDatabase firebaseDatabase;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
 
     @Nullable
     @Override
@@ -79,11 +74,11 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
 
         } else if (view.getId() == R.id.submit_leave_btn_ID) {
 //save value to Database
-            saveValueToDatabase(view);
+            saveValueToDatabase();
         }
     }
 
-    private void saveValueToDatabase(View view) {
+    private void saveValueToDatabase() {
 
         if (!CheckInternet.isInternet(getContext())) {
             Toasty.info(getContext(), "check Internet Connection").show();
@@ -134,28 +129,25 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
 //save value to Database
                 LeaveApplication_PojoClass leaveApplication_pojoClass = new LeaveApplication_PojoClass(user_ID_employee,
                         addEmployee_pojoClass.getCompany_User_id(),
-                        leave_Title, description, startDate, endDate,current_Date.toString() ,false);
+                        leave_Title, description, startDate, endDate, current_Date.toString(), false);
 
-                databaseReference.child("leave_application").child(addEmployee_pojoClass.getCompany_User_id())
-                        .child(addEmployee_pojoClass.getEmployee_User_id()).setValue(leaveApplication_pojoClass)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                                kAlertDialog.setTitleText("Uploaded");
-                                kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(KAlertDialog kAlertDialog) {
-                                        kAlertDialog.dismissWithAnimation();
-                                    }
-                                });
-                            }
+                String date = leaveStartTimeTVID.getText().toString();
+
+                databaseReference.child("leave_application")
+                        .child(addEmployee_pojoClass.getCompany_User_id())
+                        .child("pending")
+                        .child(leave_Title)
+                        .setValue(leaveApplication_pojoClass)
+                        .addOnCompleteListener(task -> {
+                            kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                            kAlertDialog.setTitleText("Uploaded...");
+                            kAlertDialog.setConfirmClickListener(kAlertDialog1 -> kAlertDialog1.dismissWithAnimation());
                         });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toasty.info(getContext(), "try later, somethings is wrong").show();
             }
         });
 
@@ -182,12 +174,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year);
-            }
-        }, year, month, day);
+        datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
         datePickerDialog.show();
     }
 
@@ -198,8 +185,8 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         leaveStartTimeTVID.setOnClickListener(Leave_Application_Employee_F.this);
         leaveENDTimeTVID = (TextView) rootView.findViewById(R.id.leave_END_Time_TV_ID);
         leaveENDTimeTVID.setOnClickListener(Leave_Application_Employee_F.this);
-        LeaveSubmitBtnID = (Button) rootView.findViewById(R.id.submit_leave_btn_ID);
-        LeaveSubmitBtnID.setOnClickListener(Leave_Application_Employee_F.this);
+        Button leaveSubmitBtnID = (Button) rootView.findViewById(R.id.submit_leave_btn_ID);
+        leaveSubmitBtnID.setOnClickListener(Leave_Application_Employee_F.this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();

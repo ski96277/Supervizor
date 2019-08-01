@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.R;
 
+import java.util.Calendar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -49,6 +51,13 @@ public class User_Attendance_F extends Fragment {
                 new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, year_array);
         adapter_year.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         year_spinner.setAdapter(adapter_year);
+
+//SET current month
+        Calendar cal = Calendar.getInstance();
+        String current_month = month_array[cal.get(Calendar.MONTH)];
+        int selectionPosition = adapter_month.getPosition(current_month);
+        month_spinner.setSelection(selectionPosition);
+//SET current month End
 
     }
 

@@ -42,7 +42,7 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
 
     Check_User_information check_user_information;
     String user_ID;
-    KAlertDialog kAlertDialog;
+//    KAlertDialog kAlertDialog;
     RecyclerView recyclerView_all_event;
     RecyclerView recyclerView_personal_Event;
 
@@ -65,13 +65,14 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
             Toasty.info(getActivity(), "Check Internet Connection").show();
             return;
         }
-        kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        /*kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Loading.....");
 
 
         kAlertDialog.show();
+        */
         if (!CheckInternet.isInternet(getContext())){
-            kAlertDialog.dismissWithAnimation();
+//            kAlertDialog.dismissWithAnimation();
             Toasty.error(getContext(),"Check Internet Connection").show();
             return;
         }
@@ -105,7 +106,7 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_all_event.setLayoutManager(linearLayoutManager);
                             recyclerView_all_event.setAdapter(event_list_adapter);
-                            kAlertDialog.dismissWithAnimation();
+//                            kAlertDialog.dismissWithAnimation();
                         }
 
 
@@ -113,8 +114,9 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toasty.info(getContext(), "have some problem try it later").show();
 
-                        kAlertDialog.dismissWithAnimation();
+//                        kAlertDialog.dismissWithAnimation();
                     }
                 });
         //get personal event
@@ -142,7 +144,7 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_personal_Event.setLayoutManager(linearLayoutManager);
                             recyclerView_personal_Event.setAdapter(event_list_adapter);
-                            kAlertDialog.dismissWithAnimation();
+//                            kAlertDialog.dismissWithAnimation();
                         }
 
 
@@ -150,15 +152,15 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        kAlertDialog.dismissWithAnimation();
+                        Toasty.info(getContext(), "have some problem try it later").show();
+//                        kAlertDialog.dismissWithAnimation();
                     }
                 });
     }
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        Toasty.info(getContext(), "have some problem try it later").show();
     }
 });
 

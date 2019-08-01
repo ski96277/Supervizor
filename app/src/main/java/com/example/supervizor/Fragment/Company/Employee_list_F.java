@@ -45,18 +45,16 @@ import es.dmoral.toasty.Toasty;
 
 public class Employee_list_F extends Fragment {
 
-    public static ImageButton plus_icon_button;
-    public static EditText search_ET;
-    public static Spinner spinner_ET;
-    int count = 0;
-    Button add_employee_btn;
-    Button add_receptionist_btn;
-    LinearLayout add_emplo_layout, all_search_layout;
+    private ImageButton plus_icon_button;
+    private EditText search_ET;
+    private Spinner spinner_ET;
+    private int count = 0;
+    private Button add_employee_btn;
+    private Button add_receptionist_btn;
+    private LinearLayout add_emplo_layout, all_search_layout;
 
-    //    SignUp_Pojo signUp_pojo;
-    AddEmployee_PojoClass addEmployee_pojoClass;
 
-    ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
+    private ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
 
 
     // Write a message to the database
@@ -90,132 +88,128 @@ public class Employee_list_F extends Fragment {
         spinner_ET.requestFocus();
 
 
-        plus_icon_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count++;
-                if (count % 2 != 0) {
+        plus_icon_button.setOnClickListener(v -> {
+            count++;
+            if (count % 2 != 0) {
 
-                    YoYo.with(Techniques.SlideInDown)
-                            .duration(700)
-                            .repeat(0)
-                            .playOn(add_emplo_layout);
+                YoYo.with(Techniques.SlideInDown)
+                        .duration(700)
+                        .repeat(0)
+                        .playOn(add_emplo_layout);
 
-                    add_emplo_layout.setVisibility(View.VISIBLE);
-                    all_search_layout.setBackgroundColor(Color.parseColor("#000000"));
-                    spinner_ET.setVisibility(View.INVISIBLE);
-                    spinner_ET.setBackgroundColor(Color.parseColor("#010D1B"));
-                    search_ET.setVisibility(View.INVISIBLE);
-                    search_ET.setBackgroundColor(Color.parseColor("#010D1B"));
-                    plus_icon_button.setImageResource(R.drawable.cross_icon);
+                add_emplo_layout.setVisibility(View.VISIBLE);
+                all_search_layout.setBackgroundColor(Color.parseColor("#000000"));
+                spinner_ET.setVisibility(View.INVISIBLE);
+                spinner_ET.setBackgroundColor(Color.parseColor("#010D1B"));
+                search_ET.setVisibility(View.INVISIBLE);
+                search_ET.setBackgroundColor(Color.parseColor("#010D1B"));
+                plus_icon_button.setImageResource(R.drawable.cross_icon);
 
 
 //hide key pad start
-                    View view = getActivity().getCurrentFocus();
-                    if (view != null) {
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    }
+                View view1 = getActivity().getCurrentFocus();
+                if (view1 != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+                }
 //Hide key pad End
 
-                } else {
+            } else {
 
-                    YoYo.with(Techniques.SlideInUp)
-                            .duration(700)
-                            .repeat(0)
-                            .playOn(add_emplo_layout);
+                YoYo.with(Techniques.SlideInUp)
+                        .duration(1000)
+                        .repeat(0)
+                        .playOn(add_emplo_layout);
 
-                    add_emplo_layout.setVisibility(View.GONE);
-                    all_search_layout.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                    spinner_ET.setVisibility(View.VISIBLE);
-                    search_ET.setVisibility(View.VISIBLE);
+                add_emplo_layout.setVisibility(View.GONE);
+                all_search_layout.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                spinner_ET.setVisibility(View.VISIBLE);
+                search_ET.setVisibility(View.VISIBLE);
 
-                    plus_icon_button.requestFocus();
-                    search_ET.requestFocus();
-                    spinner_ET.requestFocus();
+                plus_icon_button.requestFocus();
+                search_ET.requestFocus();
+                spinner_ET.requestFocus();
 
-                    spinner_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
-                    search_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
+                spinner_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
+                search_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
 
-                    plus_icon_button.setImageResource(R.drawable.plus);
-                }
+                plus_icon_button.setImageResource(R.drawable.plus);
             }
         });
         //add employee btn
-        add_employee_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        add_employee_btn.setOnClickListener(v -> {
 
-                Fragment fragment = new Add_Employee();
-
-
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                    fragmentTransaction.addToBackStack("");
-                    fragmentTransaction.commit();
-                }
+            if (!CheckInternet.isInternet(getContext())) {
+                Toasty.info(getContext(), "Check internet Connection").show();
+                return;
+            }
+            Fragment fragment = new Add_Employee();
+            if (fragment != null) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.company_main_screen, fragment);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
             }
         });
         //add employee btn END
-        add_receptionist_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        add_receptionist_btn.setOnClickListener(v -> {
 
-                Fragment fragment = new Add_Receptionist();
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                    fragmentTransaction.addToBackStack("");
-                    fragmentTransaction.commit();
-                }
+            if (!CheckInternet.isInternet(getContext())) {
+                Toasty.info(getContext(), "Check internet Connection").show();
+                return;
+            }
+            Fragment fragment = new Add_Receptionist();
+            if (fragment != null) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.company_main_screen, fragment);
+                fragmentTransaction.addToBackStack("");
+                fragmentTransaction.commit();
             }
         });
 
         Check_User_information check_user_information = new Check_User_information();
         String userID_company = check_user_information.getUserID();
 
-        if (!CheckInternet.isInternet(getContext())){
-            Toasty.info(getContext(),"internet Error").show();
+        if (!CheckInternet.isInternet(getContext())) {
+            Toasty.info(getContext(), "Check internet Connection").show();
             return;
         }
 
-        KAlertDialog kAlertDialog=new KAlertDialog(getContext(),KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Data Loading");
+        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog.setTitleText("Data Loading....");
         kAlertDialog.show();
 
         myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        addEmployee_pojoClasses.clear();
+                addEmployee_pojoClasses.clear();
 
-                        for (DataSnapshot snapshot : dataSnapshot.child("employee_list_by_company").child(userID_company)
-                                .getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.child("employee_list_by_company").child(userID_company)
+                        .getChildren()) {
 
-                            AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
+                    AddEmployee_PojoClass addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass.class);
 
-                            addEmployee_pojoClasses.add(addEmployeePojoClass);
+                    addEmployee_pojoClasses.add(addEmployeePojoClass);
 
-                        }
+                }
+                All_Employee_List_Adapter all_employee_list_adapter = new All_Employee_List_Adapter(addEmployee_pojoClasses);
 
-                        All_Employee_List_Adapter all_employee_list_adapter=new All_Employee_List_Adapter(addEmployee_pojoClasses);
+                all_employee_list_adapter.notifyDataSetChanged();
 
-                        all_employee_list_adapter.notifyDataSetChanged();
-                        
-                        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-                        recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
 
-                        recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
-                        //dismiss alert dialog
-                        kAlertDialog.dismiss();
-                    }
+                recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
+                //dismiss alert dialog
+                kAlertDialog.dismiss();
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+            }
+        });
 
 
     }
@@ -236,7 +230,7 @@ public class Employee_list_F extends Fragment {
 
         addEmployee_pojoClasses = new ArrayList<>();
 
-        recyclerview_all_employee_ID=view.findViewById(R.id.recyclerview_all_employee_ID);
+        recyclerview_all_employee_ID = view.findViewById(R.id.recyclerview_all_employee_ID);
 
     }
 
