@@ -123,16 +123,10 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                 //get value from Database
                 addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID_employee).getValue(AddEmployee_PojoClass.class);
 
-
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate current_Date = LocalDate.now();
 //save value to Database
-                LeaveApplication_PojoClass leaveApplication_pojoClass = new LeaveApplication_PojoClass(user_ID_employee,
-                        addEmployee_pojoClass.getCompany_User_id(),
-                        leave_Title, description, startDate, endDate, current_Date.toString(), false);
-
-                String date = leaveStartTimeTVID.getText().toString();
-
+                LeaveApplication_PojoClass leaveApplication_pojoClass =
+                        new LeaveApplication_PojoClass(addEmployee_pojoClass.getEmployee_User_id(),addEmployee_pojoClass.getCompany_User_id(),leave_Title,description,startDate,endDate,current_Date.toString(),addEmployee_pojoClass.getEmployee_profile_image_link(),addEmployee_pojoClass.getEmployee_name(),addEmployee_pojoClass.getEmployee_designation(),false);
                 databaseReference.child("leave_application")
                         .child(addEmployee_pojoClass.getCompany_User_id())
                         .child("pending")

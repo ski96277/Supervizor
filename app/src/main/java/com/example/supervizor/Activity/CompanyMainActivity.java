@@ -62,7 +62,7 @@ public class CompanyMainActivity extends AppCompatActivity
     private ImageView profile_image_nav;
     private TextView profile_company_name_nav;
     private TextView profile_company_email_nav;
-    private TextView leave_notification_nav;
+    public static TextView leave_notification_nav;
 
     private FirebaseDatabase database;
     private DatabaseReference myDatabaseRef;

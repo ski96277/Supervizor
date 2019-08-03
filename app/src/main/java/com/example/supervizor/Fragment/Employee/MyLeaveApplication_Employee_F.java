@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.AdapterClass.All_Leave_Application_List_Adapter;
+import com.example.supervizor.AdapterClass.All_Leave_Application_List_Employee_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -91,11 +91,11 @@ public class MyLeaveApplication_Employee_F extends Fragment {
                         Log.e("TAG", "onDataChange: size = " + leaveApplication_pojoClasses_list.size());
                         Log.e("TAG", "onDataChange: date = " + leaveApplication_pojoClass.getLeave_applying_Date());
                         Log.e("TAG", "onDataChange: title = " + leaveApplication_pojoClass.getLeave_Title());
-                        All_Leave_Application_List_Adapter all_leave_application_list_adapter = new All_Leave_Application_List_Adapter(
+                        All_Leave_Application_List_Employee_Adapter all_leave_application_list_Employee_adapter = new All_Leave_Application_List_Employee_Adapter(
                                 leaveApplication_pojoClasses_list,
                                 image_link);
 //set adapter
-                        leaveApplicationList.setAdapter(all_leave_application_list_adapter);
+                        leaveApplicationList.setAdapter(all_leave_application_list_Employee_adapter);
                         kAlertDialog.dismissWithAnimation();
 
                     }

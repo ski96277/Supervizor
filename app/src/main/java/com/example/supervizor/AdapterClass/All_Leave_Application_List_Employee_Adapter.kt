@@ -6,18 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.R
-import java.util.ArrayList
-import androidx.fragment.app.FragmentActivity
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
-import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.*
 import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.cancel_btn_alert_show_ID
 import kotlinx.android.synthetic.main.custom_alert_dialog_my_leave_application_show_employee.*
 import kotlinx.android.synthetic.main.item_all_leave_application.view.*
-import kotlin.math.log
 
 
-class All_Leave_Application_List_Adapter(var leaveApplication_pojoClasses_list: List<LeaveApplication_PojoClass>, image_link: String?) : RecyclerView.Adapter<All_Leave_Application_List_Adapter.ViewHolderClass>() {
+class All_Leave_Application_List_Employee_Adapter(var leaveApplication_pojoClasses_list: List<LeaveApplication_PojoClass>, image_link: String?) : RecyclerView.Adapter<All_Leave_Application_List_Employee_Adapter.ViewHolderClass>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {

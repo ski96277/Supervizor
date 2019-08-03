@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/leave_item_profile_photo_imageView_leave"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile"
+                card_view:civ_border_color="#000"
+                card_view:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/leave_title_item_application"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/leave_item_profile_photo_imageView_leave"
+                android:fontFamily="@font/ebrimabd"
+                android:gravity="left"
+                android:paddingLeft="20sp"
+                android:text="leave Title"
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/leave_details_item_application"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leave_title_item_application"
+                android:layout_toRightOf="@id/leave_item_profile_photo_imageView_leave"
+                android:fontFamily="@font/raleway_italic"
+                android:gravity="left"
+                android:paddingLeft="20sp"
+                android:text="details"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
