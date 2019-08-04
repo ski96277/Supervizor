@@ -2,15 +2,13 @@ package com.example.supervizor.Fragment.Company;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
-import com.example.supervizor.AdapterClass.Leave_Application_Pending_Adapter;
+import com.example.supervizor.AdapterClass.Leave_Application_Pending_Adapter_Company;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -36,7 +34,7 @@ public class LeaveApplication_Pending_F extends Fragment {
     private View rootView;
     private RecyclerView leavePendingApplicationList;
     private DatabaseReference databaseReference;
-    private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses = new ArrayList<>();
+    private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses_Unseen_list = new ArrayList<>();
     private Check_User_information check_user_information;
     long count_leave_Application;
 
@@ -81,28 +79,44 @@ public class LeaveApplication_Pending_F extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //get count update nav bar number
-                count_leave_Application =  dataSnapshot.child("leave_application")
-                        .child(check_user_information.getUserID())
-                        .child("pending").getChildrenCount();
-                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(count_leave_Application));
-//get data for recycler view
-                leaveApplication_pojoClasses.clear();
+//                count_leave_Application =  dataSnapshot.child("leave_application")
+//                        .child(check_user_information.getUserID())
+//                        .child("pending").getChildrenCount();
+//                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(count_leave_Application));
+
+                //get data for recycler view
+                leaveApplication_pojoClasses_Unseen_list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
                         .child(check_user_information.getUserID())
                         .child("pending").getChildren()) {
                     LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
-                    leaveApplication_pojoClasses.add(leaveApplication_pojoClass);
+                    if (leaveApplication_pojoClass.isLeave_seen()){
+
+                    }else {
+
+                        leaveApplication_pojoClasses_Unseen_list.add(leaveApplication_pojoClass);
+                    }
                 }
-                Log.e("TAG - -", "onDataChange: " + leaveApplication_pojoClasses.size());
+                //set count update nav bar number
 
-                Leave_Application_Pending_Adapter leave_application_pending_adapter = new Leave_Application_Pending_Adapter(leaveApplication_pojoClasses);
+                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_Unseen_list.size()));
 
+                Leave_Application_Pending_Adapter_Company leave_application_pending_adapterCompany = new Leave_Application_Pending_Adapter_Company(leaveApplication_pojoClasses_Unseen_list);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 leavePendingApplicationList.setLayoutManager(linearLayoutManager);
-
-                leavePendingApplicationList.setAdapter(leave_application_pending_adapter);
+                leavePendingApplicationList.setAdapter(leave_application_pending_adapterCompany);
                 kAlertDialog.dismissWithAnimation();
-            }
+
+                //if recycler view is empty
+                if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
+                 Toasty.info(getActivity(),"No Data Found.....").show();
+                    /*   KAlertDialog kAlertDialog1 = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+                    kAlertDialog1.setTitleText("No Data Found.....");
+                    kAlertDialog1.show();
+                    kAlertDialog1.setConfirmClickListener(kAlertDialog2 -> kAlertDialog1.dismissWithAnimation());
+                */}
+
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

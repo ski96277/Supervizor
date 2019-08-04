@@ -32,9 +32,9 @@
         android:id="@+id/leave_duration_TV_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Time : 12.06 PM"
+        android:text="01/05/2019 to 20/5/3021"
+        android:textColor="#130606"
         android:textSize="20sp"
-        android:textColor="#FF0707"
         android:gravity="center"
         android:paddingLeft="10sp"
         android:fontFamily="@font/raleway_italic"/>

@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,13 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.ScanResult_Activiy"></activity>
         <activity
             android:name=".Activity.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Forget_Password"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activity.Login_Activity"/>
+            android:parentActivityName=".Activity.Login_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ReceptionistMainActivity"
             android:label="@string/title_activity_receptionist_main"
@@ -43,6 +46,12 @@
             android:label="@string/title_activity_company_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"/>
+
         <activity
             android:name=".Activity.Login_Activity"
             android:screenOrientation="portrait">

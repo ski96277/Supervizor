@@ -1,5 +1,6 @@
 package com.example.supervizor.Fragment.Employee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.supervizor.Activity.ScanResult_Activiy;
+import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
 
 import androidx.annotation.NonNull;
@@ -44,7 +47,15 @@ public class Scan_Employee_F extends Fragment implements View.OnClickListener {
     }
 
     private void entryTimeMethod() {
-        Toast.makeText(getContext(), "entry time", Toast.LENGTH_SHORT).show();
+
+        if (CheckInternet.isInternet(getContext())){
+
+            startActivity(new Intent(getContext(), ScanResult_Activiy.class));
+
+        }else {
+            Toasty.info(getContext(),"Check Internet Connection").show();
+        }
+
     }
 
     private void exitTimeMethod() {

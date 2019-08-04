@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/pdf_generate_to_this_employee"
+        android:orderInCategory="100"
+        android:title="Add Event"
+        android:visible="false"
+        android:icon="@drawable/ic_picture_as_pdf_black_24dp"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_call_notification"
         android:icon="@drawable/notification"

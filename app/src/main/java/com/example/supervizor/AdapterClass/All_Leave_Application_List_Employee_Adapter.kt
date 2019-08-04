@@ -33,9 +33,16 @@ class All_Leave_Application_List_Employee_Adapter(var leaveApplication_pojoClass
 
     class ViewHolderClass(itemview: View) : RecyclerView.ViewHolder(itemview) {
         fun setData(leaveApplication_PojoClass: LeaveApplication_PojoClass) {
-//            Toasty.info(itemView.context, leaveApplication_PojoClass.leave_End_Date).show()
+
             itemView.leave_title_TV.text = leaveApplication_PojoClass.leave_Title
             itemView.date_TV.text = leaveApplication_PojoClass.leave_description
+            if(leaveApplication_PojoClass.isLeave_seen){
+itemView.leave_status_icon_id_IV.setImageResource(R.drawable.accepted_icon)
+            }else{
+
+                itemView.leave_status_icon_id_IV.setImageResource(R.drawable.pending_icon)
+            }
+
 
             itemView.setOnClickListener {
                 showDialog_details(itemView,leaveApplication_PojoClass)

@@ -1,46 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10sp"
+    android:elevation="10sp">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
-    android:elevation="10sp"
-    android:layout_margin="10sp">
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/leave_title_TV"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/raleway_bolditalic"
+            android:maxLines="1"
+            android:paddingLeft="20sp"
+            android:text="Hello "
+            android:textColor="#000"
+            android:textSize="30sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/leave_status_icon_id_IV"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30sp"
+            android:src="@drawable/pending_icon"/>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/date_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/raleway_italic"
+            android:maxLines="1"
+            android:paddingLeft="20sp"
+            android:text="Hello "
+            android:textColor="#000"
+            android:textSize="20sp" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="Hello "
-            android:fontFamily="@font/raleway_bolditalic"
-            android:textColor="#000"
-            android:paddingLeft="20sp"
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:layout_height="2dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginLeft="40sp"
+            android:layout_marginRight="40sp"
+            android:background="#397AA8" />
+    </LinearLayout>
 
-            android:id="@+id/leave_title_TV"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Hello "
-            android:fontFamily="@font/raleway_italic"
-            android:paddingLeft="20sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="#000"
-            android:id="@+id/date_TV"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="40sp"
-                android:layout_marginRight="40sp"
-                android:background="#397AA8"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 
 

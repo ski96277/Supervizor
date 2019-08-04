@@ -13,7 +13,9 @@ import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
 import com.example.supervizor.Fragment.Company.User_Attendance_F;
+import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
+import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
 import android.os.Parcelable;
@@ -52,6 +54,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CompanyMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,21 +68,22 @@ public class CompanyMainActivity extends AppCompatActivity
     private TextView profile_company_name_nav;
     private TextView profile_company_email_nav;
     public static TextView leave_notification_nav;
-
+    private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses_list = new ArrayList<>();
     private FirebaseDatabase database;
     private DatabaseReference myDatabaseRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private SignUp_Pojo signUp_pojo;
+    private Check_User_information check_user_information;
 
 
     public static NavigationView navigationView;
-    public  static LinearLayout employee_and_calender_layout;
-    public  static LinearLayout pending_and_approved_layout;
-    public  static LinearLayout employee_button_layout;
-    public  static LinearLayout calender_button_layout;
-    public  static LinearLayout pending_button_layout ;
-    public  static LinearLayout approved_button_layout;
+    public static LinearLayout employee_and_calender_layout;
+    public static LinearLayout pending_and_approved_layout;
+    public static LinearLayout employee_button_layout;
+    public static LinearLayout calender_button_layout;
+    public static LinearLayout pending_button_layout;
+    public static LinearLayout approved_button_layout;
 
     Toolbar toolbar;
 
@@ -164,7 +170,7 @@ public class CompanyMainActivity extends AppCompatActivity
 //set profile information in navigation
 
     private void LoadCompanyinformation_On_The_Nav() {
-        myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -178,19 +184,37 @@ public class CompanyMainActivity extends AppCompatActivity
                 Picasso.get().load(logo_download_link).into(profile_image_nav);
                 profile_company_name_nav.setText(name);
                 profile_company_email_nav.setText(email);
+                
+                leaveApplication_pojoClasses_list.clear();
+                for (DataSnapshot snapshot :
+                        dataSnapshot.child("leave_application")
+                                .child(check_user_information.getUserID())
+                                .child("pending").getChildren()) {
+
+                    LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
+                    if (leaveApplication_pojoClass.isLeave_seen()) {
+
+                    } else {
+                        leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
+                    }
+                }
+                leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_list.size()));
+
+/*
 
                 //get count leave application
                 long count_leave = dataSnapshot.child("leave_application")
                         .child(signUp_pojo.getCompany_user_id())
                         .child("pending")
                         .getChildrenCount();
+*/
 
                 //set count number in the nav bar
-                if (count_leave < 1) {
+                /*if (count_leave < 1) {
                     leave_notification_nav.setText(String.valueOf(0));
                 } else {
                     leave_notification_nav.setText(String.valueOf(count_leave));
-                }
+                }*/
 
             }
 
@@ -204,6 +228,7 @@ public class CompanyMainActivity extends AppCompatActivity
     }
 
     private void initialize() {
+        check_user_information = new Check_User_information();
 
         button_employee = findViewById(R.id.employee_button);
         button_calender = findViewById(R.id.calender_button);
@@ -212,14 +237,14 @@ public class CompanyMainActivity extends AppCompatActivity
         button_approved = findViewById(R.id.approved_button);
 
 
-         employee_and_calender_layout = findViewById(R.id.employee_and_calender_layout_ID);
-         pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
+        employee_and_calender_layout = findViewById(R.id.employee_and_calender_layout_ID);
+        pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
 
-         employee_button_layout = findViewById(R.id.employee_button_layout);
-         calender_button_layout = findViewById(R.id.calender_button_layout);
+        employee_button_layout = findViewById(R.id.employee_button_layout);
+        calender_button_layout = findViewById(R.id.calender_button_layout);
 
-         pending_button_layout = findViewById(R.id.pending_button_layout);
-         approved_button_layout = findViewById(R.id.approved_button_layout);
+        pending_button_layout = findViewById(R.id.pending_button_layout);
+        approved_button_layout = findViewById(R.id.approved_button_layout);
 
         database = FirebaseDatabase.getInstance();
         myDatabaseRef = database.getReference();

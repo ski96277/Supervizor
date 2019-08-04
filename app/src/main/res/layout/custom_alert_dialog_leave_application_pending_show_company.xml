@@ -44,8 +44,8 @@
         android:fontFamily="@font/raleway_italic"
         android:gravity="center"
         android:paddingLeft="10sp"
-        android:text="Time : 12.06 PM"
-        android:textColor="#FF0707"
+        android:text="01/05/2019 to 20/5/3021"
+        android:textColor="#2B0B0B"
         android:textSize="20sp" />
 
     <TextView
@@ -79,6 +79,12 @@
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
             android:textSize="25sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25sp"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/cancel_btn_alert_show_ID_company"
                 android:layout_width="match_parent"
@@ -88,6 +94,17 @@
                 android:background="#9C27B0"
                 android:fontFamily="@font/raleway_bolditalic"
                 android:text="Cancel" />
+            <Button
+                android:id="@+id/accept_btn_alert_show_ID_company"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_margin="10sp"
+                android:layout_weight="1"
+                android:background="#9C27B0"
+                android:fontFamily="@font/raleway_bolditalic"
+                android:text="Accept" />
+        </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
