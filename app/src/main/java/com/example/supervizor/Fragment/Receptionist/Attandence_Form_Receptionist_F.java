@@ -78,22 +78,6 @@ public class Attandence_Form_Receptionist_F extends Fragment {
         Check_User_information check_user_information=new Check_User_information();
        user_ID_reception =check_user_information.getUserID();
 
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID_reception).getValue(AddEmployee_PojoClass.class);
-//
-//                email_st_reception = addEmployee_pojoClass.getEmployee_email();
-//                pass_st_reception = addEmployee_pojoClass.getEmployee_password();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
         //get selected radio button text
         radioGroup_ID.setOnCheckedChangeListener((group, checkedId) -> {
 
@@ -108,12 +92,7 @@ public class Attandence_Form_Receptionist_F extends Fragment {
         });
 
         //click on login button
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginFrom_Receptionist(v);
-            }
-        });
+        button_login.setOnClickListener(v -> loginFrom_Receptionist(v));
 
 
     }

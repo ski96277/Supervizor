@@ -45,15 +45,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Imran Sk"
+                    android:text="Loading..."
                     android:textColor="#FFF"
+                    android:textAllCaps="false"
                     android:fontFamily="sans-serif-smallcaps"
                     android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Android Developer"
+                    android:text="Loading..."
                     android:textColor="#FFF"
                     android:fontFamily="@font/raleway_italic"
                     android:textSize="20sp" />

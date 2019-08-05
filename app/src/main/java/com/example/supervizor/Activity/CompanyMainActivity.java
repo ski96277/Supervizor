@@ -117,7 +117,7 @@ public class CompanyMainActivity extends AppCompatActivity
 //set profile information in navigation
         LoadCompanyinformation_On_The_Nav();
 
-//set action into nav profile image and text
+//set action into nav profile image and intent_text
         profile_image_nav.setOnClickListener(v -> {
             load_profile_From_navBar();
         });
@@ -130,7 +130,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
 //set leave notification count
         leave_notification_nav = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_leave_application));
-        //Gravity property aligns the text
+        //Gravity property aligns the intent_text
         leave_notification_nav.setGravity(Gravity.CENTER_VERTICAL);
         leave_notification_nav.setTypeface(null, Typeface.BOLD);
         leave_notification_nav.setTextColor(getResources().getColor(R.color.red_Color));
