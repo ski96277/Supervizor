@@ -13,6 +13,7 @@ import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
 import com.example.supervizor.Fragment.Company.User_Attendance_F;
+import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -184,7 +185,7 @@ public class CompanyMainActivity extends AppCompatActivity
                 Picasso.get().load(logo_download_link).into(profile_image_nav);
                 profile_company_name_nav.setText(name);
                 profile_company_email_nav.setText(email);
-                
+
                 leaveApplication_pojoClasses_list.clear();
                 for (DataSnapshot snapshot :
                         dataSnapshot.child("leave_application")
@@ -199,22 +200,6 @@ public class CompanyMainActivity extends AppCompatActivity
                     }
                 }
                 leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_list.size()));
-
-/*
-
-                //get count leave application
-                long count_leave = dataSnapshot.child("leave_application")
-                        .child(signUp_pojo.getCompany_user_id())
-                        .child("pending")
-                        .getChildrenCount();
-*/
-
-                //set count number in the nav bar
-                /*if (count_leave < 1) {
-                    leave_notification_nav.setText(String.valueOf(0));
-                } else {
-                    leave_notification_nav.setText(String.valueOf(count_leave));
-                }*/
 
             }
 
@@ -360,11 +345,43 @@ public class CompanyMainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_call_notification) {
-            Toasty.info(this, "Alert show ").show();
+            callAlertReceptit();
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void callAlertReceptit() {
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Check_User_information check_user_information = new Check_User_information();
+
+                for (DataSnapshot snapshot : dataSnapshot.child("receptionist_list_by_company")
+                        .child(check_user_information.getUserID()).getChildren()) {
+
+                    AddReceptionist_PojoClass addReceptionist_pojoClass = snapshot.getValue(AddReceptionist_PojoClass.class);
+                    databaseReference.child("Alert").child(addReceptionist_pojoClass.getCompany_user_ID())
+                            .child(addReceptionist_pojoClass.getReceptionist_user_ID())
+                            .child("status").setValue(true);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

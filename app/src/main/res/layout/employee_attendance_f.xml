@@ -43,6 +43,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/name_TV_ID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Loading..."
@@ -52,6 +53,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/designation_TV_ID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Loading..."
