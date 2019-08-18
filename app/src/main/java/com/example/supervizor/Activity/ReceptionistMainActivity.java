@@ -1,8 +1,14 @@
 package com.example.supervizor.Activity;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
@@ -13,8 +19,10 @@ import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
+import android.preference.PreferenceManager;
 import android.view.View;
 
+import com.example.supervizor.job_scheduler_For_Alert.MjobScheduler;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,9 +31,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -63,16 +73,34 @@ public class ReceptionistMainActivity extends AppCompatActivity
     DatabaseReference databaseReference;
 
 
+    public static final int JOB_ID = 101;
+    private static final long REFRESH_INTERVAL  = 2 * 1000; // 5 seconds
+    private JobScheduler jobScheduler;
+    private JobInfo jobInfo;
+    Check_User_information check_user_information;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor ;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receptionist_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         setActionBarTitle("DashBoard");
+
+
+
 //initilaze the widget
         initialize();
+        //start background service
+        startJobService();
+
+        CheckAlert_Is_Calling();
+
 //set default color in button background
         qr_code_layout.setBackgroundColor(Color.parseColor("#01C1FF"));
 
@@ -122,6 +150,12 @@ public class ReceptionistMainActivity extends AppCompatActivity
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(check_user_information.getUserID())
                         .getValue(AddEmployee_PojoClass.class);
 
+//save company userID to local database
+                String company_userID = addEmployee_pojoClass.getCompany_User_id();
+                editor.putString("company_userID",company_userID);
+                editor.apply();
+
+
                 if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
 
                     Picasso.get().load(addEmployee_pojoClass.getEmployee_profile_image_link())
@@ -142,6 +176,109 @@ public class ReceptionistMainActivity extends AppCompatActivity
 //        loadDefaultFragment
         receptionistHomeFragment();
 
+    }
+
+    private void CheckAlert_Is_Calling() {
+        check_user_information = new Check_User_information();
+        //check if the activity start from job service
+        String string_value = getIntent().getStringExtra("value");
+        if (string_value != null && !string_value.isEmpty()) {
+            if (string_value.equals("from_jobservice")) {
+
+                //get company user id from local database
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String company_userID = preferences.getString("company_userID", "");
+
+                databaseReference.child("alert_status_receptionist")
+                        .child(company_userID)
+                        .child(check_user_information.getUserID())
+                        .child("alert_status")
+                        .setValue("0");
+
+                final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.alertmusic);
+                mp.start();
+
+                KAlertDialog kAlertDialog = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
+                kAlertDialog.setTitleText("Alert !");
+                kAlertDialog.setContentText("Call From HR Head");
+                kAlertDialog.show();
+                kAlertDialog.showCancelButton(true);
+                kAlertDialog.setCancelText("Cancel");
+                kAlertDialog.setCancelClickListener(kAlertDialog12 -> {
+                    Toasty.info(getApplicationContext(), "cancel").show();
+                    kAlertDialog.dismissWithAnimation();
+                    mp.stop();
+                    mp.release();
+                });
+                kAlertDialog.setConfirmText("OK")
+                        .setConfirmClickListener(kAlertDialog1 ->
+
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                String company_alert_status=dataSnapshot
+                                .child("alert_status_company")
+                                        .child(company_userID)
+                                        .child("alert_status")
+                                        .getValue(String.class);
+
+                                if (company_alert_status.equals("0")){
+                                    /*kAlertDialog.dismissWithAnimation();
+                                    kAlertDialog.show();*/
+                                    kAlertDialog.setTitleText("Call already Accepted, wait for next call");
+                                    kAlertDialog.setConfirmClickListener(kAlertDialog2 -> kAlertDialog.dismissWithAnimation());
+
+                                }else if (company_alert_status.equals("1")){
+
+                                    databaseReference.child("alert_status_company")
+                                            .child(company_userID)
+                                            .child("alert_status")
+                                            .setValue("0");
+                                    kAlertDialog.dismiss();
+                                    mp.stop();
+                                    mp.release();
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        }));
+            }
+        }
+        //check if the activity start from job service  END
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startJobService() {
+
+        ComponentName componentName = new ComponentName(this, MjobScheduler.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                    .setMinimumLatency(REFRESH_INTERVAL)
+                    .build();
+        } else {
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .build();
+        }
+
+  /*      JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, componentName);
+        builder.setPeriodic(1000);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        builder.setPersisted(true);
+
+        jobInfo = builder.build();*/
+
+        jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+
+        //start Job schedule  Start
+        jobScheduler.schedule(jobInfo);
+        //start Job schedule END
     }
 
     //Profile Fragment Call
@@ -168,6 +305,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
     }
+
     private void receptionist_Attandence_Fragment() {
         fragment = new Receptionist_Attendance_F();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -192,6 +330,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
     }
 
 

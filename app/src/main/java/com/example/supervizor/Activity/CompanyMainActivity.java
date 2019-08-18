@@ -16,13 +16,17 @@ import com.example.supervizor.Fragment.Company.User_Attendance_F;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
+import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -76,7 +81,6 @@ public class CompanyMainActivity extends AppCompatActivity
     private FirebaseUser currentUser;
     private SignUp_Pojo signUp_pojo;
     private Check_User_information check_user_information;
-
 
     public static NavigationView navigationView;
     public static LinearLayout employee_and_calender_layout;
@@ -345,7 +349,12 @@ public class CompanyMainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_call_notification) {
-            callAlertReceptit();
+
+            if (!CheckInternet.isInternet(this)) {
+                Toasty.info(this, "Check Internet Connection").show();
+            } else {
+                callAlertReceptit();
+            }
 
             return true;
         }
@@ -354,6 +363,10 @@ public class CompanyMainActivity extends AppCompatActivity
     }
 
     private void callAlertReceptit() {
+
+        KAlertDialog kAlertDialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog.show();
+        kAlertDialog.setTitleText("Sending Request");
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -366,11 +379,22 @@ public class CompanyMainActivity extends AppCompatActivity
                 for (DataSnapshot snapshot : dataSnapshot.child("receptionist_list_by_company")
                         .child(check_user_information.getUserID()).getChildren()) {
 
-                    AddReceptionist_PojoClass addReceptionist_pojoClass = snapshot.getValue(AddReceptionist_PojoClass.class);
-                    databaseReference.child("Alert").child(addReceptionist_pojoClass.getCompany_user_ID())
-                            .child(addReceptionist_pojoClass.getReceptionist_user_ID())
-                            .child("status").setValue(true);
+                    Log.e("getChildrenCount - - ", "onDataChange: " + snapshot.getChildrenCount());
+                    Log.e("getChildrenCount - - ", "onDataChange: " + snapshot.getKey());
 
+                    databaseReference.child("alert_status_company").child(check_user_information.getUserID())
+                            .child("alert_status").setValue("1");
+                    databaseReference.child("alert_status_receptionist")
+                            .child(check_user_information.getUserID())
+                            .child(snapshot.getKey())
+                            .child("alert_status").setValue("1")
+                            .addOnCompleteListener(task -> {
+                                kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                                kAlertDialog.setTitleText("Request Send");
+                                kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+                                    kAlertDialog.dismissWithAnimation();
+                                });
+                            });
                 }
 
             }
