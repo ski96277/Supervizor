@@ -21,6 +21,7 @@ import com.example.supervizor.Fragment.Company.User_Attendance_F
 import com.example.supervizor.Fragment.Company.User_Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import android.widget.Filter
 
 
 class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>) : RecyclerView.Adapter<All_Employee_List_Adapter.ViewHolderClass>() {
@@ -180,4 +181,43 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
         }
 
     }
+
+
+    fun getFilter(): Filter {
+        return object : Filter() {
+            private var filtered = ArrayList<AddEmployee_PojoClass>()
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val charString = charSequence.toString().toLowerCase()
+                filtered.clear()
+                if (charString.isEmpty()) {
+                    filtered = addEmployee_pojoClasses
+                    //filteredCUG = CUG;
+                    addEmployee_pojoClasses=filtered
+                } else {
+                    for ( addEmployee_pojoClass:AddEmployee_PojoClass in addEmployee_pojoClasses) {
+
+                        if (addEmployee_pojoClass.employee_name.toLowerCase().contains(charString)
+                                || addEmployee_pojoClass.user_type.toLowerCase().contains(charString))
+                        {
+                            filtered.add(addEmployee_pojoClass)
+                        }
+                    }
+                    //filteredCUG = filtered;
+                }
+                val filterResults = FilterResults()
+
+                filterResults.values = filtered
+                return filterResults
+            }
+
+             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+//                addEmployee_pojoClasses.clear();
+                 addEmployee_pojoClasses = filterResults.values as ArrayList<AddEmployee_PojoClass>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+
+
 }

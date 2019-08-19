@@ -58,12 +58,13 @@
             android:id="@+id/event_details_TV_ID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10sp"
+            android:layout_margin="5sp"
             android:fontFamily="@font/ebrima"
             android:gravity="left"
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:padding="10sp"/>
 
     </ScrollView>
 

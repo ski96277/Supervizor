@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -37,6 +38,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +48,7 @@ import es.dmoral.toasty.Toasty;
 public class Employee_list_F extends Fragment {
 
     private ImageButton plus_icon_button;
-    private EditText search_ET;
+    private SearchView search_ET;
     private Spinner spinner_ET;
     private int count = 0;
     private Button add_employee_btn;
@@ -55,6 +57,8 @@ public class Employee_list_F extends Fragment {
 
 
     private ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
+
+    private  All_Employee_List_Adapter all_employee_list_adapter;
 
 
     // Write a message to the database
@@ -193,7 +197,8 @@ public class Employee_list_F extends Fragment {
                     addEmployee_pojoClasses.add(addEmployeePojoClass);
 
                 }
-                All_Employee_List_Adapter all_employee_list_adapter = new All_Employee_List_Adapter(addEmployee_pojoClasses);
+
+                all_employee_list_adapter = new All_Employee_List_Adapter(addEmployee_pojoClasses);
 
                 all_employee_list_adapter.notifyDataSetChanged();
 
@@ -203,6 +208,7 @@ public class Employee_list_F extends Fragment {
                 recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
                 //dismiss alert dialog
                 kAlertDialog.dismiss();
+
             }
 
             @Override
@@ -212,6 +218,31 @@ public class Employee_list_F extends Fragment {
         });
 
 
+        //search action
+
+        search_ET.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                all_employee_list_adapter.getFilter().filter(query);
+
+              /*  if(addEmployee_pojoClasses.contains(query)){
+
+
+                }else{
+                    Toast.makeText(getActivity(), "No Match found",Toast.LENGTH_LONG).show();
+                }*/
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                    all_employee_list_adapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
     }
 
 

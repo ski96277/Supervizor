@@ -183,10 +183,13 @@ public class CompanyMainActivity extends AppCompatActivity
 
                 signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
 
-                String logo_download_link = signUp_pojo.getLogo_download_url();
-                String name = signUp_pojo.getCompany_name();
+                if (!signUp_pojo.getLogo_download_url().equals("null")){
+                    String logo_download_link = signUp_pojo.getLogo_download_url();
+                    Picasso.get().load(logo_download_link).into(profile_image_nav);
+
+                }
+                 String name = signUp_pojo.getCompany_name();
                 String email = signUp_pojo.getCompany_email();
-                Picasso.get().load(logo_download_link).into(profile_image_nav);
                 profile_company_name_nav.setText(name);
                 profile_company_email_nav.setText(email);
 

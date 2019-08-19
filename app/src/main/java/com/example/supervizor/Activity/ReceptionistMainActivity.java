@@ -1,5 +1,7 @@
 package com.example.supervizor.Activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -74,13 +76,20 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 
     public static final int JOB_ID = 101;
-    private static final long REFRESH_INTERVAL  = 2 * 1000; // 5 seconds
+    private static final long REFRESH_INTERVAL  = 1 * 1000; // 5 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
     Check_User_information check_user_information;
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor ;
+
+
+
+    String CHANNEL_ID = "imran_sk";
+    String CHANNEL_NAME = "imran sk";
+    String CHANNEL_description = "Notification Test";
+    NotificationManager notificationManager;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -93,10 +102,22 @@ public class ReceptionistMainActivity extends AppCompatActivity
         setActionBarTitle("DashBoard");
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription(CHANNEL_description);
+
+            notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+
+
 
 //initilaze the widget
         initialize();
         //start background service
+
         startJobService();
 
         CheckAlert_Is_Calling();
@@ -152,7 +173,9 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 //save company userID to local database
                 String company_userID = addEmployee_pojoClass.getCompany_User_id();
+                String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
                 editor.putString("company_userID",company_userID);
+                editor.putString("userID_receptionist",userID_receptionist);
                 editor.apply();
 
 
@@ -258,13 +281,20 @@ public class ReceptionistMainActivity extends AppCompatActivity
         ComponentName componentName = new ComponentName(this, MjobScheduler.class);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
-                    .setMinimumLatency(REFRESH_INTERVAL)
-                    .build();
+
+                jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+//                        .setMinimumLatency(REFRESH_INTERVAL)
+                        .setPeriodic(REFRESH_INTERVAL)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setPersisted(true)
+                        .build();
         } else {
-            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
-                    .setPeriodic(REFRESH_INTERVAL)
-                    .build();
+                jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+//                        .setMinimumLatency(REFRESH_INTERVAL)
+                        .setPeriodic(REFRESH_INTERVAL)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setPersisted(true)
+                        .build();
         }
 
   /*      JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, componentName);
