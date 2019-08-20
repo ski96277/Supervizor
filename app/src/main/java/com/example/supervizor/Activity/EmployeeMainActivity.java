@@ -1,8 +1,13 @@
 package com.example.supervizor.Activity;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
@@ -13,8 +18,10 @@ import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
+import com.example.supervizor.Notification_Service.GeneralEventNotification;
 import com.example.supervizor.R;
 
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -28,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -69,6 +77,19 @@ public class EmployeeMainActivity extends AppCompatActivity
     Check_User_information check_user_information;
     String user_ID;
 
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor ;
+
+    //general event Notification
+
+    public static final int JOB_ID = 102;
+    private static final long REFRESH_INTERVAL  = 1 * 1000; // 1 seconds
+    private JobScheduler jobScheduler;
+    private JobInfo jobInfo;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +101,9 @@ public class EmployeeMainActivity extends AppCompatActivity
         setActionBarTitle("Dashboard");
 //initialize the view
         initialize();
+    //start general event notification service
+    startGeneralEventnotificationService();
+
         check_user_information =new Check_User_information();
         user_ID=check_user_information.getUserID();
 
@@ -105,8 +129,13 @@ public class EmployeeMainActivity extends AppCompatActivity
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID)
                         .getValue(AddEmployee_PojoClass.class);
+
+                editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
+                editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
+                editor.apply();
 
                 if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
 
@@ -149,6 +178,31 @@ public class EmployeeMainActivity extends AppCompatActivity
         loadDefault_Home_Fragment();
     }
 
+    //start general event notification service
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startGeneralEventnotificationService() {
+        ComponentName componentName=new ComponentName(this, GeneralEventNotification.class);
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
+        }else {
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
+        }
+        jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+
+        //start Job schedule  Start
+        jobScheduler.schedule(jobInfo);
+    }
+
 
     private void initialize() {
 
@@ -163,6 +217,9 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         calender_Btn = findViewById(R.id.calender_employee_button);
         scan_Btn = findViewById(R.id.scan_employee_button);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
 
     }
 
@@ -228,6 +285,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -248,6 +306,8 @@ public class EmployeeMainActivity extends AppCompatActivity
             my_leave_application_Fragment();
 
         } else if (id == R.id.nav_logout) {
+
+            jobScheduler.cancel(JOB_ID);
 
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

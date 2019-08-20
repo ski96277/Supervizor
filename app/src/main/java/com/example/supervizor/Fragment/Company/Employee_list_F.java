@@ -240,7 +240,7 @@ public class Employee_list_F extends Fragment {
 
                     all_employee_list_adapter.getFilter().filter(newText);
 
-                return false;
+                return true;
             }
         });
     }

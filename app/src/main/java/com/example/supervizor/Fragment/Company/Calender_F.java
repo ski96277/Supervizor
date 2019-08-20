@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -297,6 +298,43 @@ public class Calender_F extends Fragment {
 
                 dialog.dismiss();
                 dialog_chooser.dismiss();
+
+
+
+                //getting user id for settings notification
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot:dataSnapshot.child("employee_list_by_company")
+                                .child(check_user_information.getUserID()).getChildren()){
+
+                            String userID_employee = snapshot.getKey();
+
+                            databaseReference.child("holiday_event_notification_status")
+                                    .child(check_user_information.getUserID())
+                                    .child(userID_employee)
+                                    .child("status").setValue("1");
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+//set notification text
+                databaseReference.child("holiday_event_notification_text")
+                        .child(check_user_information.getUserID()).setValue(holiday_information);
+
+
+                //getting user id for settings notification END
+
             }
         });
 
@@ -351,6 +389,37 @@ public class Calender_F extends Fragment {
             String event_details = details_event_ET.getText().toString();
             String event_time_set = event_time.getText().toString();
 
+            if (!CheckInternet.isInternet(activity)) {
+                Toasty.error(activity, "Internet Connection Error");
+                return;
+            }
+            //getting user id for settings notification
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot snapshot:dataSnapshot.child("employee_list_by_company")
+                            .child(check_user_information.getUserID()).getChildren()){
+
+                        String userID_employee = snapshot.getKey();
+
+                        databaseReference.child("event_notification_status")
+                                .child(check_user_information.getUserID())
+                                .child(userID_employee)
+                                .child("status").setValue("1");
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            //getting user id for settings notification END
+
             String user_ID = check_user_information.getUserID();
 //check the alert input field is empty ?
             if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
@@ -360,6 +429,10 @@ public class Calender_F extends Fragment {
 
             Event_details_PojoClass event_details_pojoClass
                     = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details, event_time_set);
+
+//set notification text
+            databaseReference.child("event_notification_text")
+                    .child(check_user_information.getUserID()).setValue(event_details_pojoClass);
 
             if (!CheckInternet.isInternet(activity)) {
                 Toasty.error(activity, "Internet Connection Error");

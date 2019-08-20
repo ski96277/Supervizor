@@ -66,9 +66,13 @@
 
 
         <service
-            android:name=".job_scheduler_For_Alert.MjobScheduler"
+            android:name=".job_scheduler_For_Alert.Alert_jobScheduler"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name=".Notification_Service.GeneralEventNotification"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     </application>
 

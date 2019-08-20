@@ -19,12 +19,13 @@ import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
+import com.example.supervizor.Notification_Service.GeneralEventNotification;
 import com.example.supervizor.R;
 
 import android.preference.PreferenceManager;
 import android.view.View;
 
-import com.example.supervizor.job_scheduler_For_Alert.MjobScheduler;
+import com.example.supervizor.job_scheduler_For_Alert.Alert_jobScheduler;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -76,7 +77,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 
     public static final int JOB_ID = 101;
-    private static final long REFRESH_INTERVAL  = 1 * 1000; // 5 seconds
+    public static final int JOB_ID_Notification = 102;
+    private static final long REFRESH_INTERVAL  = 1 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
     Check_User_information check_user_information;
@@ -101,24 +103,12 @@ public class ReceptionistMainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setActionBarTitle("DashBoard");
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            notificationChannel.setDescription(CHANNEL_description);
-
-            notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-
-
-
 //initilaze the widget
         initialize();
         //start background service
 
         startJobService();
+        startGeneralEventnotificationService();
 
         CheckAlert_Is_Calling();
 
@@ -174,8 +164,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
 //save company userID to local database
                 String company_userID = addEmployee_pojoClass.getCompany_User_id();
                 String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
-                editor.putString("company_userID",company_userID);
-                editor.putString("userID_receptionist",userID_receptionist);
+                editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
+                editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
                 editor.apply();
 
 
@@ -278,7 +268,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startJobService() {
 
-        ComponentName componentName = new ComponentName(this, MjobScheduler.class);
+        ComponentName componentName = new ComponentName(this, Alert_jobScheduler.class);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
@@ -310,6 +300,33 @@ public class ReceptionistMainActivity extends AppCompatActivity
         jobScheduler.schedule(jobInfo);
         //start Job schedule END
     }
+
+
+    //start general event notification service
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startGeneralEventnotificationService() {
+        ComponentName componentName=new ComponentName(this, GeneralEventNotification.class);
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+
+            jobInfo = new JobInfo.Builder(JOB_ID_Notification, componentName)
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
+        }else {
+            jobInfo = new JobInfo.Builder(JOB_ID_Notification, componentName)
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
+        }
+        jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+
+        //start Job schedule  Start
+        jobScheduler.schedule(jobInfo);
+    }
+
 
     //Profile Fragment Call
     private void loadProfileFragment() {
@@ -445,6 +462,12 @@ public class ReceptionistMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_log_out) {
+
+
+            //END Job schedule  Start
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                jobScheduler.cancel(JOB_ID);
+            }
 
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

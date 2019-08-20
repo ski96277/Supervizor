@@ -239,6 +239,15 @@ public class User_Profile extends Fragment {
                         });
 
                     });
+            //set notification status
+            databaseReference.child("personal_Event_notification")
+                    .child(user_id_employee)
+                    .child("status")
+                    .setValue("1");
+            databaseReference.child("personal_Event_notification_Text")
+                    .child(user_id_employee)
+                    .setValue(event_details_pojoClass);
+            //set notification status END
 
 
         });//save event alert dialog END
