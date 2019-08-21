@@ -13,8 +13,12 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.Login_Activity;
 import com.example.supervizor.Activity.ReceptionistMainActivity;
+import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,11 +38,15 @@ public class GeneralEventNotification extends JobService {
     public boolean onStartJob(JobParameters params) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        String userID = firebaseAuth.getCurrentUser().getUid();
+
 
         //get company user id from local database
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String company_userID = preferences.getString("company_userID", "");
         String userID_employee = preferences.getString("userID_employee", "");
+        String userType = preferences.getString("user_type", "");
 
         Log.e("TAG - ", "onStartJob:company_userID " + company_userID);
         Log.e("TAG - ", "onStartJob:userID_employee " + userID_employee);
@@ -48,7 +56,7 @@ public class GeneralEventNotification extends JobService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String value_event  = dataSnapshot.child("event_notification_status")
+                String value_event = dataSnapshot.child("event_notification_status")
                         .child(company_userID)
                         .child(userID_employee)
                         .child("status")
@@ -64,7 +72,7 @@ public class GeneralEventNotification extends JobService {
                 Log.e("TAG", "onDataChange: value_holiday_event --" + value_holiday_event);
 
 
-                String  value_personal_event = dataSnapshot.child("personal_Event_notification")
+                String value_personal_event = dataSnapshot.child("personal_Event_notification")
                         .child(userID_employee)
                         .child("status")
                         .getValue(String.class);
@@ -88,11 +96,14 @@ public class GeneralEventNotification extends JobService {
                                 .child("event_details")
                                 .getValue(String.class);
 
-                        callNotification_General_Event(title, details);
+                        if (firebaseAuth.getCurrentUser().getUid() != null) {
+
+                            callNotification_General_Event(title, details, userType);
+                        }
                     }
                 }
 
-                if (value_holiday_event!=null){
+                if (value_holiday_event != null) {
 
                     if (value_holiday_event.equals("1")) {
 
@@ -111,10 +122,13 @@ public class GeneralEventNotification extends JobService {
                                 .child(company_userID)
                                 .child("holiday_information")
                                 .getValue(String.class);
-                        callNotification_holiday_Event(date, details);
+                        if (firebaseAuth.getCurrentUser().getUid() != null) {
+                            callNotification_holiday_Event(date, details, userType);
+                        }
+
                     }
                 }
-                if (value_personal_event!=null){
+                if (value_personal_event != null) {
 
                     if (value_personal_event.equals("1")) {
 
@@ -132,7 +146,10 @@ public class GeneralEventNotification extends JobService {
                                 .child("event_details")
                                 .getValue(String.class);
 
-                        callNotification_personal_Event(event_title, details);
+                        if (firebaseAuth.getCurrentUser().getUid() != null) {
+
+                            callNotification_personal_Event(event_title, details, userType);
+                        }
 
                     }
                 }
@@ -156,7 +173,7 @@ public class GeneralEventNotification extends JobService {
     }
 
 
-    private void callNotification_General_Event(String title, String details) {
+    private void callNotification_General_Event(String title, String details, String userType) {
         int noticationID = 101;
         int NumberMessage = 0;
 
@@ -190,7 +207,16 @@ public class GeneralEventNotification extends JobService {
         builder.setAutoCancel(true);
 
         /* Creates an explicit intent for an Activity in your app */
-        Intent resultInten = new Intent(this, EmployeeMainActivity.class);
+        Intent resultInten = new Intent(this, Login_Activity.class);
+
+        if (userType.equals("receptionist")) {
+            resultInten = new Intent(this, ReceptionistMainActivity.class);
+
+        }
+        if (userType.equals("employee")) {
+            resultInten = new Intent(this, EmployeeMainActivity.class);
+
+        }
 
         /* Adds the Intent that starts the Activity to the top of the stack */
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
@@ -205,7 +231,7 @@ public class GeneralEventNotification extends JobService {
 
     }
 
-    private void callNotification_holiday_Event(String date, String details) {
+    private void callNotification_holiday_Event(String date, String details, String userType) {
         int noticationID = 102;
         int NumberMessage = 0;
 
@@ -238,7 +264,16 @@ public class GeneralEventNotification extends JobService {
         builder.setAutoCancel(true);
 
         /* Creates an explicit intent for an Activity in your app */
-        Intent resultInten = new Intent(this, EmployeeMainActivity.class);
+        Intent resultInten = null;
+
+        if (userType.equals("receptionist")) {
+            resultInten = new Intent(this, ReceptionistMainActivity.class);
+
+        }
+        if (userType.equals("employee")) {
+            resultInten = new Intent(this, EmployeeMainActivity.class);
+
+        }
 
         /* Adds the Intent that starts the Activity to the top of the stack */
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
@@ -254,7 +289,7 @@ public class GeneralEventNotification extends JobService {
 
     }
 
-    private void callNotification_personal_Event(String title, String details) {
+    private void callNotification_personal_Event(String title, String details, String userType) {
         int noticationID = 103;
         int NumberMessage = 0;
 
@@ -287,8 +322,16 @@ public class GeneralEventNotification extends JobService {
         builder.setAutoCancel(true);
 
         /* Creates an explicit intent for an Activity in your app */
-        Intent resultInten = new Intent(this, EmployeeMainActivity.class);
+        Intent resultInten = null;
 
+        if (userType.equals("receptionist")) {
+            resultInten = new Intent(this, ReceptionistMainActivity.class);
+
+        }
+        if (userType.equals("employee")) {
+            resultInten = new Intent(this, EmployeeMainActivity.class);
+
+        }
         /* Adds the Intent that starts the Activity to the top of the stack */
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
         taskStackBuilder.addParentStack(ReceptionistMainActivity.class);

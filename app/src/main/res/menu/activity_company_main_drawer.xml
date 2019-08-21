@@ -21,7 +21,8 @@
         <item
             android:id="@+id/nav_attendance"
             android:icon="@drawable/ic_menu_manage"
-            android:title="User Attendance" />
+            android:title="User Attendance"
+            android:visible="false"/>
     </group>
 
     <item android:title="Communicate">

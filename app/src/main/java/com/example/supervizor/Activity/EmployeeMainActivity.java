@@ -22,6 +22,7 @@ import com.example.supervizor.Notification_Service.GeneralEventNotification;
 import com.example.supervizor.R;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -53,6 +54,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EmployeeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -84,7 +86,7 @@ public class EmployeeMainActivity extends AppCompatActivity
     //general event Notification
 
     public static final int JOB_ID = 102;
-    private static final long REFRESH_INTERVAL  = 1 * 1000; // 1 seconds
+    private static final long REFRESH_INTERVAL  = 3 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
 
@@ -117,8 +119,30 @@ public class EmployeeMainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_employee);
         navigationView.setNavigationItemSelectedListener(this);
+        Menu nav_Menu = navigationView.getMenu();
+//check if user is team leader then show the nav menu
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean yes=dataSnapshot.child("team_leader_ID_List")
+                        .hasChild(user_ID);
+                if (yes){
+
+                    nav_Menu.findItem(R.id.nav_My_Team_application_employee).setVisible(true);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         View nav_view=navigationView.getHeaderView(0);
 
@@ -135,6 +159,8 @@ public class EmployeeMainActivity extends AppCompatActivity
 
                 editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
                 editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
+                editor.putString("user_type","employee");
+
                 editor.apply();
 
                 if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
@@ -200,7 +226,12 @@ public class EmployeeMainActivity extends AppCompatActivity
         jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
 
         //start Job schedule  Start
-        jobScheduler.schedule(jobInfo);
+        int resultCode = jobScheduler.schedule(jobInfo);
+        if (resultCode==JobScheduler.RESULT_SUCCESS){
+            Log.e("TAG", "startGeneralEventnotificationService: job started........." );
+        }else {
+            Log.e("TAG", "startGeneralEventnotificationService: job Failed........." );
+        }
     }
 
 
@@ -267,14 +298,12 @@ public class EmployeeMainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.employee_main, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -304,6 +333,9 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_My_leave_application_employee) {
             my_leave_application_Fragment();
+
+        }else if (id == R.id.nav_My_Team_application_employee) {
+            Toast.makeText(this, "my team = "+user_ID, Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_logout) {
 

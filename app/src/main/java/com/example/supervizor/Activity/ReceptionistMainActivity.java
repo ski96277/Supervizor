@@ -78,20 +78,13 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
     public static final int JOB_ID = 101;
     public static final int JOB_ID_Notification = 102;
-    private static final long REFRESH_INTERVAL  = 1 * 1000; // 1 seconds
+    private static final long REFRESH_INTERVAL  = 3 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
     Check_User_information check_user_information;
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor ;
-
-
-
-    String CHANNEL_ID = "imran_sk";
-    String CHANNEL_NAME = "imran sk";
-    String CHANNEL_description = "Notification Test";
-    NotificationManager notificationManager;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -166,6 +159,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
                 String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
                 editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
                 editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
+                editor.putString("user_type","receptionist");
                 editor.apply();
 
 

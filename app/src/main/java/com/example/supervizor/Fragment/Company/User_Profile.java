@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
@@ -22,7 +24,6 @@ import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,7 +101,7 @@ public class User_Profile extends Fragment {
                         addEmployee_pojoClass = dataSnapshot.getValue(AddEmployee_PojoClass.class);
 
 
-                        if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null") ) {
+                        if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
 
                             Picasso.get().load(Uri.parse(addEmployee_pojoClass.getEmployee_profile_image_link())).into(circleImageView);
                         } else {
@@ -152,6 +153,24 @@ public class User_Profile extends Fragment {
 
 //        inflater.inflate(R.menu.company_main,menu);
         menu.findItem(R.id.set_event_to_this_employee).setVisible(true);
+        menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               boolean yes =dataSnapshot.child("team_leader_ID_List")
+                        .hasChild(user_id_employee);
+               if (yes){
+                   menu.findItem(R.id.make_Team_Leader_this_employee).setTitle("Already Team Leader");
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -160,15 +179,34 @@ public class User_Profile extends Fragment {
         switch (item.getItemId()) {
             case R.id.set_event_to_this_employee:
 
-                showCustomAlertDialog();
+                showCustomAlertDialog_setEvent_for_Employee();
+
+                break;
+            case R.id.make_Team_Leader_this_employee:
+
+                Show_Custom_AlertDialog_For_making_Team_leader();
 
                 break;
         }
         return false;
     }
 
+    //make team leader
+    private void Show_Custom_AlertDialog_For_making_Team_leader() {
+
+        databaseReference.child("team_leader_ID_List")
+                .child(user_id_employee)
+                .child("name")
+                .setValue(name_profile_TV.getText().toString());
+        databaseReference.child("team_leader_ID_List")
+                .child(user_id_employee)
+                .child("email")
+                .setValue(email_TV.getText().toString());
+
+    }
+
     //show alert for adding event
-    private void showCustomAlertDialog() {
+    private void showCustomAlertDialog_setEvent_for_Employee() {
 
 
         Dialog dialog = new Dialog(getContext());
@@ -215,11 +253,11 @@ public class User_Profile extends Fragment {
                 return;
             }
             //check internet connection
-            if (!CheckInternet.isInternet(getContext())){
-                Toasty.error(getContext(),"Internet Connection Error").show();
+            if (!CheckInternet.isInternet(getContext())) {
+                Toasty.error(getContext(), "Internet Connection Error").show();
                 return;
             }
-            KAlertDialog kAlertDialog=new KAlertDialog(getContext(),KAlertDialog.PROGRESS_TYPE);
+            KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
             kAlertDialog.show();
             kAlertDialog.setTitleText("Uploading Data....");
 
@@ -234,7 +272,7 @@ public class User_Profile extends Fragment {
                         kAlertDialog.setTitleText("Done");
                         kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
 
-                       kAlertDialog1.dismissWithAnimation();
+                            kAlertDialog1.dismissWithAnimation();
                             dialog.dismiss();
                         });
 
@@ -267,9 +305,9 @@ public class User_Profile extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                day_select=day;
-                month_select=month+1;
-                year_select=year;
+                day_select = day;
+                month_select = month + 1;
+                year_select = year;
 
                 if (month < 10) {
                     date_ET.setText(year + "-0" + (month + 1) + "-" + dayOfMonth);
