@@ -6,4 +6,16 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/add_team_mate"
+        android:orderInCategory="100"
+        android:title="Add Team Mate"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/add_Event_to_this_Group"
+        android:orderInCategory="100"
+        android:title="Add Event"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>

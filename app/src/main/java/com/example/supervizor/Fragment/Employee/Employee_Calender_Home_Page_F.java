@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kinda.alert.KAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,6 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
 
     Check_User_information check_user_information;
     String user_ID;
-//    KAlertDialog kAlertDialog;
     RecyclerView recyclerView_all_event;
     RecyclerView recyclerView_personal_Event;
 
@@ -65,12 +63,7 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
             Toasty.info(getActivity(), "Check Internet Connection").show();
             return;
         }
-        /*kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Loading.....");
 
-
-        kAlertDialog.show();
-        */
         if (!CheckInternet.isInternet(getContext())){
 //            kAlertDialog.dismissWithAnimation();
             Toasty.error(getContext(),"Check Internet Connection").show();
@@ -106,7 +99,6 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_all_event.setLayoutManager(linearLayoutManager);
                             recyclerView_all_event.setAdapter(event_list_adapter);
-//                            kAlertDialog.dismissWithAnimation();
                         }
 
 
@@ -116,7 +108,6 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toasty.info(getContext(), "have some problem try it later").show();
 
-//                        kAlertDialog.dismissWithAnimation();
                     }
                 });
         //get personal event
@@ -144,7 +135,6 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_personal_Event.setLayoutManager(linearLayoutManager);
                             recyclerView_personal_Event.setAdapter(event_list_adapter);
-//                            kAlertDialog.dismissWithAnimation();
                         }
 
 
@@ -153,7 +143,6 @@ databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toasty.info(getContext(), "have some problem try it later").show();
-//                        kAlertDialog.dismissWithAnimation();
                     }
                 });
     }

@@ -14,6 +14,7 @@ import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
 import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
 import com.example.supervizor.Fragment.Employee.Leave_Application_Employee_F;
 import com.example.supervizor.Fragment.Employee.MyLeaveApplication_Employee_F;
+import com.example.supervizor.Fragment.Employee.My_Team_F;
 import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
@@ -129,7 +130,6 @@ public class EmployeeMainActivity extends AppCompatActivity
                 boolean yes=dataSnapshot.child("team_leader_ID_List")
                         .hasChild(user_ID);
                 if (yes){
-
                     nav_Menu.findItem(R.id.nav_My_Team_application_employee).setVisible(true);
 
                 }
@@ -335,7 +335,7 @@ public class EmployeeMainActivity extends AppCompatActivity
             my_leave_application_Fragment();
 
         }else if (id == R.id.nav_My_Team_application_employee) {
-            Toast.makeText(this, "my team = "+user_ID, Toast.LENGTH_SHORT).show();
+            load_my_team_employee_Fragment();
 
         } else if (id == R.id.nav_logout) {
 
@@ -358,6 +358,17 @@ public class EmployeeMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void load_my_team_employee_Fragment() {
+        scan_calender_layout.setVisibility(View.GONE);
+        //load default Fragment
+        fragment = new My_Team_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void my_leave_application_Fragment() {
