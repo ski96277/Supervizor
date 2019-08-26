@@ -82,12 +82,12 @@ public class EmployeeMainActivity extends AppCompatActivity
 
 
     SharedPreferences preferences;
-    SharedPreferences.Editor editor ;
+    SharedPreferences.Editor editor;
 
     //general event Notification
 
     public static final int JOB_ID = 102;
-    private static final long REFRESH_INTERVAL  = 3 * 1000; // 1 seconds
+    private static final long REFRESH_INTERVAL = 3 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
 
@@ -104,11 +104,11 @@ public class EmployeeMainActivity extends AppCompatActivity
         setActionBarTitle("Dashboard");
 //initialize the view
         initialize();
-    //start general event notification service
-    startGeneralEventnotificationService();
+        //start general event notification service
+        startGeneralEventnotificationService();
 
-        check_user_information =new Check_User_information();
-        user_ID=check_user_information.getUserID();
+        check_user_information = new Check_User_information();
+        user_ID = check_user_information.getUserID();
 
         calender_Btn.setOnClickListener(this);
         scan_Btn.setOnClickListener(this);
@@ -127,12 +127,46 @@ public class EmployeeMainActivity extends AppCompatActivity
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean yes=dataSnapshot.child("team_leader_ID_List")
-                        .hasChild(user_ID);
-                if (yes){
-                    nav_Menu.findItem(R.id.nav_My_Team_application_employee).setVisible(true);
 
+                //check the user is team leader
+                boolean yes = dataSnapshot.child("team_leader_ID_List")
+                        .hasChild(user_ID);
+                if (yes) {
+                    nav_Menu.findItem(R.id.nav_My_Team_application_employee).setVisible(true);
                 }
+
+                //if you are a team member
+                for (DataSnapshot snapshot : dataSnapshot.child("my_team_request").getChildren()) {
+                    String userID_key = snapshot.getKey();
+
+                    for (DataSnapshot snapshot1 : dataSnapshot.child("my_team_request").child(userID_key).getChildren()) {
+                        String team_name_key = snapshot1.getKey();
+
+                        for (DataSnapshot snapshot2 : dataSnapshot.child("my_team_request").child(userID_key).child(team_name_key).getChildren()) {
+                            Check_User_information user_ID = new Check_User_information();
+
+                            boolean hasChild = dataSnapshot.child("my_team_request").child(userID_key).child(team_name_key)
+                                    .child(snapshot2.getKey()).hasChild(user_ID.getUserID());
+
+                            Log.e("TAG", "onDataChange: team leader = "+userID_key );
+                            Log.e("TAG", "onDataChange: team_name_key = "+team_name_key );
+                            Log.e("TAG", "onDataChange: user ID = "+snapshot2.getKey() );
+
+                            Log.e("TAG", "onDataChange: user id Key " +snapshot2.getKey() );
+
+                            if (hasChild) {
+                                Toast.makeText(EmployeeMainActivity.this, "OK ", Toast.LENGTH_SHORT).show();
+                                nav_Menu.findItem(R.id.nav_My_Team_as_member_application_employee).setVisible(true);
+                            } else {
+                                nav_Menu.findItem(R.id.nav_My_Team_as_member_application_employee).setVisible(false);
+                                Toast.makeText(EmployeeMainActivity.this, "Not ", Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        }
+                    }
+                }
+
 
             }
 
@@ -143,12 +177,11 @@ public class EmployeeMainActivity extends AppCompatActivity
         });
 
 
+        View nav_view = navigationView.getHeaderView(0);
 
-        View nav_view=navigationView.getHeaderView(0);
-
-        circleImageView_nav=nav_view.findViewById(R.id.profile_image_employee_nav);
-        name_TV_nav=nav_view.findViewById(R.id.profile_employee_name_TV_ID_nav);
-        email_TV_nav=nav_view.findViewById(R.id.profile_employee_email_TV_ID_nav);
+        circleImageView_nav = nav_view.findViewById(R.id.profile_image_employee_nav);
+        name_TV_nav = nav_view.findViewById(R.id.profile_employee_name_TV_ID_nav);
+        email_TV_nav = nav_view.findViewById(R.id.profile_employee_email_TV_ID_nav);
 //get user data from firebase and set it on the nav bar view
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -157,9 +190,9 @@ public class EmployeeMainActivity extends AppCompatActivity
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID)
                         .getValue(AddEmployee_PojoClass.class);
 
-                editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
-                editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
-                editor.putString("user_type","employee");
+                editor.putString("company_userID", addEmployee_pojoClass.getCompany_User_id());
+                editor.putString("userID_employee", addEmployee_pojoClass.getEmployee_User_id());
+                editor.putString("user_type", "employee");
 
                 editor.apply();
 
@@ -207,16 +240,16 @@ public class EmployeeMainActivity extends AppCompatActivity
     //start general event notification service
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startGeneralEventnotificationService() {
-        ComponentName componentName=new ComponentName(this, GeneralEventNotification.class);
+        ComponentName componentName = new ComponentName(this, GeneralEventNotification.class);
 
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
             jobInfo = new JobInfo.Builder(JOB_ID, componentName)
                     .setPeriodic(REFRESH_INTERVAL)
                     .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                     .setPersisted(true)
                     .build();
-        }else {
+        } else {
             jobInfo = new JobInfo.Builder(JOB_ID, componentName)
                     .setPeriodic(REFRESH_INTERVAL)
                     .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
@@ -227,20 +260,20 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         //start Job schedule  Start
         int resultCode = jobScheduler.schedule(jobInfo);
-        if (resultCode==JobScheduler.RESULT_SUCCESS){
-            Log.e("TAG", "startGeneralEventnotificationService: job started........." );
-        }else {
-            Log.e("TAG", "startGeneralEventnotificationService: job Failed........." );
+        if (resultCode == JobScheduler.RESULT_SUCCESS) {
+            Log.e("TAG", "startGeneralEventnotificationService: job started.........");
+        } else {
+            Log.e("TAG", "startGeneralEventnotificationService: job Failed.........");
         }
     }
 
 
     private void initialize() {
 
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
-        scan_calender_layout=findViewById(R.id.linearLayout_id);
+        scan_calender_layout = findViewById(R.id.linearLayout_id);
 
         calender_layout = findViewById(R.id.calender_employee_button_layout);
         scan_layout = findViewById(R.id.scan_employee_button_layout);
@@ -334,7 +367,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_My_leave_application_employee) {
             my_leave_application_Fragment();
 
-        }else if (id == R.id.nav_My_Team_application_employee) {
+        } else if (id == R.id.nav_My_Team_application_employee) {
             load_my_team_employee_Fragment();
 
         } else if (id == R.id.nav_logout) {
@@ -402,10 +435,10 @@ public class EmployeeMainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
 
-        fragment=new ProfileView_Employee_F();
-        if (fragment!=null){
-            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+        fragment = new ProfileView_Employee_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
 
         }
@@ -423,6 +456,7 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
     }
+
     private void loadDefault_Home_Fragment() {
 
         scan_calender_layout.setVisibility(View.VISIBLE);
@@ -434,6 +468,7 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
     }
+
     private void load_Scan_Fragment() {
 
         scan_calender_layout.setVisibility(View.VISIBLE);

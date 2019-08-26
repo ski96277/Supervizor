@@ -6,14 +6,19 @@ import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_by_Team_Leader;
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.JavaPojoClass.Event_Details_Team_PojoClass;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -21,15 +26,21 @@ import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.dmoral.toasty.Toasty;
 
@@ -46,7 +57,10 @@ public class Event_list_and_Add_by_Team_Leader_F extends Fragment implements Vie
     TimePickerDialog timepickerdialog;
 
     private DatabaseReference databaseReference;
+    Check_User_information check_user_information;
+    Event_Details_Team_PojoClass event_details_team_pojoClass;
 
+    List<Event_Details_Team_PojoClass> event_details_team_pojoClasses = new ArrayList<>();
     private String team_name;
 
     @Nullable
@@ -59,9 +73,43 @@ public class Event_list_and_Add_by_Team_Leader_F extends Fragment implements Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-
+//get team name
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         team_name = sharedPreferences.getString("team_name", "");
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewIDTeamEventList.setLayoutManager(linearLayoutManager);
+
+        databaseReference.child("event_list_by_Team")
+                .child(check_user_information.getUserID())
+                .child(team_name)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                            Event_Details_Team_PojoClass event_details_team_pojoClass = snapshot.getValue(Event_Details_Team_PojoClass.class);
+                            Log.e("TAG", "onDataChange: Date = " + event_details_team_pojoClass.getDate());
+
+//                            event_details_pojoClass = snapshot.getValue(Event_details_PojoClass.class);
+                            event_details_team_pojoClasses.add(event_details_team_pojoClass);
+                        }
+                        Log.e("TAG", "onDataChange:list size =  " + event_details_team_pojoClasses.size());
+                        if (event_details_team_pojoClasses.isEmpty()){
+                            showCustomAlertDialog_setEvent_for_Team_mate();
+                        }
+                        Team_Event_List_Adapter_by_Team_Leader team_event_list_adapter_by_team_leader = new Team_Event_List_Adapter_by_Team_Leader(event_details_team_pojoClasses);
+                        recyclerViewIDTeamEventList.setAdapter(team_event_list_adapter_by_team_leader);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toasty.error(getContext(), "Failed to load data ").show();
+                    }
+                });
     }
 
 
@@ -85,7 +133,8 @@ public class Event_list_and_Add_by_Team_Leader_F extends Fragment implements Vie
         addNewTeamEvent = (FloatingActionButton) rootView.findViewById(R.id.add_New_team_Event);
         addNewTeamEvent.setOnClickListener(Event_list_and_Add_by_Team_Leader_F.this);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        check_user_information = new Check_User_information();
 
 
     }
@@ -131,7 +180,7 @@ public class Event_list_and_Add_by_Team_Leader_F extends Fragment implements Vie
             String month = String.valueOf(month_select);
             String year = String.valueOf(year_select);
             //check data is empty or not ?
-            if (title.isEmpty()|| details.isEmpty() || time.isEmpty() || date.isEmpty()) {
+            if (title.isEmpty() || details.isEmpty() || time.isEmpty() || date.isEmpty()) {
                 Toasty.info(getContext(), "Fill up the information").show();
                 return;
             }
@@ -145,24 +194,19 @@ public class Event_list_and_Add_by_Team_Leader_F extends Fragment implements Vie
             kAlertDialog.setTitleText("Uploading Data....");
 
 
-            Event_details_PojoClass event_details_pojoClass = new Event_details_PojoClass(date, day,
+            Event_Details_Team_PojoClass event_details_team_pojoClass = new Event_Details_Team_PojoClass(date, day,
                     month, year, title, details, time);
-
 
             databaseReference.child("event_list_by_Team")
                     .child(check_user_information.getUserID())
                     .child(team_name)
                     .child(date_ET.getText().toString())
-                    .setValue(event_details_pojoClass)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                       kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                       kAlertDialog.setTitleText("Done");
-                       dialog.dismiss();
-                        }
+                    .setValue(event_details_team_pojoClass)
+                    .addOnCompleteListener(task -> {
+                        kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                        kAlertDialog.setTitleText("Done");
+                        dialog.dismiss();
                     });
-
 
 
         });

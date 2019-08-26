@@ -29,4 +29,10 @@
         android:title="Make Team Leader"
         android:visible="false"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/remove_team_Leader_this_employee"
+        android:orderInCategory="100"
+        android:title="Remove Team Leader"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>

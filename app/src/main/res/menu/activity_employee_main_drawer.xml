@@ -21,9 +21,14 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Leave Application" />
         <item
+            android:id="@+id/nav_My_Team_as_member_application_employee"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Team as a member"
+            android:visible="false"/>
+        <item
             android:id="@+id/nav_My_Team_application_employee"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="My Team"
+            android:title="My Team as a Leader"
             android:visible="false"/>
         <item
             android:id="@+id/nav_logout"

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -158,11 +157,17 @@ public class User_Profile extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               boolean yes =dataSnapshot.child("team_leader_ID_List")
+                boolean yes = dataSnapshot.child("team_leader_ID_List")
                         .hasChild(user_id_employee);
-               if (yes){
-                   menu.findItem(R.id.make_Team_Leader_this_employee).setTitle("Already Team Leader");
-               }
+                if (yes) {
+                    menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
+                    menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(true);
+
+                } else {
+                    menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
+
+                    menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
+                }
             }
 
             @Override
@@ -184,15 +189,52 @@ public class User_Profile extends Fragment {
                 break;
             case R.id.make_Team_Leader_this_employee:
 
-                Show_Custom_AlertDialog_For_making_Team_leader();
+                KAlertDialog team_Lead_Confirm_Alert = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                team_Lead_Confirm_Alert.show();
+                team_Lead_Confirm_Alert.setTitleText("Make Team Leader");
+
+                team_Lead_Confirm_Alert.setConfirmClickListener(kAlertDialog -> {
+                    if (!CheckInternet.isInternet(getContext())) {
+                        Toasty.error(getContext(), "Internet Connection Error");
+                        team_Lead_Confirm_Alert.dismissWithAnimation();
+                        return;
+                    }
+
+                    making_Team_leader(team_Lead_Confirm_Alert);
+
+                });
+
+                break;
+            case R.id.remove_team_Leader_this_employee:
+
+                KAlertDialog remove_Team_Leader_Alert = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                remove_Team_Leader_Alert.show();
+                remove_Team_Leader_Alert.setTitleText("Remove this Team Leader?");
+                remove_Team_Leader_Alert.setConfirmClickListener(kAlertDialog -> {
+
+                    if (!CheckInternet.isInternet(getContext())) {
+                        Toasty.error(getContext(), "Internet Connection Error");
+                        remove_Team_Leader_Alert.dismissWithAnimation();
+                        return;
+                    }
+                    remove_Data_as_Team_Leader(remove_Team_Leader_Alert);
+                });
 
                 break;
         }
         return false;
     }
 
+    private void remove_Data_as_Team_Leader(KAlertDialog remove_Team_Leader_Alert) {
+        databaseReference.child("my_team_request")
+                .child(user_id_employee).removeValue();
+        databaseReference.child("team_leader_ID_List")
+                .child(user_id_employee).removeValue();
+        remove_Team_Leader_Alert.dismissWithAnimation();
+    }
+
     //make team leader
-    private void Show_Custom_AlertDialog_For_making_Team_leader() {
+    private void making_Team_leader(KAlertDialog team_Lead_Confirm_Alert) {
 
         databaseReference.child("team_leader_ID_List")
                 .child(user_id_employee)
@@ -202,6 +244,7 @@ public class User_Profile extends Fragment {
                 .child(user_id_employee)
                 .child("email")
                 .setValue(email_TV.getText().toString());
+        team_Lead_Confirm_Alert.dismissWithAnimation();
 
     }
 

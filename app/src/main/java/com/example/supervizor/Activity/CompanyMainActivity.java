@@ -181,32 +181,35 @@ public class CompanyMainActivity extends AppCompatActivity
 
                 currentUser = mAuth.getCurrentUser();
 
-                signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
+                if (currentUser != null) {
+                    signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
 
-                if (!signUp_pojo.getLogo_download_url().equals("null")){
-                    String logo_download_link = signUp_pojo.getLogo_download_url();
-                    Picasso.get().load(logo_download_link).into(profile_image_nav);
+                    if (!signUp_pojo.getLogo_download_url().equals("null")) {
+                        String logo_download_link = signUp_pojo.getLogo_download_url();
+                        Picasso.get().load(logo_download_link).into(profile_image_nav);
 
-                }
-                 String name = signUp_pojo.getCompany_name();
-                String email = signUp_pojo.getCompany_email();
-                profile_company_name_nav.setText(name);
-                profile_company_email_nav.setText(email);
-
-                leaveApplication_pojoClasses_list.clear();
-                for (DataSnapshot snapshot :
-                        dataSnapshot.child("leave_application")
-                                .child(check_user_information.getUserID())
-                                .child("pending").getChildren()) {
-
-                    LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
-                    if (leaveApplication_pojoClass.isLeave_seen()) {
-
-                    } else {
-                        leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
                     }
+                    String name = signUp_pojo.getCompany_name();
+                    String email = signUp_pojo.getCompany_email();
+                    profile_company_name_nav.setText(name);
+                    profile_company_email_nav.setText(email);
+
+                    leaveApplication_pojoClasses_list.clear();
+                    for (DataSnapshot snapshot :
+                            dataSnapshot.child("leave_application")
+                                    .child(check_user_information.getUserID())
+                                    .child("pending").getChildren()) {
+
+                        LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
+                        if (leaveApplication_pojoClass.isLeave_seen()) {
+
+                        } else {
+                            leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
+                        }
+                    }
+                    leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_list.size()));
+
                 }
-                leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_list.size()));
 
             }
 
@@ -426,13 +429,8 @@ public class CompanyMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Team_Leader) {
 
-            fragment = new TeamLeader_F();
-            if (fragment != null) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-                        .beginTransaction();
-                fragmentTransaction.replace(R.id.company_main_screen, fragment);
-                fragmentTransaction.commit();
-            }
+            load_Team_leader_F();
+
 
         } else if (id == R.id.nav_attendance) {
             load_User_Attendance();
@@ -454,6 +452,17 @@ public class CompanyMainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void load_Team_leader_F() {
+        fragment = new TeamLeader_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentTransaction.commit();
+        }
+
     }
 
     private void load_User_Attendance() {
