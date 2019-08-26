@@ -17,6 +17,7 @@ import com.example.supervizor.Fragment.Employee.MyLeaveApplication_Employee_F;
 import com.example.supervizor.Fragment.Employee.My_Team_F;
 import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
+import com.example.supervizor.Fragment.Employee.Team_List_As_A_Member;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.Notification_Service.GeneralEventNotification;
@@ -135,7 +136,7 @@ public class EmployeeMainActivity extends AppCompatActivity
                     nav_Menu.findItem(R.id.nav_My_Team_application_employee).setVisible(true);
                 }
 
-                //if you are a team member
+             /*   //if you are a team member
                 for (DataSnapshot snapshot : dataSnapshot.child("my_team_request").getChildren()) {
                     String userID_key = snapshot.getKey();
 
@@ -165,7 +166,7 @@ public class EmployeeMainActivity extends AppCompatActivity
                             }
                         }
                     }
-                }
+                }*/
 
 
             }
@@ -367,6 +368,9 @@ public class EmployeeMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_My_leave_application_employee) {
             my_leave_application_Fragment();
 
+        } else if (id == R.id.nav_My_Team_as_member_application_employee) {
+            load_as_a_team_member_Fragment();
+
         } else if (id == R.id.nav_My_Team_application_employee) {
             load_my_team_employee_Fragment();
 
@@ -391,6 +395,17 @@ public class EmployeeMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void load_as_a_team_member_Fragment() {
+        scan_calender_layout.setVisibility(View.GONE);
+        //load default Fragment
+        fragment = new Team_List_As_A_Member();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void load_my_team_employee_Fragment() {
