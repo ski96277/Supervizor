@@ -1,13 +1,26 @@
 package com.example.supervizor.AdapterClass
 
 import android.app.Dialog
+import android.net.Uri
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.supervizor.JavaPojoClass.Event_Details_Team_PojoClass
-import com.example.supervizor.R import kotlinx.android.synthetic.main.custom_alert_dialog_event_show_by_team_member.*
+import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
+import com.example.supervizor.R
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.item_event_request_view_company.view.*
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.custom_alert_event_request_show.*
+import kotlinx.android.synthetic.main.custom_alert_event_request_show.view.*
+import kotlinx.android.synthetic.main.custom_alert_event_request_show.view.image_circleImageView_alert_ID
 
-class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: MutableList<String>, var team_leader_user_id: MutableList<String>) : RecyclerView.Adapter<Team_Event_Request_List_Adapter_View_by_company.ViewHolder>()  {
+
+class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: MutableList<String>, var team_leader_user_id: MutableList<String>) : RecyclerView.Adapter<Team_Event_Request_List_Adapter_View_by_company.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_event_request_view_company, parent, false)
@@ -22,7 +35,7 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        return holder.setData(team_name_list[position],team_leader_user_id[position])
+        return holder.setData(team_name_list[position], team_leader_user_id[position])
     }
 
 
@@ -34,25 +47,65 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
 
             itemview.setOnClickListener {
 
-//                show_Event_Information(itemview, event_details_team_pojoClasses)
+                show_Event_Information(team_name, team_leader_user_ID)
 
             }
         }
 
-        private fun show_Event_Information(itemview: View,event_details_team_pojoClasses: Event_Details_Team_PojoClass) {
+        private fun show_Event_Information(teamName: String, teamLeaderUserId: String) {
 
             var dialog = Dialog(itemview.context)
             dialog.setCancelable(false)
-            dialog.setContentView(R.layout.custom_alert_dialog_event_show_by_team_member)
+            dialog.setContentView(R.layout.custom_alert_event_request_show)
 
-            dialog.event_date_TV_ID_by_team_member.text = event_details_team_pojoClasses.date
-            dialog.event_title_TV_ID_by_team_member.text = event_details_team_pojoClasses.event_title
-            dialog.time_title_TV_ID_by_team_member.text = event_details_team_pojoClasses.event_time
-            dialog.event_details_TV_ID_by_team_member.text = event_details_team_pojoClasses.event_details
+            var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+            // Read from the database
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-            dialog.cancel_btn_alert_show_ID_by_team_member.setOnClickListener {
-                dialog.dismiss()
-            }
+                    val addemployeePojoclass: AddEmployee_PojoClass? = dataSnapshot.child("employee_list")
+                           .child(teamLeaderUserId).getValue(AddEmployee_PojoClass::class.java)
+
+                    var image_link = addemployeePojoclass!!.employee_profile_image_link
+                    if (!image_link.equals("null")) {
+
+                        Picasso.get().load(Uri.parse(image_link)).into(itemView.image_circleImageView_alert_ID)
+                    } else {
+//                        itemView.image_circleImageView_alert_ID.setImageResource(R.drawable.profile)
+                        val imgResId = R.drawable.profile_item
+
+                        dialog.image_circleImageView_alert_ID.setImageResource(imgResId)
+                    }
+                    dialog.name_TV_ID_custom_alert.text = addemployeePojoclass.employee_name
+                    dialog.team_name_ID_custom_alert_dialog.text = teamName
+
+                    dialog.cancel_btn_custom_alert.setOnClickListener {
+                        dialog.dismiss()
+                    }
+
+                    dialog.approve_btn_custom_alert.setOnClickListener {
+
+                        databaseReference.child("my_team_request_pending")
+                                .child(addemployeePojoclass.company_User_id)
+                                .child(teamLeaderUserId)
+                                .child(teamName)
+                                .child("status")
+                                .setValue("1")
+                                .addOnCompleteListener {
+                                    dialog.dismiss()
+                                }
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Toasty.error(itemview.context, "Failed To Load To Data").show()
+
+
+                }
+            })
+
             dialog.show()
         }
     }

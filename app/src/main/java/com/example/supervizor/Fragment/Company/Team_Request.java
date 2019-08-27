@@ -118,4 +118,12 @@ public class Team_Request extends Fragment {
         check_user_information = new Check_User_information();
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
+
+    //set title
+    public void onResume() {
+        super.onResume();
+        // Set title bar
+        ((CompanyMainActivity) getActivity())
+                .setActionBarTitle("Team Request List");
+    }
 }
