@@ -12,6 +12,7 @@ import com.example.supervizor.Fragment.Company.Employee_list_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
+import com.example.supervizor.Fragment.Company.Team_Request;
 import com.example.supervizor.Fragment.Company.User_Attendance_F;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
@@ -178,8 +179,11 @@ public class CompanyMainActivity extends AppCompatActivity
         myDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                currentUser = null;
                 currentUser = mAuth.getCurrentUser();
+                if (currentUser == null) {
+                    return;
+                }
 
                 if (currentUser != null) {
                     signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
@@ -270,7 +274,6 @@ public class CompanyMainActivity extends AppCompatActivity
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
-//            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
     }
@@ -435,6 +438,9 @@ public class CompanyMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_attendance) {
             load_User_Attendance();
 
+        } else if (id == R.id.nav_team_request_pending) {
+            load_Team_Request();
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logOut) {
@@ -452,6 +458,17 @@ public class CompanyMainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void load_Team_Request() {
+
+        fragment = new Team_Request();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void load_Team_leader_F() {

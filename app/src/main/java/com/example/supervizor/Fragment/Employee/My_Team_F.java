@@ -67,6 +67,8 @@ public class My_Team_F extends Fragment implements View.OnClickListener {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //get team name
                 for (DataSnapshot snapshot : dataSnapshot
                         .child("my_team_request")
                         .child(check_user_information.getUserID())
@@ -74,6 +76,7 @@ public class My_Team_F extends Fragment implements View.OnClickListener {
                     String team_name = snapshot.getKey();
                     team_name_list.add(team_name);
                 }
+                //if have no team
                 if (team_name_list.isEmpty()) {
                     KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
                     kAlertDialog.setContentText("You have no Team Yet");

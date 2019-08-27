@@ -131,34 +131,58 @@ public class Employee_profile_View_By_Leader_F extends Fragment implements View.
             String team_name = preferences.getString("team_name", "");
 
             //
-            databaseReference.child("event_list_by_user")
+      /*      databaseReference.child("event_list_by_user")
                     .child(user_id_employee)
                     .child(check_user_information.getUserID())
                     .child(team_name)
                     .setValue(team_name);
+*/
+      //Set request Pending status
 
-            databaseReference.child("my_team_request")
-                    .child(check_user_information.getUserID())
-                    .child(team_name)
-                    .child(user_id_employee)
-                    .child("name")
-                    .setValue(nameTvProfileViewByLeader.getText().toString());
+//            get company ID
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String company_user_ID = dataSnapshot.child("employee_list").child(check_user_information.getUserID())
+                            .child("company_User_id").getValue(String.class);
 
-            databaseReference.child("my_team_request")
-                    .child(check_user_information.getUserID())
-                    .child(team_name)
-                    .child(user_id_employee)
-                    .child("email")
-                    .setValue(emailTvProfileViewByLeader.getText().toString())
-                    .addOnCompleteListener(task -> {
-                        kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                        kAlertDialog.setTitleText("Done");
-                        kAlertDialog.setConfirmClickListener(kAlertDialog -> {
-                            kAlertDialog.dismissWithAnimation();
-                            loadAddNewTeamMate_List_FragmentList();
-                        });
-                    });
+                    databaseReference.child("my_team_request_pending")
+                            .child(company_user_ID)
+                            .child(check_user_information.getUserID())
+                            .child(team_name)
+                            .child("status")
+                            .setValue("0");
 
+                    databaseReference.child("my_team_request")
+                            .child(check_user_information.getUserID())
+                            .child(team_name)
+                            .child(user_id_employee)
+                            .child("name")
+                            .setValue(nameTvProfileViewByLeader.getText().toString());
+
+                    databaseReference.child("my_team_request")
+                            .child(check_user_information.getUserID())
+                            .child(team_name)
+                            .child(user_id_employee)
+                            .child("email")
+                            .setValue(emailTvProfileViewByLeader.getText().toString())
+                            .addOnCompleteListener(task -> {
+                                kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                                kAlertDialog.setTitleText("Done");
+                                kAlertDialog.setConfirmClickListener(kAlertDialog -> {
+                                    kAlertDialog.dismissWithAnimation();
+                                    loadAddNewTeamMate_List_FragmentList();
+                                });
+                            });
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }
     }

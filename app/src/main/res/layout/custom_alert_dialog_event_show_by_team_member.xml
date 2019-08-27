@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/custom_alert_event_show"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/event_date_TV_ID_by_team_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_italic"
+            android:gravity="center"
+            android:text="2019/07/18"
+            android:textColor="#499653"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/event_title_TV_ID_by_team_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ebrima"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:text="Title text"
+            android:textColor="#9C27B0"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/time_title_TV_ID_by_team_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_italic"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:text="Time : 12.06 PM"
+            android:textColor="#FF0707"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:fontFamily="@font/raleway_regular"
+            android:paddingLeft="10sp"
+            android:text="Details :"
+            android:textColor="#9C27B0"
+            android:textSize="20sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/event_details_TV_ID_by_team_member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10sp"
+                android:fontFamily="@font/ebrima"
+                android:gravity="left"
+
+                android:padding="10sp"
+                android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
+                android:textColor="#000"
+                android:textSize="25sp" />
+
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="25sp"
+
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel_btn_alert_show_ID_by_team_member"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="#9C27B0"
+                android:fontFamily="@font/raleway_bolditalic"
+                android:text="Cancel" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

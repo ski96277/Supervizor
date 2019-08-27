@@ -18,6 +18,13 @@
             android:id="@+id/nav_Team_Leader"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Team Leader" />
+
+        <item
+            android:id="@+id/nav_team_request_pending"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Team Request"
+            android:visible="true"/>
+
         <item
             android:id="@+id/nav_attendance"
             android:icon="@drawable/ic_menu_manage"

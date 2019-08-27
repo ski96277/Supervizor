@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.AdapterClass.Team_Member_List_Adapter;
@@ -75,22 +76,40 @@ public class Team_Member_List_F extends Fragment {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String company_user_ID = dataSnapshot.child("employee_list").child(check_user_information.getUserID())
+                        .child("company_User_id").getValue(String.class);
+                //check request status
+                String status = dataSnapshot.child("my_team_request_pending")
+                        .child(company_user_ID)
+                        .child(check_user_information.getUserID())
+                        .child(team_name)
+                        .child("status")
+                        .getValue(String.class);
+                if (status != null) {
+                    if (status.equals("0")) {
+                        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                        kAlertDialog.show();
+                        kAlertDialog.setTitleText("You have no Permission");
+                        kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+                            load_My_Team_F(kAlertDialog);
+                        });
+                        return;
+                    }
+                }
+
 //if the team has no member go to the employee list
                 if (!dataSnapshot.child("my_team_request")
                         .child(check_user_information.getUserID()).hasChild(team_name)) {
-
 
                     KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
                     kAlertDialog.show();
                     kAlertDialog.setTitleText("No user Found");
                     kAlertDialog.setContentText(" Add New Team Mate");
-                    kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(KAlertDialog kAlertDialog) {
+                    kAlertDialog.setConfirmClickListener(kAlertDialog12 -> {
 
-                            loadNewteam_From_List();
-                            kAlertDialog.dismissWithAnimation();
-                        }
+                        loadNewteam_From_List();
+                        kAlertDialog12.dismissWithAnimation();
                     });
 
                 }
@@ -163,6 +182,16 @@ public class Team_Member_List_F extends Fragment {
         }
     }
 
+    private void load_My_Team_F(KAlertDialog kAlertDialog) {
+        Fragment fragment = new My_Team_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+            fragmentTransaction.commit();
+            kAlertDialog.dismissWithAnimation();
+        }
+    }
+
     //Load Fragment
     private void loadNewteam_From_List() {
         Fragment fragment = new Add_New_Team_Mate_From_List_F();
@@ -180,6 +209,7 @@ public class Team_Member_List_F extends Fragment {
         ((EmployeeMainActivity) getActivity())
                 .setActionBarTitle("Team member (" + team_name + ")");
     }
+
 
     private void initView(View rootView) {
         recyclerViewTeamMemberList = (RecyclerView) rootView.findViewById(R.id.recyclerView_Team_member_List);
