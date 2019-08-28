@@ -176,7 +176,7 @@ public class CompanyMainActivity extends AppCompatActivity
 //set profile information in navigation
 
     private void LoadCompanyinformation_On_The_Nav() {
-        myDatabaseRef.addValueEventListener(new ValueEventListener() {
+        myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 currentUser = null;
@@ -188,7 +188,7 @@ public class CompanyMainActivity extends AppCompatActivity
                 if (currentUser != null) {
                     signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
 
-                    if (!signUp_pojo.getLogo_download_url().equals("null")) {
+                    if (!"null".equalsIgnoreCase(signUp_pojo.getLogo_download_url())) {
                         String logo_download_link = signUp_pojo.getLogo_download_url();
                         Picasso.get().load(logo_download_link).into(profile_image_nav);
 
@@ -439,7 +439,9 @@ public class CompanyMainActivity extends AppCompatActivity
             load_User_Attendance();
 
         } else if (id == R.id.nav_team_request_pending) {
-            load_Team_Request();
+            Bundle bundle=new Bundle();
+            bundle.putString("error_handel_when_event_create","1");
+            load_Team_Request(bundle);
 
         } else if (id == R.id.nav_share) {
 
@@ -460,12 +462,14 @@ public class CompanyMainActivity extends AppCompatActivity
         return true;
     }
 
-    private void load_Team_Request() {
+    private void load_Team_Request(Bundle bundle) {
 
         fragment = new Team_Request();
         if (fragment != null) {
+
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
+            fragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentTransaction.commit();
         }

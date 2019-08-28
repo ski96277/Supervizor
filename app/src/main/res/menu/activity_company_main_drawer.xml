@@ -17,7 +17,7 @@
       <item
             android:id="@+id/nav_Team_Leader"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Team Leader" />
+            android:title="Team Leader List" />
 
         <item
             android:id="@+id/nav_team_request_pending"

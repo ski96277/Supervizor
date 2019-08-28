@@ -407,7 +407,8 @@ public class Calender_F extends Fragment {
                         databaseReference.child("event_notification_status")
                                 .child(check_user_information.getUserID())
                                 .child(userID_employee)
-                                .child("status").setValue("1");
+                                .child("status")
+                                .setValue("1");
 
                     }
 

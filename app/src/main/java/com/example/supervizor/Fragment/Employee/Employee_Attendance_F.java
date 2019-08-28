@@ -430,7 +430,7 @@ public class Employee_Attendance_F extends Fragment {
         databaseReference2 = firebaseDatabase.getReference();
 
         //first data (date) start here
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

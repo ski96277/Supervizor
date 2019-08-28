@@ -51,8 +51,11 @@ public class Alert_jobScheduler extends JobService {
                 String company_status=dataSnapshot.child("alert_status_company")
                         .child(company_userID)
                         .child("alert_status").getValue(String.class);
+              /*  if (!company_status.equals("1")){
+                    return;
+                }*/
 
-                if (company_status.equals("1")){
+                if ("1".equals(company_status)){
 
                    String reception_status =  dataSnapshot.child("alert_status_receptionist")
                             .child(company_userID)

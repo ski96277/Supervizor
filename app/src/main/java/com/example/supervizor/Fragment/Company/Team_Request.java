@@ -1,15 +1,11 @@
 package com.example.supervizor.Fragment.Company;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
-import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_View_by_Team_member;
 import com.example.supervizor.AdapterClass.Team_Event_Request_List_Adapter_View_by_company;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
@@ -53,10 +49,13 @@ public class Team_Request extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
 
+        Bundle bundle=getArguments();
+        String value = bundle.getString("error_handel_when_event_create");
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewTeamRequestID.setLayoutManager(gridLayoutManager);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -90,8 +89,8 @@ public class Team_Request extends Fragment {
                         }
                     }
                 }
-                if (team_name_list.isEmpty()) {
-                    KAlertDialog no_team_request_Alert = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                if (team_name_list.isEmpty() && value.equals("1")) {
+                    KAlertDialog no_team_request_Alert = new KAlertDialog(view.getContext(), KAlertDialog.WARNING_TYPE);
                     no_team_request_Alert.setTitleText("No Team Request Yet");
                     no_team_request_Alert.show();
                     no_team_request_Alert.setConfirmClickListener(kAlertDialog -> {
@@ -110,7 +109,6 @@ public class Team_Request extends Fragment {
 
             }
         });
-
     }
 
     private void initView(View rootView) {

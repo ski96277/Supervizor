@@ -236,7 +236,7 @@ forget_pass_TV.setOnClickListener(this);
     public void onStart() {
         super.onStart();
 
-        kAlertDialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog = new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setCancelable(false);
         kAlertDialog.setTitleText("Loading....");
         kAlertDialog.show();

@@ -73,16 +73,10 @@ public class LeaveApplication_Approved_F extends Fragment {
         kAlertDialog.setTitleText("Getting Data.....");
 
         //get value from Database
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                //get count update nav bar number
-
-              /*  count_leave_Application = dataSnapshot.child("leave_application")
-                        .child(check_user_information.getUserID())
-                        .child("pending").getChildrenCount();
-                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(count_leave_Application));*/
 //get data for recycler view
                 leaveApplication_pojoClasses_seen_list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
@@ -99,9 +93,6 @@ public class LeaveApplication_Approved_F extends Fragment {
 
                 //set count update nav bar number
 
-//                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_seen_list.size()));
-
-
                 Leave_Application_Accepted_Adapter_Company leave_application_accepted_adapter_company = new Leave_Application_Accepted_Adapter_Company(leaveApplication_pojoClasses_seen_list);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 leaveApplicationApprovedListID.setLayoutManager(linearLayoutManager);
@@ -112,11 +103,7 @@ public class LeaveApplication_Approved_F extends Fragment {
                 if (leaveApplication_pojoClasses_seen_list.isEmpty()){
 
                     Toasty.info(getActivity(),"No Data Found.....").show();
-                  /*  KAlertDialog kAlertDialog1=new KAlertDialog(getContext(),KAlertDialog.SUCCESS_TYPE);
-                    kAlertDialog1.setTitleText("No Data Found....");
-                    kAlertDialog1.show();
-                    kAlertDialog1.setConfirmClickListener(kAlertDialog2 -> kAlertDialog1.dismissWithAnimation());
-*/
+
 
                 }
 

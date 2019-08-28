@@ -74,15 +74,9 @@ public class LeaveApplication_Pending_F extends Fragment {
         kAlertDialog.setTitleText("Getting Data.....");
 
         //get value from Database
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                //get count update nav bar number
-//                count_leave_Application =  dataSnapshot.child("leave_application")
-//                        .child(check_user_information.getUserID())
-//                        .child("pending").getChildrenCount();
-//                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(count_leave_Application));
 
                 //get data for recycler view
                 leaveApplication_pojoClasses_Unseen_list.clear();

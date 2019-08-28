@@ -37,8 +37,6 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
 
         return holder.setData(team_name_list[position], team_leader_user_id[position])
     }
-
-
     class ViewHolder(var itemview: View) : RecyclerView.ViewHolder(itemview) {
 
         fun setData(team_name: String, team_leader_user_ID: String) {
@@ -69,7 +67,7 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
                     var image_link = addemployeePojoclass!!.employee_profile_image_link
                     if (!image_link.equals("null")) {
 
-                        Picasso.get().load(Uri.parse(image_link)).into(itemView.image_circleImageView_alert_ID)
+                        Picasso.get().load(Uri.parse(image_link)).into(dialog.image_circleImageView_alert_ID)
                     } else {
 //                        itemView.image_circleImageView_alert_ID.setImageResource(R.drawable.profile)
                         val imgResId = R.drawable.profile_item

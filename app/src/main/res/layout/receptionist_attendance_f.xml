@@ -41,20 +41,23 @@
                 android:layout_weight="3"
                 android:orientation="vertical">
 
+
                 <TextView
+                    android:id="@+id/name_TV_attendance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:text="Imran Sk"
                     android:textColor="#FFF"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/designation_TV_ID_attandence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_italic"
                     android:text="Android Developer"
                     android:textColor="#FFF"
-                    android:fontFamily="@font/raleway_italic"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -72,16 +75,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:spinnerMode="dialog">
-            </Spinner>
+                android:spinnerMode="dialog"></Spinner>
 
             <Spinner
                 android:id="@+id/year_spinner_ID_Reception_Attendance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:spinnerMode="dialog"
-                android:entries="@array/year_array">
+                android:entries="@array/year_array"
+                android:spinnerMode="dialog">
 
             </Spinner>
 
@@ -101,11 +103,11 @@
                 <TableRow>
 
                     <TextView
-                        android:fontFamily="@font/raleway_regular"
-
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="Date"
@@ -113,10 +115,10 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:fontFamily="@font/raleway_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="Entry"
@@ -124,11 +126,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:fontFamily="@font/raleway_regular"
-
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="Exit"

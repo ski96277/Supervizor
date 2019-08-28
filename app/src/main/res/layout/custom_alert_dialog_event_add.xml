@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_gravity="center"
     android:layout_height="match_parent"
-    android:padding="5sp"
+    android:layout_gravity="center"
+    android:background="@drawable/background_border_draw_line"
     android:orientation="vertical"
-    android:background="@drawable/background_border_draw_line">
+    android:padding="5sp">
 
     <TextView
-        android:layout_marginTop="10sp"
         android:id="@+id/event_date_TV_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10sp"
         android:fontFamily="@font/raleway_bolditalic"
         android:text="Event :"
         android:textColor="#4CAF50"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
 
     <EditText
@@ -29,8 +28,8 @@
         android:hint="Event title"
         android:inputType="text"
         android:maxLines="1"
-        android:textSize="25sp"
-        android:textColor="#9C27B0"/>
+        android:textColor="#9C27B0"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/event_details_ET_ID"
@@ -39,11 +38,11 @@
         android:layout_marginTop="5sp"
         android:fontFamily="@font/raleway_italic"
         android:gravity="top"
-        android:textColor="#000"
         android:hint="Task Discription"
         android:maxHeight="35dp"
         android:paddingLeft="5dp"
         android:scrollbars="vertical"
+        android:textColor="#000"
         android:textSize="15sp" />
 
     <EditText
@@ -51,44 +50,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
-        android:fontFamily="@font/raleway_bolditalic"
-        android:hint="Select Time"
         android:focusable="false"
+        android:fontFamily="@font/raleway_bolditalic"
         android:gravity="center"
+        android:hint="Select Time"
         android:inputType="text"
         android:maxLines="1"
-        android:textSize="25sp"
-        android:textColor="#9C27B0"/>
+        android:textColor="#9C27B0"
+        android:textSize="25sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
         android:orientation="horizontal"
-        android:padding="5sp"
-        android:layout_marginBottom="10sp">
+        android:padding="5sp">
 
         <Button
             android:id="@+id/cross_image_button_ID"
             android:layout_width="0dp"
-            android:layout_weight="1"            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
+            android:layout_marginRight="5sp"
+            android:layout_weight="1"
+            android:background="#E91E63"
             android:fontFamily="@font/raleway_bolditalic"
             android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="#000000"
-            android:textSize="20sp"
-            android:background="#E91E63"
-            android:layout_marginRight="5sp"
-            />
+            android:textSize="20sp" />
 
         <Button
-            android:layout_marginLeft="5sp"
             android:id="@+id/button_ok_dialog"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="10sp"
             android:layout_weight="1"
             android:background="#1EE958"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
             android:fontFamily="@font/raleway_bolditalic"
             android:text="Add Event"
 
