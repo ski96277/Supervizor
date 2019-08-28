@@ -1,11 +1,15 @@
 package com.example.supervizor.Fragment.Receptionist;
 
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -26,7 +30,11 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Calendar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class Receptionist_Attendance_F extends Fragment {
 
@@ -161,6 +169,12 @@ public class Receptionist_Attendance_F extends Fragment {
         adapter_month.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         month_spinner.setAdapter(adapter_month);
 
+        //SET current month
+        Calendar cal = Calendar.getInstance();
+        String current_month = month_array[cal.get(Calendar.MONTH)];
+        int selectionPosition = adapter_month.getPosition(current_month);
+        month_spinner.setSelection(selectionPosition);
+
         String[] year_array = {"2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
         ArrayAdapter<String> adapter_year =
                 new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, year_array);
@@ -178,6 +192,11 @@ public class Receptionist_Attendance_F extends Fragment {
                 String designation = addEmployee_pojoClass.getEmployee_designation();
                 String image_link = addEmployee_pojoClass.getEmployee_profile_image_link();
 
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("company_user_ID",addEmployee_pojoClass.getCompany_User_id());
+                editor.apply();
+
                 nameTVAttendance.setText(name);
                 designationTVIDAttandence.setText(designation);
 
@@ -193,6 +212,35 @@ public class Receptionist_Attendance_F extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        year_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String year = year_spinner.getSelectedItem().toString();
+                String month = month_spinner.getSelectedItem().toString();
+                getAttendenceValue(month, year);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        month_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String year = year_spinner.getSelectedItem().toString();
+                String month = month_spinner.getSelectedItem().toString();
+                getAttendenceValue(month, year);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -316,4 +364,406 @@ public class Receptionist_Attendance_F extends Fragment {
         designationTVIDAttandence = (TextView) rootView.findViewById(R.id.designation_TV_ID_attandence);
 
     }
+
+
+    private void getAttendenceValue(String month, String year) {
+
+        entryTimeDate1.setText("..");
+        entryTimeDate2.setText("..");
+        entryTimeDate3.setText("..");
+        entryTimeDate4.setText("..");
+        entryTimeDate5.setText("..");
+        entryTimeDate6.setText("..");
+        entryTimeDate7.setText("..");
+        entryTimeDate8.setText("..");
+        entryTimeDate9.setText("..");
+        entryTimeDate10.setText("..");
+        entryTimeDate11.setText("..");
+        entryTimeDate12.setText("..");
+        entryTimeDate13.setText("..");
+        entryTimeDate14.setText("..");
+        entryTimeDate15.setText("..");
+        entryTimeDate16.setText("..");
+        entryTimeDate17.setText("..");
+        entryTimeDate18.setText("..");
+        entryTimeDate19.setText("..");
+        entryTimeDate20.setText("..");
+        entryTimeDate21.setText("..");
+        entryTimeDate22.setText("..");
+        entryTimeDate23.setText("..");
+        entryTimeDate24.setText("..");
+        entryTimeDate25.setText("..");
+        entryTimeDate26.setText("..");
+        entryTimeDate27.setText("..");
+        entryTimeDate28.setText("..");
+        entryTimeDate29.setText("..");
+        entryTimeDate30.setText("..");
+        entryTimeDate31.setText("..");
+
+
+        exitTimeDate1.setText("..");
+        exitTimeDate2.setText("..");
+        exitTimeDate3.setText("..");
+        exitTimeDate4.setText("..");
+        exitTimeDate5.setText("..");
+        exitTimeDate6.setText("..");
+        exitTimeDate7.setText("..");
+        exitTimeDate8.setText("..");
+        exitTimeDate9.setText("..");
+        exitTimeDate10.setText("..");
+        exitTimeDate11.setText("..");
+        exitTimeDate12.setText("..");
+        exitTimeDate13.setText("..");
+        exitTimeDate14.setText("..");
+        exitTimeDate15.setText("..");
+        exitTimeDate16.setText("..");
+        exitTimeDate17.setText("..");
+        exitTimeDate18.setText("..");
+        exitTimeDate19.setText("..");
+        exitTimeDate20.setText("..");
+        exitTimeDate21.setText("..");
+        exitTimeDate22.setText("..");
+        exitTimeDate23.setText("..");
+        exitTimeDate24.setText("..");
+        exitTimeDate25.setText("..");
+        exitTimeDate26.setText("..");
+        exitTimeDate27.setText("..");
+        exitTimeDate28.setText("..");
+        exitTimeDate29.setText("..");
+        exitTimeDate30.setText("..");
+        exitTimeDate31.setText("..");
+
+        int monthNumber;
+        int i = 0;
+
+        if (month.equals("January")) {
+            i = 1;
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("February")) {
+
+            tableRow31.setVisibility(View.GONE);
+            tableRow30.setVisibility(View.GONE);
+            tableRow29.setVisibility(View.GONE);
+
+            boolean flag = false;
+            int year_int = Integer.valueOf(year);
+            if (year_int % 400 == 0) {
+                flag = true;
+            } else if (year_int % 100 == 0) {
+                flag = false;
+            } else if (year_int % 4 == 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+            if (flag) {
+                tableRow29.setVisibility(View.VISIBLE);
+            }
+
+            i = 2;
+        }
+        if (month.equals("March")) {
+            i = 3;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("April")) {
+            tableRow31.setVisibility(View.GONE);
+            i = 4;
+
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("May")) {
+            i = 5;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("June")) {
+            tableRow31.setVisibility(View.GONE);
+            i = 6;
+
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("July")) {
+
+            i = 7;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("August")) {
+            i = 8;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("September")) {
+            tableRow31.setVisibility(View.GONE);
+            i = 9;
+
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("October")) {
+            i = 10;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("November")) {
+            tableRow31.setVisibility(View.GONE);
+            i = 11;
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+        if (month.equals("December")) {
+            i = 12;
+
+            tableRow31.setVisibility(View.VISIBLE);
+            tableRow30.setVisibility(View.VISIBLE);
+            tableRow29.setVisibility(View.VISIBLE);
+        }
+
+        monthNumber = i;
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        DatabaseReference databaseReference2 = firebaseDatabase.getReference();
+
+        //first data (date) start here
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //clear the date_list for reduce the data replete
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String company_user_ID = preferences.getString("company_user_ID", "");
+
+                for (DataSnapshot snapshot : dataSnapshot
+                        .child("Attendance")
+                        .child(company_user_ID)
+                        .child(check_user_information.getUserID())
+                        .child(year).child(String.valueOf(monthNumber))
+                        .getChildren()) {
+
+                    String date = snapshot.getKey();
+
+                    databaseReference2.addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            String company_user_ID = preferences.getString("company_user_ID", "");
+
+                            String entryTime = dataSnapshot
+                                    .child("Attendance")
+                                    .child(company_user_ID)
+                                    .child(check_user_information.getUserID())
+                                    .child(year)
+                                    .child(String.valueOf(monthNumber))
+                                    .child(date)
+                                    .child("Entry")
+                                    .child("entryTime")
+                                    .getValue(String.class);
+                            String exitTime = dataSnapshot
+                                    .child("Attendance")
+                                    .child(company_user_ID)
+                                    .child(check_user_information.getUserID())
+                                    .child(year)
+                                    .child(String.valueOf(monthNumber))
+                                    .child(date)
+                                    .child("Exit")
+                                    .child("exitTime")
+                                    .getValue(String.class);
+
+                            if (date.equals(String.valueOf(1))) {
+                                entryTimeDate1.setText(entryTime);
+                                exitTimeDate1.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(2))) {
+                                entryTimeDate2.setText(entryTime);
+                                exitTimeDate2.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(3))) {
+                                entryTimeDate3.setText(entryTime);
+                                exitTimeDate3.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(4))) {
+                                entryTimeDate4.setText(entryTime);
+                                exitTimeDate4.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(5))) {
+                                entryTimeDate5.setText(entryTime);
+                                exitTimeDate5.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(6))) {
+                                entryTimeDate6.setText(entryTime);
+                                exitTimeDate6.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(7))) {
+                                entryTimeDate7.setText(entryTime);
+                                exitTimeDate7.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(8))) {
+                                entryTimeDate8.setText(entryTime);
+                                exitTimeDate8.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(9))) {
+                                entryTimeDate9.setText(entryTime);
+                                exitTimeDate9.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(10))) {
+                                entryTimeDate10.setText(entryTime);
+                                exitTimeDate10.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(11))) {
+                                entryTimeDate11.setText(entryTime);
+                                exitTimeDate11.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(12))) {
+                                entryTimeDate12.setText(entryTime);
+                                exitTimeDate12.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(13))) {
+                                entryTimeDate13.setText(entryTime);
+                                exitTimeDate13.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(14))) {
+                                entryTimeDate14.setText(entryTime);
+                                exitTimeDate14.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(15))) {
+                                entryTimeDate15.setText(entryTime);
+                                exitTimeDate15.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(16))) {
+                                entryTimeDate16.setText(entryTime);
+                                exitTimeDate16.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(17))) {
+                                entryTimeDate17.setText(entryTime);
+                                exitTimeDate17.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(18))) {
+                                entryTimeDate18.setText(entryTime);
+                                exitTimeDate18.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(19))) {
+                                entryTimeDate19.setText(entryTime);
+                                exitTimeDate19.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(20))) {
+                                entryTimeDate20.setText(entryTime);
+                                exitTimeDate20.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(21))) {
+                                entryTimeDate21.setText(entryTime);
+                                exitTimeDate21.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(22))) {
+                                entryTimeDate22.setText(entryTime);
+                                exitTimeDate22.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(23))) {
+                                entryTimeDate23.setText(entryTime);
+                                exitTimeDate23.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(24))) {
+                                entryTimeDate24.setText(entryTime);
+                                exitTimeDate24.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(25))) {
+                                entryTimeDate25.setText(entryTime);
+                                exitTimeDate25.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(26))) {
+                                entryTimeDate26.setText(entryTime);
+                                exitTimeDate26.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(27))) {
+                                entryTimeDate27.setText(entryTime);
+                                exitTimeDate27.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(28))) {
+                                entryTimeDate28.setText(entryTime);
+                                exitTimeDate28.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(29))) {
+                                entryTimeDate29.setText(entryTime);
+                                exitTimeDate29.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(30))) {
+                                entryTimeDate30.setText(entryTime);
+                                exitTimeDate30.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+                            if (date.equals(String.valueOf(31))) {
+                                entryTimeDate31.setText(entryTime);
+                                exitTimeDate31.setText(exitTime);
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toasty.error(getContext(), "Data Error", Toasty.LENGTH_SHORT).show();
+                        }
+                    });//second Data coming end
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toasty.error(getContext(), "date not Found", Toasty.LENGTH_SHORT).show();
+            }
+        });
+//first data (date) END
+
+
+    }
+
+
 }
