@@ -385,6 +385,13 @@ public class CompanyMainActivity extends AppCompatActivity
 
                 Check_User_information check_user_information = new Check_User_information();
 
+//check has the receptionist
+               if (!dataSnapshot.child("receptionist_list_by_company").hasChild(check_user_information.getUserID()) ){
+                    kAlertDialog.dismissWithAnimation();
+                    Toasty.info(CompanyMainActivity.this, "No Receptionist Found").show();
+                    return;
+                }
+
                 for (DataSnapshot snapshot : dataSnapshot.child("receptionist_list_by_company")
                         .child(check_user_information.getUserID()).getChildren()) {
 
@@ -411,6 +418,7 @@ public class CompanyMainActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                kAlertDialog.dismissWithAnimation();
             }
         });
 
@@ -435,12 +443,12 @@ public class CompanyMainActivity extends AppCompatActivity
             load_Team_leader_F();
 
 
-        } else if (id == R.id.nav_attendance) {
+        }/* else if (id == R.id.nav_attendance) {
             load_User_Attendance();
 
-        } else if (id == R.id.nav_team_request_pending) {
-            Bundle bundle=new Bundle();
-            bundle.putString("error_handel_when_event_create","1");
+        }*/ else if (id == R.id.nav_team_request_pending) {
+            Bundle bundle = new Bundle();
+            bundle.putString("error_handel_when_event_create", "1");
             load_Team_Request(bundle);
 
         } else if (id == R.id.nav_share) {
@@ -486,7 +494,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
     }
 
-    private void load_User_Attendance() {
+    /*private void load_User_Attendance() {
         fragment = new User_Attendance_F();
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
@@ -494,7 +502,7 @@ public class CompanyMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
 
 }

@@ -462,7 +462,7 @@ public class User_Attendance_F extends Fragment {
 
         monthNumber = i;
         //first data (date) start here
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

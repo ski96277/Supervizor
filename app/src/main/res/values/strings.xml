@@ -33,9 +33,9 @@
     <string name="menu_send">Send</string>
 
     <string-array name="employee_home">
+        <item>Receptionist</item>
         <item>All</item>
         <item>Employee</item>
-        <item>Moderator</item>
     </string-array>
 
     <string-array name="contact_period">

@@ -85,7 +85,7 @@
                     android:hint="@string/contact_hint"
                     android:maxLines="1"
                     android:inputType="numberDecimal"
-                android:fontFamily="@font/raleway_regular"
+                android:fontFamily="@font/raleway_semibold"
                     android:drawableLeft="@drawable/phone"
                     android:drawablePadding="15dp"
             />
@@ -132,7 +132,9 @@
                 android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:background="@drawable/signup_btn_bg"
-                android:text="@string/arrow_button"
+                android:text="Next >"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
                 android:layout_margin="10dp"
             android:fontFamily="@font/raleway_regular"
         android:layout_marginBottom="10dp"/>

@@ -56,7 +56,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:hint="22 days"
+                android:hint="26"
                 android:fontFamily="@font/raleway_regular"
 
                 android:inputType="numberDecimal"
@@ -111,7 +111,7 @@
 
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:hint="5 days"
+                android:hint="3"
                 android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:textColor="@color/text_black_color"

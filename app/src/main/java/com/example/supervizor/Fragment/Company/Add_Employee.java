@@ -1,10 +1,8 @@
 package com.example.supervizor.Fragment.Company;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.Spinner;
 
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
-import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,15 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
 import com.kinda.alert.KAlertDialog;
 
-import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.Executor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -104,7 +95,8 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                password_company = dataSnapshot.child("company_list").child(userID_company)
                         .child("company_password")
                         .getValue(String.class);
-               Toasty.info(getContext(),password_company,Toasty.LENGTH_LONG).show();
+                Log.e("TAG", "onDataChange: password_company ="+password_company);
+
             }
 
             @Override
@@ -137,7 +129,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userID_company = user.getUid();
         email_company = user.getEmail();
-        Toasty.info(getContext(), userID_company).show();
+        Log.e("TAG", "initialize: userID_company " +userID_company);
 
     }
 
@@ -160,7 +152,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
             case R.id.add_Employee_button_ID:
 
                 if (!CheckInternet.isInternet(getContext())){
-                    Toasty.info(getContext(),"Internet Error").show();
+                    Toasty.info(getContext(),"Check Internet Connection").show();
                     return;
                 }
 
@@ -284,6 +276,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toasty.error(getContext(), e.getMessage()).show();
+                        kAlertDialog.dismissWithAnimation();
                     }
                 });
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.AdapterClass.All_Leave_Application_List_Employee_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
@@ -87,6 +88,11 @@ public class MyLeaveApplication_Employee_F extends Fragment {
                                 leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
                             }
                         }
+                        if (leaveApplication_pojoClasses_list.size()==0){
+                            kAlertDialog.dismissWithAnimation();
+                            Toasty.info(getContext(),"No data found").show();
+                            return;
+                        }
 
                         Log.e("TAG", "onDataChange: size = " + leaveApplication_pojoClasses_list.size());
                         Log.e("TAG", "onDataChange: date = " + leaveApplication_pojoClass.getLeave_applying_Date());
@@ -123,5 +129,13 @@ public class MyLeaveApplication_Employee_F extends Fragment {
 
         check_user_information = new Check_User_information();
         kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+    }
+
+    //set title
+    public void onResume() {
+        super.onResume();
+        // Set title bar
+        ((EmployeeMainActivity) getActivity())
+                .setActionBarTitle("My Leave application");
     }
 }

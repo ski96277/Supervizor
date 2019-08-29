@@ -29,7 +29,6 @@
                 android:drawableLeft="@drawable/profile_item"
                 android:drawablePadding="20sp"
                 android:hint="Name"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -48,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/designation"
                 android:drawablePadding="20sp"
-                android:hint="Designation"
-                android:fontFamily="@font/raleway_italic"
+                android:text="Receptionist"
+                android:focusable="false"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -69,7 +68,6 @@
                 android:drawableLeft="@drawable/email_icon"
                 android:drawablePadding="20sp"
                 android:hint="E-mail"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -90,7 +88,6 @@
                 android:drawableLeft="@drawable/date_icon"
                 android:drawablePadding="20sp"
                 android:focusable="false"
-                android:fontFamily="@font/raleway_italic"
                 android:hint="Join Date" />
         </androidx.cardview.widget.CardView>
 
@@ -106,10 +103,9 @@
                 android:id="@+id/Receptionist_salary_ET_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/salary_icon_on_black_24dp"
+                android:drawableLeft="@drawable/salary_icon"
                 android:drawablePadding="25sp"
                 android:hint="Salary"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="numberDecimal" />
         </androidx.cardview.widget.CardView>
 
@@ -138,8 +134,7 @@
                         android:text="Contract period"
                         android:textColor="@color/text_black_color"
                         android:textSize="20sp"
-
-                        android:fontFamily="@font/raleway_bolditalic"/>
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,9 +149,9 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:gravity="center"
-                        android:hint="10"
                         android:fontFamily="@font/ebrima"
+                        android:gravity="center"
+                        android:hint="01"
                         android:inputType="numberDecimal"
                         android:textSize="30sp" />
 
@@ -184,9 +179,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/add_employee_btn_bg"
+                android:fontFamily="@font/raleway_bolditalic"
                 android:paddingLeft="40sp"
                 android:paddingRight="40sp"
-                android:fontFamily="@font/raleway_bolditalic"
 
                 android:text="+ Add Receptionist"
                 android:textAlignment="center"

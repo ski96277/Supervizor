@@ -172,14 +172,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/green_color_submit_button_bg"
-                    android:fontFamily="@font/raleway_bolditalic"
                     android:gravity="center"
                     android:maxHeight="35dp"
                     android:paddingLeft="80sp"
                     android:paddingRight="80sp"
                     android:scrollbars="vertical"
                     android:text="Submit"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>

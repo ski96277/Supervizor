@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -47,13 +48,14 @@ import es.dmoral.toasty.Toasty;
 
 public class Employee_list_F extends Fragment {
 
-    private ImageButton plus_icon_button;
+    private Button plus_icon_button;
     private SearchView search_ET;
-    private Spinner spinner_ET;
+//    private Spinner spinner_ET;
     private int count = 0;
     private Button add_employee_btn;
     private Button add_receptionist_btn;
     private LinearLayout add_emplo_layout, all_search_layout;
+    private TextView no_employee_found_TV_ID;
 
 
     private ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
@@ -89,7 +91,7 @@ public class Employee_list_F extends Fragment {
         //set focus able
         plus_icon_button.requestFocus();
         search_ET.requestFocus();
-        spinner_ET.requestFocus();
+//        spinner_ET.requestFocus();
 
 
         plus_icon_button.setOnClickListener(v -> {
@@ -103,11 +105,12 @@ public class Employee_list_F extends Fragment {
 
                 add_emplo_layout.setVisibility(View.VISIBLE);
                 all_search_layout.setBackgroundColor(Color.parseColor("#000000"));
-                spinner_ET.setVisibility(View.INVISIBLE);
-                spinner_ET.setBackgroundColor(Color.parseColor("#010D1B"));
+//                spinner_ET.setVisibility(View.INVISIBLE);
+//                spinner_ET.setBackgroundColor(Color.parseColor("#010D1B"));
                 search_ET.setVisibility(View.INVISIBLE);
                 search_ET.setBackgroundColor(Color.parseColor("#010D1B"));
-                plus_icon_button.setImageResource(R.drawable.cross_icon);
+//                plus_icon_button.setImageResource(R.drawable.cross_icon);
+                plus_icon_button.setText("x");
 
 
 //hide key pad start
@@ -127,17 +130,18 @@ public class Employee_list_F extends Fragment {
 
                 add_emplo_layout.setVisibility(View.GONE);
                 all_search_layout.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                spinner_ET.setVisibility(View.VISIBLE);
+//                spinner_ET.setVisibility(View.VISIBLE);
                 search_ET.setVisibility(View.VISIBLE);
 
                 plus_icon_button.requestFocus();
                 search_ET.requestFocus();
-                spinner_ET.requestFocus();
+//                spinner_ET.requestFocus();
 
-                spinner_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
+//                spinner_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
                 search_ET.setBackgroundColor(Color.parseColor("#EEEDEF"));
 
-                plus_icon_button.setImageResource(R.drawable.plus);
+//                plus_icon_button.setImageResource(R.drawable.plus);
+                plus_icon_button.setText("+");
             }
         });
         //add employee btn
@@ -180,7 +184,7 @@ public class Employee_list_F extends Fragment {
         }
 
         KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Data Loading....");
+        kAlertDialog.setTitleText("Loading....");
         kAlertDialog.show();
 
         myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -196,6 +200,12 @@ public class Employee_list_F extends Fragment {
 
                     addEmployee_pojoClasses.add(addEmployeePojoClass);
 
+                }
+
+                if (addEmployee_pojoClasses.isEmpty()){
+                    no_employee_found_TV_ID.setVisibility(View.VISIBLE);
+                    recyclerview_all_employee_ID.setVisibility(View.GONE);
+                    Toasty.info(getContext(),"No Data Found").show();
                 }
 
                 all_employee_list_adapter = new All_Employee_List_Adapter(addEmployee_pojoClasses);
@@ -247,9 +257,10 @@ public class Employee_list_F extends Fragment {
 
 
     private void initialization(View view) {
+        no_employee_found_TV_ID=view.findViewById(R.id.no_employee_found_TV_ID);
         plus_icon_button = view.findViewById(R.id.plus_icon_button);
         search_ET = view.findViewById(R.id.search_ET_ID);
-        spinner_ET = view.findViewById(R.id.spinner_ID);
+//        spinner_ET = view.findViewById(R.id.spinner_ID);
         add_employee_btn = view.findViewById(R.id.add_employee_btn);
         add_receptionist_btn = view.findViewById(R.id.add_receptionist_btn);
         add_emplo_layout = view.findViewById(R.id.add_emplo_layout);

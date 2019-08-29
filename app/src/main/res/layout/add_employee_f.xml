@@ -29,7 +29,6 @@
                 android:drawableLeft="@drawable/profile_item"
                 android:drawablePadding="20sp"
                 android:hint="Name"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -50,7 +49,6 @@
                 android:drawablePadding="20sp"
                 android:hint="Designation"
                 android:inputType="text"
-                android:fontFamily="@font/raleway_italic"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
 
@@ -69,7 +67,6 @@
                 android:drawableLeft="@drawable/email_icon"
                 android:drawablePadding="20sp"
                 android:hint="E-mail"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="text"
                 android:maxLines="1" />
         </androidx.cardview.widget.CardView>
@@ -90,8 +87,8 @@
                 android:drawableLeft="@drawable/date_icon"
                 android:drawablePadding="20sp"
                 android:focusable="false"
-                android:fontFamily="@font/raleway_italic"
-                android:hint="Join Date" />
+                android:hint="Join date"
+               />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -105,11 +102,10 @@
             <EditText
                 android:id="@+id/Employee_salary_ET_ID"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/salary_icon_on_black_24dp"
-                android:drawablePadding="25sp"
+                android:layout_height="50sp"
+                android:drawableLeft="@drawable/salary_icon"
+                android:drawablePadding="20sp"
                 android:hint="Salary"
-                android:fontFamily="@font/raleway_italic"
                 android:inputType="numberDecimal" />
         </androidx.cardview.widget.CardView>
 
@@ -170,7 +166,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:fontFamily="@font/raleway_italic"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -192,8 +187,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:gravity="center"
-                        android:hint="10"
-                        android:fontFamily="@font/doppio_one_regular"
+                        android:hint="01"
+                        android:fontFamily="@font/raleway_regular"
 
                         android:inputType="numberDecimal"
                         android:textSize="30sp" />
