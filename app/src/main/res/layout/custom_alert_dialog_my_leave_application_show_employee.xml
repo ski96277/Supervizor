@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="2019/07/18"
         android:textSize="25sp"
-        android:fontFamily="@font/raleway_italic"
         android:textColor="#499653"
         android:gravity="center"
         />
@@ -24,7 +23,6 @@
         android:text="Title text"
         android:gravity="center"
         android:textSize="30sp"
-        android:fontFamily="@font/ebrima"
         android:textColor="#9C27B0"
         android:paddingLeft="10sp"
         />
@@ -36,8 +34,7 @@
         android:textColor="#130606"
         android:textSize="20sp"
         android:gravity="center"
-        android:paddingLeft="10sp"
-        android:fontFamily="@font/raleway_italic"/>
+        android:paddingLeft="10sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +42,6 @@
         android:textSize="20sp"
         android:layout_margin="10sp"
         android:textColor="#9C27B0"
-        android:fontFamily="@font/raleway_regular"
         android:paddingLeft="10sp"/>
 
     <ScrollView
@@ -58,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10sp"
-            android:fontFamily="@font/ebrima"
             android:gravity="left"
             android:layout_margin="10sp"
             android:paddingLeft="10sp"

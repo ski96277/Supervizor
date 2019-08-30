@@ -4,7 +4,11 @@ import android.app.Dialog
 import android.net.Uri
 import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.supervizor.Fragment.Company.Employee_list_F
+import com.example.supervizor.Fragment.Company.Team_Request
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
 import com.google.firebase.database.DatabaseReference
@@ -91,6 +95,8 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
                                 .setValue("1")
                                 .addOnCompleteListener {
                                     dialog.dismiss()
+
+                                    loadTeamRequestList()
                                 }
                     }
 
@@ -105,6 +111,21 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
             })
 
             dialog.show()
+        }
+
+        private fun loadTeamRequestList() {
+
+
+            var fragment: Fragment?
+            fragment = Team_Request()
+
+            if (fragment != null) {
+
+                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.commit()
+            }
+
         }
     }
 }

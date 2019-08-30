@@ -20,7 +20,6 @@ import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.Fragment.Employee.Team_List_As_A_Member;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
-import com.example.supervizor.Notification_Service.GeneralEventNotification;
 import com.example.supervizor.R;
 
 import android.preference.PreferenceManager;
@@ -109,7 +108,7 @@ public class EmployeeMainActivity extends AppCompatActivity
 //initialize the view
         initialize();
         //start general event notification service
-        startGeneralEventnotificationService();
+//        startGeneralEventnotificationService();
 
         check_user_information = new Check_User_information();
         user_ID = check_user_information.getUserID();
@@ -264,7 +263,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         loadDefault_Home_Fragment();
     }
 
-    //start general event notification service
+  /*  //start general event notification service
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startGeneralEventnotificationService() {
         ComponentName componentName = new ComponentName(this, GeneralEventNotification.class);
@@ -294,7 +293,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         }
     }
 
-
+*/
     private void initialize() {
 
         firebaseDatabase = FirebaseDatabase.getInstance();

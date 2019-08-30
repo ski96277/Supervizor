@@ -19,7 +19,6 @@ import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
-import com.example.supervizor.Notification_Service.GeneralEventNotification;
 import com.example.supervizor.R;
 
 import android.preference.PreferenceManager;
@@ -102,7 +101,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
         //start background service
 
         startJobService();
-        startGeneralEventnotificationService();
+//        startGeneralEventnotificationService();
 
         CheckAlert_Is_Calling();
 
@@ -300,7 +299,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
         //start Job schedule END
     }
 
-
+/*
     //start general event notification service
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startGeneralEventnotificationService() {
@@ -324,7 +323,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
         //start Job schedule  Start
         jobScheduler.schedule(jobInfo);
-    }
+    }*/
 
 
     //Profile Fragment Call

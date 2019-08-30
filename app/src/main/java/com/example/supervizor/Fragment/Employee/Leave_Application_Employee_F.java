@@ -42,6 +42,8 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import es.dmoral.toasty.Toasty;
 
 public class Leave_Application_Employee_F extends Fragment implements View.OnClickListener {
@@ -162,10 +164,15 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                             sendDataToFireabase(TOPIC_NAME,leave_Title,description);
  //send the notification data END
 
-
                             kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                             kAlertDialog.setTitleText("Uploaded...");
-                            kAlertDialog.setConfirmClickListener(kAlertDialog1 -> kAlertDialog1.dismissWithAnimation());
+                            kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(KAlertDialog kAlertDialog) {
+                                    kAlertDialog.dismissWithAnimation();
+                                    loadMyLeaveApplication();
+                                }
+                            });
                         });
             }
 
@@ -175,6 +182,15 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             }
         });
 
+    }
+
+    private void loadMyLeaveApplication() {
+        Fragment fragment=new MyLeaveApplication_Employee_F();
+        if (fragment!=null){
+            FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void callDate_Start_Method() {
@@ -256,7 +272,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, "onResponse: " + response.toString());
-                        Toasty.info(getContext(),"send notification").show();
+//                        Toasty.info(getContext(),"send notification").show();
                     }
                 },
                 new Response.ErrorListener() {

@@ -22,6 +22,7 @@ import com.example.supervizor.Fragment.Company.User_Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import android.widget.Filter
+import com.example.supervizor.Fragment.Company.Employee_list_F
 
 
 class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>) : RecyclerView.Adapter<All_Employee_List_Adapter.ViewHolderClass>() {
@@ -121,10 +122,24 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                             .removeValue()
                             .addOnSuccessListener {
                                 Toasty.info(itemView.context, "Removed").show()
-
+                                load_employee_list_Fragment()
                             }
                 }
                 kAlertDialog.show()
+            }
+        }
+
+        private fun load_employee_list_Fragment() {
+
+
+            var fragment: Fragment?
+            fragment = Employee_list_F()
+
+            if (fragment != null) {
+
+                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.commit()
             }
         }
 
@@ -192,13 +207,12 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                 if (charString.isEmpty()) {
                     filtered = addEmployee_pojoClasses
                     //filteredCUG = CUG;
-                    addEmployee_pojoClasses=filtered
+                    addEmployee_pojoClasses = filtered
                 } else {
-                    for ( addEmployee_pojoClass:AddEmployee_PojoClass in addEmployee_pojoClasses) {
+                    for (addEmployee_pojoClass: AddEmployee_PojoClass in addEmployee_pojoClasses) {
 
                         if (addEmployee_pojoClass.employee_name.toLowerCase().contains(charString)
-                                || addEmployee_pojoClass.user_type.toLowerCase().contains(charString))
-                        {
+                                || addEmployee_pojoClass.user_type.toLowerCase().contains(charString)) {
                             filtered.add(addEmployee_pojoClass)
                         }
                     }
@@ -210,14 +224,13 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                 return filterResults
             }
 
-             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
 //                addEmployee_pojoClasses.clear();
-                 addEmployee_pojoClasses = filterResults.values as ArrayList<AddEmployee_PojoClass>
+                addEmployee_pojoClasses = filterResults.values as ArrayList<AddEmployee_PojoClass>
                 notifyDataSetChanged()
             }
         }
     }
-
 
 
 }

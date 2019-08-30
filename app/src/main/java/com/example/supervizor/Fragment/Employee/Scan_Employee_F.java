@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.Activity.ScanResult_Activiy;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
@@ -116,5 +117,13 @@ public class Scan_Employee_F extends Fragment implements View.OnClickListener {
         } else {
             return android.provider.Settings.System.getInt(c.getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0) == 1;
         }
+    }
+
+    //set title
+    public void onResume() {
+        super.onResume();
+        // Set title bar
+        ((EmployeeMainActivity) getActivity())
+                .setActionBarTitle("Scan");
     }
 }

@@ -49,8 +49,8 @@ public class Team_Request extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
 
-        Bundle bundle=getArguments();
-        String value = bundle.getString("error_handel_when_event_create");
+//        Bundle bundle=getArguments();
+//        String value = bundle.getString("error_handel_when_event_create");
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewTeamRequestID.setLayoutManager(gridLayoutManager);
@@ -89,7 +89,7 @@ public class Team_Request extends Fragment {
                         }
                     }
                 }
-                if (team_name_list.isEmpty() && value.equals("1")) {
+                if (team_name_list.size() <=0) {
                     KAlertDialog no_team_request_Alert = new KAlertDialog(view.getContext(), KAlertDialog.WARNING_TYPE);
                     no_team_request_Alert.setTitleText("No Team Request Yet");
                     no_team_request_Alert.show();

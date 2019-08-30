@@ -27,7 +27,6 @@
                 android:id="@+id/event_title_TV_item_ID_view_by_team_leader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/raleway_bolditalic"
                 android:maxLines="1"
                 android:text="Event - event name"
                 android:textColor="#000"
@@ -37,7 +36,6 @@
                 android:id="@+id/event_Date_TV_item_ID_view_by_team_leader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/raleway_italic"
                 android:text="2019/07/31"
                 android:textColor="#489A53"
                 android:textSize="20sp" />

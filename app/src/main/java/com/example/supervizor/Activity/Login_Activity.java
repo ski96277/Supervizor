@@ -239,7 +239,7 @@ forget_pass_TV.setOnClickListener(this);
         kAlertDialog = new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setCancelable(false);
         kAlertDialog.setTitleText("Loading....");
-        kAlertDialog.show();
+//        kAlertDialog.show();
 
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();

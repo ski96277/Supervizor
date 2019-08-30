@@ -329,6 +329,7 @@ public class Calender_F extends Fragment {
 
 
                 //getting user id for settings notification
+/*
 
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -337,12 +338,14 @@ public class Calender_F extends Fragment {
                         for (DataSnapshot snapshot:dataSnapshot.child("employee_list_by_company")
                                 .child(check_user_information.getUserID()).getChildren()){
 
-                            String userID_employee = snapshot.getKey();
+                           */
+/* String userID_employee = snapshot.getKey();
 
                             databaseReference.child("holiday_event_notification_status")
                                     .child(check_user_information.getUserID())
                                     .child(userID_employee)
-                                    .child("status").setValue("1");
+                                    .child("status").setValue("1");*//*
+
 
                         }
 
@@ -361,6 +364,7 @@ public class Calender_F extends Fragment {
 
 
                 //getting user id for settings notification END
+*/
 
             }
         });
@@ -420,6 +424,7 @@ public class Calender_F extends Fragment {
                 Toasty.error(activity, "Internet Connection Error");
                 return;
             }
+    /*
             //getting user id for settings notification
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -447,7 +452,7 @@ public class Calender_F extends Fragment {
                 }
             });
             //getting user id for settings notification END
-
+*/
             String user_ID = check_user_information.getUserID();
 //check the alert input field is empty ?
             if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {

@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="2019/07/18"
         android:textSize="25sp"
-        android:fontFamily="@font/raleway_italic"
         android:textColor="#499653"
         android:gravity="center"
         />
@@ -24,7 +23,6 @@
         android:text="Title text"
         android:gravity="center"
         android:textSize="30sp"
-        android:fontFamily="@font/ebrima"
         android:textColor="#9C27B0"
         android:paddingLeft="10sp"
         />
@@ -37,7 +35,6 @@
         android:textColor="#FF0707"
         android:gravity="center"
         android:paddingLeft="10sp"
-        android:fontFamily="@font/raleway_italic"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +43,6 @@
         android:layout_margin="10sp"
         android:textSize="20sp"
         android:textColor="#9C27B0"
-        android:fontFamily="@font/raleway_regular"
         android:paddingLeft="10sp"/>
 
     <ScrollView
@@ -59,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5sp"
-            android:fontFamily="@font/ebrima"
             android:gravity="left"
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
@@ -82,7 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancel"
-            android:fontFamily="@font/raleway_bolditalic"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
             android:background="#9C27B0"/>
@@ -93,7 +87,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Edit"
-            android:fontFamily="@font/raleway_bolditalic"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:background="#1EE958"

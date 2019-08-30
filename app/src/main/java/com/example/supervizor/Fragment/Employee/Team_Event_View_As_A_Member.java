@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_View_by_Team_member;
 import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_by_Team_Leader;
 import com.example.supervizor.JavaPojoClass.Event_Details_Team_PojoClass;
@@ -91,5 +92,13 @@ public class Team_Event_View_As_A_Member extends Fragment {
         recyclerView_Team_event_view_by_member = rootView.findViewById(R.id.team_event_show_by_member);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+    }
+
+    //set title
+    public void onResume() {
+        super.onResume();
+        // Set title bar
+        ((EmployeeMainActivity) getActivity())
+                .setActionBarTitle("Team Event");
     }
 }

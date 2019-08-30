@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
+import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
+import com.example.supervizor.Java_Class.CheckInternet
 import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.NOtification_Firebase.MySingleton
 import com.example.supervizor.R
@@ -29,16 +34,6 @@ import java.util.HashMap
 import java.util.concurrent.Executor
 
 class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses: MutableList<LeaveApplication_PojoClass>) : RecyclerView.Adapter<Leave_Application_Pending_Adapter_Company.viewHolder>() {
-
-//     val FCM_API = "https://fcm.googleapis.com/fcm/send"
-//     val serverKey = "key=" + "AAAAXfQqZOg:APA91bEktl8FWv0s4gALfJ5-Y5vTj4no54F5NQ5CAgAqIoyvE1uJMDSXHfOgDmtlHyCX_jZIRduGFSFLi2PmQRUEoBkv6pZvR-2gHcymDXeQNyXSCkCb_3bPQ8EA_2Lbq_Myx34-Wj0i"
-//     val contentType = "application/json"
-//    internal val TAG = "NOTIFICATION TAG"
-//
-//     lateinit var NOTIFICATION_TITLE: String
-//    lateinit var NOTIFICATION_MESSAGE: String
-//    lateinit var TOPIC: String
-//    lateinit var TOPIC_NAME: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
 
@@ -102,6 +97,10 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
 
             dialog.accept_btn_alert_show_ID_company.setOnClickListener {
 
+                if (!CheckInternet.isInternet(itemView.context)) {
+                    Toasty.error(itemView.context, "No Internet Connection").show()
+                    return@setOnClickListener
+                }
 
                 var firebseDatabase = FirebaseDatabase.getInstance()
                 var check_User_information = Check_User_information()
@@ -112,18 +111,32 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
                         .child(leaveApplication_PojoClas.leave_Title)
                         .child("leave_seen").setValue(true)
 
+                Toasty.info(itemView.context, "Accepted").show()
 
                 //send the notification data
                 var TOPIC_NAME = leaveApplication_PojoClas.user_ID_Employee + "leave_approved"
 
                 sendDataToFireabase(TOPIC_NAME, leaveApplication_PojoClas.leave_Title, leaveApplication_PojoClas.leave_description)
-
                 dialog.dismiss()
+
+                loadpending_leave_application()
 
             }
 
             dialog.show()
 
+        }
+
+        private fun loadpending_leave_application() {
+            var fragment: Fragment?
+            fragment = LeaveApplication_Pending_F()
+
+            if (fragment != null) {
+
+                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.commit()
+            }
         }
 
         //Notification Data send
@@ -172,6 +185,5 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
 
 
     }
-
 
 }

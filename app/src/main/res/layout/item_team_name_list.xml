@@ -20,7 +20,6 @@
             android:id="@+id/linearLayout_English_number_Item">
 
             <TextView
-                android:fontFamily="@font/raleway_italic"
                 android:id="@+id/team_name_TV_Item_ID"
                 android:layout_width="match_parent"
                 android:layout_height="100sp"
