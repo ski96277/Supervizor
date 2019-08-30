@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home_employee"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
         <item
             android:id="@+id/nav_attandence_employee"
@@ -14,11 +14,11 @@
             android:title="Attendance" />
         <item
             android:id="@+id/nav_leave_application_employee"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_leave_black_24dp"
             android:title="Leave Application" />
         <item
             android:id="@+id/nav_My_leave_application_employee"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_leave_black_24dp"
             android:title="My Leave Application" />
         <item
             android:id="@+id/nav_My_Team_as_member_application_employee"
@@ -27,25 +27,18 @@
             android:visible="true"/>
         <item
             android:id="@+id/nav_My_Team_application_employee"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/leader_icon"
             android:title="My Team as a Leader"
             android:visible="false"/>
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Log out" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="">
         <menu>
+
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_log_out_new_black_24dp"
+                android:title="Log out" />
         </menu>
     </item>
 

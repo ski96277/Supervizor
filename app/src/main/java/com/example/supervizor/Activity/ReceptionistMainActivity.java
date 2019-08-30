@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
@@ -161,6 +162,10 @@ public class ReceptionistMainActivity extends AppCompatActivity
                 editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
                 editor.putString("user_type","receptionist");
                 editor.apply();
+//notification subscribe topic
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getCompany_User_id());
+//for personal event notification
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id());
 
 
                 if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {

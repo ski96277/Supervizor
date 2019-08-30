@@ -104,11 +104,7 @@ public class LeaveApplication_Pending_F extends Fragment {
                 //if recycler view is empty
                 if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
                  Toasty.info(getActivity(),"No Data Found.....").show();
-                    /*   KAlertDialog kAlertDialog1 = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
-                    kAlertDialog1.setTitleText("No Data Found.....");
-                    kAlertDialog1.show();
-                    kAlertDialog1.setConfirmClickListener(kAlertDialog2 -> kAlertDialog1.dismissWithAnimation());
-                */}
+                   }
 
                 }
 

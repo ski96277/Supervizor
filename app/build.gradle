@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:18.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-storage:18.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
 
     //Alert Dialog
     implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.1'
@@ -65,14 +66,11 @@ dependencies {
     //calendar
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 
-//scanner and QR code generator
-    /*implementation 'com.google.zxing:core:3.2.1'
-    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'*/
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.android.support:multidex:1.0.3'
-
-
+//volley library for notification
+    implementation 'com.android.volley:volley:1.1.1'
 
 
 }

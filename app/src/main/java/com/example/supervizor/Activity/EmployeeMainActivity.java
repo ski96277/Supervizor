@@ -27,6 +27,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -190,6 +193,29 @@ public class EmployeeMainActivity extends AppCompatActivity
 
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID)
                         .getValue(AddEmployee_PojoClass.class);
+
+                //subscribe topic for Firebase Notification
+
+               //for general  event notification
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getCompany_User_id());
+                //for leave application  notification
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id()+"leave_approved");
+                //for personal event notification
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                String msg = "Success topic";
+                                if (!task.isSuccessful()) {
+                                    msg = "Failed Topic";
+                                }
+                        Log.d("TAG","Topic suscribe by employee"+ msg);
+//                                Toast.makeText(EmployeeMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+//end the notification topic
+
+
 
                 editor.putString("company_userID", addEmployee_pojoClass.getCompany_User_id());
                 editor.putString("userID_employee", addEmployee_pojoClass.getEmployee_User_id());
@@ -376,10 +402,17 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
-            jobScheduler.cancel(JOB_ID);
+
 
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+            //for leave application  notification
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(user_ID+"leave_approved");
+            //for personal event notification
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(user.getUid());
+
             if (user == null) {
                 Toasty.info(getApplicationContext(), "Log out").show();
                 startActivity(new Intent(this, Login_Activity.class)

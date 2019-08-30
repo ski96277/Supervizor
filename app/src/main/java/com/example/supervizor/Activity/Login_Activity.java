@@ -200,7 +200,7 @@ forget_pass_TV.setOnClickListener(this);
                     firebaseDatabase.getReference().child("receptionist_list").child(uid)
                             .child("password_Receptionist").setValue(pass_st);
 
-                    Toasty.info(getApplicationContext(),"Receptionist").show();
+//                    Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
 
                 }
@@ -216,7 +216,7 @@ forget_pass_TV.setOnClickListener(this);
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
 
-                    Toasty.info(getApplicationContext(),"Employee").show();
+//                    Toasty.info(getApplicationContext(),"Employee").show();
                     return;
 
                 }
@@ -275,7 +275,7 @@ forget_pass_TV.setOnClickListener(this);
                     startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
-                    Toasty.info(getApplicationContext(),"Receptionist").show();
+//                    Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
                 }
                 boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
@@ -283,7 +283,7 @@ forget_pass_TV.setOnClickListener(this);
                     startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
-                    Toasty.info(getApplicationContext(),"Employee").show();
+//                    Toasty.info(getApplicationContext(),"Employee").show();
                     return;
                 }
 

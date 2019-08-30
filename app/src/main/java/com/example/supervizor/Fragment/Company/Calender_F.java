@@ -14,13 +14,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.Login_Activity;
 import com.example.supervizor.AdapterClass.All_Event_List_Adapter;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.JavaPojoClass.Holiday_information;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
+import com.example.supervizor.NOtification_Firebase.MySingleton;
 import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -34,12 +41,16 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.threeten.bp.LocalDate;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +81,16 @@ public class Calender_F extends Fragment {
     static String format;
 
     All_Event_List_Adapter event_list_adapter;
+
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key=" + "AAAAXfQqZOg:APA91bEktl8FWv0s4gALfJ5-Y5vTj4no54F5NQ5CAgAqIoyvE1uJMDSXHfOgDmtlHyCX_jZIRduGFSFLi2PmQRUEoBkv6pZvR-2gHcymDXeQNyXSCkCb_3bPQ8EA_2Lbq_Myx34-Wj0i";
+    final private String contentType = "application/json";
+    final String TAG = "NOTIFICATION TAG";
+
+    String NOTIFICATION_TITLE;
+    String NOTIFICATION_MESSAGE;
+    String TOPIC;
+    static String TOPIC_NAME;
 
 
     @Override
@@ -282,6 +303,12 @@ public class Calender_F extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+
+                                //send the notification data
+                                TOPIC_NAME=check_user_information.getUserID();
+
+                                sendDataToFireabase(TOPIC_NAME,"Holiday",details_holiday);
+
                                 kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                                 kAlertDialog.setTitleText("Done..");
                                 kAlertDialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
@@ -343,7 +370,7 @@ public class Calender_F extends Fragment {
 
     }
 
-    private static void showAddEvent_Alert(FragmentActivity activity,
+    private void showAddEvent_Alert(FragmentActivity activity,
                                            String date_child,
                                            String day_date,
                                            String month, String year,
@@ -447,6 +474,11 @@ public class Calender_F extends Fragment {
             databaseReference.child("Event_list").child(user_ID).child(date_child).setValue(event_details_pojoClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    //send the notification for general event
+                    TOPIC_NAME=user_ID;
+
+                    sendDataToFireabase(TOPIC_NAME,event_title,event_details);
+
                     Toasty.success(activity, "Event Saved").show();
                     kAlertDialog1.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                     kAlertDialog1.setTitleText("Done");
@@ -520,6 +552,57 @@ public class Calender_F extends Fragment {
         // Set title bar
         ((CompanyMainActivity) getActivity())
                 .setActionBarTitle("Calender");
+    }
+
+//Notification Data send
+    private void sendDataToFireabase(String topicName, String event_title, String event_details) {
+
+        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        NOTIFICATION_TITLE = event_title;
+        NOTIFICATION_MESSAGE = event_details;
+
+        JSONObject notification = new JSONObject();
+        JSONObject notifcationBody = new JSONObject();
+        try {
+            notifcationBody.put("title", NOTIFICATION_TITLE);
+            notifcationBody.put("message", NOTIFICATION_MESSAGE);
+
+            notification.put("to", TOPIC);
+            notification.put("data", notifcationBody);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "onCreate: " + e.getMessage() );
+        }
+        sendNotification(notification);
+
+    }
+
+    private void sendNotification(JSONObject notification) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+                       Toasty.info(getContext(),"send notification").show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 }

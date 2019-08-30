@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,11 +18,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
+import com.example.supervizor.NOtification_Firebase.MySingleton;
 import com.example.supervizor.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +38,16 @@ import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
@@ -64,6 +76,15 @@ public class User_Profile extends Fragment {
     int month_select;
     int year_select;
 
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key=" + "AAAAXfQqZOg:APA91bEktl8FWv0s4gALfJ5-Y5vTj4no54F5NQ5CAgAqIoyvE1uJMDSXHfOgDmtlHyCX_jZIRduGFSFLi2PmQRUEoBkv6pZvR-2gHcymDXeQNyXSCkCb_3bPQ8EA_2Lbq_Myx34-Wj0i";
+    final private String contentType = "application/json";
+    final String TAG = "NOTIFICATION TAG";
+
+    String NOTIFICATION_TITLE;
+    String NOTIFICATION_MESSAGE;
+    String TOPIC;
+    static String TOPIC_NAME;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -244,6 +265,12 @@ public class User_Profile extends Fragment {
                 .child(user_id_employee)
                 .child("email")
                 .setValue(email_TV.getText().toString());
+
+  //send the notification data
+        TOPIC_NAME=user_id_employee;
+
+        sendDataToFireabase(TOPIC_NAME,"Team Leader","Now you are Team leader");
+
         team_Lead_Confirm_Alert.dismissWithAnimation();
 
     }
@@ -311,6 +338,13 @@ public class User_Profile extends Fragment {
                     .child(user_ID_company).child(user_id_employee)
                     .child(date).setValue(event_details_pojoClass)
                     .addOnSuccessListener(aVoid -> {
+
+                        //send the notification data
+                        TOPIC_NAME=user_id_employee;
+
+                        sendDataToFireabase(TOPIC_NAME,title,details);
+
+
                         kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                         kAlertDialog.setTitleText("Done");
                         kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
@@ -408,4 +442,56 @@ public class User_Profile extends Fragment {
         timepickerdialog.show();
 
     }
+
+    //Notification Data send
+    private void sendDataToFireabase(String topicName, String event_title, String event_details) {
+
+        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        NOTIFICATION_TITLE = event_title;
+        NOTIFICATION_MESSAGE = event_details;
+
+        JSONObject notification = new JSONObject();
+        JSONObject notifcationBody = new JSONObject();
+        try {
+            notifcationBody.put("title", NOTIFICATION_TITLE);
+            notifcationBody.put("message", NOTIFICATION_MESSAGE);
+
+            notification.put("to", TOPIC);
+            notification.put("data", notifcationBody);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "onCreate: " + e.getMessage() );
+        }
+        sendNotification(notification);
+
+    }
+
+    private void sendNotification(JSONObject notification) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+                        Toasty.info(getContext(),"send notification").show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
 }

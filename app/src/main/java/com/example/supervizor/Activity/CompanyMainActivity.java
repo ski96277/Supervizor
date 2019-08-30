@@ -36,6 +36,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
@@ -61,6 +63,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +96,6 @@ public class CompanyMainActivity extends AppCompatActivity
 
     Toolbar toolbar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +108,26 @@ public class CompanyMainActivity extends AppCompatActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         initialize();
+
+
+        //subscribe topic for Firebase Notification (Leave application)
+
+        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID()+"teamRequest");
+        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID()+"leave")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Success topic";
+                        if (!task.isSuccessful()) {
+                            msg = "Failed Topic";
+                        }
+                        Log.d("TAG","Topic suscribe by employee"+ msg);
+//                                Toast.makeText(EmployeeMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+//end the notification topic
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -454,6 +476,12 @@ public class CompanyMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logOut) {
+            //try to unsubscribe
+
+
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"teamRequest");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"leave");
+
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null) {
