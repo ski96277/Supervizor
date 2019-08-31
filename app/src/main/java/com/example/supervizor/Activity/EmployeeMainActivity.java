@@ -82,6 +82,7 @@ public class EmployeeMainActivity extends AppCompatActivity
 
     Check_User_information check_user_information;
     String user_ID;
+    String company_user_ID;
 
 
     SharedPreferences preferences;
@@ -195,10 +196,11 @@ public class EmployeeMainActivity extends AppCompatActivity
 
                 //subscribe topic for Firebase Notification
 
-               //for general  event notification
+                //for general  event notification
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getCompany_User_id());
+                company_user_ID = addEmployee_pojoClass.getCompany_User_id();
                 //for leave application  notification
-                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id()+"leave_approved");
+                FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id() + "leave_approved");
                 //for personal event notification
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -208,12 +210,11 @@ public class EmployeeMainActivity extends AppCompatActivity
                                 if (!task.isSuccessful()) {
                                     msg = "Failed Topic";
                                 }
-                        Log.d("TAG","Topic suscribe by employee"+ msg);
+                                Log.d("TAG", "Topic suscribe by employee" + msg);
 //                                Toast.makeText(EmployeeMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                             }
                         });
 //end the notification topic
-
 
 
                 editor.putString("company_userID", addEmployee_pojoClass.getCompany_User_id());
@@ -263,37 +264,37 @@ public class EmployeeMainActivity extends AppCompatActivity
         loadDefault_Home_Fragment();
     }
 
-  /*  //start general event notification service
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void startGeneralEventnotificationService() {
-        ComponentName componentName = new ComponentName(this, GeneralEventNotification.class);
+    /*  //start general event notification service
+      @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+      private void startGeneralEventnotificationService() {
+          ComponentName componentName = new ComponentName(this, GeneralEventNotification.class);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
-                    .setPeriodic(REFRESH_INTERVAL)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setPersisted(true)
-                    .build();
-        } else {
-            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
-                    .setPeriodic(REFRESH_INTERVAL)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setPersisted(true)
-                    .build();
-        }
-        jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+              jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                      .setPeriodic(REFRESH_INTERVAL)
+                      .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                      .setPersisted(true)
+                      .build();
+          } else {
+              jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+                      .setPeriodic(REFRESH_INTERVAL)
+                      .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                      .setPersisted(true)
+                      .build();
+          }
+          jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
 
-        //start Job schedule  Start
-        int resultCode = jobScheduler.schedule(jobInfo);
-        if (resultCode == JobScheduler.RESULT_SUCCESS) {
-            Log.e("TAG", "startGeneralEventnotificationService: job started.........");
-        } else {
-            Log.e("TAG", "startGeneralEventnotificationService: job Failed.........");
-        }
-    }
+          //start Job schedule  Start
+          int resultCode = jobScheduler.schedule(jobInfo);
+          if (resultCode == JobScheduler.RESULT_SUCCESS) {
+              Log.e("TAG", "startGeneralEventnotificationService: job started.........");
+          } else {
+              Log.e("TAG", "startGeneralEventnotificationService: job Failed.........");
+          }
+      }
 
-*/
+  */
     private void initialize() {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -401,16 +402,16 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+            //for company general notification
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(company_user_ID);
+            //for leave application  notification
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID() + "leave_approved");
+            //for personal event notification
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID());
 
 
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-            //for leave application  notification
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(user_ID+"leave_approved");
-            //for personal event notification
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(user.getUid());
 
             if (user == null) {
                 Toasty.info(getApplicationContext(), "Log out").show();

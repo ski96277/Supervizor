@@ -478,7 +478,6 @@ public class CompanyMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_logOut) {
             //try to unsubscribe
 
-
             FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"teamRequest");
             FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"leave");
 

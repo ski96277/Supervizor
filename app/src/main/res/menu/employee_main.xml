@@ -7,6 +7,12 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/edit_profile_employee"
+        android:orderInCategory="100"
+        android:title="Edit Profile"
+        app:showAsAction="never"
+        android:visible="false"/>
+    <item
         android:id="@+id/add_team_mate"
         android:orderInCategory="100"
         android:title="Add Team Mate"

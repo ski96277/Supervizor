@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#010D1B">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image_ID"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10sp"
+            android:src="@drawable/profile" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="10sp">
+
+            <EditText
+                android:id="@+id/Employee_name_ET_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/profile_item"
+                android:drawablePadding="20sp"
+                android:hint="Name"
+                android:inputType="text"
+                android:maxLines="1" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="10sp">
+
+            <EditText
+                android:id="@+id/Employee_designation_ET_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/designation"
+                android:drawablePadding="20sp"
+                android:hint="Designation"
+                android:inputType="text"
+                android:maxLines="1" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="10sp">
+
+            <EditText
+                android:id="@+id/Employee_email_ET_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/email_icon"
+                android:drawablePadding="20sp"
+                android:focusable="false"
+                android:hint="E-mail"
+                android:inputType="text"
+                android:maxLines="1" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="10sp">
+
+            <EditText
+                android:id="@+id/Employee_phone_ET_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/phone"
+                android:drawablePadding="20sp"
+                android:hint="016 XX XX XX"
+                android:inputType="text"
+                android:maxLines="1" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            app:cardElevation="10dp">
+
+            <Button
+                android:id="@+id/update_btn_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="Update"
+                android:textColor="#000"
+                android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</ScrollView>

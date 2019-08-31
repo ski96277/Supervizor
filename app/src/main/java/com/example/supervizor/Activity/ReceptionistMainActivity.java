@@ -86,6 +86,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
     SharedPreferences preferences;
     SharedPreferences.Editor editor ;
 
+    String comany_user_ID;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -155,14 +157,15 @@ public class ReceptionistMainActivity extends AppCompatActivity
                         .getValue(AddEmployee_PojoClass.class);
 
 //save company userID to local database
-                String company_userID = addEmployee_pojoClass.getCompany_User_id();
-                String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
+//                String company_userID = addEmployee_pojoClass.getCompany_User_id();
+//                String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
                 editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
                 editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
                 editor.putString("user_type","receptionist");
                 editor.apply();
 //notification subscribe topic
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getCompany_User_id());
+                comany_user_ID=addEmployee_pojoClass.getCompany_User_id();
 //for personal event notification
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id());
 
@@ -461,6 +464,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_log_out) {
 
+
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(comany_user_ID);
 
             //END Job schedule  Start
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

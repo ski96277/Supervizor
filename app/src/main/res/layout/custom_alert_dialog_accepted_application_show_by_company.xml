@@ -69,7 +69,6 @@
             android:id="@+id/leave_accepted_details_details_TV_ID_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
             android:gravity="center"
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
@@ -77,14 +76,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="25sp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/cancel_btn_alert_show_ID_company"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
-                android:layout_margin="10sp"
                 android:layout_weight="1"
                 android:background="#9C27B0"
                 android:text="Cancel" />

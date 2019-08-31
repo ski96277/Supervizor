@@ -38,11 +38,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
 import org.w3c.dom.Text;
 
@@ -125,7 +127,7 @@ public class Calender_F extends Fragment {
         materialCalendarView.setBackgroundColor(Color.parseColor("#FFF7F7"));
 
 // highlight today date
-//        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
 
 
 //get event date list
