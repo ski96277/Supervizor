@@ -1,4 +1,4 @@
-package com.example.supervizor.Fragment.Employee;
+package com.example.supervizor.Fragment.Receptionist;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,14 +41,13 @@ import es.dmoral.toasty.Toasty;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Update_employee_Profile extends Fragment implements View.OnClickListener {
-
-    private CircleImageView profile_image_ID;
-    private EditText EmployeeNameETID;
-    private EditText EmployeeDesignationETID;
-    private EditText EmployeeEmailETID;
-    private EditText EmployeePhoneETID;
-    private Button updateBtnID;
+public class Update_Receptionist_Profile extends Fragment implements View.OnClickListener {
+    private CircleImageView profileImageReceptionID;
+    private EditText receptionNameETID;
+    private EditText receptionDesignationETID;
+    private EditText receptionEmailETID;
+    private EditText receptionPhoneETID;
+    private Button updateBtnReceptionID;
 
     private DatabaseReference databaseReference;
     private Check_User_information check_user_information;
@@ -55,17 +56,17 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
 
     private StorageReference storageReference;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.uodate_profile_f, container, false);
+        return inflater.inflate(R.layout.update_receptionist_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,26 +79,25 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
                 if (!addEmployee_pojoClass.getEmployee_profile_image_link().equals("null")) {
 
                     Picasso.get().load(Uri.parse(addEmployee_pojoClass.getEmployee_profile_image_link()))
-                            .into(profile_image_ID);
+                            .into(profileImageReceptionID);
                 } else {
-                    profile_image_ID.setImageResource(R.drawable.profile);
+                    profileImageReceptionID.setImageResource(R.drawable.profile);
                 }
-                EmployeeNameETID.setText(addEmployee_pojoClass.getEmployee_name());
-                EmployeeDesignationETID.setText(addEmployee_pojoClass.getEmployee_designation());
-                EmployeeEmailETID.setText(addEmployee_pojoClass.getEmployee_email());
+                receptionNameETID.setText(addEmployee_pojoClass.getEmployee_name());
+                receptionDesignationETID.setText(addEmployee_pojoClass.getEmployee_designation());
+                receptionEmailETID.setText(addEmployee_pojoClass.getEmployee_email());
                 if (addEmployee_pojoClass.getUser_phone_number() != null) {
-                    EmployeePhoneETID.setText(addEmployee_pojoClass.getUser_phone_number());
+                    receptionPhoneETID.setText(addEmployee_pojoClass.getUser_phone_number());
                 }
-                updateBtnID.setOnClickListener(v -> {
+                updateBtnReceptionID.setOnClickListener(v -> {
 
-                    String name = EmployeeNameETID.getText().toString();
-                    String designation = EmployeeDesignationETID.getText().toString();
-                    String email = EmployeeEmailETID.getText().toString();
-                    String phone = EmployeePhoneETID.getText().toString();
+                    String name = receptionNameETID.getText().toString();
+                    String designation = receptionDesignationETID.getText().toString();
+                    String email = receptionEmailETID.getText().toString();
+                    String phone = receptionPhoneETID.getText().toString();
 
                     if (filePath == null) {
                         KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.ERROR_TYPE);
-                        kAlertDialog.setCancelable(false);
                         kAlertDialog.setTitleText("Select user image");
                         kAlertDialog.show();
                         kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
@@ -118,7 +118,7 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
                     kAlertDialog.setTitleText("Uploading..");
                     kAlertDialog.show();
 
-//                    Toast.makeText(getContext(), ""+filePath, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "" + filePath, Toast.LENGTH_SHORT).show();
                     storageReference.child("userImage")
                             .child(addEmployee_pojoClass.getEmployee_User_id())
                             .child(addEmployee_pojoClass.getEmployee_name())
@@ -145,6 +145,29 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
                                                     downloadLink,
                                                     addEmployee_pojoClass.getUser_type(), phone);
 
+                                            AddReceptionist_PojoClass addReceptionist_pojoClass = new AddReceptionist_PojoClass(
+                                                    name,
+                                                    designation,
+                                                    email, addEmployee_pojoClass.getEmployee_joinDate(),
+                                                    addEmployee_pojoClass.getEmployee_salary(),
+                                                    addEmployee_pojoClass.getEmployee_Contact_period_number(),
+                                                    addEmployee_pojoClass.getEmployee_Contact_period_year_OR_month(),
+                                                    downloadLink,
+                                                    addEmployee_pojoClass.getEmployee_password(),
+                                                    addEmployee_pojoClass.getCompany_User_id(),
+                                                    addEmployee_pojoClass.getEmployee_User_id(),
+                                                    phone
+                                            );
+
+
+                                            databaseReference.child("receptionist_list")
+                                                    .child(addEmployee_pojoClass.getEmployee_User_id())
+                                                    .setValue(addReceptionist_pojoClass);
+
+                                            databaseReference.child("receptionist_list_by_company")
+                                                    .child(addEmployee_pojoClass.getCompany_User_id())
+                                                    .child(addEmployee_pojoClass.getEmployee_User_id())
+                                                    .setValue(addReceptionist_pojoClass);
 
                                             databaseReference.child("employee_list_by_company")
                                                     .child(addEmployee_pojoClass.getCompany_User_id())
@@ -157,7 +180,7 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
-                                                            startActivity(new Intent(getContext(), EmployeeMainActivity.class)
+                                                            startActivity(new Intent(getContext(), ReceptionistMainActivity.class)
                                                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
 
@@ -180,16 +203,6 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
             }
         });
 
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.profile_image_ID) {
-
-            chooseImage();
-
-        }
     }
 
     private void chooseImage() {
@@ -197,28 +210,29 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 101);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_image_reception_ID) {
+chooseImage();
+        }
     }
 
     private void initView(View rootView) {
-        profile_image_ID = (CircleImageView) rootView.findViewById(R.id.profile_image_ID);
-        profile_image_ID.setOnClickListener(Update_employee_Profile.this);
-        EmployeeNameETID = (EditText) rootView.findViewById(R.id.Employee_name_ET_ID);
-        EmployeeDesignationETID = (EditText) rootView.findViewById(R.id.Employee_designation_ET_ID);
-        EmployeeEmailETID = (EditText) rootView.findViewById(R.id.Employee_email_ET_ID);
-        EmployeePhoneETID = (EditText) rootView.findViewById(R.id.Employee_phone_ET_ID);
-        updateBtnID = (Button) rootView.findViewById(R.id.update_btn_ID);
-        updateBtnID.setOnClickListener(Update_employee_Profile.this);
+        profileImageReceptionID = (CircleImageView) rootView.findViewById(R.id.profile_image_reception_ID);
+        profileImageReceptionID.setOnClickListener(Update_Receptionist_Profile.this);
+        receptionNameETID = (EditText) rootView.findViewById(R.id.reception_name_ET_ID);
+        receptionDesignationETID = (EditText) rootView.findViewById(R.id.reception_designation_ET_ID);
+        receptionEmailETID = (EditText) rootView.findViewById(R.id.reception_email_ET_ID);
+        receptionPhoneETID = (EditText) rootView.findViewById(R.id.reception_phone_ET_ID);
+        updateBtnReceptionID = (Button) rootView.findViewById(R.id.update_btn_reception_ID);
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         check_user_information = new Check_User_information();
         storageReference = FirebaseStorage.getInstance().getReference();
-    }
-
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((EmployeeMainActivity) getActivity())
-                .setActionBarTitle("Edit Profile");
     }
 
 
@@ -231,7 +245,7 @@ public class Update_employee_Profile extends Fragment implements View.OnClickLis
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                profile_image_ID.setImageBitmap(bitmap);
+                profileImageReceptionID.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }

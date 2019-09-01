@@ -71,30 +71,34 @@
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
             android:gravity="center"
-            android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
+            android:text="jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
             android:textSize="25sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="25sp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/cancel_btn_alert_show_ID_company"
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:layout_weight="1"
                 android:background="#9C27B0"
-                android:text="Cancel" />
+                android:textColor="#FFF"
+                android:text="Cancel"
+                android:textSize="25sp"
+                />
             <Button
                 android:id="@+id/accept_btn_alert_show_ID_company"
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:layout_weight="1"
                 android:background="#9C27B0"
+                android:textColor="#FFF"
+                android:textSize="25sp"
                 android:text="Accept" />
         </LinearLayout>
 

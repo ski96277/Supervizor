@@ -473,9 +473,7 @@ public class CompanyMainActivity extends AppCompatActivity
             bundle.putString("error_handel_when_event_create", "1");
             load_Team_Request(bundle);
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_logOut) {
+        }  else if (id == R.id.nav_logOut) {
             //try to unsubscribe
 
             FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"teamRequest");

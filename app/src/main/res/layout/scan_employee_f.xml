@@ -32,7 +32,7 @@
                 android:layout_marginTop="5sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="15sp"
-                android:backgroundTint="#0C977A"
+                android:backgroundTint="#043979"
                 app:cardElevation="10sp"
 
                 >
@@ -42,8 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="#22D0AD"
+                    android:backgroundTint="#010D1B"
                     android:gravity="center"
+                    android:textColor="#FFF"
                     android:text="Entry"
                     android:textSize="40sp" />
             </androidx.cardview.widget.CardView>
@@ -54,7 +55,7 @@
                 android:layout_marginTop="5sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="15sp"
-                android:backgroundTint="#F80404"
+                android:backgroundTint="#043979"
                 app:cardElevation="10sp">
 
                 <Button
@@ -62,9 +63,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="#B11414"
+                    android:backgroundTint="#720000"
                     android:gravity="center"
                     android:text="Exit"
+                    android:textColor="#FFF"
                     android:textSize="40sp" />
             </androidx.cardview.widget.CardView>
 

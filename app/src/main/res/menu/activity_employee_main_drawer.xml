@@ -3,43 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/home_menu">
         <item
             android:id="@+id/nav_home_employee"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/attendance_menu">
         <item
             android:id="@+id/nav_attandence_employee"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Attendance" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/leave_menu">
         <item
             android:id="@+id/nav_leave_application_employee"
             android:icon="@drawable/ic_leave_black_24dp"
             android:title="Leave Application" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_leave_menu">
         <item
             android:id="@+id/nav_My_leave_application_employee"
             android:icon="@drawable/ic_leave_black_24dp"
             android:title="My Leave Application" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_team_member">
         <item
             android:id="@+id/nav_My_Team_as_member_application_employee"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Team as a member"
-            android:visible="true"/>
+            android:visible="true" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_team_as_leader">
         <item
             android:id="@+id/nav_My_Team_application_employee"
             android:icon="@drawable/leader_icon"
             android:title="My Team as a Leader"
-            android:visible="false"/>
+            android:visible="false" />
     </group>
-
-    <item android:title="">
-        <menu>
-
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_log_out_new_black_24dp"
-                android:title="Log out" />
-        </menu>
-    </item>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_log_out">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_log_out_new_black_24dp"
+            android:title="Log out" />
+    </group>
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/my_out" >
+        <item android:id="@+id/test"
+            android:title=""
+            />
+    </group>
 
 </menu>

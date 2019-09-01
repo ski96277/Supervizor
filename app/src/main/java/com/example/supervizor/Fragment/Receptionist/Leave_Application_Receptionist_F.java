@@ -1,4 +1,4 @@
-package com.example.supervizor.Fragment.Employee;
+package com.example.supervizor.Fragment.Receptionist;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -33,7 +34,6 @@ import com.kinda.alert.KAlertDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -43,10 +43,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import es.dmoral.toasty.Toasty;
 
-public class Leave_Application_Employee_F extends Fragment implements View.OnClickListener {
+public class Leave_Application_Receptionist_F extends Fragment implements View.OnClickListener {
 
     private EditText leaveTitleETID;
     private EditText leaveDescriptionETID;
@@ -79,7 +78,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.leave_application_employee_f, container, false);
+        return inflater.inflate(R.layout.leave_application_receptionist_f, container, false);
     }
 
     @Override
@@ -186,10 +185,10 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     }
 
     private void loadMyLeaveApplication() {
-        Fragment fragment=new MyLeaveApplication_Employee_F();
+        Fragment fragment=new MyLeaveApplication_Receptionist_F();
         if (fragment!=null){
             FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+            fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
             fragmentTransaction.commit();
         }
     }
@@ -223,11 +222,11 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         leaveTitleETID = (EditText) rootView.findViewById(R.id.leave_title_ET_ID);
         leaveDescriptionETID = (EditText) rootView.findViewById(R.id.leave_description_ET_ID);
         leaveStartTimeTVID = (TextView) rootView.findViewById(R.id.leave_start_Time_TV_ID);
-        leaveStartTimeTVID.setOnClickListener(Leave_Application_Employee_F.this);
+        leaveStartTimeTVID.setOnClickListener(Leave_Application_Receptionist_F.this);
         leaveENDTimeTVID = (TextView) rootView.findViewById(R.id.leave_END_Time_TV_ID);
-        leaveENDTimeTVID.setOnClickListener(Leave_Application_Employee_F.this);
+        leaveENDTimeTVID.setOnClickListener(Leave_Application_Receptionist_F.this);
         leaveSubmitBtnID = (Button) rootView.findViewById(R.id.submit_leave_btn_ID);
-        leaveSubmitBtnID.setOnClickListener(Leave_Application_Employee_F.this);
+        leaveSubmitBtnID.setOnClickListener(Leave_Application_Receptionist_F.this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -239,7 +238,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     public void onResume() {
         super.onResume();
         // Set title bar
-        ((EmployeeMainActivity) getActivity())
+        ((ReceptionistMainActivity) getActivity())
                 .setActionBarTitle("Leave application");
     }
 

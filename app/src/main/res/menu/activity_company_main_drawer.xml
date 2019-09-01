@@ -4,41 +4,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_home_menu">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Home"/>
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_leave_Application">
         <item
             android:id="@+id/nav_leave_application"
             android:icon="@drawable/ic_leave_black_24dp"
             android:title="Leave Application"
             app:actionViewClass="android.widget.TextView"/>
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/team_leader">
       <item
             android:id="@+id/nav_Team_Leader"
             android:icon="@drawable/leader_icon"
             android:title="Team Leader List" />
+    </group>
 
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_team_request">
         <item
             android:id="@+id/nav_team_request_pending"
             android:icon="@drawable/ic_team_request_list_numbered_black_24dp"
             android:title="Team Request"
             android:visible="true"/>
-
-       <!-- <item
-            android:id="@+id/nav_attendance"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="User Attendance"
-            android:visible="false"/>-->
     </group>
 
-    <item android:title="">
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_log_out">
+        <item
+            android:id="@+id/nav_logOut"
+            android:icon="@drawable/ic_log_out_new_black_24dp"
+            android:title="Log Out" />
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/my_out" >
+        <item android:id="@+id/test"
+            android:title=""
+            />
+    </group>
+
+  <!--  <item android:title="">
         <menu>
             <item
                 android:id="@+id/nav_logOut"
                 android:icon="@drawable/ic_log_out_new_black_24dp"
                 android:title="Log Out" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

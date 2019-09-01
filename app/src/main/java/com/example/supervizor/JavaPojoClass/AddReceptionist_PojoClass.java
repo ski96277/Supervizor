@@ -12,6 +12,7 @@ public class AddReceptionist_PojoClass {
     String password_Receptionist;
     String company_user_ID;
     String receptionist_user_ID;
+    String phoneNumber;
 
     public AddReceptionist_PojoClass(String name_Reception, String designation_Receptionist, String email_Receptionist, String join_Receptionist, String salary_Receptionist, String contact_period_Receptionist, String spinner_month_Year, String profile_image_Receptionist, String password_Receptionist, String company_user_ID, String receptionist_user_ID) {
         this.name_Reception = name_Reception;
@@ -25,6 +26,29 @@ public class AddReceptionist_PojoClass {
         this.password_Receptionist = password_Receptionist;
         this.company_user_ID = company_user_ID;
         this.receptionist_user_ID = receptionist_user_ID;
+    }
+
+    public AddReceptionist_PojoClass(String name_Reception, String designation_Receptionist, String email_Receptionist, String join_Receptionist, String salary_Receptionist, String contact_period_Receptionist, String spinner_month_Year, String profile_image_Receptionist, String password_Receptionist, String company_user_ID, String receptionist_user_ID, String phoneNumber) {
+        this.name_Reception = name_Reception;
+        this.designation_Receptionist = designation_Receptionist;
+        this.email_Receptionist = email_Receptionist;
+        this.join_Receptionist = join_Receptionist;
+        this.salary_Receptionist = salary_Receptionist;
+        this.contact_period_Receptionist = contact_period_Receptionist;
+        this.spinner_month_Year = spinner_month_Year;
+        this.profile_image_Receptionist = profile_image_Receptionist;
+        this.password_Receptionist = password_Receptionist;
+        this.company_user_ID = company_user_ID;
+        this.receptionist_user_ID = receptionist_user_ID;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName_Reception() {

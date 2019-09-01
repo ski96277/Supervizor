@@ -462,14 +462,14 @@ public class Calender_F extends Fragment {
                 return;
             }
 
-            Event_details_PojoClass event_details_pojoClass
+           Event_details_PojoClass event_details_pojoClass
                     = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details, event_time_set);
-
+/*
 //set notification text
             databaseReference.child("event_notification_text")
                     .child(check_user_information.getUserID()).setValue(event_details_pojoClass);
 
-            if (!CheckInternet.isInternet(activity)) {
+       */     if (!CheckInternet.isInternet(activity)) {
                 Toasty.error(activity, "Internet Connection Error");
                 return;
             }
@@ -478,7 +478,10 @@ public class Calender_F extends Fragment {
             KAlertDialog kAlertDialog1 = new KAlertDialog(activity, KAlertDialog.PROGRESS_TYPE);
             kAlertDialog1.setTitleText("Saving Data to Database");
             kAlertDialog1.show();
-            databaseReference.child("Event_list").child(user_ID).child(date_child).setValue(event_details_pojoClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+            databaseReference.child("Event_list")
+                    .child(user_ID).child(date_child)
+                    .setValue(event_details_pojoClass)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     //send the notification for general event

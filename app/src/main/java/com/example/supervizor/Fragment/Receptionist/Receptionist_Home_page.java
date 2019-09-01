@@ -101,8 +101,6 @@ public class Receptionist_Home_page extends Fragment {
                     });
 
 
-//            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-//            databaseReference.child("QRCode").child("number").setValue(number_St);
         } catch (WriterException e) {
             e.printStackTrace();
         }

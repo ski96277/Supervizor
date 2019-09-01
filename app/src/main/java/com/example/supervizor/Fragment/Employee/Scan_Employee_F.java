@@ -70,8 +70,10 @@ public class Scan_Employee_F extends Fragment implements View.OnClickListener {
 
             KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
             kAlertDialog.setTitleText("Entry Time");
+
             kAlertDialog.setContentText("Do You Want to save your Entry Time ?");
             kAlertDialog.show();
+            kAlertDialog.showCancelButton(true);
             //set alert dialog action
             kAlertDialog.setConfirmClickListener(kAlertDialog1 -> startActivity(new Intent(getContext(), ScanResult_Activiy.class)
                     .putExtra("value", "entry")));
@@ -92,6 +94,8 @@ public class Scan_Employee_F extends Fragment implements View.OnClickListener {
             kAlertDialog.setTitleText("Exit Time");
             kAlertDialog.setContentText("Do You Want to save your Exit Time ?");
             kAlertDialog.show();
+
+            kAlertDialog.showCancelButton(true);
             //set alert dialog action
             kAlertDialog.setConfirmClickListener(kAlertDialog1 -> startActivity(new Intent(getContext(), ScanResult_Activiy.class)
                     .putExtra("value", "exit")));

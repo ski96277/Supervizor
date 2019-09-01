@@ -14,6 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
+import com.example.supervizor.Fragment.Receptionist.General_Event_List_Receptionist;
+import com.example.supervizor.Fragment.Receptionist.Leave_Application_Receptionist_F;
+import com.example.supervizor.Fragment.Receptionist.MyLeaveApplication_Receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
@@ -454,13 +457,26 @@ public class ReceptionistMainActivity extends AppCompatActivity
             attendance_form_layout.setBackgroundColor(Color.parseColor("#010D1B"));
 
             receptionistHomeFragment();
-            // Handle the camera action
+
+        } else if (id == R.id.nav_event_reception) {
+            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            receptionist_General_Event_Fragment();
+
+
         } else if (id == R.id.nav_attandence_receptionist) {
             linearLayout_qr_code_form_btn.setVisibility(View.GONE);
             receptionist_Attandence_Fragment();
 
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_leave_form_receptionist) {
+            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            leave_application_form_Fragment();
+
+
+        }else if (id == R.id.nav_My_leave_application_reception) {
+            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            leave_application_list_Fragment();
+
 
         } else if (id == R.id.nav_log_out) {
 
@@ -481,15 +497,33 @@ public class ReceptionistMainActivity extends AppCompatActivity
             }
 
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void receptionist_General_Event_Fragment() {
+        fragment = new General_Event_List_Receptionist();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void leave_application_form_Fragment() {
+
+        fragment = new Leave_Application_Receptionist_F();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void leave_application_list_Fragment() {
+
+        fragment = new MyLeaveApplication_Receptionist_F();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override

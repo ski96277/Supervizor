@@ -3,36 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/home_menu_nav"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home_reception"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
+    </group>
+    <group
+        android:id="@+id/event_menu_nav"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_attandence_receptionist"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Attendance" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_log_out"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Logout" />
+            android:id="@+id/nav_event_reception"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="General Event" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/attendance_menu_nav"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_attandence_receptionist"
+            android:icon="@drawable/calendar_32"
+            android:title="Attendance" />
+    </group>
+    <group
+        android:id="@+id/leave_form__menu_nav"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_leave_form_receptionist"
+            android:icon="@drawable/ic_leave_black_24dp"
+            android:title="Leave Application" />
+    </group>
+    <group
+        android:id="@+id/nav_My_leave_application"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_My_leave_application_reception"
+            android:icon="@drawable/ic_leave_black_24dp"
+            android:title="My Leave Application" />
+    </group>
+
+    <group
+        android:id="@+id/log_out_nav"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_log_out_new_black_24dp"
+            android:title="Logout" />
+    </group>
+    <group
+        android:id="@+id/my_out"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/test"
+            android:title="" />
+    </group>
 
 </menu>
