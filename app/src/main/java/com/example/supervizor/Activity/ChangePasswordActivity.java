@@ -57,7 +57,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 currentPassETID.setError("current password ?");
                 return;
             }
-            if (new_password.isEmpty()) {
+            if (new_password.isEmpty()  ) {
                 newPasswordETID.requestFocus();
                 newPasswordETID.setError("new password ?");
                 return;

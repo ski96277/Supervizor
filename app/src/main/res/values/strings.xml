@@ -2,7 +2,7 @@
 
     <string name="app_name">Supervizor</string>
     <string name="login_text">Login</string>
-    <string name="register_company">Register Company</string>
+    <string name="register_company">Register Your Company</string>
     <string name="powered_by_rocktechit">Powered by ©Rocktechit</string>
     <string name="forget_password">Forget Password ?</string>
     <string name="password_hint">Password</string>

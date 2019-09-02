@@ -125,7 +125,7 @@ public class User_Profile extends Fragment {
 
                             Picasso.get().load(Uri.parse(addEmployee_pojoClass.getEmployee_profile_image_link())).into(circleImageView);
                         } else {
-                            circleImageView.setImageResource(R.drawable.profile);
+                            circleImageView.setImageResource(R.drawable.profile_white);
                         }
 
                         name_profile_TV.setText(addEmployee_pojoClass.getEmployee_name());
@@ -133,7 +133,12 @@ public class User_Profile extends Fragment {
 
                         name_Tv.setText(addEmployee_pojoClass.getEmployee_name());
                         email_TV.setText(addEmployee_pojoClass.getEmployee_email());
-                        phone_TV.setText(addEmployee_pojoClass.getEmployee_Contact_period_number());
+                        if (addEmployee_pojoClass.getUser_phone_number()!=null){
+                            phone_TV.setText(addEmployee_pojoClass.getEmployee_Contact_period_number());
+                        }else {
+                            phone_TV.setText("No added yet");
+
+                        }
                         calender_TV.setText(addEmployee_pojoClass.getEmployee_joinDate());
                     }
 

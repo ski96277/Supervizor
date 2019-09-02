@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="#D2D2D2">
 
@@ -28,7 +28,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/profile_item" />
+                    android:layout_margin="15sp"
+                    android:src="@drawable/profile" />
             </LinearLayout>
 
             <LinearLayout
@@ -41,11 +42,11 @@
 
                 <TextView
                     android:id="@+id/name_tv_profile_view_page_1"
-                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
                     android:fontFamily="@font/raleway_regular"
+                    android:text="loading...."
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -57,7 +58,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="#D2D2D2">
 
@@ -76,6 +77,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:layout_margin="15sp"
                     android:src="@drawable/phone" />
             </LinearLayout>
 
@@ -89,11 +92,11 @@
 
                 <TextView
                     android:id="@+id/phone_number_tv_profile_view_page_1"
-                    android:text="loading...."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
                     android:fontFamily="@font/raleway_regular"
+                    android:text="loading...."
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -104,7 +107,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="#D2D2D2">
 
@@ -123,6 +126,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:layout_margin="15sp"
                     android:src="@drawable/email_icon" />
             </LinearLayout>
 
@@ -136,10 +141,10 @@
 
                 <TextView
                     android:id="@+id/email_tv_profile_view_page_1"
-                    android:text="loading...."
-                    android:fontFamily="@font/raleway_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />
 
@@ -152,7 +157,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="#D2D2D2">
 
@@ -171,6 +176,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:layout_margin="15sp"
                     android:src="@drawable/date_icon" />
             </LinearLayout>
 
@@ -184,10 +191,10 @@
 
                 <TextView
                     android:id="@+id/date_tv_profile_view_page_1"
-                    android:text="loading...."
-                    android:fontFamily="@font/raleway_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />
 
@@ -196,6 +203,7 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 
 
 </LinearLayout>

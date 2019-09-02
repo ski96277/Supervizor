@@ -136,6 +136,17 @@ public class Registartion_page_1 extends Fragment {
                 company_password_ET.requestFocus();
                 company_password_ET.setError("Password ?");
                 return;
+            }
+            if (company_password.length()<5) {
+                //animation email input
+                YoYo.with(Techniques.Tada)
+                        .duration(100)
+                        .repeat(1)
+                        .playOn(view.findViewById(R.id.company_password_ET_ID_singup));
+
+                company_password_ET.requestFocus();
+                company_password_ET.setError("Password must be at least 6 characters long?");
+                return;
             } else {
 
                 SignUp_Pojo signUp_pojo = new SignUp_Pojo(company_name, company_location, company_contact_number, company_email, company_password);
