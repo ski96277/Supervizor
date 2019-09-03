@@ -12,9 +12,8 @@
         android:layout_width="150sp"
         android:layout_height="100sp"
         android:layout_gravity="center"
-        android:src="@drawable/profile_item"
-        app:civ_border_color="#000"
-        />
+        android:src="@drawable/profile"
+        app:civ_border_color="#000"/>
 
     <TextView
         android:id="@+id/leave_accepted_applicant_name_date_company"
@@ -22,7 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="2019/07/18"
-        android:textColor="#499653"
+        android:textColor="#000"
         android:textSize="25sp" />
 
     <TextView
@@ -32,7 +31,7 @@
         android:gravity="center"
         android:paddingLeft="10sp"
         android:text="Title text"
-        android:textColor="#9C27B0"
+        android:textColor="#000"
         android:textSize="30sp" />
 
     <TextView
@@ -42,7 +41,7 @@
         android:gravity="center"
         android:paddingLeft="10sp"
         android:text="01/05/2019 to 20/5/3021"
-        android:textColor="#2B0B0B"
+        android:textColor="#010D1B"
         android:textSize="20sp" />
 
     <TextView
@@ -51,7 +50,7 @@
         android:layout_margin="10sp"
         android:paddingLeft="10sp"
         android:text="Details :"
-        android:textColor="#9C27B0"
+        android:textColor="#010D1B"
         android:textSize="20sp" />
 
     <ScrollView
@@ -70,21 +69,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
+            android:text="jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
             android:textSize="25sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="25sp"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/cancel_btn_alert_show_ID_company"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:background="#9C27B0"
+                android:background="#010D1B"
+                android:textColor="#FFF"
+                android:textSize="25sp"
                 android:text="Cancel" />
 
         </LinearLayout>

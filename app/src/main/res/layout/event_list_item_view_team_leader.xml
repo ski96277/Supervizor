@@ -37,8 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2019/07/31"
-                android:textColor="#489A53"
-                android:textSize="20sp" />
+                android:textColor="#000"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -59,7 +59,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="12.00 PM"
-                android:textColor="#EB1111"
+                android:textColor="#464545"
                 android:textSize="15sp" />
         </LinearLayout>
 

@@ -55,7 +55,6 @@
                         android:layout_height="wrap_content"
                         android:text="Imran Sk"
                         android:textColor="#FFF"
-                        android:fontFamily="sans-serif-smallcaps"
                         android:textSize="20sp" />
 
                     <TextView

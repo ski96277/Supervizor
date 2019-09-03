@@ -205,7 +205,7 @@ public class Employee_list_F extends Fragment {
                 if (addEmployee_pojoClasses.isEmpty()){
                     no_employee_found_TV_ID.setVisibility(View.VISIBLE);
                     recyclerview_all_employee_ID.setVisibility(View.GONE);
-                    Toasty.info(getContext(),"No Data Found").show();
+//                    Toasty.info(getActivity(),"No Data Found").show();
                 }
 
                 all_employee_list_adapter = new All_Employee_List_Adapter(addEmployee_pojoClasses);

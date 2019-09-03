@@ -44,7 +44,6 @@
                     android:id="@+id/name_tv_profile_view_page_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_regular"
                     android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />
@@ -94,7 +93,6 @@
                     android:id="@+id/phone_number_tv_profile_view_page_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_regular"
                     android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />
@@ -143,7 +141,6 @@
                     android:id="@+id/email_tv_profile_view_page_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_regular"
                     android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />
@@ -193,7 +190,6 @@
                     android:id="@+id/date_tv_profile_view_page_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_regular"
                     android:text="loading...."
                     android:textColor="#000"
                     android:textSize="20sp" />

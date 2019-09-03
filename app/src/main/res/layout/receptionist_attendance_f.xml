@@ -46,7 +46,6 @@
                     android:id="@+id/name_TV_attendance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:text="Imran Sk"
                     android:textColor="#FFF"
                     android:textSize="20sp" />

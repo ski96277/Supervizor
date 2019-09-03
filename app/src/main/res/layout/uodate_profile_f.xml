@@ -4,15 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#010D1B">
+    android:fillViewport="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="top"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -29,18 +28,33 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            app:cardElevation="10dp"
-            android:layout_marginBottom="10sp">
+            android:layout_marginBottom="10sp"
+            app:cardElevation="10dp">
 
-            <EditText
-                android:id="@+id/Employee_name_ET_ID"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/profile_item"
-                android:drawablePadding="20sp"
-                android:hint="Name"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="2"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:src="@drawable/profile" />
+
+                <EditText
+                    android:id="@+id/Employee_name_ET_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="9"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:paddingLeft="10sp" />
+            </LinearLayout>
+
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -49,18 +63,33 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            app:cardElevation="10dp"
-            android:layout_marginBottom="10sp">
+            android:layout_marginBottom="10sp"
+            app:cardElevation="10dp">
 
-            <EditText
-                android:id="@+id/Employee_designation_ET_ID"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/designation"
-                android:drawablePadding="20sp"
-                android:hint="Designation"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="2"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:src="@drawable/designation" />
+
+                <EditText
+                    android:id="@+id/Employee_designation_ET_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="9"
+                    android:hint="Designation"
+                    android:inputType="text"
+                    android:paddingLeft="10sp" />
+
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -69,19 +98,33 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            app:cardElevation="10dp"
-            android:layout_marginBottom="10sp">
+            android:layout_marginBottom="10sp"
+            app:cardElevation="10dp">
 
-            <EditText
-                android:id="@+id/Employee_email_ET_ID"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/email_icon"
-                android:drawablePadding="20sp"
-                android:focusable="false"
-                android:hint="E-mail"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="2"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:src="@drawable/email_icon" />
+
+                <EditText
+                    android:id="@+id/Employee_email_ET_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="9"
+                    android:hint="E-mail"
+                    android:inputType="text"
+                    android:paddingLeft="10sp" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -90,23 +133,38 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            app:cardElevation="10dp"
-            android:layout_marginBottom="10sp">
+            android:layout_marginBottom="10sp"
+            app:cardElevation="10dp">
 
-            <EditText
-                android:id="@+id/Employee_phone_ET_ID"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/phone"
-                android:drawablePadding="20sp"
-                android:hint="016 XX XX XX"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="2"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:src="@drawable/phone" />
+
+                <EditText
+                    android:id="@+id/Employee_phone_ET_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="50sp"
+                    android:layout_weight="9"
+                    android:hint="016 XX XX XX XX"
+                    android:inputType="text"
+                    android:paddingLeft="10sp" />
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="180sp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
@@ -116,11 +174,15 @@
                 android:id="@+id/update_btn_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
+                android:layout_gravity="center"
+                android:background="#010D1B"
+                android:gravity="center"
                 android:inputType="text"
                 android:maxLines="1"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
                 android:text="Update"
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="30sp" />
         </androidx.cardview.widget.CardView>
 

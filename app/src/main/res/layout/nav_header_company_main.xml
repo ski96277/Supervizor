@@ -43,6 +43,7 @@ android:fontFamily="@font/raleway_regular"
         android:textColor="@color/text_white_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/LOADING" />
+        android:text="@string/LOADING"
+        android:maxLines="1"/>
 
 </LinearLayout>

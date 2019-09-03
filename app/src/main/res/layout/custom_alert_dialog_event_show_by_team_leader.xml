@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/custom_alert_event_show"
     android:layout_width="350dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical">
 
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="2019/07/18"
-        android:textColor="#499653"
+        android:textColor="#000"
         android:textSize="25sp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:gravity="center"
         android:paddingLeft="10sp"
         android:text="Title text"
-        android:textColor="#9C27B0"
+        android:textColor="#000"
         android:textSize="30sp" />
 
     <TextView
@@ -32,8 +32,8 @@
         android:gravity="center"
         android:paddingLeft="10sp"
         android:text="Time : 12.06 PM"
-        android:textColor="#FF0707"
-        android:textSize="20sp" />
+        android:textColor="#000"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:layout_margin="10sp"
         android:paddingLeft="10sp"
         android:text="Details :"
-        android:textColor="#9C27B0"
+        android:textColor="#000"
         android:textSize="20sp" />
 
     <ScrollView
@@ -77,7 +77,7 @@
             android:layout_weight="1"
             android:textSize="25sp"
             android:textColor="#FFF"
-            android:background="#9C27B0"
+            android:background="#010D1B"
             android:text="Cancel" />
     </LinearLayout>
 </LinearLayout>

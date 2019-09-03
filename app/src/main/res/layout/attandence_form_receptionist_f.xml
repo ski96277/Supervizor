@@ -51,12 +51,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_email_ET_55"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/edit_text_bg"
-        android:drawableLeft="@drawable/email_icon"
         android:drawablePadding="15dp"
-
         android:fontFamily="@font/ebrima"
         android:hint="@string/e_mail_hint"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:paddingLeft="10dp"
@@ -68,10 +67,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_password_ET_55"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_bg"
-        android:drawableLeft="@drawable/pass_icon"
         android:drawablePadding="30dp"
         android:hint="@string/password_hint"
+
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
         android:inputType="textPassword"
         android:maxLines="1"
         android:paddingLeft="10dp"
@@ -80,12 +80,12 @@
 
     <Button
         android:id="@+id/login_btn_receptionist_form_ID"
-        android:layout_width="match_parent"
+        android:layout_width="150sp"
         android:layout_height="@dimen/height_login_button_55"
         android:layout_marginTop="20sp"
-        android:background="@drawable/login_button_bg"
-        android:fontFamily="@font/raleway_blackitalic"
+        android:background="#010D1B"
         android:text="Submit"
+        android:textColor="#FFF"
         android:textSize="@dimen/text_size_login_button_20" />
 
 </LinearLayout>

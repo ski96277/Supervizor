@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
     android:layout_gravity="center"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="2019/07/18"
         android:textSize="25sp"
-        android:textColor="#499653"
+        android:textColor="#000"
         android:gravity="center"
         />
     <TextView
@@ -23,7 +23,7 @@
         android:text="Title text"
         android:gravity="center"
         android:textSize="30sp"
-        android:textColor="#9C27B0"
+        android:textColor="#000"
         android:paddingLeft="10sp"
         />
     <TextView
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="01/05/2019 to 20/5/3021"
         android:textColor="#130606"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:gravity="center"
         android:paddingLeft="10sp"/>
     <TextView
@@ -41,7 +41,7 @@
         android:text="Details :"
         android:textSize="20sp"
         android:layout_margin="10sp"
-        android:textColor="#9C27B0"
+        android:textColor="#000"
         android:paddingLeft="10sp"/>
 
     <ScrollView
@@ -81,6 +81,6 @@
             android:textColor="#FFF"
             android:fontFamily="@font/raleway_bolditalic"
 
-            android:background="#9C27B0"/>
+            android:background="#010D1B"/>
     </LinearLayout>
 </LinearLayout>

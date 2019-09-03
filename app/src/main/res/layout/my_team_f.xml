@@ -25,6 +25,7 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/plus"
         app:elevation="5dp"
+        android:backgroundTint="#010D1B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="0dp"

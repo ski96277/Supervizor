@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -86,11 +86,14 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/profile_item" />
-                    </LinearLayout>
+                            android:layout_margin="15sp"
+                            android:src="@drawable/profile" />
+
+                        </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -104,7 +107,6 @@
                             android:id="@+id/name_tv_profile_view_by_Leader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/raleway_regular"
                             android:text="loading...."
                             android:textColor="#000"
                             android:textSize="20sp" />
@@ -137,6 +139,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="15sp"
                             android:src="@drawable/phone" />
                     </LinearLayout>
 
@@ -152,7 +155,6 @@
                             android:id="@+id/phone_number_tv_profile_view_by_Leader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/raleway_regular"
                             android:text="loading...."
                             android:textColor="#000"
                             android:textSize="20sp" />
@@ -184,6 +186,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="15sp"
+
                             android:src="@drawable/email_icon" />
                     </LinearLayout>
 
@@ -199,7 +203,6 @@
                             android:id="@+id/email_tv_profile_view_by_Leader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/raleway_regular"
                             android:text="loading...."
                             android:textColor="#000"
                             android:textSize="20sp" />
@@ -230,8 +233,13 @@
                         <Button
                             android:id="@+id/cancel_button_by_Leader"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Cancel"/>
+                            android:layout_height="55dp"
+                            android:text="Cancel"
+                            android:background="#010D1B"
+                            android:layout_marginRight="5sp"
+                            android:textColor="#FFF"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -244,8 +252,13 @@
                         <Button
                             android:id="@+id/add_to_button_by_Leader"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Add To Team"/>
+                            android:layout_height="55dp"
+                            android:text="Add To Team"
+                            android:background="#010D1B"
+                            android:textColor="#FFF"
+                            android:layout_marginLeft="5sp"
+                            android:textSize="20sp"
+                            android:textAllCaps="false"/>
                     </androidx.cardview.widget.CardView>
 
                 </LinearLayout>

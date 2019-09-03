@@ -28,6 +28,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="center"
         android:text="name"
+        android:textColor="#000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,7 @@
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:text="Event Name"
+        android:textColor="#000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,22 +51,26 @@
 
     <Button
         android:id="@+id/cancel_btn_custom_alert"
-        android:layout_width="wrap_content"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
+        android:background="#010D1B"
         android:text="Cancel"
+        android:textColor="#FFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />
 
     <Button
         android:id="@+id/approve_btn_custom_alert"
-        android:layout_width="wrap_content"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
+        android:background="#010D1B"
         android:text="Approve"
+        android:textColor="#FFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />

@@ -152,9 +152,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10sp"
+                android:layout_marginLeft="30sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10sp"
+                android:layout_marginRight="30sp"
                 android:layout_marginBottom="30sp"
                 app:cardCornerRadius="10sp"
                 card_view:cardBackgroundColor="@color/green"
@@ -162,18 +162,16 @@
 
                 <Button
                     android:id="@+id/submit_leave_btn_ID"
-                    android:layout_width="wrap_content"
+                    android:layout_width="190sp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/green_color_submit_button_bg"
                     android:gravity="center"
-                    android:maxHeight="35dp"
-                    android:paddingLeft="80sp"
-                    android:paddingRight="80sp"
                     android:scrollbars="vertical"
                     android:text="Submit"
+                    android:textAllCaps="false"
                     android:textColor="#FFF"
-                    android:textSize="15sp" />
+                    android:textSize="25sp" />
 
             </androidx.cardview.widget.CardView>
 

@@ -67,7 +67,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -84,9 +84,10 @@
                         android:gravity="center">
 
                         <ImageView
+                            android:padding="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/profile_item" />
+                            android:src="@drawable/profile" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -103,7 +104,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:fontFamily="@font/raleway_regular"
                             android:textSize="20sp" />
 
                     </LinearLayout>
@@ -115,7 +115,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -134,7 +134,8 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/phone" />
+                            android:src="@drawable/phone"
+                            android:padding="15sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -151,7 +152,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:fontFamily="@font/raleway_regular"
                             android:textSize="20sp" />
 
                     </LinearLayout>
@@ -162,7 +162,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -180,6 +180,7 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
+                            android:padding="15sp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/email_icon" />
                     </LinearLayout>
@@ -195,7 +196,6 @@
                         <TextView
                             android:id="@+id/receptionist_email_tv_profile_view_page_1"
                             android:text="loading...."
-                            android:fontFamily="@font/raleway_regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
@@ -210,7 +210,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -229,6 +229,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                          android:padding="15sp"
                             android:src="@drawable/date_icon" />
                     </LinearLayout>
 
@@ -243,7 +244,6 @@
                         <TextView
                             android:id="@+id/receptionist_date_tv_profile_view_page_1"
                             android:text="loading...."
-                            android:fontFamily="@font/raleway_regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
