@@ -168,6 +168,7 @@
             app:cardElevation="10dp">
 
             <Button
+                android:id="@+id/update_btn_reception_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

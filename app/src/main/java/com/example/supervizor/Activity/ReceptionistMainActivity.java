@@ -103,6 +103,34 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 //initilaze the widget
         initialize();
+
+        Intent intent = getIntent();
+        String password = intent.getStringExtra("password");
+        if (password != null) {
+            if (password.equalsIgnoreCase("123456")) {
+                KAlertDialog kAlertDialog_password_alert = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
+                kAlertDialog_password_alert.showCancelButton(true);
+                kAlertDialog_password_alert.setCancelText("Cancel");
+                kAlertDialog_password_alert.setTitleText("Change Your Password");
+                kAlertDialog_password_alert.setContentText("Default password is being used");
+                kAlertDialog_password_alert.show();
+                kAlertDialog_password_alert.setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog kAlertDialog) {
+                        kAlertDialog_password_alert.dismissWithAnimation();
+                    }
+                });
+                kAlertDialog_password_alert.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog kAlertDialog) {
+                        startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
+                    }
+                });
+            } else {
+
+            }
+        }
+
         //start background service
 
         startJobService();

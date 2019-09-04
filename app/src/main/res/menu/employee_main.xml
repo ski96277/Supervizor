@@ -14,6 +14,12 @@
         app:showAsAction="never"
         android:visible="false"/>
     <item
+        android:id="@+id/change_password_employee"
+        android:orderInCategory="100"
+        android:title="Change Password"
+        app:showAsAction="never"
+        android:visible="false"/>
+    <item
         android:id="@+id/add_team_mate"
         android:orderInCategory="100"
         android:title="Add Team Mate"

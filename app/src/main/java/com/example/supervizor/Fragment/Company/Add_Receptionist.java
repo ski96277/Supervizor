@@ -214,7 +214,7 @@ public class Add_Receptionist extends Fragment {
                                                                         kAlertDialog.dismiss();
 
                                                                         name_receptionnist.setText("");
-                                                                        designation_receptionnist.setText("");
+//                                                                        designation_receptionnist.setText("");
                                                                         email_receptionnist.setText("");
                                                                         joinDate_receptionnist.setText("");
                                                                         salary_receptionnist.setText("");

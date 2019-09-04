@@ -1,5 +1,6 @@
 package com.example.supervizor.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -57,7 +58,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 currentPassETID.setError("current password ?");
                 return;
             }
-            if (new_password.isEmpty()  ) {
+            if (new_password.isEmpty()) {
                 newPasswordETID.requestFocus();
                 newPasswordETID.setError("new password ?");
                 return;
@@ -77,44 +78,34 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void updatePassword(String current_passWord, String new_password, String re_type_password, FirebaseUser firebase_user) {
-        KAlertDialog kAlertDialog=new KAlertDialog(this,KAlertDialog.PROGRESS_TYPE);
+        KAlertDialog kAlertDialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Updating Password");
         kAlertDialog.show();
 
         final String email = firebase_user.getEmail();
         AuthCredential credential = EmailAuthProvider.getCredential(email, current_passWord);
-        firebase_user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    firebase_user.updatePassword(new_password).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(!task.isSuccessful()){
+        firebase_user.reauthenticate(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                firebase_user.updatePassword(new_password).addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful()) {
 
-                                kAlertDialog.changeAlertType(KAlertDialog.ERROR_TYPE);
-                                kAlertDialog.setTitleText("Something went wrong. Please try again later");
+                        kAlertDialog.changeAlertType(KAlertDialog.ERROR_TYPE);
+                        kAlertDialog.setTitleText("Something went wrong. Please try again later");
 
+                    } else {
+                        kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                        kAlertDialog.setTitleText("password updated");
+                        kAlertDialog.setConfirmClickListener(kAlertDialog1 ->
+                                startActivity(new Intent(getApplicationContext(), Login_Activity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)));
 
-                                /*
-                                Snackbar snackbar_fail = Snackbar
-                                        .make(coordinatorLayout, "Something went wrong. Please try again later", Snackbar.LENGTH_LONG);
-                                snackbar_fail.show();*/
-                            }else {
-                                kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                                kAlertDialog.setTitleText("password updated");
-                               /* Snackbar snackbar_su = Snackbar
-                                        .make(coordinatorLayout, "Password Successfully Modified", Snackbar.LENGTH_LONG);
-                                snackbar_su.show();*/
-                            }
-                        }
-                    });
-                }else {
-                    Toasty.info(getApplicationContext(),"Authentication Failed").show();
-                    /*Snackbar snackbar_su = Snackbar
-                            .make(coordinatorLayout, "Authentication Failed", Snackbar.LENGTH_LONG);
-                    snackbar_su.show();*/
-                }
+                    }
+                });
+            } else {
+                Toasty.info(getApplicationContext(), "Authentication Failed").show();
+                /*Snackbar snackbar_su = Snackbar
+                        .make(coordinatorLayout, "Authentication Failed", Snackbar.LENGTH_LONG);
+                snackbar_su.show();*/
             }
         });
 

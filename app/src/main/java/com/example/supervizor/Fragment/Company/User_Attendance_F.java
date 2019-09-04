@@ -1,7 +1,7 @@
 package com.example.supervizor.Fragment.Company;
 
+import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,10 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -45,6 +43,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
+
+import org.threeten.bp.LocalTime;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -255,7 +255,6 @@ public class User_Attendance_F extends Fragment {
         });//get user Information END
 
 
-
         year_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -284,7 +283,6 @@ public class User_Attendance_F extends Fragment {
 
             }
         });
-
 
 
     }
@@ -484,6 +482,8 @@ public class User_Attendance_F extends Fragment {
 
                     databaseReference2.addValueEventListener(new ValueEventListener() {
 
+                        @TargetApi(Build.VERSION_CODES.O)
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -515,6 +515,8 @@ public class User_Attendance_F extends Fragment {
 
 
                             if (date.equals(String.valueOf(1))) {
+
+
                                 entryTimeDate1.setText(entryTime);
                                 exitTimeDate1.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -530,6 +532,7 @@ public class User_Attendance_F extends Fragment {
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
                             }
                             if (date.equals(String.valueOf(4))) {
+
                                 entryTimeDate4.setText(entryTime);
                                 exitTimeDate4.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -918,7 +921,6 @@ public class User_Attendance_F extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference();
     }
-
 
 
 }

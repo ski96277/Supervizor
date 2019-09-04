@@ -46,7 +46,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
     EditText salary_ET;
     EditText contact_perid_number;
     Spinner spinner_year_month;
-    String job_status = "Permanent";
+    String job_status = "Probationary";
     String userID_company;
     String email_company;
     String password_company;

@@ -1,5 +1,6 @@
 package com.example.supervizor.Fragment.Employee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.supervizor.Activity.ChangePasswordActivity;
 import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -120,6 +122,7 @@ public class ProfileView_Employee_F extends Fragment {
 
 //        inflater.inflate(R.menu.company_main,menu);
         menu.findItem(R.id.edit_profile_employee).setVisible(true);
+        menu.findItem(R.id.change_password_employee).setVisible(true);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -129,8 +132,13 @@ public class ProfileView_Employee_F extends Fragment {
         switch (item.getItemId()) {
             case R.id.edit_profile_employee:
                 load_Edit_profile_Fragment();
-
                 break;
+
+            case R.id.change_password_employee:
+//                load_Edit_profile_Fragment();
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
+                break;
+
         }
         return false;
     }

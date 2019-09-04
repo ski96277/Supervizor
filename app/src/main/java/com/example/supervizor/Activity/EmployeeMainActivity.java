@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -87,6 +88,7 @@ public class EmployeeMainActivity extends AppCompatActivity
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    String password;
 
     //general event Notification
 
@@ -108,8 +110,34 @@ public class EmployeeMainActivity extends AppCompatActivity
         setActionBarTitle("Dashboard");
 //initialize the view
         initialize();
-        //start general event notification service
-//        startGeneralEventnotificationService();
+
+        Intent intent = getIntent();
+        password = intent.getStringExtra("password");
+        if (password != null) {
+            if (password.equalsIgnoreCase("123456")) {
+                KAlertDialog kAlertDialog_password_alert = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
+                kAlertDialog_password_alert.showCancelButton(true);
+                kAlertDialog_password_alert.setCancelText("Cancel");
+                kAlertDialog_password_alert.setTitleText("Change Your Password");
+                kAlertDialog_password_alert.setContentText("Default password is being used");
+                kAlertDialog_password_alert.show();
+                kAlertDialog_password_alert.setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog kAlertDialog) {
+                        kAlertDialog_password_alert.dismissWithAnimation();
+                    }
+                });
+                kAlertDialog_password_alert.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog kAlertDialog) {
+                        startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
+                    }
+                });
+            } else {
+
+            }
+        }
+
 
         check_user_information = new Check_User_information();
         user_ID = check_user_information.getUserID();

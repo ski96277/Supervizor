@@ -194,13 +194,13 @@ forget_pass_TV.setOnClickListener(this);
                 if (receptionist_true){
 
                     startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .putExtra("password",pass_st));
 
                     //set password in data base
                     firebaseDatabase.getReference().child("receptionist_list").child(uid)
                             .child("password_Receptionist").setValue(pass_st);
 
-//                    Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
 
                 }
@@ -213,10 +213,10 @@ forget_pass_TV.setOnClickListener(this);
                             .child("employee_password").setValue(pass_st);
 
                     startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    .putExtra("password",pass_st));
 
 
-//                    Toasty.info(getApplicationContext(),"Employee").show();
                     return;
 
                 }

@@ -23,6 +23,7 @@ import es.dmoral.toasty.Toasty;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.Login_Activity;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
@@ -219,7 +220,7 @@ public class Registartion_page_3 extends Fragment {
                                                         company_penalty_time, working_days, delay_count, "Company", user.getUid(), logo_download_url);
                                                 myRef.child(user.getUid()).setValue(signUp_pojo1).addOnSuccessListener(aVoid -> {
                                                     kAlertDialog.dismiss();
-                                                    startActivity(new Intent(getContext(), CompanyMainActivity.class)
+                                                    startActivity(new Intent(getContext(), Login_Activity.class)
                                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
                                                 });
