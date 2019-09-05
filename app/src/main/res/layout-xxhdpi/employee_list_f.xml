@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
+
+
+    <!--All & search & Plus icon-->
+    <LinearLayout
+        android:id="@+id/all_search_plus_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+      <!--  <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_ID"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:entries="@array/employee_home" />
+-->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_ET_ID"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:fontFamily="@font/raleway_italic"
+            app:queryHint="search.."
+            android:layout_marginLeft="10sp"
+            android:inputType="text"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/plus_icon_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0076FE"
+            android:text="+"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textSize="35sp"
+            android:textColor="#FFF"/>
+
+
+    </LinearLayout>
+    <!--add,  Employee , Moderator,Receptionist-->
+    <LinearLayout
+        android:id="@+id/add_emplo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+    <!--    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#000"
+            android:fontFamily="@font/doppio_one_regular"
+            android:gravity="center"
+            android:text="Add"
+            android:textColor="#00C0FF"
+            android:textSize="20dp" />-->
+
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#FFF" />-->
+
+        <Button
+            android:id="@+id/add_employee_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#000"
+            android:fontFamily="@font/raleway_semibold"
+            android:gravity="center"
+            android:text="Employee"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white_color"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#FFF"
+            android:textColor="@color/text_white_color" />
+
+        <Button
+            android:id="@+id/add_receptionist_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#000"
+            android:fontFamily="@font/raleway_semibold"
+            android:gravity="center"
+            android:text="Receptionist"
+            android:textAllCaps="false"
+
+            android:textColor="@color/text_white_color"
+            android:textSize="20sp" />
+
+      <!--  <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFF"
+            android:textColor="@color/text_white_color" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/no_employee_found_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="No Employees yet \n use the '+' button to add employees"
+            android:textSize="25sp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_all_employee_ID"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -20,8 +20,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_photo_item_imageView_team_leader"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile"
                 card_view:civ_border_color="#000"
@@ -31,7 +31,7 @@
                 android:id="@+id/employee_name_item_team_leader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/profile_photo_item_imageView_team_leader"
                 android:gravity="left"
                 android:paddingLeft="20sp"

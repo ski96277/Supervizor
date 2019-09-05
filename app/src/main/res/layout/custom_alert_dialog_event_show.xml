@@ -2,7 +2,7 @@
 <LinearLayout
     android:id="@+id/custom_alert_event_show"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
+    android:layout_width="310dp"
     android:layout_gravity="center"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="2019/07/18"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#000"
         android:gravity="center"
         />
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Title text"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="#000"
         android:paddingLeft="10sp"
         />
@@ -40,25 +40,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Details :"
-        android:layout_margin="10sp"
-        android:textSize="20sp"
+        android:layout_margin="5sp"
+        android:textSize="15sp"
         android:textColor="#000"
         android:paddingLeft="10sp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="190dp"
         android:fillViewport="true">
 
         <TextView
             android:id="@+id/event_details_TV_ID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5sp"
+            android:layout_margin="2sp"
             android:gravity="left"
             android:text="jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:padding="10sp"/>
 
     </ScrollView>
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="15dp">
         <Button
             android:id="@+id/cancel_btn_alert_show_ID"
             android:layout_width="0dp"
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:text="Cancel"
             android:textColor="#FFF"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:layout_marginRight="5sp"
             android:background="#010D1B"/>
 
@@ -87,7 +87,7 @@
             android:layout_weight="1"
             android:text="Edit"
             android:textColor="#FFF"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:layout_marginLeft="5sp"
             android:background="#010D1B"
             />

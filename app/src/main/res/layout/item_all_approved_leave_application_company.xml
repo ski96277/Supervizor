@@ -20,8 +20,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/leave_approved_item_profile_photo_imageView_leave"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile"
                 card_view:civ_border_color="#000"
@@ -37,7 +37,7 @@
                 android:paddingLeft="20sp"
                 android:text="leave Title"
                 android:textColor="@color/text_black_color"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
 
             <TextView
@@ -52,7 +52,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textColor="@color/text_black_color"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

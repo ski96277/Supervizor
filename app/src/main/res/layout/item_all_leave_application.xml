@@ -24,7 +24,7 @@
             android:paddingLeft="20sp"
             android:text="Hello "
             android:textColor="#000"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/leave_status_icon_id_IV"
             android:layout_width="0dp"

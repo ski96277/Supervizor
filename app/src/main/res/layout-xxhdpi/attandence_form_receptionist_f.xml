@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="5sp"
+
+    android:paddingRight="5sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20sp"
+        android:background="@drawable/edit_text_bg"
+        android:orientation="horizontal"
+        android:paddingLeft="10sp"
+
+        android:paddingRight="10sp">
+
+        <RadioGroup
+            android:id="@+id/radio_group_ID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/entry_time_RD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entry Time"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/exit_time_RD"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exit Time"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/email_reception_form_login_ET_ID"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_email_ET_55"
+        android:layout_marginBottom="5dp"
+        android:drawablePadding="15dp"
+        android:fontFamily="@font/ebrima"
+        android:hint="@string/e_mail_hint"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:textColor="@color/text_black_color"
+        android:textSize="@dimen/text_Size_email_20" />
+
+    <EditText
+        android:id="@+id/password_reception_form_login_ET_ID"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_password_ET_55"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="30dp"
+        android:hint="@string/password_hint"
+
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:textColor="@color/text_black_color"
+        android:textSize="@dimen/text_Size_password_20" />
+
+    <Button
+        android:id="@+id/login_btn_receptionist_form_ID"
+        android:layout_width="150sp"
+        android:layout_height="@dimen/height_login_button_55"
+        android:layout_marginTop="20sp"
+        android:background="#010D1B"
+        android:text="Submit"
+        android:textColor="#FFF"
+        android:textSize="@dimen/text_size_login_button_20" />
+
+</LinearLayout>

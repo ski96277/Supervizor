@@ -7,15 +7,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
         android:background="#010D1B"
         android:gravity="bottom"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image_user_profile_by_Leader"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
             android:layout_gravity="center"
             android:src="@drawable/profile"
             app:civ_border_color="#F3EFEF"
@@ -27,22 +28,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/raleway_bold"
             android:padding="5dp"
             android:text="loading...."
             android:textColor="#FFF"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/designation_profile_view_by_Leader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/raleway_italic"
             android:padding="5dp"
             android:text="loading..."
             android:textColor="#FFF"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,7 +55,7 @@
         android:id="@+id/nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -70,7 +69,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -120,7 +119,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -167,7 +166,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
@@ -215,7 +214,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -239,7 +238,7 @@
                             android:layout_marginRight="5sp"
                             android:textColor="#FFF"
                             android:textAllCaps="false"
-                            android:textSize="20sp"/>
+                            android:textSize="18sp"/>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -257,7 +256,7 @@
                             android:background="#010D1B"
                             android:textColor="#FFF"
                             android:layout_marginLeft="5sp"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textAllCaps="false"/>
                     </androidx.cardview.widget.CardView>
 

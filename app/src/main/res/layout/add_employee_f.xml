@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="25sp"
+        android:layout_marginTop="50dp"
         android:paddingLeft="35sp"
         android:paddingRight="35sp"
         android:paddingBottom="35sp"
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="3sp"
+                    android:padding="1sp"
                     android:src="@drawable/profile" />
 
 
@@ -47,6 +47,7 @@
                     android:layout_weight="8"
                     android:backgroundTint="#DDDCDC"
                     android:hint="Name"
+                    android:textSize="15sp"
                     android:inputType="text"
                     android:maxLines="1" />
             </LinearLayout>
@@ -72,7 +73,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="3sp"
+                    android:padding="1sp"
                     android:src="@drawable/designation" />
 
 
@@ -82,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
+                    android:textSize="15sp"
                     android:backgroundTint="#DDDCDC"
                     android:hint="Designation"
                     android:inputType="text"
@@ -108,13 +110,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="3sp"
+                    android:padding="1sp"
                     android:src="@drawable/email_icon" />
 
 
                 <EditText
                     android:id="@+id/Employee_email_ET_ID"
                     android:layout_width="0dp"
+                    android:textSize="15sp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
@@ -145,7 +148,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="3sp"
+                    android:padding="1sp"
                     android:src="@drawable/date_icon" />
 
 
@@ -157,6 +160,7 @@
                     android:layout_weight="8"
                     android:backgroundTint="#DDDCDC"
                     android:focusable="false"
+                    android:textSize="15sp"
                     android:hint="Join date" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -181,7 +185,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="3sp"
+                    android:padding="1sp"
                     android:src="@drawable/salary_icon" />
 
 
@@ -191,6 +195,7 @@
                     android:layout_height="50sp"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
+                    android:textSize="15sp"
                     android:backgroundTint="#DDDCDC"
                     android:hint="Salary"
                     android:inputType="numberDecimal" />
@@ -202,12 +207,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
+            android:paddingTop="1dp"
             android:paddingBottom="5dp">
 
             <Button
@@ -218,7 +223,7 @@
                 android:layout_marginRight="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background_employee_type_dark"
-android:textSize="12sp"
+android:textSize="9sp"
                 android:fontFamily="@font/raleway_bold"
                 android:text="Probationary"
                 android:textAllCaps="true" />
@@ -230,7 +235,7 @@ android:textSize="12sp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 android:background="@drawable/button_background_employee_type"
                 android:fontFamily="@font/raleway_bold"
 
@@ -250,7 +255,7 @@ android:textSize="12sp"
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="0dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -266,7 +271,7 @@ android:textSize="12sp"
                         android:layout_height="wrap_content"
                         android:text="Contract Period"
                         android:textColor="@color/text_black_color"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -285,7 +290,7 @@ android:textSize="12sp"
                         android:hint="01"
 
                         android:inputType="numberDecimal"
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <Spinner
                         android:id="@+id/Employee_spinner_year_month"
@@ -304,20 +309,21 @@ android:textSize="12sp"
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/add_Employee_button_ID"
                 android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/add_employee_btn_bg"
                 android:text="+ Add Employee"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="2sp"/>
         </LinearLayout>
 
     </LinearLayout>

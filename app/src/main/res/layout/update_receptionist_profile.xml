@@ -16,10 +16,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image_reception_ID"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30sp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10sp"
+            android:layout_marginBottom="5sp"
             android:src="@drawable/profile" />
 
 

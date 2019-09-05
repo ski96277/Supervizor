@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="20sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -27,7 +28,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="10sp"
                 android:layout_marginTop="5sp"
                 android:layout_marginRight="10sp"
@@ -40,17 +41,17 @@
                 <Button
                     android:id="@+id/entry_Time_btn_ID"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:backgroundTint="#010D1B"
                     android:gravity="center"
                     android:textColor="#FFF"
                     android:text="Entry"
-                    android:textSize="40sp" />
+                    android:textSize="30sp" />
             </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="10sp"
                 android:layout_marginTop="5sp"
                 android:layout_marginRight="10sp"
@@ -61,7 +62,7 @@
                 <Button
                     android:id="@+id/exit_time_btn_ID"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:backgroundTint="#720000"
                     android:gravity="center"

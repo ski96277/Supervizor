@@ -9,8 +9,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/leave_accepted_applicant_profile_image"
-        android:layout_width="150sp"
-        android:layout_height="100sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:layout_gravity="center"
         android:src="@drawable/profile"
         app:civ_border_color="#000"/>
@@ -22,7 +22,7 @@
         android:gravity="center"
         android:text="2019/07/18"
         android:textColor="#000"
-        android:textSize="25sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/leave_accepted_title_TV_ID_company"
@@ -32,7 +32,7 @@
         android:paddingLeft="10sp"
         android:text="Title text"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/leave_accepted_duration_TV_ID_company"
@@ -42,7 +42,7 @@
         android:paddingLeft="10sp"
         android:text="01/05/2019 to 20/5/3021"
         android:textColor="#010D1B"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
         android:paddingLeft="10sp"
         android:text="Details :"
         android:textColor="#010D1B"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,11 +71,11 @@
             android:gravity="center"
             android:text="jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:orientation="horizontal">
@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:background="#010D1B"
                 android:textColor="#FFF"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:text="Cancel" />
 
         </LinearLayout>

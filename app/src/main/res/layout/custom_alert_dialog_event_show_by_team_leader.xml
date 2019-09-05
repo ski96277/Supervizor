@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/custom_alert_event_show"
-    android:layout_width="350dp"
+    android:layout_width="320dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical">
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="2019/07/18"
         android:textColor="#000"
-        android:textSize="25sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/event_title_TV_ID_by_team_leader"
@@ -23,7 +23,7 @@
         android:paddingLeft="10sp"
         android:text="Title text"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/time_title_TV_ID_by_team_leader"
@@ -38,28 +38,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_margin="5sp"
         android:paddingLeft="10sp"
         android:text="Details :"
         android:textColor="#000"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="210dp"
         android:fillViewport="true">
 
         <TextView
             android:id="@+id/event_details_TV_ID_by_team_leader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10sp"
+            android:layout_margin="5sp"
             android:gravity="left"
 
             android:padding="10sp"
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
     </ScrollView>
 
@@ -75,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#FFF"
             android:background="#010D1B"
             android:text="Cancel" />

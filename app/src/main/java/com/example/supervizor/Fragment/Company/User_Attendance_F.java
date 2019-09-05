@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +50,10 @@ import org.threeten.bp.LocalTime;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -480,7 +484,7 @@ public class User_Attendance_F extends Fragment {
 
                     String date = snapshot.getKey();
 
-                    databaseReference2.addValueEventListener(new ValueEventListener() {
+                    databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @TargetApi(Build.VERSION_CODES.O)
                         @RequiresApi(api = Build.VERSION_CODES.O)
@@ -532,6 +536,53 @@ public class User_Attendance_F extends Fragment {
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
                             }
                             if (date.equals(String.valueOf(4))) {
+
+                                String sessionTimeStart = "12:30 PM";
+                                String sessionTimerEndOrCurrent = "02:30 PM";
+                                SimpleDateFormat format = new SimpleDateFormat("HH:mm a");
+
+                                Date d1 = null;
+                                Date d0 = null;
+                                try {
+                                    d1 = format.parse(sessionTimeStart);
+                                    d0 = format.parse(sessionTimerEndOrCurrent);
+
+                                    if (d0.after(d1)){
+                                        Toast.makeText(getContext(), "d0 < d1", Toast.LENGTH_SHORT).show();
+                                    }else if (d0.before(d1)){
+                                        Toast.makeText(getContext(), " d0 > d1", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getContext(), "bal", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } catch (ParseException e1) {
+                                    // TODO Auto-generated catch block
+                                    e1.printStackTrace();
+                                }
+
+                              /*  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm a");
+                                Time date1;
+                                Time date2;
+                                try {
+//                                    date1 = simpleDateFormat.parse("08:00 AM");
+//                                    date2 = simpleDateFormat.parse("04:00 PM");
+                                    date1 =
+                                    date2 = simpleDateFormat.parse("10:30 AM");
+                                    if (date1.after(date2)) {
+
+                                        entryTimeDate4.setBackgroundColor(Color.parseColor("#BE9117"));
+
+                                    } else if (date1.before(date2)) {
+                                        Toast.makeText(getContext(), "you are ok", Toast.LENGTH_SHORT).show();
+
+                                    }else {
+                                        Toast.makeText(getContext(), "bal", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }*/
 
                                 entryTimeDate4.setText(entryTime);
                                 exitTimeDate4.setText(exitTime);

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="2019/07/18"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:textColor="#000"
         android:gravity="center"
         />
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Title text"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="#000"
         android:paddingLeft="10sp"
         />
@@ -39,14 +39,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Details :"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_margin="10sp"
         android:textColor="#000"
         android:paddingLeft="10sp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:fillViewport="true">
 
         <TextView
@@ -59,7 +59,7 @@
             android:paddingLeft="10sp"
             android:text="asdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf jasdf j"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
     </ScrollView>
 
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="15dp">
         <Button
             android:id="@+id/cancel_btn_alert_show_ID"
             android:layout_width="0dp"
@@ -79,8 +79,6 @@
             android:paddingBottom="5sp"
             android:paddingTop="5sp"
             android:textColor="#FFF"
-            android:fontFamily="@font/raleway_bolditalic"
-
             android:background="#010D1B"/>
     </LinearLayout>
 </LinearLayout>

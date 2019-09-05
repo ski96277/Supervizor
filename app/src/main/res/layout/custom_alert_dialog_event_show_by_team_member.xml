@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/custom_alert_event_show"
-        android:layout_width="350dp"
+        android:layout_width="310dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="2019/07/18"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/event_title_TV_ID_by_team_member"
@@ -28,7 +28,7 @@
             android:paddingLeft="10sp"
             android:text="Title text"
             android:textColor="#000"
-            android:textSize="30sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/time_title_TV_ID_by_team_member"
@@ -47,24 +47,24 @@
             android:paddingLeft="10sp"
             android:text="Details :"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="210dp"
             android:fillViewport="true">
 
             <TextView
                 android:id="@+id/event_details_TV_ID_by_team_member"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10sp"
+                android:layout_margin="4sp"
                 android:gravity="left"
 
                 android:padding="10sp"
                 android:text="jasdf jasdf jasdf jasdf jasdf jasdf j"
                 android:textColor="#000"
-                android:textSize="25sp" />
+                android:textSize="15sp" />
 
         </ScrollView>
 

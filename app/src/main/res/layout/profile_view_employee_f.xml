@@ -12,8 +12,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/employee_profile_image_user_profile"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:src="@drawable/profile_white"
             app:civ_border_color="#F3EFEF"
@@ -39,7 +39,7 @@
             android:padding="5dp"
             android:text="loading..."
             android:textColor="#FFF"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,13 +60,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="15sp">
 
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_margin="10dp"
                 android:backgroundTint="#D2D2D2">
 
                 <LinearLayout
@@ -76,16 +76,15 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="center">
 
                         <ImageView
-                            android:padding="3sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="15sp"
+                            android:layout_margin="12sp"
                             android:src="@drawable/profile" />
                     </LinearLayout>
 
@@ -103,7 +102,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -130,7 +129,7 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:padding="15sp"
+                            android:padding="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/phone" />
@@ -150,7 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -180,7 +179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/email_icon"
-                            android:padding="15sp"/>
+                            android:padding="12sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -197,7 +196,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -222,7 +221,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:padding="15sp"
+                        android:padding="12sp"
                         android:gravity="center">
 
                         <ImageView
@@ -245,7 +244,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
