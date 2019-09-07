@@ -122,10 +122,10 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                             }
 
                             if (minute < 10) {
-                                entry_time_TV.setText(hourOfDay + " : 0" + minute + " " + format);
+                                entry_time_TV.setText(hourOfDay + ":0" + minute + " " + format);
 
                             } else {
-                                entry_time_TV.setText(hourOfDay + " : " + minute + " " + format);
+                                entry_time_TV.setText(hourOfDay + ":" + minute + " " + format);
 
                             }
 
@@ -163,10 +163,10 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                                 format = "AM";
                             }
                             if (minute < 10) {
-                                exit_time_TV.setText(hourOfDay + " : 0" + minute + " " + format);
+                                exit_time_TV.setText(hourOfDay + ":0" + minute + " " + format);
 
                             } else {
-                                exit_time_TV.setText(hourOfDay + " : " + minute + " " + format);
+                                exit_time_TV.setText(hourOfDay + ":" + minute + " " + format);
 
                             }
 
@@ -205,10 +205,10 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                             }
 
                             if (minute<10){
-                                penalty_time_TV.setText(hourOfDay + " : 0" + minute + " " + format);
+                                penalty_time_TV.setText(hourOfDay + ":0" + minute + " " + format);
 
                             }else {
-                                penalty_time_TV.setText(hourOfDay + " : " + minute + " " + format);
+                                penalty_time_TV.setText(hourOfDay + ":" + minute + " " + format);
 
                             }
 

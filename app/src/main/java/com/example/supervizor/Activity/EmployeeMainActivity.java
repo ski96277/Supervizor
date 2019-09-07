@@ -19,6 +19,7 @@ import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.Fragment.Employee.Team_List_As_A_Member;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
@@ -221,6 +222,17 @@ public class EmployeeMainActivity extends AppCompatActivity
 
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID)
                         .getValue(AddEmployee_PojoClass.class);
+
+                //save company policy time
+
+                SignUp_Pojo signUp_pojo = dataSnapshot.child("company_list").child(addEmployee_pojoClass.getCompany_User_id()).getValue(SignUp_Pojo.class);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmployeeMainActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
+                editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
+                editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                editor.apply();
+
 
                 //subscribe topic for Firebase Notification
 

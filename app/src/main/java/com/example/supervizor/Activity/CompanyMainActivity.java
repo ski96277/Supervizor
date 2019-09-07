@@ -2,6 +2,7 @@ package com.example.supervizor.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -209,6 +211,14 @@ public class CompanyMainActivity extends AppCompatActivity
 
                 if (currentUser != null) {
                     signUp_pojo = dataSnapshot.child("company_list").child(currentUser.getUid()).getValue(SignUp_Pojo.class);
+
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CompanyMainActivity.this);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
+                    editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
+                    editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                    editor.apply();
+
 
                     if (!"null".equalsIgnoreCase(signUp_pojo.getLogo_download_url())) {
                         String logo_download_link = signUp_pojo.getLogo_download_url();

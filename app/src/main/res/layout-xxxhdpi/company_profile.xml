@@ -113,6 +113,19 @@
             android:textColor="#FFF"
             android:textSize="17sp" />
 
+        <Button
+            android:id="@+id/edit_profile_company"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40sp"
+            android:textSize="20sp"
+            android:paddingLeft="2sp"
+            android:paddingRight="2sp"
+            android:text="Edit Profile"
+            android:textAllCaps="false"
+            android:textColor="#010C18"
+            android:background="@drawable/edit_btn_bg"/>
 
     </LinearLayout>
 </ScrollView>

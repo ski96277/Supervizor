@@ -21,6 +21,7 @@ import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
+import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
@@ -80,7 +81,6 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 
     public static final int JOB_ID = 101;
-    public static final int JOB_ID_Notification = 102;
     private static final long REFRESH_INTERVAL  = 3 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
@@ -187,9 +187,17 @@ public class ReceptionistMainActivity extends AppCompatActivity
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list").child(check_user_information.getUserID())
                         .getValue(AddEmployee_PojoClass.class);
 
+                //save company time policy
+
+                SignUp_Pojo signUp_pojo = dataSnapshot.child("company_list").child(addEmployee_pojoClass.getCompany_User_id()).getValue(SignUp_Pojo.class);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ReceptionistMainActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
+                editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
+                editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                editor.apply();
+
 //save company userID to local database
-//                String company_userID = addEmployee_pojoClass.getCompany_User_id();
-//                String userID_receptionist = addEmployee_pojoClass.getEmployee_User_id();
                 editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
                 editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
                 editor.putString("user_type","receptionist");
