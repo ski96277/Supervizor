@@ -41,6 +41,9 @@ public class SignUp_Pojo implements Serializable, Parcelable {
         this.company_penalty_time = company_penalty_time;
     }
 
+    public SignUp_Pojo() {
+
+    }
 
     public SignUp_Pojo(String company_name, String company_location, String company_contact_number, String company_email, String company_password, String company_entry_time, String company_exit_time, String company_penalty_time, String company_working_day, String company_daley_count, String user_type, String company_user_id, String logo_download_url) {
         this.company_name = company_name;
@@ -56,10 +59,6 @@ public class SignUp_Pojo implements Serializable, Parcelable {
         this.user_type = user_type;
         this.company_user_id = company_user_id;
         this.logo_download_url = logo_download_url;
-    }
-
-    public SignUp_Pojo() {
-
     }
 
     protected SignUp_Pojo(Parcel in) {
@@ -89,6 +88,7 @@ public class SignUp_Pojo implements Serializable, Parcelable {
             return new SignUp_Pojo[size];
         }
     };
+
 
     public String getLogo_download_url() {
         return logo_download_url;
