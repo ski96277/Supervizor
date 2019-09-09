@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-    <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/calendarView_ID"
+        <!--
+                <com.prolificinteractive.materialcalendarview.
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/calendarView_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    app:mcv_arrowColor="#2EA6E6"
+                    app:mcv_selectionColor="#2EA6E6"
+                    app:mcv_showOtherDates="all"
+                    android:visibility="gone"
+                    />
+        -->
+
+
+        <sun.bob.mcalendarview.MCalendarView
+            android:id="@+id/calenderView_ID"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:mcv_arrowColor="#2EA6E6"
-            app:mcv_selectionColor="#2EA6E6"
-            app:mcv_showOtherDates="all" />
+            android:layout_height="380dp"
+            android:layout_margin="10dp"
+            android:background="#FFF" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

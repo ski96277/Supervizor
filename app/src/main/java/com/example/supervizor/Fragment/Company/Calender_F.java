@@ -50,6 +50,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.dmoral.toasty.Toasty;
+import sun.bob.mcalendarview.MCalendarView;
+import sun.bob.mcalendarview.MarkStyle;
+import sun.bob.mcalendarview.listeners.OnDateClickListener;
+import sun.bob.mcalendarview.vo.DateData;
 
 public class Calender_F extends Fragment {
 
@@ -68,7 +73,7 @@ public class Calender_F extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    MaterialCalendarView materialCalendarView;
+    MCalendarView mCalendarView;
 
     String user_ID;
     List<Event_details_PojoClass> event_date_list = new ArrayList<>();
@@ -123,13 +128,6 @@ public class Calender_F extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
 
-
-        materialCalendarView.setBackgroundColor(Color.parseColor("#FFF7F7"));
-
-// highlight today date
-        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
-
-
 //get event date list
 
         //get user ID
@@ -145,8 +143,36 @@ public class Calender_F extends Fragment {
 
 
         kAlertDialog.show();
-//get the event list from firebase
 
+        //get holiday list for highlight
+        databaseReference.child("holiday_list")
+                .child(check_user_information.getUserID())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Holiday_information holiday_information = snapshot.getValue(Holiday_information.class);
+
+                               mCalendarView.markDate(
+                                       new DateData(Integer.parseInt(holiday_information.getYear()),
+                                               Integer.parseInt(holiday_information.getMonth()),
+                                               Integer.parseInt(holiday_information.getDay()))
+                                               .setMarkStyle(new MarkStyle(MarkStyle.DEFAULT, Color.RED)));
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+        //get holiday list for highlight
+
+
+//get the event list from firebase
         databaseReference.child("Event_list")
                 .child(user_ID)
                 .addValueEventListener(new ValueEventListener() {
@@ -155,18 +181,32 @@ public class Calender_F extends Fragment {
 
                         event_date_list.clear();
 
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                            Event_details_PojoClass event_details_pojoClass = snapshot.getValue(Event_details_PojoClass.class);
-                            event_date_list.add(event_details_pojoClass);
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String date = snapshot.getKey();
+
+                            for (DataSnapshot snapshot1 : dataSnapshot.child(date).getChildren()) {
+                                Event_details_PojoClass event_details_pojoClass = snapshot1.getValue(Event_details_PojoClass.class);
+
+                                event_date_list.add(event_details_pojoClass);
+
+                            }
+
                         }
 
                         for (Event_details_PojoClass event_details_pojoClass : event_date_list) {
-                            // highlight today date
-                            materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
-                            materialCalendarView.setSelectedDate(LocalDate.parse(event_details_pojoClass.getDate()));
+//highlight the calender
+                            if (event_details_pojoClass.getDate() != null) {
+                                mCalendarView.markDate(
+                                        new DateData(Integer.parseInt(event_details_pojoClass.getYear()),
+                                                Integer.parseInt(event_details_pojoClass.getMonth()),
+                                                Integer.parseInt(event_details_pojoClass.getDay()))
+                                                .setMarkStyle(new MarkStyle(MarkStyle.DEFAULT, Color.GREEN)));
+
+                            }
+
                         }
-                        if (event_date_list!=null){
+                        if (event_date_list != null) {
                             event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list);
 
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -175,7 +215,6 @@ public class Calender_F extends Fragment {
                             recyclerView_ID.setAdapter(event_list_adapter);
                             kAlertDialog.dismissWithAnimation();
                         }
-
 
 
                     }
@@ -188,6 +227,7 @@ public class Calender_F extends Fragment {
                 });
         //get the event list from firebase END
 
+/*
         materialCalendarView.setOnDateChangedListener((materialCalendarView, calendarDay, b) -> {
 
             if (materialCalendarView.getSelectedDate() != null) {
@@ -239,6 +279,69 @@ public class Calender_F extends Fragment {
 
             }
         });
+*/
+        mCalendarView.setOnDateClickListener(new OnDateClickListener() {
+            @Override
+            public void onDateClick(View view, DateData date) {
+
+                String day_date = String.valueOf(date.getDay());
+                String month = String.valueOf(date.getMonth());
+                String year = String.valueOf(date.getYear());
+//                2019-09-18
+                String day_int = day_date;
+                String month_int = month;
+                if (date.getDay() <= 9) {
+                    day_int = "0" + String.valueOf(date.getDay());
+                }
+                if (date.getMonth() <= 9) {
+                    month_int = "0" + String.valueOf(date.getMonth());
+                }
+                String date_child = year + "-" + month_int + "-" + day_int;
+
+
+                final Dialog dialog_chooser = new Dialog(getActivity());
+                dialog_chooser.setCancelable(false);
+                dialog_chooser.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog_chooser.setContentView(R.layout.custom_alert_option_chooser_dialog);
+//set animation
+                dialog_chooser.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Top_TO_Center;
+                Button cancel_bt = dialog_chooser.findViewById(R.id.cancel_alert_button_ID);
+                Button add_general_event_btn = dialog_chooser.findViewById(R.id.general_event_btn_ID);
+                Button add_holiday_btn = dialog_chooser.findViewById(R.id.holiday_btn_ID);
+
+                add_general_event_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAddEvent_Alert(getActivity(), date_child, day_date, month, year,
+                                check_user_information, databaseReference, dialog_chooser);
+                    }
+                });
+
+                add_holiday_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        show_holiday_alert(getActivity(), date_child, day_date, month, year,
+                                check_user_information, databaseReference, dialog_chooser);
+
+
+                    }
+                });
+
+                cancel_bt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_chooser.dismiss();
+                    }
+                });
+
+                dialog_chooser.show();
+
+
+            }
+
+
+        });
 
     }
 
@@ -247,7 +350,6 @@ public class Calender_F extends Fragment {
                                     String day_date,
                                     String month,
                                     String year,
-                                    CalendarDay calendarDay,
                                     Check_User_information check_user_information,
                                     DatabaseReference databaseReference,
                                     Dialog dialog_chooser) {
@@ -307,9 +409,9 @@ public class Calender_F extends Fragment {
                             public void onSuccess(Void aVoid) {
 
                                 //send the notification data
-                                TOPIC_NAME=check_user_information.getUserID();
+                                TOPIC_NAME = check_user_information.getUserID();
 
-                                sendDataToFireabase(TOPIC_NAME,"Holiday",details_holiday);
+                                sendDataToFireabase(TOPIC_NAME, "Holiday", details_holiday);
 
                                 kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                                 kAlertDialog.setTitleText("Done..");
@@ -328,46 +430,6 @@ public class Calender_F extends Fragment {
                 dialog.dismiss();
                 dialog_chooser.dismiss();
 
-
-
-                //getting user id for settings notification
-/*
-
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot:dataSnapshot.child("employee_list_by_company")
-                                .child(check_user_information.getUserID()).getChildren()){
-
-                           */
-/* String userID_employee = snapshot.getKey();
-
-                            databaseReference.child("holiday_event_notification_status")
-                                    .child(check_user_information.getUserID())
-                                    .child(userID_employee)
-                                    .child("status").setValue("1");*//*
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-//set notification text
-                databaseReference.child("holiday_event_notification_text")
-                        .child(check_user_information.getUserID()).setValue(holiday_information);
-
-
-                //getting user id for settings notification END
-*/
-
             }
         });
 
@@ -377,13 +439,12 @@ public class Calender_F extends Fragment {
     }
 
     private void showAddEvent_Alert(FragmentActivity activity,
-                                           String date_child,
-                                           String day_date,
-                                           String month, String year,
-                                           CalendarDay calendarDay,
-                                           Check_User_information check_user_information,
-                                           DatabaseReference databaseReference,
-                                           Dialog dialog_chooser) {
+                                    String date_child,
+                                    String day_date,
+                                    String month, String year,
+                                    Check_User_information check_user_information,
+                                    DatabaseReference databaseReference,
+                                    Dialog dialog_chooser) {
 
 
         final Dialog dialog = new Dialog(activity);
@@ -401,7 +462,7 @@ public class Calender_F extends Fragment {
         EditText title_event_ET = dialog.findViewById(R.id.event_title_ET_ID);
         EditText details_event_ET = dialog.findViewById(R.id.event_details_ET_ID);
 
-        textView.setText("Event : " + calendarDay.getDate());
+        textView.setText("Event : " + date_child);
 
         event_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,34 +479,71 @@ public class Calender_F extends Fragment {
         });
 
         add_Event_button.setOnClickListener(v -> {
+
             String event_title = title_event_ET.getText().toString();
             String event_details = details_event_ET.getText().toString();
             String event_time_set = event_time.getText().toString();
 
             if (!CheckInternet.isInternet(activity)) {
-                Toasty.error(activity, "Internet Connection Error");
+                Toasty.error(activity, "Check Internet Connection");
                 return;
             }
-    /*
-            //getting user id for settings notification
+            String user_ID = check_user_information.getUserID();
+//check the alert input field is empty ?
+            if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
+                Toasty.info(activity, "Fill up all input field").show();
+                return;
+            }
 
+            Event_details_PojoClass event_details_pojoClass
+                    = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details, event_time_set);
+
+            if (!CheckInternet.isInternet(activity)) {
+                Toasty.error(activity, "Check Internet Connection");
+                return;
+            }
+            //check the event title
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Event_list")
+                            .child(user_ID)
+                            .child(date_child)
+                            .hasChild(event_title)) {
+                        Toasty.info(getContext(), "you can't use same event title \n use other title").show();
+                        return;
+                    } else {
 
-                    for (DataSnapshot snapshot:dataSnapshot.child("employee_list_by_company")
-                            .child(check_user_information.getUserID()).getChildren()){
+                        KAlertDialog kAlertDialog1 = new KAlertDialog(activity, KAlertDialog.PROGRESS_TYPE);
+                        kAlertDialog1.setTitleText("Saving Data to Database");
+                        kAlertDialog1.show();
+                        databaseReference.child("Event_list")
+                                .child(user_ID)
+                                .child(date_child)
+                                .child(event_title)
+                                .setValue(event_details_pojoClass)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //send the notification for general event
+                                        TOPIC_NAME = user_ID;
 
-                        String userID_employee = snapshot.getKey();
+                                        sendDataToFireabase(TOPIC_NAME, event_title, event_details);
 
-                        databaseReference.child("event_notification_status")
-                                .child(check_user_information.getUserID())
-                                .child(userID_employee)
-                                .child("status")
-                                .setValue("1");
-
+                                        Toasty.success(activity, "Event Saved").show();
+                                        kAlertDialog1.changeAlertType(KAlertDialog.SUCCESS_TYPE);
+                                        kAlertDialog1.setTitleText("Done");
+                                        kAlertDialog1.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(KAlertDialog kAlertDialog) {
+                                                kAlertDialog1.dismissWithAnimation();
+                                                dialog.dismiss();
+                                                dialog_chooser.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
                     }
-
                 }
 
                 @Override
@@ -453,54 +551,7 @@ public class Calender_F extends Fragment {
 
                 }
             });
-            //getting user id for settings notification END
-*/
-            String user_ID = check_user_information.getUserID();
-//check the alert input field is empty ?
-            if (event_title.isEmpty() || event_details.isEmpty() || event_time_set.isEmpty()) {
-                Toasty.info(activity, "Fill up the input field").show();
-                return;
-            }
 
-           Event_details_PojoClass event_details_pojoClass
-                    = new Event_details_PojoClass(date_child, day_date, month, year, event_title, event_details, event_time_set);
-/*
-//set notification text
-            databaseReference.child("event_notification_text")
-                    .child(check_user_information.getUserID()).setValue(event_details_pojoClass);
-
-       */     if (!CheckInternet.isInternet(activity)) {
-                Toasty.error(activity, "Internet Connection Error");
-                return;
-            }
-            dialog.dismiss();
-
-            KAlertDialog kAlertDialog1 = new KAlertDialog(activity, KAlertDialog.PROGRESS_TYPE);
-            kAlertDialog1.setTitleText("Saving Data to Database");
-            kAlertDialog1.show();
-            databaseReference.child("Event_list")
-                    .child(user_ID).child(date_child)
-                    .setValue(event_details_pojoClass)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    //send the notification for general event
-                    TOPIC_NAME=user_ID;
-
-                    sendDataToFireabase(TOPIC_NAME,event_title,event_details);
-
-                    Toasty.success(activity, "Event Saved").show();
-                    kAlertDialog1.changeAlertType(KAlertDialog.SUCCESS_TYPE);
-                    kAlertDialog1.setTitleText("Done");
-                    kAlertDialog1.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(KAlertDialog kAlertDialog) {
-                            kAlertDialog1.dismissWithAnimation();
-                            dialog_chooser.dismiss();
-                        }
-                    });
-                }
-            });
         });
         dialog.show();
 
@@ -550,7 +601,7 @@ public class Calender_F extends Fragment {
     }
 
     private void initialize(View view) {
-        materialCalendarView = view.findViewById(R.id.calendarView_ID);
+        mCalendarView = view.findViewById(R.id.calenderView_ID);
         recyclerView_ID = view.findViewById(R.id.event_list_recycler_ID);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -564,10 +615,10 @@ public class Calender_F extends Fragment {
                 .setActionBarTitle("Calender");
     }
 
-//Notification Data send
+    //Notification Data send
     private void sendDataToFireabase(String topicName, String event_title, String event_details) {
 
-        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        TOPIC = "/topics/" + topicName; //topic must match with what the receiver subscribed to
         NOTIFICATION_TITLE = event_title;
         NOTIFICATION_MESSAGE = event_details;
 
@@ -581,7 +632,7 @@ public class Calender_F extends Fragment {
             notification.put("data", notifcationBody);
 
         } catch (JSONException e) {
-            Log.e(TAG, "onCreate: " + e.getMessage() );
+            Log.e(TAG, "onCreate: " + e.getMessage());
         }
         sendNotification(notification);
 
@@ -594,7 +645,7 @@ public class Calender_F extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, "onResponse: " + response.toString());
-                       Toasty.info(getContext(),"send notification").show();
+                        Toasty.info(getContext(), "send notification").show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -603,7 +654,7 @@ public class Calender_F extends Fragment {
                         Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
-                }){
+                }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

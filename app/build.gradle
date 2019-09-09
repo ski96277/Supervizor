@@ -65,6 +65,8 @@ dependencies {
 
     //calendar
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    //custom calender
+    implementation 'sun.bob:mcalendarview:1.0.0'
 
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
