@@ -21,12 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".Activity.User_Attendance_Activity_View_by_Company"
+            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.User_Profile_View_by_Company"
+            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Update_Company_Profile"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activity.CompanyMainActivity"/>
-
+            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Activity.ScanResult_Activiy" />
         <activity
             android:name=".Activity.ChangePasswordActivity"

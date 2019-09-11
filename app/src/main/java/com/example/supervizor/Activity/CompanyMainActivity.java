@@ -14,8 +14,6 @@ import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
 import com.example.supervizor.Fragment.Company.Team_Request;
-import com.example.supervizor.Fragment.Company.User_Attendance_F;
-import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;

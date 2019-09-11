@@ -79,7 +79,7 @@ public class My_Team_F extends Fragment implements View.OnClickListener {
                 //if have no team
                 if (team_name_list.isEmpty()) {
                     KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
-                    kAlertDialog.setContentText("You have no Team Yet");
+                    kAlertDialog.setContentText("please click on the + icon \n for making your team");
                     kAlertDialog.show();
                     kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
                         kAlertDialog.dismissWithAnimation();

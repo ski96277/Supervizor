@@ -1,5 +1,6 @@
 package com.example.supervizor.AdapterClass
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,11 +18,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.example.supervizor.Fragment.Company.User_Attendance_F
-import com.example.supervizor.Fragment.Company.User_Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import android.widget.Filter
+import com.example.supervizor.Activity.User_Attendance_Activity_View_by_Company
+import com.example.supervizor.Activity.User_Profile_View_by_Company
 import com.example.supervizor.Fragment.Company.Employee_list_F
 
 
@@ -64,15 +65,25 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
 
             //profile View By company
             itemView.profile_view_item_layout.setOnClickListener {
-                var bundle = Bundle()
-                bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
-                load_Profile_Fragment(bundle)
+
+               var intent = Intent(itemView.context, User_Profile_View_by_Company::class.java)
+                intent.putExtra("employee_User_id", addEmployee_PojoClass.employee_User_id)
+                itemView.context.startActivity(intent)
+
+                /* var bundle = Bundle()
+                 bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
+                 load_Profile_Fragment(bundle)*/
             }
             //Attendance View By company
             itemView.attendance_item_layout.setOnClickListener {
-                var bundle = Bundle()
+
+                var intent = Intent(itemView.context, User_Attendance_Activity_View_by_Company::class.java)
+                intent.putExtra("user_id", addEmployee_PojoClass.employee_User_id)
+                itemView.context.startActivity(intent)
+
+                /* var bundle = Bundle()
                 bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
-                load_attandence_Fragment(bundle)
+                load_attandence_Fragment(bundle)*/
             }
             //remove user by Company
             itemView.remove_item_layout.setOnClickListener {
@@ -143,7 +154,7 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             }
         }
 
-        private fun load_attandence_Fragment(bundle: Bundle) {
+       /* private fun load_attandence_Fragment(bundle: Bundle) {
 
 
             var fragment: Fragment?
@@ -157,8 +168,8 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                 fragmentTransaction.commit()
             }
         }
-
-        private fun load_Profile_Fragment(bundle: Bundle) {
+*/
+   /*     private fun load_Profile_Fragment(bundle: Bundle) {
 
 
             var fragment: Fragment?
@@ -171,7 +182,7 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
                 fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
                 fragmentTransaction.commit()
             }
-        }
+        }*/
 
         init {
             itemview.setOnClickListener {

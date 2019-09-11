@@ -1,5 +1,10 @@
-/*
-package com.example.supervizor.Fragment.Company;
+package com.example.supervizor.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
@@ -15,15 +20,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
@@ -33,7 +35,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -52,20 +53,10 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
-
-public class User_Attendance_F extends Fragment {
+public class User_Attendance_Activity_View_by_Company extends AppCompatActivity {
     ScrollView linearLayout_attendance;
     Bitmap bitmap;
     Spinner month_spinner;
@@ -179,37 +170,37 @@ public class User_Attendance_F extends Fragment {
     private TextView exitTimeDate31;
     private TableRow tableRow31;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user__attendance___view_by__company);
+        getSupportActionBar().setTitle("Attendance");
+        //hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
+        initView();
 
-        return inflater.inflate(R.layout.user_attendance_f, container, false);
-    }
+        if (!CheckInternet.isInternet(User_Attendance_Activity_View_by_Company.this)) {
+            Toasty.info(User_Attendance_Activity_View_by_Company.this, "Check Internet Connection").show();
+            return;
+        }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("user_id");
 
-//for option menu
-        setHasOptionsMenu(true);
-        initView(view);
 
         month_spinner.getBackground().setColorFilter(getResources().getColor(R.color.text_white_color), PorterDuff.Mode.SRC_ATOP);
         year_spinner.getBackground().setColorFilter(getResources().getColor(R.color.text_white_color), PorterDuff.Mode.SRC_ATOP);
 
         String[] month_array = {"January", "February", "March", "April", "May", "june", "July", "August", "September", "October", "November", "December"};
         ArrayAdapter<String> adapter_month =
-                new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, month_array);
+                new ArrayAdapter<>(User_Attendance_Activity_View_by_Company.this, R.layout.simple_spinner_item, month_array);
         adapter_month.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         month_spinner.setAdapter(adapter_month);
 
         String[] year_array = {"2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
         ArrayAdapter<String> adapter_year =
-                new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, year_array);
+                new ArrayAdapter<>(User_Attendance_Activity_View_by_Company.this, R.layout.simple_spinner_item, year_array);
         adapter_year.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         year_spinner.setAdapter(adapter_year);
 
@@ -222,8 +213,8 @@ public class User_Attendance_F extends Fragment {
 
         check_user_information = new Check_User_information();
 //SET current month End
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.info(getContext(), "Check Internet connection").show();
+        if (!CheckInternet.isInternet(User_Attendance_Activity_View_by_Company.this)) {
+            Toasty.info(User_Attendance_Activity_View_by_Company.this, "Check Internet connection").show();
             return;
         }
         //get user Information
@@ -232,13 +223,13 @@ public class User_Attendance_F extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                user_id = getArguments().getString("user_id");
+//                user_id = getArguments().getString("user_id");
 
                 AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list")
                         .child(user_id)
                         .getValue(AddEmployee_PojoClass.class);
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(User_Attendance_Activity_View_by_Company.this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("company_user_ID", addEmployee_pojoClass.getCompany_User_id());
                 editor.apply();
@@ -248,7 +239,7 @@ public class User_Attendance_F extends Fragment {
                     Picasso.get().load(Uri.parse(addEmployee_pojoClass.getEmployee_profile_image_link()))
                             .into(profileImage);
                 } else {
-                    profileImage.setImageResource(R.drawable.profile);
+                    profileImage.setImageResource(R.drawable.profile_white);
                 }
                 name_TV.setText(addEmployee_pojoClass.getEmployee_name());
                 designation_TV.setText(addEmployee_pojoClass.getEmployee_designation());
@@ -473,14 +464,14 @@ public class User_Attendance_F extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //clear the date_list for reduce the data replete
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(User_Attendance_Activity_View_by_Company.this);
                 String company_user_ID = preferences.getString("company_user_ID", "");
 
-                String entry_time_company =preferences.getString("company_entry_time","");
-                String company_exit_time =preferences.getString("company_exit_time","");
-                String company_penalty_time =preferences.getString("company_penalty_time","");
+                String entry_time_company = preferences.getString("company_entry_time", "");
+                String company_exit_time = preferences.getString("company_exit_time", "");
+                String company_penalty_time = preferences.getString("company_penalty_time", "");
 
-                user_id = getArguments().getString("user_id");
+//                user_id = getArguments().getString("user_id");
 
 
                 for (DataSnapshot snapshot : dataSnapshot
@@ -499,10 +490,10 @@ public class User_Attendance_F extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(User_Attendance_Activity_View_by_Company.this);
                             String company_user_ID = preferences.getString("company_user_ID", "");
 
-                            user_id = getArguments().getString("user_id");
+//                            user_id = getArguments().getString("user_id");
 
                             String entryTime = dataSnapshot
                                     .child("Attendance")
@@ -545,7 +536,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate1.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate1.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -573,7 +564,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate2.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate2.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -600,7 +591,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate3.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate3.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -627,7 +618,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate4.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate4.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -654,7 +645,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate5.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate5.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -681,7 +672,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate6.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate6.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -708,7 +699,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate7.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate7.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -735,7 +726,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate8.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate8.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -762,7 +753,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate9.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate9.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -789,7 +780,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate10.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate10.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -816,7 +807,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate11.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate11.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -843,7 +834,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate12.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate12.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -870,7 +861,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate13.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate13.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -898,7 +889,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate14.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate14.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -926,7 +917,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate15.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate15.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -953,7 +944,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate16.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate16.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -981,7 +972,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate17.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate17.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1008,7 +999,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate18.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate18.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1035,7 +1026,7 @@ public class User_Attendance_F extends Fragment {
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate19.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate19.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1061,7 +1052,7 @@ public class User_Attendance_F extends Fragment {
                                     entryTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate20.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1087,7 +1078,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate21.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1113,7 +1104,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate22.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1140,7 +1131,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate23.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1167,7 +1158,7 @@ public class User_Attendance_F extends Fragment {
                                     entryTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate24.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1194,7 +1185,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate25.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1220,7 +1211,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate26.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1246,7 +1237,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate27.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1272,7 +1263,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate28.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1299,7 +1290,7 @@ public class User_Attendance_F extends Fragment {
                                     entryTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate29.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1326,7 +1317,7 @@ public class User_Attendance_F extends Fragment {
                                     exitTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     exitTimeDate30.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     exitTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1353,7 +1344,7 @@ public class User_Attendance_F extends Fragment {
                                     entryTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                 }
-                                if (time1_exit.isBefore(time2_exit)){
+                                if (time1_exit.isBefore(time2_exit)) {
                                     entryTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
                                     entryTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
@@ -1368,7 +1359,7 @@ public class User_Attendance_F extends Fragment {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toasty.error(getContext(), "Data Error", Toasty.LENGTH_SHORT).show();
+                            Toasty.error(User_Attendance_Activity_View_by_Company.this, "Data Error", Toasty.LENGTH_SHORT).show();
                         }
                     });//second Data coming end
                 }
@@ -1376,52 +1367,10 @@ public class User_Attendance_F extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toasty.error(getContext(), "date not Found", Toasty.LENGTH_SHORT).show();
+                Toasty.error(User_Attendance_Activity_View_by_Company.this, "date not Found", Toasty.LENGTH_SHORT).show();
             }
         });
 //first data (date) END
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-//        inflater.inflate(R.menu.company_main,menu);
-        menu.findItem(R.id.pdf_generate_to_this_employee).setVisible(true);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.pdf_generate_to_this_employee:
-
-
-                KAlertDialog kAlertDialog = new KAlertDialog(getContext());
-                kAlertDialog.setTitleText("Alert !!");
-
-                kAlertDialog.setContentText("Do You want to create pdf ?");
-                kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
-
-                    Log.d("size", " " + tableLayout.getWidth() + "  " + tableLayout.getWidth());
-                    bitmap = loadBitmapFromView(tableLayout, tableLayout.getWidth(), tableLayout.getHeight());
-                    createPdf();
-                    kAlertDialog1.dismiss();
-                });
-                kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog.dismiss());
-                kAlertDialog.show();
-
-                break;
-        }
-        return false;
-    }
-
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Attendance");
     }
 
     public static Bitmap loadBitmapFromView(View v, int width, int height) {
@@ -1435,7 +1384,7 @@ public class User_Attendance_F extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void createPdf() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         float hight = displaymetrics.heightPixels;
         float width = displaymetrics.widthPixels;
 
@@ -1471,14 +1420,14 @@ public class User_Attendance_F extends Fragment {
             document.writeTo(new FileOutputStream(filePath));
             // close the document
             document.close();
-            Toasty.success(getContext(), "PDF is created!!!", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), targetPdf, Toast.LENGTH_SHORT).show();
+            Toasty.success(User_Attendance_Activity_View_by_Company.this, "PDF is created!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(User_Attendance_Activity_View_by_Company.this, targetPdf, Toast.LENGTH_SHORT).show();
 
             openGeneratedPDF();
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("TAG - ", "createPdf: " + e.toString());
-            Toasty.error(getContext(), "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+            Toasty.error(User_Attendance_Activity_View_by_Company.this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
 
 
@@ -1495,124 +1444,153 @@ public class User_Attendance_F extends Fragment {
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                Toast.makeText(getContext(), "No Application available to view pdf", Toast.LENGTH_LONG).show();
+                Toast.makeText(User_Attendance_Activity_View_by_Company.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
             }
         }
     }
 
 
-    private void initView(View rootView) {
-        dateTV1 = (TextView) rootView.findViewById(R.id.date_TV_1);
-        entryTimeDate1 = (TextView) rootView.findViewById(R.id.entry_time_date_1);
-        exitTimeDate1 = (TextView) rootView.findViewById(R.id.exit_time_date_1);
-        dateTV2 = (TextView) rootView.findViewById(R.id.date_TV_2);
-        entryTimeDate2 = (TextView) rootView.findViewById(R.id.entry_time_date_2);
-        exitTimeDate2 = (TextView) rootView.findViewById(R.id.exit_time_date_2);
-        dateTV3 = (TextView) rootView.findViewById(R.id.date_TV_3);
-        entryTimeDate3 = (TextView) rootView.findViewById(R.id.entry_time_date_3);
-        exitTimeDate3 = (TextView) rootView.findViewById(R.id.exit_time_date_3);
-        dateTV4 = (TextView) rootView.findViewById(R.id.date_TV_4);
-        entryTimeDate4 = (TextView) rootView.findViewById(R.id.entry_time_date_4);
-        exitTimeDate4 = (TextView) rootView.findViewById(R.id.exit_time_date_4);
-        dateTV5 = (TextView) rootView.findViewById(R.id.date_TV_5);
-        entryTimeDate5 = (TextView) rootView.findViewById(R.id.entry_time_date_5);
-        exitTimeDate5 = (TextView) rootView.findViewById(R.id.exit_time_date_5);
-        dateTV6 = (TextView) rootView.findViewById(R.id.date_TV_6);
-        entryTimeDate6 = (TextView) rootView.findViewById(R.id.entry_time_date_6);
-        exitTimeDate6 = (TextView) rootView.findViewById(R.id.exit_time_date_6);
-        dateTV7 = (TextView) rootView.findViewById(R.id.date_TV_7);
-        entryTimeDate7 = (TextView) rootView.findViewById(R.id.entry_time_date_7);
-        exitTimeDate7 = (TextView) rootView.findViewById(R.id.exit_time_date_7);
-        dateTV8 = (TextView) rootView.findViewById(R.id.date_TV_8);
-        entryTimeDate8 = (TextView) rootView.findViewById(R.id.entry_time_date_8);
-        exitTimeDate8 = (TextView) rootView.findViewById(R.id.exit_time_date_8);
-        dateTV9 = (TextView) rootView.findViewById(R.id.date_TV_9);
-        entryTimeDate9 = (TextView) rootView.findViewById(R.id.entry_time_date_9);
-        exitTimeDate9 = (TextView) rootView.findViewById(R.id.exit_time_date_9);
-        dateTV10 = (TextView) rootView.findViewById(R.id.date_TV_10);
-        entryTimeDate10 = (TextView) rootView.findViewById(R.id.entry_time_date_10);
-        exitTimeDate10 = (TextView) rootView.findViewById(R.id.exit_time_date_10);
-        dateTV11 = (TextView) rootView.findViewById(R.id.date_TV_11);
-        entryTimeDate11 = (TextView) rootView.findViewById(R.id.entry_time_date_11);
-        exitTimeDate11 = (TextView) rootView.findViewById(R.id.exit_time_date_11);
-        dateTV12 = (TextView) rootView.findViewById(R.id.date_TV_12);
-        entryTimeDate12 = (TextView) rootView.findViewById(R.id.entry_time_date_12);
-        exitTimeDate12 = (TextView) rootView.findViewById(R.id.exit_time_date_12);
-        dateTV13 = (TextView) rootView.findViewById(R.id.date_TV_13);
-        entryTimeDate13 = (TextView) rootView.findViewById(R.id.entry_time_date_13);
-        exitTimeDate13 = (TextView) rootView.findViewById(R.id.exit_time_date_13);
-        dateTV14 = (TextView) rootView.findViewById(R.id.date_TV_14);
-        entryTimeDate14 = (TextView) rootView.findViewById(R.id.entry_time_date_14);
-        exitTimeDate14 = (TextView) rootView.findViewById(R.id.exit_time_date_14);
-        dateTV15 = (TextView) rootView.findViewById(R.id.date_TV_15);
-        entryTimeDate15 = (TextView) rootView.findViewById(R.id.entry_time_date_15);
-        exitTimeDate15 = (TextView) rootView.findViewById(R.id.exit_time_date_15);
-        dateTV16 = (TextView) rootView.findViewById(R.id.date_TV_16);
-        entryTimeDate16 = (TextView) rootView.findViewById(R.id.entry_time_date_16);
-        exitTimeDate16 = (TextView) rootView.findViewById(R.id.exit_time_date_16);
-        dateTV17 = (TextView) rootView.findViewById(R.id.date_TV_17);
-        entryTimeDate17 = (TextView) rootView.findViewById(R.id.entry_time_date_17);
-        exitTimeDate17 = (TextView) rootView.findViewById(R.id.exit_time_date_17);
-        dateTV18 = (TextView) rootView.findViewById(R.id.date_TV_18);
-        entryTimeDate18 = (TextView) rootView.findViewById(R.id.entry_time_date_18);
-        exitTimeDate18 = (TextView) rootView.findViewById(R.id.exit_time_date_18);
-        dateTV19 = (TextView) rootView.findViewById(R.id.date_TV_19);
-        entryTimeDate19 = (TextView) rootView.findViewById(R.id.entry_time_date_19);
-        exitTimeDate19 = (TextView) rootView.findViewById(R.id.exit_time_date_19);
-        dateTV20 = (TextView) rootView.findViewById(R.id.date_TV_20);
-        entryTimeDate20 = (TextView) rootView.findViewById(R.id.entry_time_date_20);
-        exitTimeDate20 = (TextView) rootView.findViewById(R.id.exit_time_date_20);
-        dateTV21 = (TextView) rootView.findViewById(R.id.date_TV_21);
-        entryTimeDate21 = (TextView) rootView.findViewById(R.id.entry_time_date_21);
-        exitTimeDate21 = (TextView) rootView.findViewById(R.id.exit_time_date_21);
-        dateTV22 = (TextView) rootView.findViewById(R.id.date_TV_22);
-        entryTimeDate22 = (TextView) rootView.findViewById(R.id.entry_time_date_22);
-        exitTimeDate22 = (TextView) rootView.findViewById(R.id.exit_time_date_22);
-        dateTV23 = (TextView) rootView.findViewById(R.id.date_TV_23);
-        entryTimeDate23 = (TextView) rootView.findViewById(R.id.entry_time_date_23);
-        exitTimeDate23 = (TextView) rootView.findViewById(R.id.exit_time_date_23);
-        dateTV24 = (TextView) rootView.findViewById(R.id.date_TV_24);
-        entryTimeDate24 = (TextView) rootView.findViewById(R.id.entry_time_date_24);
-        exitTimeDate24 = (TextView) rootView.findViewById(R.id.exit_time_date_24);
-        dateTV25 = (TextView) rootView.findViewById(R.id.date_TV_25);
-        entryTimeDate25 = (TextView) rootView.findViewById(R.id.entry_time_date_25);
-        exitTimeDate25 = (TextView) rootView.findViewById(R.id.exit_time_date_25);
-        dateTV26 = (TextView) rootView.findViewById(R.id.date_TV_26);
-        entryTimeDate26 = (TextView) rootView.findViewById(R.id.entry_time_date_26);
-        exitTimeDate26 = (TextView) rootView.findViewById(R.id.exit_time_date_26);
-        dateTV27 = (TextView) rootView.findViewById(R.id.date_TV_27);
-        entryTimeDate27 = (TextView) rootView.findViewById(R.id.entry_time_date_27);
-        exitTimeDate27 = (TextView) rootView.findViewById(R.id.exit_time_date_27);
-        dateTV28 = (TextView) rootView.findViewById(R.id.date_TV_28);
-        entryTimeDate28 = (TextView) rootView.findViewById(R.id.entry_time_date_28);
-        exitTimeDate28 = (TextView) rootView.findViewById(R.id.exit_time_date_28);
-        tableRow28 = (TableRow) rootView.findViewById(R.id.table_row_28);
-        dateTV29 = (TextView) rootView.findViewById(R.id.date_TV_29);
-        entryTimeDate29 = (TextView) rootView.findViewById(R.id.entry_time_date_29);
-        exitTimeDate29 = (TextView) rootView.findViewById(R.id.exit_time_date_29);
-        tableRow29 = (TableRow) rootView.findViewById(R.id.table_row_29);
-        dateTV30 = (TextView) rootView.findViewById(R.id.date_TV_30);
-        entryTimeDate30 = (TextView) rootView.findViewById(R.id.entry_time_date_30);
-        exitTimeDate30 = (TextView) rootView.findViewById(R.id.exit_time_date_30);
-        tableRow30 = (TableRow) rootView.findViewById(R.id.table_row_30);
-        dateTV31 = (TextView) rootView.findViewById(R.id.date_TV_31);
-        entryTimeDate31 = (TextView) rootView.findViewById(R.id.entry_time_date_31);
-        exitTimeDate31 = (TextView) rootView.findViewById(R.id.exit_time_date_31);
-        tableRow31 = (TableRow) rootView.findViewById(R.id.table_row_31);
+    private void initView() {
+        dateTV1 = (TextView) findViewById(R.id.date_TV_1);
+        entryTimeDate1 = (TextView) findViewById(R.id.entry_time_date_1);
+        exitTimeDate1 = (TextView) findViewById(R.id.exit_time_date_1);
+        dateTV2 = (TextView) findViewById(R.id.date_TV_2);
+        entryTimeDate2 = (TextView) findViewById(R.id.entry_time_date_2);
+        exitTimeDate2 = (TextView) findViewById(R.id.exit_time_date_2);
+        dateTV3 = (TextView) findViewById(R.id.date_TV_3);
+        entryTimeDate3 = (TextView) findViewById(R.id.entry_time_date_3);
+        exitTimeDate3 = (TextView) findViewById(R.id.exit_time_date_3);
+        dateTV4 = (TextView) findViewById(R.id.date_TV_4);
+        entryTimeDate4 = (TextView) findViewById(R.id.entry_time_date_4);
+        exitTimeDate4 = (TextView) findViewById(R.id.exit_time_date_4);
+        dateTV5 = (TextView) findViewById(R.id.date_TV_5);
+        entryTimeDate5 = (TextView) findViewById(R.id.entry_time_date_5);
+        exitTimeDate5 = (TextView) findViewById(R.id.exit_time_date_5);
+        dateTV6 = (TextView) findViewById(R.id.date_TV_6);
+        entryTimeDate6 = (TextView) findViewById(R.id.entry_time_date_6);
+        exitTimeDate6 = (TextView) findViewById(R.id.exit_time_date_6);
+        dateTV7 = (TextView) findViewById(R.id.date_TV_7);
+        entryTimeDate7 = (TextView) findViewById(R.id.entry_time_date_7);
+        exitTimeDate7 = (TextView) findViewById(R.id.exit_time_date_7);
+        dateTV8 = (TextView) findViewById(R.id.date_TV_8);
+        entryTimeDate8 = (TextView) findViewById(R.id.entry_time_date_8);
+        exitTimeDate8 = (TextView) findViewById(R.id.exit_time_date_8);
+        dateTV9 = (TextView) findViewById(R.id.date_TV_9);
+        entryTimeDate9 = (TextView) findViewById(R.id.entry_time_date_9);
+        exitTimeDate9 = (TextView) findViewById(R.id.exit_time_date_9);
+        dateTV10 = (TextView) findViewById(R.id.date_TV_10);
+        entryTimeDate10 = (TextView) findViewById(R.id.entry_time_date_10);
+        exitTimeDate10 = (TextView) findViewById(R.id.exit_time_date_10);
+        dateTV11 = (TextView) findViewById(R.id.date_TV_11);
+        entryTimeDate11 = (TextView) findViewById(R.id.entry_time_date_11);
+        exitTimeDate11 = (TextView) findViewById(R.id.exit_time_date_11);
+        dateTV12 = (TextView) findViewById(R.id.date_TV_12);
+        entryTimeDate12 = (TextView) findViewById(R.id.entry_time_date_12);
+        exitTimeDate12 = (TextView) findViewById(R.id.exit_time_date_12);
+        dateTV13 = (TextView) findViewById(R.id.date_TV_13);
+        entryTimeDate13 = (TextView) findViewById(R.id.entry_time_date_13);
+        exitTimeDate13 = (TextView) findViewById(R.id.exit_time_date_13);
+        dateTV14 = (TextView) findViewById(R.id.date_TV_14);
+        entryTimeDate14 = (TextView) findViewById(R.id.entry_time_date_14);
+        exitTimeDate14 = (TextView) findViewById(R.id.exit_time_date_14);
+        dateTV15 = (TextView) findViewById(R.id.date_TV_15);
+        entryTimeDate15 = (TextView) findViewById(R.id.entry_time_date_15);
+        exitTimeDate15 = (TextView) findViewById(R.id.exit_time_date_15);
+        dateTV16 = (TextView) findViewById(R.id.date_TV_16);
+        entryTimeDate16 = (TextView) findViewById(R.id.entry_time_date_16);
+        exitTimeDate16 = (TextView) findViewById(R.id.exit_time_date_16);
+        dateTV17 = (TextView) findViewById(R.id.date_TV_17);
+        entryTimeDate17 = (TextView) findViewById(R.id.entry_time_date_17);
+        exitTimeDate17 = (TextView) findViewById(R.id.exit_time_date_17);
+        dateTV18 = (TextView) findViewById(R.id.date_TV_18);
+        entryTimeDate18 = (TextView) findViewById(R.id.entry_time_date_18);
+        exitTimeDate18 = (TextView) findViewById(R.id.exit_time_date_18);
+        dateTV19 = (TextView) findViewById(R.id.date_TV_19);
+        entryTimeDate19 = (TextView) findViewById(R.id.entry_time_date_19);
+        exitTimeDate19 = (TextView) findViewById(R.id.exit_time_date_19);
+        dateTV20 = (TextView) findViewById(R.id.date_TV_20);
+        entryTimeDate20 = (TextView) findViewById(R.id.entry_time_date_20);
+        exitTimeDate20 = (TextView) findViewById(R.id.exit_time_date_20);
+        dateTV21 = (TextView) findViewById(R.id.date_TV_21);
+        entryTimeDate21 = (TextView) findViewById(R.id.entry_time_date_21);
+        exitTimeDate21 = (TextView) findViewById(R.id.exit_time_date_21);
+        dateTV22 = (TextView) findViewById(R.id.date_TV_22);
+        entryTimeDate22 = (TextView) findViewById(R.id.entry_time_date_22);
+        exitTimeDate22 = (TextView) findViewById(R.id.exit_time_date_22);
+        dateTV23 = (TextView) findViewById(R.id.date_TV_23);
+        entryTimeDate23 = (TextView) findViewById(R.id.entry_time_date_23);
+        exitTimeDate23 = (TextView) findViewById(R.id.exit_time_date_23);
+        dateTV24 = (TextView) findViewById(R.id.date_TV_24);
+        entryTimeDate24 = (TextView) findViewById(R.id.entry_time_date_24);
+        exitTimeDate24 = (TextView) findViewById(R.id.exit_time_date_24);
+        dateTV25 = (TextView) findViewById(R.id.date_TV_25);
+        entryTimeDate25 = (TextView) findViewById(R.id.entry_time_date_25);
+        exitTimeDate25 = (TextView) findViewById(R.id.exit_time_date_25);
+        dateTV26 = (TextView) findViewById(R.id.date_TV_26);
+        entryTimeDate26 = (TextView) findViewById(R.id.entry_time_date_26);
+        exitTimeDate26 = (TextView) findViewById(R.id.exit_time_date_26);
+        dateTV27 = (TextView) findViewById(R.id.date_TV_27);
+        entryTimeDate27 = (TextView) findViewById(R.id.entry_time_date_27);
+        exitTimeDate27 = (TextView) findViewById(R.id.exit_time_date_27);
+        dateTV28 = (TextView) findViewById(R.id.date_TV_28);
+        entryTimeDate28 = (TextView) findViewById(R.id.entry_time_date_28);
+        exitTimeDate28 = (TextView) findViewById(R.id.exit_time_date_28);
+        tableRow28 = (TableRow) findViewById(R.id.table_row_28);
+        dateTV29 = (TextView) findViewById(R.id.date_TV_29);
+        entryTimeDate29 = (TextView) findViewById(R.id.entry_time_date_29);
+        exitTimeDate29 = (TextView) findViewById(R.id.exit_time_date_29);
+        tableRow29 = (TableRow) findViewById(R.id.table_row_29);
+        dateTV30 = (TextView) findViewById(R.id.date_TV_30);
+        entryTimeDate30 = (TextView) findViewById(R.id.entry_time_date_30);
+        exitTimeDate30 = (TextView) findViewById(R.id.exit_time_date_30);
+        tableRow30 = (TableRow) findViewById(R.id.table_row_30);
+        dateTV31 = (TextView) findViewById(R.id.date_TV_31);
+        entryTimeDate31 = (TextView) findViewById(R.id.entry_time_date_31);
+        exitTimeDate31 = (TextView) findViewById(R.id.exit_time_date_31);
+        tableRow31 = (TableRow) findViewById(R.id.table_row_31);
 
-        month_spinner = rootView.findViewById(R.id.month_spinner_ID_user__attendance_company);
-        year_spinner = rootView.findViewById(R.id.year_spinner_ID_user__attendance_company);
-        name_TV = rootView.findViewById(R.id.name_attendance_company);
-        designation_TV = rootView.findViewById(R.id.designation_attendance_company);
-        profileImage = rootView.findViewById(R.id.profile_image_attendance_company);
+        month_spinner = findViewById(R.id.month_spinner_ID_user__attendance_company);
+        year_spinner = findViewById(R.id.year_spinner_ID_user__attendance_company);
+        name_TV = findViewById(R.id.name_attendance_company);
+        designation_TV = findViewById(R.id.designation_attendance_company);
+        profileImage = findViewById(R.id.profile_image_attendance_company);
 
-        tableLayout = rootView.findViewById(R.id.table);
-        linearLayout_attendance = rootView.findViewById(R.id.attendance_view_layout);
+        tableLayout = findViewById(R.id.table);
+        linearLayout_attendance = findViewById(R.id.attendance_view_layout);
         databaseReference3 = FirebaseDatabase.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference();
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu_user_attendance_activity_view_by_company, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.pdf_generate_to_this_employee:
+                KAlertDialog kAlertDialog = new KAlertDialog(User_Attendance_Activity_View_by_Company.this);
+                kAlertDialog.setTitleText("Alert !!");
+
+                kAlertDialog.setContentText("Do You want to create pdf ?");
+                kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+
+                    Log.d("size", " " + tableLayout.getWidth() + "  " + tableLayout.getWidth());
+                    bitmap = loadBitmapFromView(tableLayout, tableLayout.getWidth(), tableLayout.getHeight());
+                    createPdf();
+                    kAlertDialog1.dismiss();
+                });
+                kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog.dismiss());
+                kAlertDialog.show();
+
+
+                break;
+        }
+        return false;
+    }
 }
-*/

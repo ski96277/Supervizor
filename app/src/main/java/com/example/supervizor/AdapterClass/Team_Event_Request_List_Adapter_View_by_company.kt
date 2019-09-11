@@ -74,9 +74,9 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
                         Picasso.get().load(Uri.parse(image_link)).into(dialog.image_circleImageView_alert_ID)
                     } else {
 //                        itemView.image_circleImageView_alert_ID.setImageResource(R.drawable.profile)
-                        val imgResId = R.drawable.profile_item
+                        /*val imgResId = R.drawable.profile
 
-                        dialog.image_circleImageView_alert_ID.setImageResource(imgResId)
+                        dialog.image_circleImageView_alert_ID.setImageResource(imgResId)*/
                     }
                     dialog.name_TV_ID_custom_alert.text = addemployeePojoclass.employee_name
                     dialog.team_name_ID_custom_alert_dialog.text = teamName

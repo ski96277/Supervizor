@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.supervizor.Activity.CompanyMainActivity;
-import com.example.supervizor.Activity.Login_Activity;
 import com.example.supervizor.AdapterClass.All_Event_List_Adapter;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.JavaPojoClass.Holiday_information;
@@ -30,27 +29,19 @@ import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.NOtification_Firebase.MySingleton;
 import com.example.supervizor.R;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.threeten.bp.DayOfWeek;
-import org.threeten.bp.LocalDate;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -154,11 +145,11 @@ public class Calender_F extends Fragment {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Holiday_information holiday_information = snapshot.getValue(Holiday_information.class);
 
-                               mCalendarView.markDate(
-                                       new DateData(Integer.parseInt(holiday_information.getYear()),
-                                               Integer.parseInt(holiday_information.getMonth()),
-                                               Integer.parseInt(holiday_information.getDay()))
-                                               .setMarkStyle(new MarkStyle(MarkStyle.DEFAULT, Color.RED)));
+                            mCalendarView.markDate(
+                                    new DateData(Integer.parseInt(holiday_information.getYear()),
+                                            Integer.parseInt(holiday_information.getMonth()),
+                                            Integer.parseInt(holiday_information.getDay()))
+                                            .setMarkStyle(new MarkStyle(MarkStyle.DEFAULT, Color.RED)));
 
                         }
 
@@ -169,7 +160,7 @@ public class Calender_F extends Fragment {
 
                     }
                 });
-        //get holiday list for highlight
+        //get holiday list for highlight End
 
 
 //get the event list from firebase
@@ -298,44 +289,104 @@ public class Calender_F extends Fragment {
                 }
                 String date_child = year + "-" + month_int + "-" + day_int;
 
+                //check is it Holiday
 
-                final Dialog dialog_chooser = new Dialog(getActivity());
-                dialog_chooser.setCancelable(false);
-                dialog_chooser.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog_chooser.setContentView(R.layout.custom_alert_option_chooser_dialog);
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.child("holiday_list")
+                                .child(check_user_information.getUserID())
+                                .hasChild(date_child)
+                        ) {
+
+                            KAlertDialog delete_holiday_alert = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                            delete_holiday_alert.setContentText("Do you want to remove \n holiday ?");
+                            delete_holiday_alert.show();
+                            delete_holiday_alert.setCancelText("Cancel");
+                            delete_holiday_alert.showCancelButton(true);
+                            delete_holiday_alert.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(KAlertDialog kAlertDialog) {
+                                    if (CheckInternet.isInternet(getContext())) {
+                                        databaseReference.child("holiday_list")
+                                                .child(check_user_information.getUserID())
+                                                .child(date_child).removeValue();
+                                        delete_holiday_alert.dismissWithAnimation();
+                                    } else {
+                                        Toasty.info(getContext(), "Check Internet Connection").show();
+                                        delete_holiday_alert.dismissWithAnimation();
+                                    }
+                                }
+                            });
+
+                        } else if (dataSnapshot.child("Event_list")
+                                .child(check_user_information.getUserID())
+                                .hasChild(date_child)) {
+
+                            KAlertDialog add_another_event_dialog=new KAlertDialog(getContext(),KAlertDialog.WARNING_TYPE);
+                            add_another_event_dialog.setContentText("Do you want to add another event ?");
+                            add_another_event_dialog.showCancelButton(true);
+                            add_another_event_dialog.setCancelText("Cancel");
+                            add_another_event_dialog.show();
+                            add_another_event_dialog.setConfirmText("Yes");
+
+                            add_another_event_dialog.setConfirmClickListener(kAlertDialog1 -> {
+                                final Dialog dialog_chooser = new Dialog(getActivity());
+
+                                showAddEvent_Alert(getActivity(), date_child, day_date, month, year,
+                                        check_user_information, databaseReference,dialog_chooser);
+                            });
+
+
+                        } else {
+
+                            final Dialog dialog_chooser = new Dialog(getActivity());
+                            dialog_chooser.setCancelable(false);
+                            dialog_chooser.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog_chooser.setContentView(R.layout.custom_alert_option_chooser_dialog);
 //set animation
-                dialog_chooser.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Top_TO_Center;
-                Button cancel_bt = dialog_chooser.findViewById(R.id.cancel_alert_button_ID);
-                Button add_general_event_btn = dialog_chooser.findViewById(R.id.general_event_btn_ID);
-                Button add_holiday_btn = dialog_chooser.findViewById(R.id.holiday_btn_ID);
+                            dialog_chooser.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_Top_TO_Center;
+                            Button cancel_bt = dialog_chooser.findViewById(R.id.cancel_alert_button_ID);
+                            Button add_general_event_btn = dialog_chooser.findViewById(R.id.general_event_btn_ID);
+                            Button add_holiday_btn = dialog_chooser.findViewById(R.id.holiday_btn_ID);
 
-                add_general_event_btn.setOnClickListener(new View.OnClickListener() {
+                            add_general_event_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    showAddEvent_Alert(getActivity(), date_child, day_date, month, year,
+                                            check_user_information, databaseReference, dialog_chooser);
+                                }
+                            });
+
+                            add_holiday_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    show_holiday_alert(getActivity(), date_child, day_date, month, year,
+                                            check_user_information, databaseReference, dialog_chooser);
+
+
+                                }
+                            });
+
+                            cancel_bt.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog_chooser.dismiss();
+                                }
+                            });
+
+                            dialog_chooser.show();
+                        }
+                    }
+
                     @Override
-                    public void onClick(View v) {
-                        showAddEvent_Alert(getActivity(), date_child, day_date, month, year,
-                                check_user_information, databaseReference, dialog_chooser);
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
-
-                add_holiday_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        show_holiday_alert(getActivity(), date_child, day_date, month, year,
-                                check_user_information, databaseReference, dialog_chooser);
-
-
-                    }
-                });
-
-                cancel_bt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog_chooser.dismiss();
-                    }
-                });
-
-                dialog_chooser.show();
+//check is it Holiday  END
 
 
             }
