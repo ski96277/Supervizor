@@ -63,10 +63,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10sp"
-            >
+            android:layout_marginTop="10sp">
 
             <include layout="@layout/profile_view_page_1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10sp">
+                <ImageButton
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/phone"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="50sp"/>
+                <ImageButton
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/email_icon"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="50sp"/>
+                <ImageButton
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/whatsapp"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
 
         </LinearLayout>
 

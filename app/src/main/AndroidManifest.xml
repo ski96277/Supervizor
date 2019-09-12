@@ -21,11 +21,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.User_Attendance_Activity_View_by_Company"
+        <activity android:name=".Activity.Add_Receptionist_Activity_by_Admin"
             android:parentActivityName=".Activity.CompanyMainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Activity.User_Profile_View_by_Company"
+            android:name=".Activity.Add_Employee_Activity_by_Admin"
+            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.User_Attendance_Activity_View_by_Company"
+            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.User_Profile_Activity_View_by_Company"
             android:parentActivityName=".Activity.CompanyMainActivity"
             android:screenOrientation="portrait" />
         <activity

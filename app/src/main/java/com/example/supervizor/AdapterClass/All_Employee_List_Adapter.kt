@@ -2,7 +2,6 @@ package com.example.supervizor.AdapterClass
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import android.widget.Filter
 import com.example.supervizor.Activity.User_Attendance_Activity_View_by_Company
-import com.example.supervizor.Activity.User_Profile_View_by_Company
+import com.example.supervizor.Activity.User_Profile_Activity_View_by_Company
 import com.example.supervizor.Fragment.Company.Employee_list_F
 
 
@@ -66,7 +65,7 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             //profile View By company
             itemView.profile_view_item_layout.setOnClickListener {
 
-               var intent = Intent(itemView.context, User_Profile_View_by_Company::class.java)
+               var intent = Intent(itemView.context, User_Profile_Activity_View_by_Company::class.java)
                 intent.putExtra("employee_User_id", addEmployee_PojoClass.employee_User_id)
                 itemView.context.startActivity(intent)
 

@@ -1,18 +1,18 @@
+package com.example.supervizor.Activity;
 
-package com.example.supervizor.Fragment.Company;
-/*
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
@@ -32,12 +32,7 @@ import com.kinda.alert.KAlertDialog;
 
 import java.util.Calendar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import es.dmoral.toasty.Toasty;
-
-public class Add_Employee extends Fragment implements View.OnClickListener {
+public class Add_Employee_Activity_by_Admin extends AppCompatActivity implements View.OnClickListener  {
     Button parmanent_btn, probational_btn;
     Button add_employee_btn;
     EditText name_ET;
@@ -68,20 +63,13 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
 
     String employee_password="123456";
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add__employee_by_admin);
+        getSupportActionBar().setTitle("Add Employee");
 
-
-        return inflater.inflate(R.layout.add_employee_f, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initialize(view);
+        initialize();
 
 
         parmanent_btn.setOnClickListener(this);
@@ -89,11 +77,12 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
         add_employee_btn.setOnClickListener(this);
         joindate_ET.setOnClickListener(this);
 
+
 //get password from database
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               password_company = dataSnapshot.child("company_list").child(userID_company)
+                password_company = dataSnapshot.child("company_list").child(userID_company)
                         .child("company_password")
                         .getValue(String.class);
                 Log.e("TAG", "onDataChange: password_company ="+password_company);
@@ -109,18 +98,19 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
 
     }
 
-    private void initialize(View view) {
-        parmanent_btn = view.findViewById(R.id.parmanent_btn_ID);
-        probational_btn = view.findViewById(R.id.probationary_btn_ID);
 
-        name_ET = view.findViewById(R.id.Employee_name_ET_ID);
-        designation_ET = view.findViewById(R.id.Employee_designation_ET_ID);
-        email_ET = view.findViewById(R.id.Employee_email_ET_ID);
-        joindate_ET = view.findViewById(R.id.Employee_join_Date_ET_ID);
-        salary_ET = view.findViewById(R.id.Employee_salary_ET_ID);
-        contact_perid_number = view.findViewById(R.id.Employee_contact_pried_number_ET_ID);
-        spinner_year_month = view.findViewById(R.id.Employee_spinner_year_month);
-        add_employee_btn = view.findViewById(R.id.add_Employee_button_ID);
+    private void initialize() {
+        parmanent_btn = findViewById(R.id.parmanent_btn_ID);
+        probational_btn = findViewById(R.id.probationary_btn_ID);
+
+        name_ET = findViewById(R.id.Employee_name_ET_ID);
+        designation_ET = findViewById(R.id.Employee_designation_ET_ID);
+        email_ET = findViewById(R.id.Employee_email_ET_ID);
+        joindate_ET = findViewById(R.id.Employee_join_Date_ET_ID);
+        salary_ET = findViewById(R.id.Employee_salary_ET_ID);
+        contact_perid_number = findViewById(R.id.Employee_contact_pried_number_ET_ID);
+        spinner_year_month = findViewById(R.id.Employee_spinner_year_month);
+        add_employee_btn = findViewById(R.id.add_Employee_button_ID);
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser();
@@ -133,6 +123,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
         Log.e("TAG", "initialize: userID_company " +userID_company);
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -152,8 +143,8 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                 break;
             case R.id.add_Employee_button_ID:
 
-                if (!CheckInternet.isInternet(getContext())){
-                    Toasty.info(getContext(),"Check Internet Connection").show();
+                if (!CheckInternet.isInternet(Add_Employee_Activity_by_Admin.this)){
+                    Toasty.info(Add_Employee_Activity_by_Admin.this,"Check Internet Connection").show();
                     return;
                 }
 
@@ -196,12 +187,12 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                     return;
                 }
 
-                KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+                KAlertDialog kAlertDialog = new KAlertDialog(Add_Employee_Activity_by_Admin.this, KAlertDialog.PROGRESS_TYPE);
                 kAlertDialog.setTitleText("Loading......");
                 kAlertDialog.show();
 
                 firebaseAuth.createUserWithEmailAndPassword(employee_email, employee_password)
-                        .addOnCompleteListener(getActivity(), task -> {
+                        .addOnCompleteListener(Add_Employee_Activity_by_Admin.this, task -> {
                             kAlertDialog.setTitleText("User Creating......");
                             if (task.isSuccessful()) {
 
@@ -211,9 +202,9 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                                     kAlertDialog.setTitleText("User Created......");
 
                                     FirebaseAuth.getInstance().signOut();
-                     //re login by company
+                                    //re login by company
 
-             //get password from database
+                                    //get password from database
                                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -249,7 +240,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                                         employee_contact_priodNumber, employee_month_year,
                                         userID_company, userid,
                                         "null", "Employee");
-                             //save value under company user id
+                                //save value under company user id
                                 databaseReference.child("employee_list_by_company").child(userID_company)
                                         .child(userid).setValue(addEmployee_pojoClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -263,7 +254,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         kAlertDialog.dismiss();
-                                        Toasty.info(getContext(),"User Added").show();
+                                        Toasty.info(Add_Employee_Activity_by_Admin.this,"User Added").show();
                                         name_ET.setText("");
                                         designation_ET.setText("");
                                         email_ET.setText("");
@@ -276,7 +267,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toasty.error(getContext(), e.getMessage()).show();
+                        Toasty.error(Add_Employee_Activity_by_Admin.this, e.getMessage()).show();
                         kAlertDialog.dismissWithAnimation();
                     }
                 });
@@ -293,7 +284,7 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(Add_Employee_Activity_by_Admin.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 joindate_ET.setText(dayOfMonth + "/" + month + "/" + year);
@@ -302,13 +293,4 @@ public class Add_Employee extends Fragment implements View.OnClickListener {
         datePickerDialog.show();
     }
 
-
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Add Employee");
-    }
 }
-*/

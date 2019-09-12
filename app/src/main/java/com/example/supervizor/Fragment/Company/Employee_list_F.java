@@ -1,6 +1,7 @@
 package com.example.supervizor.Fragment.Company;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +20,10 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.supervizor.Activity.Add_Employee_Activity_by_Admin;
+import com.example.supervizor.Activity.Add_Receptionist_Activity_by_Admin;
 import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.All_Employee_List_Adapter;
-import com.example.supervizor.Fragment.Company.Add_Employee;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -151,13 +153,15 @@ public class Employee_list_F extends Fragment {
                 Toasty.info(getContext(), "Check internet Connection").show();
                 return;
             }
-            Fragment fragment = new Add_Employee();
+            startActivity(new Intent(getContext(), Add_Employee_Activity_by_Admin.class));
+
+         /*   Fragment fragment = new Add_Employee();
             if (fragment != null) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.company_main_screen, fragment);
                 fragmentTransaction.addToBackStack("");
                 fragmentTransaction.commit();
-            }
+            }*/
         });
         //add employee btn END
         add_receptionist_btn.setOnClickListener(v -> {
@@ -166,13 +170,15 @@ public class Employee_list_F extends Fragment {
                 Toasty.info(getContext(), "Check internet Connection").show();
                 return;
             }
-            Fragment fragment = new Add_Receptionist();
+
+            startActivity(new Intent(getContext(), Add_Receptionist_Activity_by_Admin.class));
+            /*Fragment fragment = new Add_Receptionist();
             if (fragment != null) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.company_main_screen, fragment);
                 fragmentTransaction.addToBackStack("");
                 fragmentTransaction.commit();
-            }
+            }*/
         });
 
         Check_User_information check_user_information = new Check_User_information();

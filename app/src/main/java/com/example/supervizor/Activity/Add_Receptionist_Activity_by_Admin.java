@@ -1,18 +1,18 @@
-/*
-package com.example.supervizor.Fragment.Company;
+package com.example.supervizor.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import es.dmoral.toasty.Toasty;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -33,13 +33,8 @@ import com.kinda.alert.KAlertDialog;
 
 import java.util.Calendar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import es.dmoral.toasty.Toasty;
+public class Add_Receptionist_Activity_by_Admin extends AppCompatActivity {
 
-public class Add_Receptionist extends Fragment {
 
     EditText name_receptionnist;
     EditText designation_receptionnist;
@@ -60,21 +55,12 @@ public class Add_Receptionist extends Fragment {
 
     String password_Receptionist = "123456";
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add__receptionist__by__admin);
 
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
-
-        return inflater.inflate(R.layout.add_receptionist, container, false);
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initialize(view);
+        initialize();
 
         //call date Alert View
         joinDate_receptionnist.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +73,14 @@ public class Add_Receptionist extends Fragment {
         add_receptionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addReceptionist(v);
+                addReceptionist();
             }
         });
+
     }
 
-    private void addReceptionist(View view) {
+
+    private void addReceptionist() {
 
         String name_Reception = name_receptionnist.getText().toString();
         String designation_Receptionist = designation_receptionnist.getText().toString();
@@ -131,8 +119,8 @@ public class Add_Receptionist extends Fragment {
             contact_period_number_receptionnist.setError("Contract Period ?");
             return;
         }
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.info(getContext(), "Internet Error.....").show();
+        if (!CheckInternet.isInternet(Add_Receptionist_Activity_by_Admin.this)) {
+            Toasty.info(Add_Receptionist_Activity_by_Admin.this, "Internet Error.....").show();
             return;
         }
         Check_User_information check_user_information = new Check_User_information();
@@ -147,12 +135,12 @@ public class Add_Receptionist extends Fragment {
         //log out
         mAuth.signOut();
 
-        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        KAlertDialog kAlertDialog = new KAlertDialog(Add_Receptionist_Activity_by_Admin.this, KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Creating User");
         kAlertDialog.show();
 
         mAuth.createUserWithEmailAndPassword(email_Receptionist, password_Receptionist)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(Add_Receptionist_Activity_by_Admin.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -221,7 +209,7 @@ public class Add_Receptionist extends Fragment {
                                                                         salary_receptionnist.setText("");
                                                                         contact_period_number_receptionnist.setText("");
 
-                                                                        Toasty.info(getContext(), "Receptionist Added").show();
+                                                                        Toasty.info(Add_Receptionist_Activity_by_Admin.this, "Receptionist Added").show();
                                                                     }
                                                                 }
                                                             });
@@ -237,7 +225,7 @@ public class Add_Receptionist extends Fragment {
                                     });
                         } else {
 
-                            Toasty.error(getContext(), "Error creating user").show();
+                            Toasty.error(Add_Receptionist_Activity_by_Admin.this, "Error creating user").show();
                         }
                     }
                 });
@@ -245,26 +233,19 @@ public class Add_Receptionist extends Fragment {
 
     }
 
-    private void initialize(View view) {
-        name_receptionnist = view.findViewById(R.id.Receptionist_name_ET_ID);
-        designation_receptionnist = view.findViewById(R.id.Receptionist_designation_ET_ID);
-        email_receptionnist = view.findViewById(R.id.Receptionist_email_ET_ID);
-        joinDate_receptionnist_layout = view.findViewById(R.id.Receptionist_join_Date_ET_ID_layout);
-        joinDate_receptionnist = view.findViewById(R.id.Receptionist_join_Date_ET_ID);
-        salary_receptionnist = view.findViewById(R.id.Receptionist_salary_ET_ID);
-        contact_period_number_receptionnist = view.findViewById(R.id.Receptionist_contact_pried_number_ET_ID);
-        spinner_receptionist = view.findViewById(R.id.Receptionist_spinner_year_month);
-        add_receptionist = view.findViewById(R.id.add_Receptionist_button_ID);
+    private void initialize() {
+        name_receptionnist = findViewById(R.id.Receptionist_name_ET_ID);
+        designation_receptionnist = findViewById(R.id.Receptionist_designation_ET_ID);
+        email_receptionnist = findViewById(R.id.Receptionist_email_ET_ID);
+        joinDate_receptionnist_layout = findViewById(R.id.Receptionist_join_Date_ET_ID_layout);
+        joinDate_receptionnist = findViewById(R.id.Receptionist_join_Date_ET_ID);
+        salary_receptionnist = findViewById(R.id.Receptionist_salary_ET_ID);
+        contact_period_number_receptionnist = findViewById(R.id.Receptionist_contact_pried_number_ET_ID);
+        spinner_receptionist = findViewById(R.id.Receptionist_spinner_year_month);
+        add_receptionist = findViewById(R.id.add_Receptionist_button_ID);
 
     }
 
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Add Receptionist");
-    }
 
 
     //    Showing Date picker popup
@@ -274,7 +255,7 @@ public class Add_Receptionist extends Fragment {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(Add_Receptionist_Activity_by_Admin.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 joinDate_receptionnist.setText(dayOfMonth + "/" + month + "/" + year);
@@ -283,4 +264,3 @@ public class Add_Receptionist extends Fragment {
         datePickerDialog.show();
     }
 }
-*/

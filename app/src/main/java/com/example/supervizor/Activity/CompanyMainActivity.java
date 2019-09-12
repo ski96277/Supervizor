@@ -96,6 +96,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +113,8 @@ public class CompanyMainActivity extends AppCompatActivity
 
         //subscribe topic for Firebase Notification (Leave application)
 
-        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID()+"teamRequest");
-        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID()+"leave")
+        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID() + "teamRequest");
+        FirebaseMessaging.getInstance().subscribeToTopic(check_user_information.getUserID() + "leave")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -121,12 +122,11 @@ public class CompanyMainActivity extends AppCompatActivity
                         if (!task.isSuccessful()) {
                             msg = "Failed Topic";
                         }
-                        Log.d("TAG","Topic suscribe by employee"+ msg);
+                        Log.d("TAG", "Topic suscribe by employee" + msg);
 //                                Toast.makeText(EmployeeMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 //end the notification topic
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -214,7 +214,7 @@ public class CompanyMainActivity extends AppCompatActivity
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
                     editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
-                    editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                    editor.putString("company_penalty_time", signUp_pojo.getCompany_penalty_time());
                     editor.apply();
 
 
@@ -302,8 +302,12 @@ public class CompanyMainActivity extends AppCompatActivity
 
         Fragment fragment = new Calender_F();
         if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
     }
@@ -317,6 +321,7 @@ public class CompanyMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             //clear the back stack of fragment
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
     }
@@ -328,9 +333,12 @@ public class CompanyMainActivity extends AppCompatActivity
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.addToBackStack("");
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentTransaction.addToBackStack("");
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentTransaction.commit();
+
+
         }
     }
 
@@ -366,7 +374,7 @@ public class CompanyMainActivity extends AppCompatActivity
             int count = getSupportFragmentManager().getBackStackEntryCount();
 
             if (count == 0) {
-//                super.onBackPressed();
+
                 //additional code
                 show_Alert_to_Exit_The_App();
             } else {
@@ -416,7 +424,7 @@ public class CompanyMainActivity extends AppCompatActivity
                 Check_User_information check_user_information = new Check_User_information();
 
 //check has the receptionist
-               if (!dataSnapshot.child("receptionist_list_by_company").hasChild(check_user_information.getUserID()) ){
+                if (!dataSnapshot.child("receptionist_list_by_company").hasChild(check_user_information.getUserID())) {
                     kAlertDialog.dismissWithAnimation();
                     Toasty.info(CompanyMainActivity.this, "No Receptionist Found").show();
                     return;
@@ -481,11 +489,11 @@ public class CompanyMainActivity extends AppCompatActivity
             bundle.putString("error_handel_when_event_create", "1");
             load_Team_Request(bundle);
 
-        }  else if (id == R.id.nav_logOut) {
+        } else if (id == R.id.nav_logOut) {
             //try to unsubscribe
 
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"teamRequest");
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID()+"leave");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID() + "teamRequest");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(check_user_information.getUserID() + "leave");
 
             FirebaseAuth.getInstance().signOut();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -519,9 +527,15 @@ public class CompanyMainActivity extends AppCompatActivity
     private void load_Team_leader_F() {
         fragment = new TeamLeader_F();
         if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+           /* FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);*/
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            //clear the back stack of fragment
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
 

@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,7 +47,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User_Profile_View_by_Company extends AppCompatActivity {
+public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
 
     private TextView name_Tv;
     private TextView phone_TV;
@@ -221,12 +220,12 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
                 break;
             case R.id.make_Team_Leader_this_employee:
 
-                KAlertDialog team_Lead_Confirm_Alert = new KAlertDialog(User_Profile_View_by_Company.this, KAlertDialog.WARNING_TYPE);
+                KAlertDialog team_Lead_Confirm_Alert = new KAlertDialog(User_Profile_Activity_View_by_Company.this, KAlertDialog.WARNING_TYPE);
                 team_Lead_Confirm_Alert.setTitleText("Make Team Leader");
                 team_Lead_Confirm_Alert.show();
                 team_Lead_Confirm_Alert.setConfirmClickListener(kAlertDialog -> {
-                    if (!CheckInternet.isInternet(User_Profile_View_by_Company.this)) {
-                        Toasty.error(User_Profile_View_by_Company.this, "Internet Connection Error");
+                    if (!CheckInternet.isInternet(User_Profile_Activity_View_by_Company.this)) {
+                        Toasty.error(User_Profile_Activity_View_by_Company.this, "Internet Connection Error");
                         team_Lead_Confirm_Alert.dismissWithAnimation();
                         return;
                     }
@@ -238,13 +237,13 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
                 break;
             case R.id.remove_team_Leader_this_employee:
 
-                KAlertDialog remove_Team_Leader_Alert = new KAlertDialog(User_Profile_View_by_Company.this, KAlertDialog.WARNING_TYPE);
+                KAlertDialog remove_Team_Leader_Alert = new KAlertDialog(User_Profile_Activity_View_by_Company.this, KAlertDialog.WARNING_TYPE);
                 remove_Team_Leader_Alert.show();
                 remove_Team_Leader_Alert.setTitleText("Remove this Team Leader?");
                 remove_Team_Leader_Alert.setConfirmClickListener(kAlertDialog -> {
 
-                    if (!CheckInternet.isInternet(User_Profile_View_by_Company.this)) {
-                        Toasty.error(User_Profile_View_by_Company.this, "Internet Connection Error");
+                    if (!CheckInternet.isInternet(User_Profile_Activity_View_by_Company.this)) {
+                        Toasty.error(User_Profile_Activity_View_by_Company.this, "Internet Connection Error");
                         remove_Team_Leader_Alert.dismissWithAnimation();
                         return;
                     }
@@ -289,7 +288,7 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
     private void showCustomAlertDialog_setEvent_for_Employee() {
 
 
-        Dialog dialog = new Dialog(User_Profile_View_by_Company.this);
+        Dialog dialog = new Dialog(User_Profile_Activity_View_by_Company.this);
         dialog.setContentView(R.layout.custom_alert_dialog_for_add_employee_event);
         dialog.setCancelable(false);
 
@@ -329,15 +328,15 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
             //check data is empty or not ?
             if (user_ID_company.isEmpty() || user_id_employee.isEmpty() || title.isEmpty()
                     || details.isEmpty() || time.isEmpty() || date.isEmpty()) {
-                Toasty.info(User_Profile_View_by_Company.this, "Fill up the information").show();
+                Toasty.info(User_Profile_Activity_View_by_Company.this, "Fill up the information").show();
                 return;
             }
             //check internet connection
-            if (!CheckInternet.isInternet(User_Profile_View_by_Company.this)) {
-                Toasty.error(User_Profile_View_by_Company.this, "Internet Connection Error").show();
+            if (!CheckInternet.isInternet(User_Profile_Activity_View_by_Company.this)) {
+                Toasty.error(User_Profile_Activity_View_by_Company.this, "Internet Connection Error").show();
                 return;
             }
-            KAlertDialog kAlertDialog = new KAlertDialog(User_Profile_View_by_Company.this, KAlertDialog.PROGRESS_TYPE);
+            KAlertDialog kAlertDialog = new KAlertDialog(User_Profile_Activity_View_by_Company.this, KAlertDialog.PROGRESS_TYPE);
             kAlertDialog.show();
             kAlertDialog.setTitleText("Uploading Data....");
 
@@ -380,7 +379,7 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(User_Profile_View_by_Company.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(User_Profile_Activity_View_by_Company.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 day_select = day;
@@ -407,7 +406,7 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
         CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
         CalendarMinute = calendar.get(Calendar.MINUTE);
 
-        timepickerdialog = new TimePickerDialog(User_Profile_View_by_Company.this,
+        timepickerdialog = new TimePickerDialog(User_Profile_Activity_View_by_Company.this,
                 (view, hourOfDay, minute) -> {
 
                     if (hourOfDay == 0) {
@@ -480,7 +479,7 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(User_Profile_View_by_Company.this, "Request error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(User_Profile_Activity_View_by_Company.this, "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
                 }){
@@ -492,7 +491,7 @@ public class User_Profile_View_by_Company extends AppCompatActivity {
                 return params;
             }
         };
-        MySingleton.getInstance(User_Profile_View_by_Company.this).addToRequestQueue(jsonObjectRequest);
+        MySingleton.getInstance(User_Profile_Activity_View_by_Company.this).addToRequestQueue(jsonObjectRequest);
     }
 
 }

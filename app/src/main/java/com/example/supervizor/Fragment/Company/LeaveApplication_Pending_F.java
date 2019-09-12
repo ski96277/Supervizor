@@ -98,6 +98,10 @@ public class LeaveApplication_Pending_F extends Fragment {
                 }
                 //set count update nav bar number
 
+                //if recycler view is empty
+                if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
+                    Toasty.info(rootView.getContext(),"No Data Found.....").show();
+                }
                 CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_Unseen_list.size()));
 
                 Leave_Application_Pending_Adapter_Company leave_application_pending_adapterCompany = new Leave_Application_Pending_Adapter_Company(leaveApplication_pojoClasses_Unseen_list);
@@ -106,10 +110,6 @@ public class LeaveApplication_Pending_F extends Fragment {
                 leavePendingApplicationList.setAdapter(leave_application_pending_adapterCompany);
                 kAlertDialog.dismissWithAnimation();
 
-                //if recycler view is empty
-                if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
-                 Toasty.info(getActivity(),"No Data Found.....").show();
-                   }
 
                 }
 
