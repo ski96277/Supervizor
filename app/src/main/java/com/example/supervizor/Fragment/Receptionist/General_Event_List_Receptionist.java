@@ -72,8 +72,16 @@ public class General_Event_List_Receptionist extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.child("Event_list")
                         .child(addEmployee_pojoClass.getCompany_User_id()).getChildren()) {
 
-                    Event_details_PojoClass event_details_pojoClass = snapshot.getValue(Event_details_PojoClass.class);
-                    event_details_pojoClassList.add(event_details_pojoClass);
+                    String date_key=snapshot.getKey();
+                    for (DataSnapshot snapshot1 : dataSnapshot
+                            .child("Event_list")
+                            .child(addEmployee_pojoClass.getCompany_User_id()).child(date_key).getChildren()) {
+
+                        Event_details_PojoClass event_details_pojoClass = snapshot1.getValue(Event_details_PojoClass.class);
+                        event_details_pojoClassList.add(event_details_pojoClass);
+                    }
+
+
                 }
                 dataLoading_alert.dismissWithAnimation();
 

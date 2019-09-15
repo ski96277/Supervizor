@@ -198,7 +198,7 @@ public class Calender_F extends Fragment {
 
                         }
                         if (event_date_list != null) {
-                            event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list);
+                            event_list_adapter = new All_Event_List_Adapter(getContext(), event_date_list,check_user_information.getUserID());
 
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);

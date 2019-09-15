@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.custom_alert_dialog_event_show.*
 import kotlinx.android.synthetic.main.event_list_item_view.view.*
 import java.util.*
 
-class All_Event_List_Adapter(var context: Context?, var event_date_list: MutableList<Event_details_PojoClass>) : RecyclerView.Adapter<All_Event_List_Adapter.ViewHolder>()  {
+class All_Event_List_Adapter(var context: Context?, var event_date_list: MutableList<Event_details_PojoClass>, var userID: String) : RecyclerView.Adapter<All_Event_List_Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.event_list_item_view, parent, false);
@@ -36,13 +36,13 @@ class All_Event_List_Adapter(var context: Context?, var event_date_list: Mutable
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        return holder.setData(event_date_list[position], position)
+        return holder.setData(event_date_list[position], position, userID)
     }
 
 
     class ViewHolder(var itemview: View) : RecyclerView.ViewHolder(itemview) {
 
-        fun setData(event_details_PojoClass: Event_details_PojoClass, position: Int) {
+        fun setData(event_details_PojoClass: Event_details_PojoClass, position: Int, userID: String) {
 
             itemview.event_title_TV_item_ID.text = event_details_PojoClass.event_title
             itemview.event_Date_TV_item_ID.text = event_details_PojoClass.date
@@ -53,6 +53,31 @@ class All_Event_List_Adapter(var context: Context?, var event_date_list: Mutable
                 show_Event_Information(itemview, event_details_PojoClass)
 
             }
+            itemview.setOnLongClickListener(View.OnLongClickListener {
+
+                var kAlertDialog = KAlertDialog(itemview.context, KAlertDialog.WARNING_TYPE)
+                kAlertDialog.titleText = "Do you want to delete it?"
+                kAlertDialog.cancelText = "Cancel"
+                kAlertDialog.showCancelButton(true)
+                kAlertDialog.show()
+                kAlertDialog.setConfirmClickListener {
+                    var firebaseDatabase = FirebaseDatabase.getInstance()
+                    var databaseReference = firebaseDatabase.getReference();
+                    databaseReference.child("Event_list")
+                            .child(userID).child(event_details_PojoClass.date)
+                            .child(event_details_PojoClass.event_title).removeValue()
+                    kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE)
+                    kAlertDialog.titleText = "Deleted"
+                    kAlertDialog.showCancelButton(false)
+                    kAlertDialog.setConfirmClickListener {
+                        kAlertDialog -> kAlertDialog.dismissWithAnimation()
+                    }
+                }
+
+
+
+                return@OnLongClickListener true
+            })
         }
 
 
@@ -117,7 +142,7 @@ class All_Event_List_Adapter(var context: Context?, var event_date_list: Mutable
             dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation_Left_TO_Center
 
             val add_Event_button = dialog.findViewById<Button>(R.id.button_ok_dialog)
-            add_Event_button.text="Save it"
+            add_Event_button.text = "Save it"
             val cross_btn = dialog.findViewById<Button>(R.id.cross_image_button_ID)
             val textView = dialog.findViewById<TextView>(R.id.event_date_TV_ID)
             val event_time_ET = dialog.findViewById<TextView>(R.id.event_Time_ET_ID)
@@ -175,57 +200,56 @@ class All_Event_List_Adapter(var context: Context?, var event_date_list: Mutable
         }
 
 
-            fun setTime(v: View?, event_time: EditText?) {
+        fun setTime(v: View?, event_time: EditText?) {
 
-                var CalendarHour: Int
-                var CalendarMinute: Int
-                var format: String
-                var timepickerdialog: TimePickerDialog?
-
-
-                var calendar = Calendar.getInstance()
-                CalendarHour = calendar.get(Calendar.HOUR_OF_DAY)
-                CalendarMinute = calendar.get(Calendar.MINUTE)
+            var CalendarHour: Int
+            var CalendarMinute: Int
+            var format: String
+            var timepickerdialog: TimePickerDialog?
 
 
-                timepickerdialog = TimePickerDialog(v!!.context,
-                        { _, hourOfDay, minute ->
-
-                            var hour_of_day = when (hourOfDay) {
-
-                                13->"01"
-                                14->"02"
-                                15->"03"
-                                16->"04"
-                                17->"05"
-                                18->"06"
-                                19->"07"
-                                20->"08"
-                                21->"09"
-                                22->"10"
-                                23->"11"
-                                else -> hourOfDay
-                            }
-
-                            format = if(hourOfDay<12){
-                                "AM"
-                            }else{
-                                "PM"
-                            }
+            var calendar = Calendar.getInstance()
+            CalendarHour = calendar.get(Calendar.HOUR_OF_DAY)
+            CalendarMinute = calendar.get(Calendar.MINUTE)
 
 
-                            if (minute < 10) {
-                                event_time!!.text = Editable.Factory.getInstance().newEditable("$hour_of_day : 0$minute $format");
+            timepickerdialog = TimePickerDialog(v!!.context,
+                    { _, hourOfDay, minute ->
 
-                            } else {
-                                event_time!!.text = Editable.Factory.getInstance().newEditable("$hour_of_day : $minute $format")
+                        var hour_of_day = when (hourOfDay) {
 
-                            }
+                            13 -> "01"
+                            14 -> "02"
+                            15 -> "03"
+                            16 -> "04"
+                            17 -> "05"
+                            18 -> "06"
+                            19 -> "07"
+                            20 -> "08"
+                            21 -> "09"
+                            22 -> "10"
+                            23 -> "11"
+                            else -> hourOfDay
+                        }
 
-                        }, CalendarHour, CalendarMinute, false)
-                timepickerdialog.show()
-            }
+                        format = if (hourOfDay < 12) {
+                            "AM"
+                        } else {
+                            "PM"
+                        }
 
+
+                        if (minute < 10) {
+                            event_time!!.text = Editable.Factory.getInstance().newEditable("$hour_of_day : 0$minute $format");
+
+                        } else {
+                            event_time!!.text = Editable.Factory.getInstance().newEditable("$hour_of_day : $minute $format")
+
+                        }
+
+                    }, CalendarHour, CalendarMinute, false)
+            timepickerdialog.show()
+        }
 
 
     }

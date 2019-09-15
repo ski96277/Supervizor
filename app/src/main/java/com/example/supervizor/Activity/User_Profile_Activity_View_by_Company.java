@@ -1,10 +1,5 @@
 package com.example.supervizor.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -19,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,15 +43,23 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
+public class User_Profile_Activity_View_by_Company extends AppCompatActivity implements View.OnClickListener {
+
+    protected ImageButton phoneCallBtn;
+    protected ImageButton emailBtn;
+    protected ImageButton whatsAppBtn;
     private TextView name_Tv;
     private TextView phone_TV;
     private TextView email_TV;
     private TextView calender_TV;
     private TextView name_profile_TV;
     private TextView designation_profile_TV;
-    CircleImageView circleImageView;
+   private CircleImageView circleImageView;
 
     String user_id_employee;
 
@@ -85,14 +89,14 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user__profile__view_by__company);
+        super.setContentView(R.layout.activity_user__profile__view_by__company);
         initialize();
         getSupportActionBar().setTitle("User Profile");
 
         //hide Notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         user_id_employee = intent.getStringExtra("employee_User_id");
 
         //get user information
@@ -117,10 +121,10 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
 
                         name_Tv.setText(addEmployee_pojoClass.getEmployee_name());
                         email_TV.setText(addEmployee_pojoClass.getEmployee_email());
-                        if (addEmployee_pojoClass.getUser_phone_number()!=null){
-                            phone_TV.setText(addEmployee_pojoClass.getEmployee_Contact_period_number());
-                        }else {
-                            phone_TV.setText("No added yet");
+                        if (addEmployee_pojoClass.getUser_phone_number() != null) {
+                            phone_TV.setText(addEmployee_pojoClass.getUser_phone_number());
+                        } else {
+                            phone_TV.setText("No Number Found");
 
                         }
                         calender_TV.setText(addEmployee_pojoClass.getEmployee_joinDate());
@@ -131,6 +135,10 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
 
                     }
                 });
+
+        whatsAppBtn.setOnClickListener(this);
+        emailBtn.setOnClickListener(this);
+        phoneCallBtn.setOnClickListener(this);
 
     }
 
@@ -143,6 +151,10 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
         name_profile_TV = findViewById(R.id.name_tv_profile_view);
         designation_profile_TV = findViewById(R.id.designation_profile_view);
         circleImageView = findViewById(R.id.profile_image_user_profile);
+
+        phoneCallBtn = (ImageButton) findViewById(R.id.phone_call_btn);
+        emailBtn = (ImageButton) findViewById(R.id.email_btn);
+        whatsAppBtn = (ImageButton) findViewById(R.id.whatsApp_btn);
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -158,6 +170,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 boolean yes = dataSnapshot.child("team_leader_ID_List")
                         .hasChild(user_id_employee);
                 if (yes) {
@@ -168,6 +181,16 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
                     menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
 
                     menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
+                }
+
+                //if user is receptionist then hide the team leader menu
+                if (dataSnapshot.child("receptionist_list")
+                        .hasChild(user_id_employee)){
+
+                    menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
+                    menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
+
+
                 }
             }
 
@@ -178,38 +201,39 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
         });
         return true;
     }
-  /*  @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
-//        inflater.inflate(R.menu.company_main,menu);
-        menu.findItem(R.id.set_event_to_this_employee).setVisible(true);
-        menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
+    /*  @Override
+      public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean yes = dataSnapshot.child("team_leader_ID_List")
-                        .hasChild(user_id_employee);
-                if (yes) {
-                    menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
-                    menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(true);
+  //        inflater.inflate(R.menu.company_main,menu);
+          menu.findItem(R.id.set_event_to_this_employee).setVisible(true);
+          menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
 
-                } else {
-                    menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
+          databaseReference.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                  boolean yes = dataSnapshot.child("team_leader_ID_List")
+                          .hasChild(user_id_employee);
+                  if (yes) {
+                      menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
+                      menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(true);
 
-                    menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
-                }
-            }
+                  } else {
+                      menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                      menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
+                  }
+              }
 
-            }
-        });
+              @Override
+              public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-*/
+              }
+          });
+
+          super.onCreateOptionsMenu(menu, inflater);
+      }
+  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -276,9 +300,9 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
                 .setValue(email_TV.getText().toString());
 
         //send the notification data
-        TOPIC_NAME=user_id_employee;
+        TOPIC_NAME = user_id_employee;
 
-        sendDataToFireabase(TOPIC_NAME,"Team Leader","Now you are Team leader");
+        sendDataToFireabase(TOPIC_NAME, "Team Leader", "Now you are Team leader");
 
         team_Lead_Confirm_Alert.dismissWithAnimation();
 
@@ -349,9 +373,9 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> {
 
                         //send the notification data
-                        TOPIC_NAME=user_id_employee;
+                        TOPIC_NAME = user_id_employee;
 
-                        sendDataToFireabase(TOPIC_NAME,title,details);
+                        sendDataToFireabase(TOPIC_NAME, title, details);
 
 
                         kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
@@ -446,7 +470,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
     //Notification Data send
     private void sendDataToFireabase(String topicName, String event_title, String event_details) {
 
-        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        TOPIC = "/topics/" + topicName; //topic must match with what the receiver subscribed to
         NOTIFICATION_TITLE = event_title;
         NOTIFICATION_MESSAGE = event_details;
 
@@ -460,7 +484,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
             notification.put("data", notifcationBody);
 
         } catch (JSONException e) {
-            Log.e(TAG, "onCreate: " + e.getMessage() );
+            Log.e(TAG, "onCreate: " + e.getMessage());
         }
         sendNotification(notification);
 
@@ -482,7 +506,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
                         Toast.makeText(User_Profile_Activity_View_by_Company.this, "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
-                }){
+                }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -494,4 +518,40 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity {
         MySingleton.getInstance(User_Profile_Activity_View_by_Company.this).addToRequestQueue(jsonObjectRequest);
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.phone_call_btn:
+
+                String phoneNumber = phone_TV.getText().toString();
+                if (phoneNumber.equals("No Number Found")) {
+                    Toasty.info(User_Profile_Activity_View_by_Company.this, "No Number Found").show();
+                } else {
+                    Log.e(TAG, "onClick: " + phoneNumber);
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + phoneNumber));
+                    startActivity(intent);
+
+                }
+                break;
+            case R.id.email_btn:
+
+                String email = email_TV.getText().toString();
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RocketechIT");
+
+                startActivity(Intent.createChooser(emailIntent, "Chooser Title"));
+
+                break;
+            case R.id.whatsApp_btn:
+                String phoneNumber_whatsApp = phone_TV.getText().toString();
+                String url = "https://api.whatsapp.com/send?phone=+88" +phoneNumber_whatsApp;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
+                break;
+        }
+    }
 }

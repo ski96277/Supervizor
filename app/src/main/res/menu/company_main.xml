@@ -23,7 +23,7 @@
         android:title="Add Event"
         android:visible="false"
         app:showAsAction="never" />
-    <item
+ <!--   <item
         android:id="@+id/make_Team_Leader_this_employee"
         android:orderInCategory="100"
         android:title="Make Team Leader"
@@ -34,5 +34,5 @@
         android:orderInCategory="100"
         android:title="Remove Team Leader"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 </menu>

@@ -11,6 +11,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.Fragment
 import com.example.supervizor.Fragment.Employee.Team_Member_List_F
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
+import com.example.supervizor.Java_Class.CheckInternet
+import com.google.firebase.database.FirebaseDatabase
+import com.kinda.alert.KAlertDialog
+import com.kinda.alert.SuccessTickView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_all_team_leader.view.*
 
@@ -47,56 +51,46 @@ class Team_Leader_List_Adapter(var addEmployee_pojoClasses_list: MutableList<Add
                 itemView.profile_photo_item_imageView_team_leader.setImageResource(R.drawable.profile)
             }
 
-            itemView.setOnClickListener {/*
+            itemView.setOnLongClickListener {
+                if (CheckInternet.isInternet(itemView.context)) {
 
-                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(itemView.context)
+                    var kAlertDialog = KAlertDialog(itemView.context, KAlertDialog.WARNING_TYPE)
+                    kAlertDialog.titleText = "Do you want to"
+                    kAlertDialog.contentText = "Remove this User ?"
+                    kAlertDialog.cancelText = "Cancel"
+                    kAlertDialog.showCancelButton(true)
+                    kAlertDialog.show()
+                    kAlertDialog.setConfirmClickListener {
 
-                val team_name = sharedPreferences.getString("team_name","defaultname")
+                        var databaseReference = FirebaseDatabase.getInstance().reference
+                        databaseReference.child("my_team_request_pending")
+                                .child(addEmployee_PojoClass.company_User_id)
+                                .child(addEmployee_PojoClass.employee_User_id)
+                                .removeValue()
+                        databaseReference.child("my_team_request")
+                                .child(addEmployee_PojoClass.employee_User_id)
+                                .removeValue()
 
-                Log.e("Tag","Team name = "+team_name)
+                        databaseReference.child("team_leader_ID_List")
+                                .child(addEmployee_PojoClass.employee_User_id)
+                                .removeValue()
+                                .addOnSuccessListener {
 
-                var kAlertDialog = KAlertDialog(itemView.context, KAlertDialog.WARNING_TYPE);
-                kAlertDialog.titleText = "Do you want to Remove"
-                kAlertDialog.contentText = " This user ?"
-                kAlertDialog.cancelText="Cancel"
-                kAlertDialog.showCancelButton(true)
-                kAlertDialog.show()
-                kAlertDialog.setConfirmClickListener {
+                                    kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE)
+                                    kAlertDialog.showCancelButton(false)
+                                    kAlertDialog.setConfirmClickListener { kAlertDialog ->
+                                        kAlertDialog.dismissWithAnimation()
+                                    }
+                                }
 
-                    var check_User_information = Check_User_information()
-                    var databaseReference = FirebaseDatabase.getInstance().reference
+                    }
+                }//check internet connection END
 
-                    databaseReference.child("my_team_request")
-                            .child(check_User_information.userID)
-                            .child(team_name).child(addEmployee_PojoClass.employee_User_id)
-                            .removeValue()
-                            .addOnSuccessListener {
-                                kAlertDialog.dismissWithAnimation()
-                                Toasty.info(itemView.context, "Removed").show()
-                                var bundle=Bundle()
-                                bundle.putString("team_name",team_name)
-                                load_Team_Member_List_Fragment(bundle)
-                            }
 
-                }*/
+                return@setOnLongClickListener true
             }
 
-        }
 
-
-        private fun load_Team_Member_List_Fragment(bundle: Bundle) {
-
-
-            var fragment: Fragment?
-            fragment = Team_Member_List_F()
-
-            if (fragment != null) {
-
-                fragment.arguments = bundle
-                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment!!)
-                fragmentTransaction.commit()
-            }
         }
 
 

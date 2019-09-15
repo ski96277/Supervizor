@@ -74,18 +74,21 @@
                 android:gravity="center"
                 android:layout_marginTop="10sp">
                 <ImageButton
+                    android:id="@+id/phone_call_btn"
                     android:layout_width="60sp"
                     android:layout_height="60sp"
                     android:src="@drawable/phone"
                     android:scaleType="fitXY"
                     android:layout_marginRight="50sp"/>
                 <ImageButton
+                    android:id="@+id/email_btn"
                     android:layout_width="60sp"
                     android:layout_height="60sp"
                     android:src="@drawable/email_icon"
                     android:scaleType="fitXY"
                     android:layout_marginRight="50sp"/>
                 <ImageButton
+                    android:id="@+id/whatsApp_btn"
                     android:layout_width="60sp"
                     android:layout_height="60sp"
                     android:src="@drawable/whatsapp"
