@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -81,6 +82,8 @@ public class Update_Company_Profile extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_update__company__profile);
+//hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initView();
 
         if (!CheckInternet.isInternet(getApplicationContext())) {

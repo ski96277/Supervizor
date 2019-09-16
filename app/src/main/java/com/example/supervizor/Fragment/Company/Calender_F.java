@@ -71,7 +71,7 @@ public class Calender_F extends Fragment {
     Check_User_information check_user_information;
 
     RecyclerView recyclerView_ID;
-    KAlertDialog kAlertDialog;
+//    KAlertDialog kAlertDialog;
 
 
     static int CalendarHour;
@@ -129,11 +129,11 @@ public class Calender_F extends Fragment {
             Toasty.info(getActivity(), "Check Internet Connection").show();
             return;
         }
-        kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Loading.....");
-
-
-        kAlertDialog.show();
+//        kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+//        kAlertDialog.setTitleText("Loading.....");
+//
+//
+//        kAlertDialog.show();
 
         //get holiday list for highlight
         databaseReference.child("holiday_list")
@@ -204,7 +204,7 @@ public class Calender_F extends Fragment {
                             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                             recyclerView_ID.setLayoutManager(linearLayoutManager);
                             recyclerView_ID.setAdapter(event_list_adapter);
-                            kAlertDialog.dismissWithAnimation();
+//                            kAlertDialog.dismissWithAnimation();
                         }
 
 
@@ -213,7 +213,7 @@ public class Calender_F extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        kAlertDialog.dismissWithAnimation();
+//                        kAlertDialog.dismissWithAnimation();
                     }
                 });
         //get the event list from firebase END

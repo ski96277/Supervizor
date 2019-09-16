@@ -3,12 +3,11 @@ package com.example.supervizor.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.supervizor.Fragment.Company.Calender_F;
-import com.example.supervizor.Fragment.Company.Company_Profile_View;
 import com.example.supervizor.Fragment.Company.Employee_list_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
@@ -20,8 +19,8 @@ import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
 
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -36,12 +35,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
@@ -61,9 +60,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +94,7 @@ public class CompanyMainActivity extends AppCompatActivity
     Toolbar toolbar;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,13 +145,15 @@ public class CompanyMainActivity extends AppCompatActivity
 
 //set action into nav profile image and intent_text
         profile_image_nav.setOnClickListener(v -> {
-            load_profile_From_navBar();
+//            load_profile_From_navBar();
+            startActivity(new Intent(CompanyMainActivity.this, View_Company_Profile_Activity.class));
         });
         profile_company_name_nav.setOnClickListener(v -> {
-            load_profile_From_navBar();
+
+            startActivity(new Intent(CompanyMainActivity.this, View_Company_Profile_Activity.class));
         });
         profile_company_email_nav.setOnClickListener(v -> {
-            load_profile_From_navBar();
+            startActivity(new Intent(CompanyMainActivity.this, View_Company_Profile_Activity.class));
         });
 
 //set leave notification count
@@ -179,7 +179,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
     }
 
-    private void load_profile_From_navBar() {
+/*    private void load_profile_From_navBar() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("singup_information", signUp_pojo);
         fragment = new Company_Profile_View();
@@ -194,7 +194,7 @@ public class CompanyMainActivity extends AppCompatActivity
                 drawer1.closeDrawer(GravityCompat.START);
             }
         }
-    }
+    }*/
 //set profile information in navigation
 
     private void LoadCompanyinformation_On_The_Nav() {
@@ -291,13 +291,16 @@ public class CompanyMainActivity extends AppCompatActivity
         fragment = new Employee_list_F();
         if (fragment != null) {
             fragment.setArguments(bundle);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
+           fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.commit();
         }
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void calender_Fragment() {
 
         Fragment fragment = new Calender_F();
@@ -305,6 +308,10 @@ public class CompanyMainActivity extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+            fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+            fragment.setExitTransition(new Slide(Gravity.LEFT));
+
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.addToBackStack("");
@@ -313,12 +320,15 @@ public class CompanyMainActivity extends AppCompatActivity
     }
 
     //replace leave pending fragment in main screen of Company
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void leave_application_pending_fragment() {
         fragment = new LeaveApplication_Pending_F();
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+            fragment.setExitTransition(new Slide(Gravity.LEFT));
             //clear the back stack of fragment
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            fragmentTransaction.addToBackStack("");
@@ -463,6 +473,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -533,6 +544,7 @@ public class CompanyMainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
             //clear the back stack of fragment
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            fragmentTransaction.addToBackStack("");

@@ -55,6 +55,7 @@ import es.dmoral.toasty.Toasty;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -100,6 +101,8 @@ public class ReceptionistMainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setActionBarTitle("DashBoard");
+//hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 //initilaze the widget
         initialize();

@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Company;
 
 import android.content.Intent;
@@ -96,3 +97,4 @@ public class Company_Profile_View extends Fragment {
                 .setActionBarTitle("Company profile");
     }
 }
+*/
