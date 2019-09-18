@@ -291,10 +291,10 @@ public class CompanyMainActivity extends AppCompatActivity
         fragment = new Employee_list_F();
         if (fragment != null) {
             fragment.setArguments(bundle);
-            FragmentManager fragmentManager=getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
-           fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.commit();
         }
     }
@@ -492,10 +492,10 @@ public class CompanyMainActivity extends AppCompatActivity
             load_Team_leader_F();
 
 
-        }/* else if (id == R.id.nav_attendance) {
-            load_User_Attendance();
+        } else if (id == R.id.nav_salary_generate) {
+            startActivity(new Intent(this, SalaryGenerateDashBoardActivity.class));
 
-        }*/ else if (id == R.id.nav_team_request_pending) {
+        } else if (id == R.id.nav_team_request_pending) {
             Bundle bundle = new Bundle();
             bundle.putString("error_handel_when_event_create", "1");
             load_Team_Request(bundle);
@@ -544,7 +544,7 @@ public class CompanyMainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
-            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             //clear the back stack of fragment
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            fragmentTransaction.addToBackStack("");

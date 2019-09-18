@@ -202,38 +202,6 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
         return true;
     }
 
-    /*  @Override
-      public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-  //        inflater.inflate(R.menu.company_main,menu);
-          menu.findItem(R.id.set_event_to_this_employee).setVisible(true);
-          menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
-
-          databaseReference.addValueEventListener(new ValueEventListener() {
-              @Override
-              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                  boolean yes = dataSnapshot.child("team_leader_ID_List")
-                          .hasChild(user_id_employee);
-                  if (yes) {
-                      menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
-                      menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(true);
-
-                  } else {
-                      menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(true);
-
-                      menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
-                  }
-              }
-
-              @Override
-              public void onCancelled(@NonNull DatabaseError databaseError) {
-
-              }
-          });
-
-          super.onCreateOptionsMenu(menu, inflater);
-      }
-  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

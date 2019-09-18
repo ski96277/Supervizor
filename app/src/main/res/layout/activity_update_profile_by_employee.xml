@@ -16,10 +16,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image_ID"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="25sp"
             android:layout_marginBottom="10sp"
             android:src="@drawable/profile" />
 
@@ -41,8 +40,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50sp"
                     android:layout_weight="2"
-                    android:paddingLeft="10sp"
-                    android:paddingRight="10sp"
+                    android:padding="15sp"
                     android:src="@drawable/profile" />
 
                 <EditText
@@ -51,6 +49,7 @@
                     android:layout_height="50sp"
                     android:layout_weight="9"
                     android:hint="Name"
+                    android:textSize="18sp"
                     android:inputType="text"
                     android:paddingLeft="10sp" />
             </LinearLayout>
@@ -77,8 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50sp"
                     android:layout_weight="2"
-                    android:paddingLeft="10sp"
-                    android:paddingRight="10sp"
+                    android:padding="15sp"
                     android:src="@drawable/designation" />
 
                 <EditText
@@ -88,6 +86,7 @@
                     android:layout_weight="9"
                     android:hint="Designation"
                     android:inputType="text"
+                    android:textSize="18sp"
                     android:paddingLeft="10sp" />
 
             </LinearLayout>
@@ -112,8 +111,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50sp"
                     android:layout_weight="2"
-                    android:paddingLeft="10sp"
-                    android:paddingRight="10sp"
+                    android:padding="15sp"
                     android:src="@drawable/email_icon" />
 
                 <EditText
@@ -122,6 +120,8 @@
                     android:layout_height="50sp"
                     android:layout_weight="9"
                     android:hint="E-mail"
+                    android:textSize="18sp"
+                    android:focusable="false"
                     android:inputType="text"
                     android:paddingLeft="10sp" />
             </LinearLayout>
@@ -147,8 +147,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50sp"
                     android:layout_weight="2"
-                    android:paddingLeft="10sp"
-                    android:paddingRight="10sp"
+                    android:padding="15sp"
                     android:src="@drawable/phone" />
 
                 <EditText
@@ -158,6 +157,7 @@
                     android:layout_weight="9"
                     android:hint="016 XX XX XX XX"
                     android:inputType="text"
+                    android:textSize="18sp"
                     android:paddingLeft="10sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

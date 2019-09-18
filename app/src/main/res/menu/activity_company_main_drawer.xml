@@ -40,6 +40,15 @@
     </group>
 
     <group android:checkableBehavior="single"
+        android:id="@+id/my_salary_generate">
+        <item
+            android:id="@+id/nav_salary_generate"
+            android:icon="@drawable/salary_generate_icon"
+            android:title="Salary Generate"
+            android:visible="true"/>
+    </group>
+
+    <group android:checkableBehavior="single"
         android:id="@+id/my_log_out">
         <item
             android:id="@+id/nav_logOut"

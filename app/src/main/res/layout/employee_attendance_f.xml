@@ -48,8 +48,6 @@
                     android:layout_height="wrap_content"
                     android:text="Loading..."
                     android:textColor="#FFF"
-                    android:textAllCaps="false"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:textSize="20sp" />
 
                 <TextView

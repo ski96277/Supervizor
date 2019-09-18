@@ -15,7 +15,6 @@ import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
 import com.example.supervizor.Fragment.Employee.Leave_Application_Employee_F;
 import com.example.supervizor.Fragment.Employee.MyLeaveApplication_Employee_F;
 import com.example.supervizor.Fragment.Employee.My_Team_F;
-import com.example.supervizor.Fragment.Employee.ProfileView_Employee_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
 import com.example.supervizor.Fragment.Employee.Team_List_As_A_Member;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
@@ -282,20 +281,23 @@ public class EmployeeMainActivity extends AppCompatActivity
         circleImageView_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProfileFragment();
+//                loadProfileFragment();
+                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
             }
         });
         name_TV_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProfileFragment();
+                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
 
             }
         });
         email_TV_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProfileFragment();
+//                loadProfileFragment();
+                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
+
 
             }
         });
@@ -510,7 +512,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         }
     }
 
-    private void loadProfileFragment() {
+/*    private void loadProfileFragment() {
         scan_calender_layout.setVisibility(View.GONE);
 
 //close the nav drawerLayout
@@ -527,7 +529,7 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         }
 
-    }
+    }*/
 
     private void load_Attendance_employee_Fragment() {
 

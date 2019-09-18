@@ -1,17 +1,20 @@
-package com.example.supervizor.Fragment.Employee;
+package com.example.supervizor.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.supervizor.Activity.ChangePasswordActivity;
-import com.example.supervizor.Activity.EmployeeMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -23,14 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
+public class ViewProfileByEmployeeActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class ProfileView_Employee_F extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     AddEmployee_PojoClass addEmployee_pojoClass;
@@ -43,30 +40,27 @@ public class ProfileView_Employee_F extends Fragment {
     TextView phone_TV_ID;
     TextView email_TV_ID;
     TextView calender_TV_ID;
+    private Button edit_profile_btn;
 
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profile_view_employee_f, container, false);
-
-    }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-        initialize(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_profile_by_employee_activity);
+        getSupportActionBar().setTitle("Profile");
+//hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.info(getContext(), "Check Internet Connection").show();
+        initialize();
+
+        if (!CheckInternet.isInternet(ViewProfileByEmployeeActivity.this)) {
+            Toasty.info(ViewProfileByEmployeeActivity.this, "Check Internet Connection").show();
             return;
         }
         check_user_information = new Check_User_information();
         user_ID = check_user_information.getUserID();
 
         getProfile_Information(user_ID);
-
 
     }
 
@@ -102,63 +96,54 @@ public class ProfileView_Employee_F extends Fragment {
             }
         });
     }
-
-    private void initialize(View view) {
+    private void initialize() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        circleImageView_profile = view.findViewById(R.id.employee_profile_image_user_profile);
-        name_TV_head = view.findViewById(R.id.employee_name_tv_profile_view);
-        designation_TV_head = view.findViewById(R.id.employee_designation_profile_view);
-        name_TV_ID = view.findViewById(R.id.employee_name_tv_profile_view_page_1);
-        phone_TV_ID = view.findViewById(R.id.employee_phone_number_tv_profile_view_page_1);
-        email_TV_ID = view.findViewById(R.id.employee_email_tv_profile_view_page_1);
-        calender_TV_ID = view.findViewById(R.id.employee_date_tv_profile_view_page_1);
+        circleImageView_profile = findViewById(R.id.employee_profile_image_user_profile);
+        name_TV_head = findViewById(R.id.employee_name_tv_profile_view);
+        designation_TV_head = findViewById(R.id.employee_designation_profile_view);
+        name_TV_ID = findViewById(R.id.employee_name_tv_profile_view_page_1);
+        phone_TV_ID = findViewById(R.id.employee_phone_number_tv_profile_view_page_1);
+        email_TV_ID = findViewById(R.id.employee_email_tv_profile_view_page_1);
+        calender_TV_ID = findViewById(R.id.employee_date_tv_profile_view_page_1);
+
+        edit_profile_btn=findViewById(R.id.edit_profile_employee);
+        edit_profile_btn.setOnClickListener(this);
 
     }
+
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-//        inflater.inflate(R.menu.company_main,menu);
-        menu.findItem(R.id.edit_profile_employee).setVisible(true);
-        menu.findItem(R.id.change_password_employee).setVisible(true);
-
-        super.onCreateOptionsMenu(menu, inflater);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater findMenuItems = getMenuInflater();
+        findMenuItems.inflate(R.menu.profile_view_by_employee_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.edit_profile_employee:
-                load_Edit_profile_Fragment();
-                break;
+          /*  case R.id.edit_profile_employee:
+                startActivity(new Intent(ViewProfileByEmployeeActivity.this, UpdateProfileByEmployeeActivity.class));
+
+                break;*/
 
             case R.id.change_password_employee:
-//                load_Edit_profile_Fragment();
-                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
+                startActivity(new Intent(ViewProfileByEmployeeActivity.this, ChangePasswordActivity.class));
                 break;
 
         }
         return false;
     }
 
-    private void load_Edit_profile_Fragment() {
-        Fragment fragment = new Update_employee_Profile();
-        if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
-            fragmentTransaction.commit();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.edit_profile_employee:
+                startActivity(new Intent(this,UpdateProfileByEmployeeActivity.class));
+                break;
         }
     }
-
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((EmployeeMainActivity) getActivity())
-                .setActionBarTitle("Profile");
-    }
-
-
 }

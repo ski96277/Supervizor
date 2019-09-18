@@ -21,8 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.View_Company_Profile_Activity"
+        <activity android:name=".Activity.SalaryGenerateDashBoardActivity"
             android:parentActivityName=".Activity.CompanyMainActivity"/>
+        <activity
+            android:name=".Activity.ViewProfileByEmployeeActivity"
+            android:parentActivityName=".Activity.EmployeeMainActivity" />
+        <activity
+            android:name=".Activity.UpdateProfileByEmployeeActivity"
+            android:parentActivityName=".Activity.ViewProfileByEmployeeActivity" />
+        <activity
+            android:name=".Activity.View_Company_Profile_Activity"
+            android:parentActivityName=".Activity.CompanyMainActivity" />
         <activity
             android:name=".Activity.Add_Receptionist_Activity_by_Admin"
             android:parentActivityName=".Activity.CompanyMainActivity"

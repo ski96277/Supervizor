@@ -456,6 +456,162 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
             tableRow29.setVisibility(View.VISIBLE);
         }
 
+        exitTimeDate1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate1.setTextColor(Color.parseColor("#000000"));
+        entryTimeDate1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate1.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate2.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate2.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate2.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate2.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate3.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate3.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate3.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate3.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate4.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate4.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate4.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate4.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate5.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate5.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate5.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate5.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate6.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate6.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate6.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate6.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate7.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate7.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate7.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate7.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate8.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate8.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate8.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate8.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate9.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate9.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate9.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate9.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate10.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate10.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate10.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate10.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate11.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate11.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate11.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate11.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate12.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate12.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate12.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate12.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate13.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate13.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate13.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate13.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate14.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate14.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate14.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate14.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate15.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate15.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate15.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate15.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate16.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate16.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate16.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate16.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate17.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate17.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate17.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate17.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate18.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate18.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate18.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate18.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate19.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate19.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate19.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate19.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate20.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate20.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate20.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate20.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate21.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate21.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate21.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate21.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate22.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate22.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate22.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate22.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate23.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate23.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate23.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate23.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate24.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate24.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate24.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate24.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate25.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate25.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate25.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate25.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate26.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate26.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate26.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate26.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate27.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate27.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate27.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate27.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate28.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate28.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate28.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate28.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate29.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate29.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate29.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate29.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate30.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate30.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate30.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate30.setTextColor(Color.parseColor("#000000"));
+
+        entryTimeDate31.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        entryTimeDate31.setTextColor(Color.parseColor("#000000"));
+        exitTimeDate31.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        exitTimeDate31.setTextColor(Color.parseColor("#000000"));
+
+
         monthNumber = i;
         //first data (date) start here
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
