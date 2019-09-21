@@ -48,11 +48,24 @@
         <item>February</item>
         <item>March</item>
     </string-array>
+
     <string-array name="year_array">
         <item>2019</item>
         <item>2020</item>
         <item>2021</item>
     </string-array>
+    <string-array name="typeOfCalculate">
+        <item>Addition</item>
+        <item>Subtraction</item>
+        <item>Multiple</item>
+    </string-array>
+
+    <string-array name="typeOfSalary">
+        <item>Percentage</item>
+        <item>By hour</item>
+    </string-array>
+
+
     <string name="title_activity_employee_main">EmployeeMainActivity</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>

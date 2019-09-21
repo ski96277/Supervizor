@@ -236,25 +236,25 @@ forget_pass_TV.setOnClickListener(this);
     public void onStart() {
         super.onStart();
 
-        kAlertDialog = new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setCancelable(false);
-        kAlertDialog.setTitleText("Loading....");
-//        kAlertDialog.show();
+       KAlertDialog checkUser_Login_Alert= new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
+        checkUser_Login_Alert.setCancelable(false);
+        checkUser_Login_Alert.setTitleText("Loading....");
+        checkUser_Login_Alert.show();
 
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
-            kAlertDialog.dismiss();
+            checkUser_Login_Alert.dismiss();
         } else {
-            kAlertDialog.setTitleText("Getting the user Data");
+            checkUser_Login_Alert.setTitleText("Getting the user Data");
             //check user data when not login
-            checkUserType(currentUser.getUid());
+            checkUserType(currentUser.getUid(),checkUser_Login_Alert);
         }
 //        updateUI(currentUser);
     }
 
 //check user Type without Login
-    private void checkUserType(String uid) {
+    private void checkUserType(String uid, KAlertDialog checkUser_Login_Alert) {
 
         firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -264,7 +264,7 @@ forget_pass_TV.setOnClickListener(this);
                 if (company_true){
                     startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                    kAlertDialog.dismiss();
+                    checkUser_Login_Alert.dismiss();
 
                     return;
                 }

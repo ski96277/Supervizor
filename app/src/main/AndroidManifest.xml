@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.SalaryGenerateDashBoardActivity"
-            android:parentActivityName=".Activity.CompanyMainActivity"/>
+        <activity android:name=".Activity.PolicyFormActivity"
+            android:parentActivityName=".Activity.SalaryGenerateDashBoardActivity"/>
+        <activity
+            android:name=".Activity.SalaryGenerateDashBoardActivity"
+            android:parentActivityName=".Activity.CompanyMainActivity" />
         <activity
             android:name=".Activity.ViewProfileByEmployeeActivity"
             android:parentActivityName=".Activity.EmployeeMainActivity" />
