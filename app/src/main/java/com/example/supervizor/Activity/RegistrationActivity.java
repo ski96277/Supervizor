@@ -21,9 +21,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         //hide notification bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-   /*
-         //hide action bar
-        getSupportActionBar().hide();*/
 
         fragment = new Registartion_page_1();
         if (fragment != null) {

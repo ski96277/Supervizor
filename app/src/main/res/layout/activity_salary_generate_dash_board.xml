@@ -6,7 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SalaryGenerateDashBoardActivity">
 
-
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loading_spin_kit"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_policy"
         android:layout_width="match_parent"
@@ -24,6 +36,7 @@
         android:layout_marginTop="230dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text='" No policies added yet ! "'
         android:textColor="#000"
         android:textSize="20sp"
@@ -44,4 +57,5 @@
         android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

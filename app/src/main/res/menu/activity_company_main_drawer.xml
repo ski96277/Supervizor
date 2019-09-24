@@ -40,11 +40,27 @@
     </group>
 
     <group android:checkableBehavior="single"
-        android:id="@+id/my_salary_generate">
+        android:id="@+id/my_salary_Policies">
         <item
-            android:id="@+id/nav_salary_generate"
+            android:id="@+id/nav_salary_Policies"
             android:icon="@drawable/salary_generate_icon"
-            android:title="Salary Generate"
+            android:title="Salary Policies"
+            android:visible="true"/>
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_salary_list">
+        <item
+            android:id="@+id/nav_salary_list"
+            android:icon="@drawable/salary_generate_icon"
+            android:title="Salary List"
+            android:visible="true"/>
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/my_salary_report">
+        <item
+            android:id="@+id/nav_salary_report"
+            android:icon="@drawable/salary_generate_icon"
+            android:title="Salary Report"
             android:visible="true"/>
     </group>
 

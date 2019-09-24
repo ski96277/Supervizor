@@ -492,8 +492,14 @@ public class CompanyMainActivity extends AppCompatActivity
             load_Team_leader_F();
 
 
-        } else if (id == R.id.nav_salary_generate) {
+        } else if (id == R.id.nav_salary_Policies) {
             startActivity(new Intent(this, SalaryGenerateDashBoardActivity.class));
+
+        }  else if (id == R.id.nav_salary_list) {
+            startActivity(new Intent(this, SalaryViewEmployeeListActivity.class));
+
+        }  else if (id == R.id.nav_salary_report) {
+            startActivity(new Intent(this, SalaryReportAllActivity.class));
 
         } else if (id == R.id.nav_team_request_pending) {
             Bundle bundle = new Bundle();
