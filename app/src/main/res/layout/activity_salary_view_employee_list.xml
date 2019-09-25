@@ -9,15 +9,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/salary_view_list_employee"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="246dp"
+        android:layout_height="match_parent"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/noUserFoundtoDisplay_TV"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/loading_spin_kit_salary_list"
         style="@style/SpinKitView.Large.Wave"
         android:layout_width="wrap_content"

@@ -63,6 +63,7 @@
     <string-array name="typeOfSalary">
         <item>Percentage</item>
         <item>By hour</item>
+        <item>TK</item>
     </string-array>
 
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
 import com.example.supervizor.Java_Class.CheckInternet
 import com.example.supervizor.Java_Class.Check_User_information
@@ -95,7 +96,9 @@ class PolicyFormActivity : AppCompatActivity(), View.OnClickListener {
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                loading_spin_kit_ID.visibility = View.GONE
+
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
