@@ -22,7 +22,18 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
     var addemployeePojoclassList = ArrayList<AddEmployee_PojoClass>()
     lateinit var checkUserInformation: Check_User_information
     var salaryPolicyPojoClas_list = ArrayList<SalaryPolicyPojoClass>()
-    var attendanceCountPerEmployee = ArrayList<Long>()
+    var attendanceCountPerEmployee_List = ArrayList<Long>()
+    var totalSalaryList = ArrayList<Long>()
+    var totalsalaryWithPolicyList = ArrayList<Long>()
+    lateinit var total_workeing_Days_Compnay: String
+
+    var additionByPersentage = 0
+    var additionByHour = 0
+    var additionByTaka = 0
+
+    var subtractionByPersentage = 0
+    var subtractionByHour = 0
+    var subtractionByTaka = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +46,8 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         //get year month
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH) + 1
+//        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         salary_view_list_employee.setLayoutManager(linearLayoutManager)
@@ -45,35 +56,13 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         loading_spin_kit_salary_list.visibility = View.VISIBLE
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+
             override fun onCancelled(p0: DatabaseError) {
                 loading_spin_kit_salary_list.visibility = View.GONE
 
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-
-//get Employee List
-                for (snapshot in p0.child("employee_list_by_company").child(checkUserInformation.userID)
-                        .children) {
-                    val addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass::class.java)
-
-                    //get attendance count
-                   var attendance_count =  snapshot.child("Attendance").child(checkUserInformation.userID)
-                            .child(addEmployeePojoClass!!.employee_User_id)
-                            .child(year.toString()).child(month.toString()).childrenCount
-
-                    Log.e("TAG - - : ", ": ${addEmployeePojoClass!!.employee_User_id}"  )
-                    Log.e("TAG - - : ", ": $attendance_count"  )
-                    attendanceCountPerEmployee.add(attendance_count)
-
-                    addemployeePojoclassList.add(addEmployeePojoClass!!)
-
-
-                }
-
-      //get Working Days monthly
-               var total_workeing_Days =  p0.child("company_list").child(checkUserInformation.userID).child("company_working_day")
-                        .getValue(String::class.java)
 
 
                 //get salary policy for this company
@@ -82,6 +71,96 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     val salaryPolicyPojoClass = snapshot.getValue(SalaryPolicyPojoClass::class.java)
                     salaryPolicyPojoClas_list.add(salaryPolicyPojoClass!!)
                 }
+
+                for (salaryPolicy in salaryPolicyPojoClas_list) {
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Addition"
+                            && salaryPolicy.calculateTypeSpinner == "TK") {
+
+                        additionByTaka = salaryPolicy.amountSt.toInt().plus(additionByTaka)
+
+                        Log.e("TAG - - : ", "Addition TK " + additionByTaka)
+
+                    }
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Addition"
+                            && salaryPolicy.calculateTypeSpinner == "Percentage") {
+
+                        additionByPersentage = salaryPolicy.amountSt.toInt().plus(additionByPersentage)
+                        Log.e("TAG - - : ", "Addition Percentage " + salaryPolicy.amountSt);
+
+                    }
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Addition"
+                            && salaryPolicy.calculateTypeSpinner == "By hour") {
+
+                        additionByHour = salaryPolicy.amountSt.toInt().plus(additionByHour)
+                        Log.e("TAG - - : ", "Addition By hour $additionByHour")
+
+
+                    }
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Subtraction"
+                            && salaryPolicy.calculateTypeSpinner == "TK") {
+
+                        subtractionByTaka = salaryPolicy.amountSt.toInt().plus(subtractionByTaka)
+                        Log.e("TAG - - : ", "Subtraction TK " + subtractionByTaka);
+                    }
+
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Subtraction"
+                            && salaryPolicy.calculateTypeSpinner == "Percentage") {
+
+                         subtractionByPersentage =  salaryPolicy.amountSt.toInt().plus(subtractionByPersentage)
+                        Log.e("TAG - - : ", "Subtraction Percentage " + subtractionByPersentage);
+
+
+                    }
+
+                    if (salaryPolicy.calculateTypeSpinner_plus == "Subtraction"
+                            && salaryPolicy.calculateTypeSpinner == "By hour") {
+
+                        subtractionByHour = salaryPolicy.amountSt.toInt().plus(subtractionByHour)
+                        Log.e("TAG - - : ", "Subtraction By hour " + subtractionByHour);
+
+                    }
+
+
+                }
+
+
+//get Employee List
+                for (snapshot in p0.child("employee_list_by_company").child(checkUserInformation.userID)
+                        .children) {
+
+                    val addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass::class.java)
+
+                    //get attendance count for employee
+                    var attendance_count = p0.child("Attendance").child(checkUserInformation.userID)
+                            .child(addEmployeePojoClass!!.employee_User_id)
+                            .child(year.toString()).child(month.toString()).childrenCount
+
+                    //get Working Days monthly
+                    total_workeing_Days_Compnay = p0.child("company_list").child(checkUserInformation.userID).child("company_working_day")
+                            .getValue(String::class.java).toString()
+
+                    var perDay_salary = (addEmployeePojoClass.employee_salary.toInt()) / (total_workeing_Days_Compnay!!.toInt())
+
+                    var totalSalary: Int
+//if attendance is zero
+                    if (attendance_count.toInt() == 0) {
+
+                        totalSalary = 0
+
+                    } else {
+
+                        totalSalary = perDay_salary * attendance_count.toInt()
+                    }
+
+                    totalSalaryList.add(totalSalary.toLong())
+                    attendanceCountPerEmployee_List.add(attendance_count)
+
+                    addemployeePojoclassList.add(addEmployeePojoClass!!)
+
+
+                }
+
+
                 //if employee list is empty
                 if (addemployeePojoclassList.isEmpty()) {
 
@@ -94,7 +173,20 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     noUserFoundtoDisplay_TV.visibility = View.GONE
                     salary_view_list_employee.visibility = View.VISIBLE
 
-                    var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(addemployeePojoclassList,total_workeing_Days)
+                    Log.e("TAG - - : ", ": " + total_workeing_Days_Compnay);
+                    Log.e("TAG - - : ", ": " + totalSalaryList)
+
+                    var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(
+                            addemployeePojoclassList,
+                            total_workeing_Days_Compnay
+                            , totalSalaryList,
+                            attendanceCountPerEmployee_List,
+                            additionByTaka,
+                            additionByHour,
+                            additionByPersentage,
+                            subtractionByTaka,
+                            subtractionByPersentage,
+                            subtractionByHour)
 
                     salary_view_list_employee.adapter = salaryListEmployeeListAdapter
 

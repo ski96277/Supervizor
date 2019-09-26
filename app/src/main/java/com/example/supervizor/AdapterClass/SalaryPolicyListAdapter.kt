@@ -41,7 +41,7 @@ class SalaryPolicyListAdapter(var salaryPolicyPojoClassList: MutableList<SalaryP
         fun setDataToItem(salaryPolicyPojoClass: SalaryPolicyPojoClass) {
 
             itemView.policyTitle_TV_ID.text = salaryPolicyPojoClass.policyTitleSt
-            itemView.policyDetails_TV_ID.text = ": " + salaryPolicyPojoClass.amountSt + " " + salaryPolicyPojoClass.calculateTypeSpinner
+            itemView.policyDetails_TV_ID.text = ":   " + salaryPolicyPojoClass.amountSt + " " + salaryPolicyPojoClass.calculateTypeSpinner
             itemView.setOnLongClickListener {
                 showDialogToDelete(salaryPolicyPojoClass)
 
