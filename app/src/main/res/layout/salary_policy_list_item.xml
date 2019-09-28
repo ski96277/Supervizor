@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1.2"
+                android:layout_weight="1.0"
                 android:gravity="left|center"
                 android:paddingLeft="10sp"
                 android:text="Overtime :"
@@ -40,6 +40,7 @@
                 android:layout_weight="1.5"
                 android:gravity="left|center"
                 android:paddingLeft="10sp"
+                android:maxLines="1"
                 android:text="200 BDT Per Hours"
                 android:textColor="#000"
                 android:textSize="15sp" />

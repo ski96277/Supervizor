@@ -57,12 +57,10 @@
     <string-array name="typeOfCalculate">
         <item>Addition</item>
         <item>Subtraction</item>
-        <item>Multiple</item>
     </string-array>
 
     <string-array name="typeOfSalary">
         <item>Percentage</item>
-        <item>By hour</item>
         <item>TK</item>
     </string-array>
 

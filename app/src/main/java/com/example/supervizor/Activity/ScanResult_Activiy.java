@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import es.dmoral.toasty.Toasty;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,9 +25,14 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.kinda.alert.KAlertDialog;
 
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class ScanResult_Activiy extends AppCompatActivity {
@@ -45,11 +51,11 @@ public class ScanResult_Activiy extends AppCompatActivity {
 
         intent = getIntent();
         intent_text = intent.getStringExtra("value");
-        Log.e("Tag","intent intent_text= "+ intent_text);
+        Log.e("Tag", "intent intent_text= " + intent_text);
 
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
-        check_user_information=new Check_User_information();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        check_user_information = new Check_User_information();
 
         //for scanner
         new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
@@ -67,90 +73,126 @@ public class ScanResult_Activiy extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
 //write your code here
-                if (!CheckInternet.isInternet(getApplicationContext())){
-                    startActivity(new Intent(getApplicationContext(),EmployeeMainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                    Toasty.info(getApplicationContext(),"Check Internet Connection").show();
+                if (!CheckInternet.isInternet(getApplicationContext())) {
+                    startActivity(new Intent(getApplicationContext(), EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    Toasty.info(getApplicationContext(), "Check Internet Connection").show();
                     return;
                 }
                 //get the scanner value
 
-                String scan_Text= result.getContents();
-                Log.e("Tag","scan data = "+scan_Text);
-                Log.e("Tag","intent intent_text= "+ intent_text);
+                String scan_Text = result.getContents();
+                Log.e("Tag", "scan data = " + scan_Text);
+                Log.e("Tag", "intent intent_text= " + intent_text);
 
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                       AddEmployee_PojoClass addEmployee_pojoClass =  dataSnapshot.child("employee_list")
-                               .child(check_user_information.getUserID()).getValue(AddEmployee_PojoClass.class);
+                        AddEmployee_PojoClass addEmployee_pojoClass = dataSnapshot.child("employee_list")
+                                .child(check_user_information.getUserID()).getValue(AddEmployee_PojoClass.class);
 
-                       String data = dataSnapshot.child("qr_code").child(addEmployee_pojoClass.getCompany_User_id()).child("number").getValue(String.class);
+                        String data = dataSnapshot.child("qr_code").child(addEmployee_pojoClass.getCompany_User_id()).child("number").getValue(String.class);
 
-                       //if scan data and database is same
-                       if (scan_Text.equals(data)){
+                        //if scan data and database is same
+                        if (scan_Text.equals(data)) {
 
-                           if (intent_text.equals("entry")){
+                            if (intent_text.equals("entry")) {
 //save Entry Time
 
-                               KAlertDialog kAlertDialog=new KAlertDialog(ScanResult_Activiy.this,KAlertDialog.SUCCESS_TYPE);
-                               kAlertDialog.setTitleText("Entry Success...");
-                               kAlertDialog.show();
+                                KAlertDialog kAlertDialog = new KAlertDialog(ScanResult_Activiy.this, KAlertDialog.SUCCESS_TYPE);
+                                kAlertDialog.setTitleText("Entry Success...");
+                                kAlertDialog.show();
 
-                               Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                               int year = calendar.get(Calendar.YEAR);
-                               int month = calendar.get(Calendar.MONTH);
-                               int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+                                int year = calendar.get(Calendar.YEAR);
+                                int month = calendar.get(Calendar.MONTH);
+                                int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                 String time = df.format(Calendar.getInstance().getTime());
+                                //get late time
+                                String company_penalty_time = dataSnapshot.child("company_list")
+                                        .child(addEmployee_pojoClass.getCompany_User_id())
+                                        .child("company_penalty_time")
+                                        .getValue(String.class);
+                                Log.e("TAG - - : ", "onDataChange: company_penalty_time " + company_penalty_time);
+
+                                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                LocalTime time1_entry = LocalTime.parse(time, timeFormatter);
+                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+
+                                if (time1_entry.isBefore(time2_entry)) {
+//                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
+                                } else {
+
+                                    String lateCount = dataSnapshot.child("late_count").child(check_user_information.getUserID())
+                                            .child("TotalDays").getValue(String.class);
+
+                                    Log.e("TAG - - : ", "onDataChange: lateCount " + lateCount);
+                                    if (lateCount != null) {
+
+                                        int latecountTotal = Integer.valueOf(lateCount) + 1;
+
+                                        databaseReference.child("late_count").child(check_user_information.getUserID())
+                                                .child("TotalDays").setValue(String.valueOf(latecountTotal));
+                                    }else {
+                                        int latecountTotal =  1;
+
+                                        databaseReference.child("late_count").child(check_user_information.getUserID())
+                                                .child("TotalDays").setValue(String.valueOf(latecountTotal));
+                                    }
+
+
+                                }
+
+
+                                //save entry time
                                 databaseReference.child("Attendance").child(addEmployee_pojoClass.getCompany_User_id())
                                         .child(check_user_information.getUserID())
                                         .child(String.valueOf(year)).child(String.valueOf(month + 1))
-                                        .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(time)
+                                        .child(String.valueOf(day)).child("Entry").child("entryTime")
+                                        .setValue(time)
                                         .addOnCompleteListener(task -> kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
                                             kAlertDialog1.dismissWithAnimation();
 
-                                            startActivity(new Intent(getApplicationContext(),EmployeeMainActivity.class)
-                                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                            startActivity(new Intent(getApplicationContext(), EmployeeMainActivity.class)
+                                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                         }));
 
 
+                            } else if (intent_text.equals("exit")) {
 
 
-                               }else if (intent_text.equals("exit")){
+                                KAlertDialog kAlertDialog = new KAlertDialog(ScanResult_Activiy.this, KAlertDialog.SUCCESS_TYPE);
+                                kAlertDialog.setTitleText("Exit Success...");
+                                kAlertDialog.show();
+
+                                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+                                int year = calendar.get(Calendar.YEAR);
+                                int month = calendar.get(Calendar.MONTH);
+                                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                                DateFormat df = new SimpleDateFormat("h:mm a");
+                                String time = df.format(Calendar.getInstance().getTime());
+
+                                databaseReference.child("Attendance").child(addEmployee_pojoClass.getCompany_User_id())
+                                        .child(check_user_information.getUserID()).child(String.valueOf(year)).child(String.valueOf(month + 1))
+                                        .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(time)
+
+                                        .addOnCompleteListener(task -> kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+                                            kAlertDialog1.dismissWithAnimation();
+
+                                            startActivity(new Intent(getApplicationContext(), EmployeeMainActivity.class)
+                                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                        }));
 
 
-                               KAlertDialog kAlertDialog=new KAlertDialog(ScanResult_Activiy.this,KAlertDialog.SUCCESS_TYPE);
-                               kAlertDialog.setTitleText("Exit Success...");
-                               kAlertDialog.show();
+                            }
 
-                               Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                               int year = calendar.get(Calendar.YEAR);
-                               int month = calendar.get(Calendar.MONTH);
-                               int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                               DateFormat df = new SimpleDateFormat("h:mm a");
-                               String time = df.format(Calendar.getInstance().getTime());
-
-                               databaseReference.child("Attendance").child(addEmployee_pojoClass.getCompany_User_id())
-                                       .child(check_user_information.getUserID()).child(String.valueOf(year)).child(String.valueOf(month + 1))
-                                       .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(time)
-
-                                       .addOnCompleteListener(task -> kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
-                                   kAlertDialog1.dismissWithAnimation();
-
-                                   startActivity(new Intent(getApplicationContext(),EmployeeMainActivity.class)
-                                           .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                               }));
-
-
-                           }
-
-                       }else {
-                           startActivity(new Intent(getApplicationContext(),EmployeeMainActivity.class)
-                           .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                       }
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), EmployeeMainActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        }
                     }
 
                     @Override

@@ -24,7 +24,6 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
     var salaryPolicyPojoClas_list = ArrayList<SalaryPolicyPojoClass>()
     var attendanceCountPerEmployee_List = ArrayList<Long>()
     var totalSalaryList = ArrayList<Long>()
-    var totalsalaryWithPolicyList = ArrayList<Long>()
     lateinit var total_workeing_Days_Compnay: String
 
     var additionByPersentage = 0
@@ -106,7 +105,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     if (salaryPolicy.calculateTypeSpinner_plus == "Subtraction"
                             && salaryPolicy.calculateTypeSpinner == "Percentage") {
 
-                         subtractionByPersentage =  salaryPolicy.amountSt.toInt().plus(subtractionByPersentage)
+                        subtractionByPersentage = salaryPolicy.amountSt.toInt().plus(subtractionByPersentage)
                         Log.e("TAG - - : ", "Subtraction Percentage " + subtractionByPersentage);
 
 
@@ -139,15 +138,20 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     total_workeing_Days_Compnay = p0.child("company_list").child(checkUserInformation.userID).child("company_working_day")
                             .getValue(String::class.java).toString()
 
-                    var perDay_salary = (addEmployeePojoClass.employee_salary.toInt()) / (total_workeing_Days_Compnay!!.toInt())
 
                     var totalSalary: Int
+
+
 //if attendance is zero
                     if (attendance_count.toInt() == 0) {
 
                         totalSalary = 0
 
                     } else {
+                        var perDay_salary = (addEmployeePojoClass.employee_salary.toInt()) / (total_workeing_Days_Compnay!!.toInt())
+
+                        Log.e("TAG - - : ", "Per Day: $perDay_salary");
+                        Log.e("TAG - - : ", "Per Day: $attendance_count");
 
                         totalSalary = perDay_salary * attendance_count.toInt()
                     }
@@ -173,8 +177,8 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     noUserFoundtoDisplay_TV.visibility = View.GONE
                     salary_view_list_employee.visibility = View.VISIBLE
 
-                    Log.e("TAG - - : ", ": " + total_workeing_Days_Compnay);
-                    Log.e("TAG - - : ", ": " + totalSalaryList)
+                    Log.e("TAG - - : ", ": $total_workeing_Days_Compnay");
+                    Log.e("TAG - - : ", ": $totalSalaryList")
 
                     var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(
                             addemployeePojoclassList,
