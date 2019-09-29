@@ -24,8 +24,7 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                                     var additionByPersentage: Int,
                                     var subtractionByTaka: Int,
                                     var subtractionByPersentage: Int,
-                                    var subtractionByHour: Int
-) : RecyclerView.Adapter<SalaryListEmployeeListAdapter.ViewHolderClass>() {
+                                    var subtractionByHour: Int) : RecyclerView.Adapter<SalaryListEmployeeListAdapter.ViewHolderClass>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -85,7 +84,6 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
 
                 @SuppressLint("SetTextI18n")
                 override fun onDataChange(p0: DataSnapshot) {
-
 
 
                     var latecount = p0.child("late_count")

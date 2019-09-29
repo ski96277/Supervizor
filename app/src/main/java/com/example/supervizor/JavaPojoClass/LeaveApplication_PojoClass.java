@@ -12,6 +12,10 @@ public class LeaveApplication_PojoClass {
     String profile_image_link;
     String leave_employee_name;
     String leave_employee_designation;
+    String day;
+    String month;
+    String year;
+
 
     boolean leave_seen;
 
@@ -34,18 +38,58 @@ public class LeaveApplication_PojoClass {
         this.leave_employee_designation = leave_employee_designation;
     }
 
-    public LeaveApplication_PojoClass(String user_ID_Employee, String user_ID_company, String leave_Title, String leave_description, String leave_start_date, String leave_End_Date, String leave_applying_Date, String profile_image_link, String leave_employee_name, String leave_employee_designation, boolean leave_seen) {
+    public LeaveApplication_PojoClass(String user_ID_Employee,
+                                      String user_ID_company,
+                                      String leave_Title,
+                                      String leave_description,
+                                      String leave_start_date,
+                                      String leave_End_Date,
+                                      String leave_day,
+                                      String leave_month,
+                                      String leave_year,
+                                      String leave_applying_Date,
+                                      String profile_image_link,
+                                      String leave_employee_name,
+                                      String leave_employee_designation,
+                                      boolean leave_seen) {
         this.user_ID_Employee = user_ID_Employee;
         this.user_ID_company = user_ID_company;
         this.leave_Title = leave_Title;
         this.leave_description = leave_description;
         this.leave_start_date = leave_start_date;
         this.leave_End_Date = leave_End_Date;
+        this.day=leave_day;
+        this.month=leave_month;
+        this.year=leave_year;
         this.leave_applying_Date = leave_applying_Date;
         this.profile_image_link = profile_image_link;
         this.leave_employee_name = leave_employee_name;
         this.leave_employee_designation = leave_employee_designation;
         this.leave_seen = leave_seen;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getProfile_image_link() {

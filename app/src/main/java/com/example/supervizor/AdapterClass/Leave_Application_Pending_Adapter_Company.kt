@@ -55,7 +55,7 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
 
         fun setview(leaveApplication_PojoClas: LeaveApplication_PojoClass) {
 
-            if (!leaveApplication_PojoClas.profile_image_link.equals("null")) {
+            if (leaveApplication_PojoClas.profile_image_link != "null") {
 
                 Picasso.get().load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
                         .into(itemView.leave_item_profile_photo_imageView_leave)
@@ -82,7 +82,7 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
             dialog.leave_duration_TV_ID_company.text = "${leaveApplication_PojoClas.leave_start_date} to ${leaveApplication_PojoClas.leave_End_Date}"
             dialog.leave_details_details_TV_ID_company.text = leaveApplication_PojoClas.leave_description
 
-            if (!leaveApplication_PojoClas.profile_image_link.equals("null")) {
+            if (leaveApplication_PojoClas.profile_image_link != "null") {
 
                 Picasso.get().load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
                         .into(dialog.leave_applicant_profile_image)
@@ -107,7 +107,7 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
                 var databaseReference = firebseDatabase.getReference()
                         .child("leave_application")
                         .child(check_User_information.userID)
-                        .child("pending")
+                        .child(leaveApplication_PojoClas.user_ID_Employee)
                         .child(leaveApplication_PojoClas.leave_Title)
                         .child("leave_seen").setValue(true)
 

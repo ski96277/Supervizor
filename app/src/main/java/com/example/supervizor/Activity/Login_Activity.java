@@ -2,6 +2,7 @@ package com.example.supervizor.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import es.dmoral.toasty.Toasty;
 
 import android.content.Intent;
@@ -28,9 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
 public class Login_Activity extends AppCompatActivity implements View.OnClickListener {
-   private Button button_login;
-   private TextView forget_pass_TV;
-    private  TextView register_company;
+    private Button button_login;
+    private TextView forget_pass_TV;
+    private TextView register_company;
     private EditText email_ET;
     private EditText password_ET;
 
@@ -56,7 +57,7 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
         register_company = findViewById(R.id.register_company_TV_ID);
 
         button_login.setOnClickListener(this);
-forget_pass_TV.setOnClickListener(this);
+        forget_pass_TV.setOnClickListener(this);
 
         register_company.setOnClickListener(this);
 
@@ -64,7 +65,7 @@ forget_pass_TV.setOnClickListener(this);
 
     private void initialize() {
         email_ET = findViewById(R.id.email_login_ET_ID);
-        forget_pass_TV=findViewById(R.id.forget_password_TV_ID);
+        forget_pass_TV = findViewById(R.id.forget_password_TV_ID);
         password_ET = findViewById(R.id.password_login_ET_ID);
 
 // Initialize Firebase Auth
@@ -77,7 +78,7 @@ forget_pass_TV.setOnClickListener(this);
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.forget_password_TV_ID:
-                startActivity(new Intent(this,Forget_Password.class));
+                startActivity(new Intent(this, Forget_Password.class));
                 break;
 
             case R.id.login_btn_ID:
@@ -109,9 +110,9 @@ forget_pass_TV.setOnClickListener(this);
                 //check Internet Connection is ok
                 if (!CheckInternet.isInternet(getApplicationContext())) {
 
- //vibrator Start
-                     vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                     vibrator.vibrate(1000);
+                    //vibrator Start
+                    vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
 //vibrator End
                     Toasty.error(getApplicationContext(), "Internet Error").show();
                     return;
@@ -130,7 +131,7 @@ forget_pass_TV.setOnClickListener(this);
                                 Toasty.success(getApplicationContext(), "Success").show();
                                 kAlertDialog.setTitleText("Checking user Data");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                checkUserType(user.getUid(),pass_st);
+                                checkUserType(user.getUid(), pass_st);
 
                             } else {
                                 //animation email input
@@ -143,13 +144,13 @@ forget_pass_TV.setOnClickListener(this);
                                         .duration(100)
                                         .repeat(1)
                                         .playOn(findViewById(R.id.password_login_ET_ID));
-  //animation on login button
+                                //animation on login button
                                 YoYo.with(Techniques.Tada)
                                         .duration(100)
                                         .repeat(1)
                                         .playOn(findViewById(R.id.login_btn_ID));
 //vibrator
-                                vibrator= (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                                vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                                 vibrator.vibrate(1000);
 //vibrator End
 
@@ -169,16 +170,16 @@ forget_pass_TV.setOnClickListener(this);
     }
 //check usr Type
 
-    private void checkUserType(String uid,String pass_st) {
+    private void checkUserType(String uid, String pass_st) {
 
 
         firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
+                boolean company_true = dataSnapshot.child("company_list").hasChild(uid);
 
-                if (company_true){
+                if (company_true) {
                     //set password in data base
                     firebaseDatabase.getReference().child("company_list").child(uid).child("company_password")
                             .setValue(pass_st);
@@ -190,12 +191,12 @@ forget_pass_TV.setOnClickListener(this);
                     return;
                 }
 
-                boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
-                if (receptionist_true){
+                boolean receptionist_true = dataSnapshot.child("receptionist_list").hasChild(uid);
+                if (receptionist_true) {
 
-                    startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            .putExtra("password",pass_st));
+                    startActivity(new Intent(Login_Activity.this, ReceptionistMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .putExtra("password", pass_st));
 
                     //set password in data base
                     firebaseDatabase.getReference().child("receptionist_list").child(uid)
@@ -205,16 +206,16 @@ forget_pass_TV.setOnClickListener(this);
 
                 }
 
-                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
-                if (employee_true){
+                boolean employee_true = dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true) {
 
                     //set password in data base
                     firebaseDatabase.getReference().child("employee_list").child(uid)
                             .child("employee_password").setValue(pass_st);
 
-                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    .putExtra("password",pass_st));
+                    startActivity(new Intent(Login_Activity.this, EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .putExtra("password", pass_st));
 
 
                     return;
@@ -236,7 +237,7 @@ forget_pass_TV.setOnClickListener(this);
     public void onStart() {
         super.onStart();
 
-       KAlertDialog checkUser_Login_Alert= new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
+        KAlertDialog checkUser_Login_Alert = new KAlertDialog(Login_Activity.this, KAlertDialog.PROGRESS_TYPE);
         checkUser_Login_Alert.setCancelable(false);
         checkUser_Login_Alert.setTitleText("Loading....");
         checkUser_Login_Alert.show();
@@ -248,20 +249,20 @@ forget_pass_TV.setOnClickListener(this);
         } else {
             checkUser_Login_Alert.setTitleText("Getting the user Data");
             //check user data when not login
-            checkUserType(currentUser.getUid(),checkUser_Login_Alert);
+            checkUserType(currentUser.getUid(), checkUser_Login_Alert);
         }
 //        updateUI(currentUser);
     }
 
-//check user Type without Login
+    //check user Type without Login
     private void checkUserType(String uid, KAlertDialog checkUser_Login_Alert) {
 
         firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                boolean company_true= dataSnapshot.child("company_list").hasChild(uid);
-                if (company_true){
+                boolean company_true = dataSnapshot.child("company_list").hasChild(uid);
+                if (company_true) {
                     startActivity(new Intent(getApplicationContext(), CompanyMainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     checkUser_Login_Alert.dismiss();
@@ -269,19 +270,19 @@ forget_pass_TV.setOnClickListener(this);
                     return;
                 }
 
-                boolean receptionist_true= dataSnapshot.child("receptionist_list").hasChild(uid);
+                boolean receptionist_true = dataSnapshot.child("receptionist_list").hasChild(uid);
 
-                if (receptionist_true){
-                    startActivity(new Intent(Login_Activity.this,ReceptionistMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                if (receptionist_true) {
+                    startActivity(new Intent(Login_Activity.this, ReceptionistMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
 //                    Toasty.info(getApplicationContext(),"Receptionist").show();
                     return;
                 }
-                boolean employee_true= dataSnapshot.child("employee_list").hasChild(uid);
-                if (employee_true){
-                    startActivity(new Intent(Login_Activity.this,EmployeeMainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                boolean employee_true = dataSnapshot.child("employee_list").hasChild(uid);
+                if (employee_true) {
+                    startActivity(new Intent(Login_Activity.this, EmployeeMainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
 //                    Toasty.info(getApplicationContext(),"Employee").show();
                     return;

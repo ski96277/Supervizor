@@ -8,13 +8,16 @@ import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
+import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
 import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.R
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_salary_view_employee_list.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
@@ -46,7 +49,6 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         salary_view_list_employee.setLayoutManager(linearLayoutManager)
@@ -129,15 +131,46 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
                     val addEmployeePojoClass = snapshot.getValue(AddEmployee_PojoClass::class.java)
 
-                    //get attendance count for employee
-                    var attendance_count = p0.child("Attendance").child(checkUserInformation.userID)
-                            .child(addEmployeePojoClass!!.employee_User_id)
-                            .child(year.toString()).child(month.toString()).childrenCount
-
                     //get Working Days monthly
                     total_workeing_Days_Compnay = p0.child("company_list").child(checkUserInformation.userID).child("company_working_day")
                             .getValue(String::class.java).toString()
 
+                    //get attendance count for employee
+                    var attendance_count = p0.child("Attendance")
+                            .child(checkUserInformation.userID)
+                            .child(addEmployeePojoClass!!.employee_User_id)
+                            .child(year.toString())
+                            .child(month.toString())
+                            .childrenCount
+
+                    //get the leave approve day count Start
+                    var format = SimpleDateFormat("dd/MM/yyyy")
+                    var approveLeaveCount = 0
+                    if (attendance_count.toInt() < total_workeing_Days_Compnay.toInt()) {
+                        for (snapshot in p0.child("leave_application")
+                                .child(addEmployeePojoClass.company_User_id)
+                                .child(addEmployeePojoClass.employee_User_id)
+                                .children) {
+
+                            var leaveapplicationPojoclass = snapshot.getValue(LeaveApplication_PojoClass::class.java)
+                            if (leaveapplicationPojoclass!!.isLeave_seen &&
+                                    leaveapplicationPojoclass.month.toInt() == month &&
+                                    leaveapplicationPojoclass.year.toInt() == year) {
+
+                                var date1 = format.parse(leaveapplicationPojoclass.leave_start_date)
+                                var date2 = format.parse(leaveapplicationPojoclass.leave_End_Date)
+                                val diff = date2.getTime() - date1.getTime()
+                                val diffDays = diff / (24 * 60 * 60 * 1000)
+                                Log.e("Tag", "Days $diffDays")
+                                approveLeaveCount += diffDays.toInt()
+
+                            }
+                        }
+
+                    }
+
+                    attendance_count += approveLeaveCount.toLong()
+                    //get the leave approved day END
 
                     var totalSalary: Int
 

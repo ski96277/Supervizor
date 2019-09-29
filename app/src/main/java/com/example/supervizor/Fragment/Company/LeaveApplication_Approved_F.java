@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import es.dmoral.toasty.Toasty;
 
 public class LeaveApplication_Approved_F extends Fragment {
@@ -77,34 +78,90 @@ public class LeaveApplication_Approved_F extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                //get data for recycler view
+                leaveApplication_pojoClasses_seen_list.clear();
+                for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
+                        .child(check_user_information.getUserID())
+                        .getChildren()) {
+                    String userID_Key = snapshot.getKey();
+
+                    for (DataSnapshot snapshot1:dataSnapshot.child("leave_application")
+                            .child(check_user_information.getUserID())
+                            .child(userID_Key)
+                            .getChildren()){
+                        LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot1.getValue(LeaveApplication_PojoClass.class);
+
+                        if (leaveApplication_pojoClass.isLeave_seen()) {
+                            leaveApplication_pojoClasses_seen_list.add(leaveApplication_pojoClass);
+
+                        } else {
+
+                        }
+                    }
+
+
+                }
+                //set count update nav bar number
+
+                //if recycler view is empty
+                if (leaveApplication_pojoClasses_seen_list.isEmpty()) {
+                    Toasty.info(getContext(), "No Data Found.....").show();
+                }
+                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_seen_list.size()));
+
+                Leave_Application_Accepted_Adapter_Company leave_application_pending_adapterCompany = new Leave_Application_Accepted_Adapter_Company(leaveApplication_pojoClasses_seen_list);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                leaveApplicationApprovedListID.setLayoutManager(linearLayoutManager);
+                leaveApplicationApprovedListID.setAdapter(leave_application_pending_adapterCompany);
+                kAlertDialog.dismissWithAnimation();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toasty.info(getContext(), "try it later, some problem are append").show();
+                kAlertDialog.dismissWithAnimation();
+
+            }
+        });
+
+      /*  //get value from Database
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
 //get data for recycler view
                 leaveApplication_pojoClasses_seen_list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
                         .child(check_user_information.getUserID())
-                        .child("pending").getChildren()) {
-                    LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
-                    if (leaveApplication_pojoClass.isLeave_seen()) {
+                        .getChildren()) {
+                    String userID_Key = snapshot.getKey();
 
-                        leaveApplication_pojoClasses_seen_list.add(leaveApplication_pojoClass);
+                    for (DataSnapshot snapshot1:dataSnapshot.child("leave_application")
+                            .child(check_user_information.getUserID())
+                            .child(userID_Key)
+                            .getChildren()){
+                        LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot1.getValue(LeaveApplication_PojoClass.class);
+                        if (leaveApplication_pojoClass.isLeave_seen()) {
+                            leaveApplication_pojoClasses_seen_list.add(leaveApplication_pojoClass);
 
-                    } else {
+                        } else {
+
+                        }
                     }
                 }
 
-                //set count update nav bar number
-
-                Leave_Application_Accepted_Adapter_Company leave_application_accepted_adapter_company = new Leave_Application_Accepted_Adapter_Company(leaveApplication_pojoClasses_seen_list);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-                leaveApplicationApprovedListID.setLayoutManager(linearLayoutManager);
-                leaveApplicationApprovedListID.setAdapter(leave_application_accepted_adapter_company);
-                kAlertDialog.dismissWithAnimation();
-
                 //if recycler view is empty
-                if (leaveApplication_pojoClasses_seen_list.isEmpty()){
+                if (leaveApplication_pojoClasses_seen_list.isEmpty()) {
+                    Toasty.info(getActivity(), "No Data Found.....").show();
 
-                    Toasty.info(getActivity(),"No Data Found.....").show();
+                }else {
 
-
+                    Leave_Application_Accepted_Adapter_Company leave_application_accepted_adapter_company = new Leave_Application_Accepted_Adapter_Company(leaveApplication_pojoClasses_seen_list);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    leaveApplicationApprovedListID.setLayoutManager(linearLayoutManager);
+                    leaveApplicationApprovedListID.setAdapter(leave_application_accepted_adapter_company);
+                    kAlertDialog.dismissWithAnimation();
                 }
 
 
@@ -118,7 +175,7 @@ public class LeaveApplication_Approved_F extends Fragment {
             }
         });
 
-    }
+    */}
 
 
     //set title
@@ -133,7 +190,7 @@ public class LeaveApplication_Approved_F extends Fragment {
 
         check_user_information = new Check_User_information();
         leaveApplicationApprovedListID = rootView.findViewById(R.id.leave_application_Approved_list_ID);
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
     }
 }

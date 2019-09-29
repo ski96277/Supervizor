@@ -77,16 +77,19 @@ public class MyLeaveApplication_Employee_F extends Fragment {
                 String userID_company = addEmployee_pojoClass.getCompany_User_id();
                 String image_link = addEmployee_pojoClass.getEmployee_profile_image_link();
 
-                databaseReference_for_company_UI.child("leave_application").child(userID_company).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference_for_company_UI.child("leave_application")
+                        .child(userID_company)
+                        .child(check_user_information.getUserID())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //
-                        for (DataSnapshot snapshot : dataSnapshot.child("pending").getChildren()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
 
-                            if (check_user_information.getUserID().equals(leaveApplication_pojoClass.getUser_ID_Employee())) {
+//                            if (check_user_information.getUserID().equals(leaveApplication_pojoClass.getUser_ID_Employee())) {
                                 leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
-                            }
+//                            }
                         }
                         if (leaveApplication_pojoClasses_list.size()==0){
                             kAlertDialog.dismissWithAnimation();

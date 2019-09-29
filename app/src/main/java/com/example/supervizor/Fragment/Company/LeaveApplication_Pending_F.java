@@ -87,20 +87,29 @@ public class LeaveApplication_Pending_F extends Fragment {
                 leaveApplication_pojoClasses_Unseen_list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
                         .child(check_user_information.getUserID())
-                        .child("pending").getChildren()) {
-                    LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
-                    if (leaveApplication_pojoClass.isLeave_seen()){
+                        .getChildren()) {
+                    String userID_Key = snapshot.getKey();
 
-                    }else {
+                    for (DataSnapshot snapshot1:dataSnapshot.child("leave_application")
+                            .child(check_user_information.getUserID())
+                            .child(userID_Key)
+                            .getChildren()){
+                        LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot1.getValue(LeaveApplication_PojoClass.class);
+                        if (leaveApplication_pojoClass.isLeave_seen()) {
 
-                        leaveApplication_pojoClasses_Unseen_list.add(leaveApplication_pojoClass);
+                        } else {
+
+                            leaveApplication_pojoClasses_Unseen_list.add(leaveApplication_pojoClass);
+                        }
                     }
+
+
                 }
                 //set count update nav bar number
 
                 //if recycler view is empty
                 if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
-                    Toasty.info(rootView.getContext(),"No Data Found.....").show();
+                    Toasty.info(rootView.getContext(), "No Data Found.....").show();
                 }
                 CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_Unseen_list.size()));
 
@@ -110,8 +119,7 @@ public class LeaveApplication_Pending_F extends Fragment {
                 leavePendingApplicationList.setAdapter(leave_application_pending_adapterCompany);
                 kAlertDialog.dismissWithAnimation();
 
-
-                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

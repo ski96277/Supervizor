@@ -98,9 +98,9 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             callDate_Start_Method();
 
         } else if (view.getId() == R.id.leave_END_Time_TV_ID) {
-            
-                callDate_END_Method();
-           
+
+            callDate_END_Method();
+
 
         } else if (view.getId() == R.id.submit_leave_btn_ID) {
 //save value to Database
@@ -143,7 +143,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
 
 //show loading
         KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Saving Information");
+        kAlertDialog.setTitleText("Sending Leave Application");
         kAlertDialog.show();
 
         Check_User_information check_user_information = new Check_User_information();
@@ -156,21 +156,40 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                 addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID_employee).getValue(AddEmployee_PojoClass.class);
 
                 LocalDate current_Date = LocalDate.now();
+
+                calendar = Calendar.getInstance();
+                day = calendar.get(Calendar.DATE);
+                month = calendar.get(Calendar.MONTH);
+                year = calendar.get(Calendar.YEAR);
+
 //save value to Database
                 LeaveApplication_PojoClass leaveApplication_pojoClass =
-                        new LeaveApplication_PojoClass(addEmployee_pojoClass.getEmployee_User_id(),addEmployee_pojoClass.getCompany_User_id(),leave_Title,description,startDate,endDate,current_Date.toString(),addEmployee_pojoClass.getEmployee_profile_image_link(),addEmployee_pojoClass.getEmployee_name(),addEmployee_pojoClass.getEmployee_designation(),false);
+                        new LeaveApplication_PojoClass(addEmployee_pojoClass.getEmployee_User_id(),
+                                addEmployee_pojoClass.getCompany_User_id(),
+                                leave_Title,
+                                description,
+                                startDate,
+                                endDate,
+                                String.valueOf(day),
+                                String.valueOf(month+1),
+                                String.valueOf(year),
+                                current_Date.toString(),
+                                addEmployee_pojoClass.getEmployee_profile_image_link(),
+                                addEmployee_pojoClass.getEmployee_name(),
+                                addEmployee_pojoClass.getEmployee_designation(),
+                                false);
                 databaseReference.child("leave_application")
                         .child(addEmployee_pojoClass.getCompany_User_id())
-                        .child("pending")
+                        .child(check_user_information.getUserID())
                         .child(leave_Title)
                         .setValue(leaveApplication_pojoClass)
                         .addOnCompleteListener(task -> {
 
- //send the notification data Start
-                            TOPIC_NAME=addEmployee_pojoClass.getCompany_User_id()+"leave";
+                            //send the notification data Start
+                            TOPIC_NAME = addEmployee_pojoClass.getCompany_User_id() + "leave";
 
-                            sendDataToFireabase(TOPIC_NAME,leave_Title,description);
- //send the notification data END
+                            sendDataToFireabase(TOPIC_NAME, leave_Title, description);
+                            //send the notification data END
 
                             kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                             kAlertDialog.setTitleText("Uploaded...");
@@ -193,10 +212,10 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     }
 
     private void loadMyLeaveApplication() {
-        Fragment fragment=new MyLeaveApplication_Employee_F();
-        if (fragment!=null){
-            FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.employee_main_layout_ID,fragment);
+        Fragment fragment = new MyLeaveApplication_Employee_F();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
         }
     }
@@ -216,7 +235,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         datePickerDialog.show();
     }
 
-    private void callDate_END_Method()   {
+    private void callDate_END_Method() {
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DATE);
         month = calendar.get(Calendar.MONTH);
@@ -225,7 +244,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) ->
                 leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
         datePickerDialog.show();
-        
+
     }
 
     private void initView(View rootView) {
@@ -244,7 +263,6 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     }
 
 
-
     //set title
     public void onResume() {
         super.onResume();
@@ -256,7 +274,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     //Notification Data send
     private void sendDataToFireabase(String topicName, String event_title, String event_details) {
 
-        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        TOPIC = "/topics/" + topicName; //topic must match with what the receiver subscribed to
         NOTIFICATION_TITLE = event_title;
         NOTIFICATION_MESSAGE = event_details;
 
@@ -270,7 +288,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             notification.put("data", notifcationBody);
 
         } catch (JSONException e) {
-            Log.e(TAG, "onCreate: " + e.getMessage() );
+            Log.e(TAG, "onCreate: " + e.getMessage());
         }
         sendNotification(notification);
 
@@ -292,7 +310,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
                         Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
-                }){
+                }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

@@ -2,7 +2,6 @@ package com.example.supervizor.AdapterClass
 
 import android.app.Dialog
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_alert_dialog_accepted_application_show_by_company.*
 import kotlinx.android.synthetic.main.custom_alert_dialog_accepted_application_show_by_company.cancel_btn_alert_show_ID_company
 import kotlinx.android.synthetic.main.item_all_approved_leave_application_company.view.*
-import kotlinx.android.synthetic.main.item_all_pending_leave_application_company.view.*
-import kotlinx.android.synthetic.main.item_all_pending_leave_application_company.view.leave_details_item_application
-import kotlinx.android.synthetic.main.item_all_pending_leave_application_company.view.leave_title_item_application
 
 class Leave_Application_Accepted_Adapter_Company(val leaveApplication_pojoClasses: MutableList<LeaveApplication_PojoClass>) : RecyclerView.Adapter<Leave_Application_Accepted_Adapter_Company.viewHolder>() {
 
@@ -39,10 +35,10 @@ class Leave_Application_Accepted_Adapter_Company(val leaveApplication_pojoClasse
 
         fun setview(leaveApplication_PojoClas: LeaveApplication_PojoClass) {
 
-            if (!leaveApplication_PojoClas.profile_image_link.equals("null")) {
+            if (leaveApplication_PojoClas.profile_image_link != "null") {
 
                 Picasso.get().load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
-                        .into(itemView.leave_approved_item_profile_photo_imageView_leave)
+                        .error(R.drawable.profile_item).into(itemView.leave_approved_item_profile_photo_imageView_leave)
 
             } else {
                 itemView.leave_approved_item_profile_photo_imageView_leave.setImageResource(R.drawable.profile)

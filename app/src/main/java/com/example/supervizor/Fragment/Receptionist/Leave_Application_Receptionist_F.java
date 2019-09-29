@@ -148,12 +148,30 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                 addEmployee_pojoClass = dataSnapshot.child("employee_list").child(user_ID_employee).getValue(AddEmployee_PojoClass.class);
 
                 LocalDate current_Date = LocalDate.now();
+                calendar = Calendar.getInstance();
+                day = calendar.get(Calendar.DATE);
+                month = calendar.get(Calendar.MONTH);
+                year = calendar.get(Calendar.YEAR);
 //save value to Database
                 LeaveApplication_PojoClass leaveApplication_pojoClass =
-                        new LeaveApplication_PojoClass(addEmployee_pojoClass.getEmployee_User_id(),addEmployee_pojoClass.getCompany_User_id(),leave_Title,description,startDate,endDate,current_Date.toString(),addEmployee_pojoClass.getEmployee_profile_image_link(),addEmployee_pojoClass.getEmployee_name(),addEmployee_pojoClass.getEmployee_designation(),false);
+                        new LeaveApplication_PojoClass(
+                                addEmployee_pojoClass.getEmployee_User_id(),
+                                addEmployee_pojoClass.getCompany_User_id(),
+                                leave_Title,
+                                description,
+                                startDate,
+                                endDate,
+                                String.valueOf(day),
+                                String.valueOf(month+1),
+                                String.valueOf(year),
+                                current_Date.toString(),
+                                addEmployee_pojoClass.getEmployee_profile_image_link(),
+                                addEmployee_pojoClass.getEmployee_name(),
+                                addEmployee_pojoClass.getEmployee_designation(),
+                                false);
                 databaseReference.child("leave_application")
                         .child(addEmployee_pojoClass.getCompany_User_id())
-                        .child("pending")
+.child(check_user_information.getUserID())
                         .child(leave_Title)
                         .setValue(leaveApplication_pojoClass)
                         .addOnCompleteListener(task -> {
