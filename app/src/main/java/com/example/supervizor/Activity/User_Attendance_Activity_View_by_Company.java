@@ -47,6 +47,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -678,26 +679,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate1.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate1.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate1.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate1.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
-
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate1.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate1.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
 
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate1.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate1.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate1.setText(entryTime);
                                 exitTimeDate1.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -706,23 +709,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate2.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate2.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate2.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate2.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate2.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate2.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate2.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate2.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate2.setText(entryTime);
@@ -733,23 +740,25 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate3.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate3.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate3.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate3.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate3.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate3.setTextColor(Color.parseColor("#FFFFFF"));
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate3.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate3.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate3.setText(entryTime);
@@ -760,23 +769,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate4.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate4.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate4.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate4.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (entryTime != null) {
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate4.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate4.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate4.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate4.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate4.setText(entryTime);
@@ -786,24 +801,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(5))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                if (entryTime != null) {
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate5.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate5.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate5.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate5.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate5.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate5.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate5.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate5.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate5.setText(entryTime);
@@ -813,24 +831,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(6))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
-
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate6.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate6.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate6.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate6.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate6.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate6.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate6.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate6.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate6.setText(entryTime);
@@ -840,26 +861,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(7))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
-
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate7.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate7.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate7.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate7.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate7.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate7.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate7.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate7.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate7.setText(entryTime);
                                 exitTimeDate7.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -867,25 +890,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(8))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
-
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate8.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate8.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate8.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate8.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate8.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate8.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate8.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate8.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
 
                                 entryTimeDate8.setText(entryTime);
                                 exitTimeDate8.setText(exitTime);
@@ -895,23 +922,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate9.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate9.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate9.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate9.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate9.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate9.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate9.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate9.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate9.setText(entryTime);
@@ -922,25 +953,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate10.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate10.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate10.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate10.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate10.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate10.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate10.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate10.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate10.setText(entryTime);
                                 exitTimeDate10.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -949,23 +984,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate11.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate11.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate11.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate11.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate11.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate11.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate11.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate11.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate11.setText(entryTime);
@@ -975,24 +1016,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(12))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                if (entryTime != null) {
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate12.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate12.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate12.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate12.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate12.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate12.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate12.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate12.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate12.setText(entryTime);
@@ -1002,26 +1047,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(13))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
-
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate13.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate13.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate13.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate13.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
+                                    }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate13.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate13.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate13.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate13.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
 
                                 entryTimeDate13.setText(entryTime);
                                 exitTimeDate13.setText(exitTime);
@@ -1031,25 +1078,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate14.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate14.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate14.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate14.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
+                                    }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate14.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate14.setTextColor(Color.parseColor("#FFFFFF"));
                                 }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate14.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate14.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate14.setText(entryTime);
                                 exitTimeDate14.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -1059,23 +1109,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate15.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate15.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate15.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate15.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate15.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate15.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate15.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate15.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate15.setText(entryTime);
@@ -1085,24 +1139,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(16))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                if (entryTime != null) {
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate16.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate16.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate16.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate16.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (exitTime != null) {
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate16.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate16.setTextColor(Color.parseColor("#FFFFFF"));
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate16.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate16.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate16.setText(entryTime);
@@ -1114,23 +1172,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate17.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate17.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate17.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate17.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate17.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate17.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate17.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate17.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate17.setText(entryTime);
@@ -1141,24 +1204,32 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate18.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate18.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate18.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate18.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate18.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate18.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+
                                 }
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate18.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate18.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
 
                                 entryTimeDate18.setText(entryTime);
                                 exitTimeDate18.setText(exitTime);
@@ -1167,24 +1238,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                             if (date.equals(String.valueOf(19))) {
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                if (entryTime != null) {
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate19.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate19.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate19.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate19.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+                                if (exitTime != null) {
 
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate19.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate19.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate19.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate19.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate19.setText(entryTime);
@@ -1195,24 +1271,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate20.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate20.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate20.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate20.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate20.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate20.setText(entryTime);
                                 exitTimeDate20.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -1221,22 +1301,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate21.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate21.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate21.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate21.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate21.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate21.setText(entryTime);
@@ -1247,22 +1333,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+                                if (entryTime != null) {
 
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate22.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate22.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate22.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate22.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate22.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
 
@@ -1274,24 +1367,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate23.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate23.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate23.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate23.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate23.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
 
                                 entryTimeDate23.setText(entryTime);
                                 exitTimeDate23.setText(exitTime);
@@ -1301,22 +1398,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate24.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate24.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate24.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                if (exitTime != null) {
+
+
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate24.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate24.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
 
@@ -1328,22 +1432,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate25.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate25.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate25.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate25.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate25.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
                                 entryTimeDate25.setText(entryTime);
@@ -1354,23 +1463,29 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate26.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate26.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate26.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate26.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate26.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
+
 
                                 entryTimeDate26.setText(entryTime);
                                 exitTimeDate26.setText(exitTime);
@@ -1380,23 +1495,27 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate27.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate27.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate27.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate27.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate27.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
+
 
                                 entryTimeDate27.setText(entryTime);
                                 exitTimeDate27.setText(exitTime);
@@ -1406,25 +1525,32 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate28.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate28.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate28.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
 
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate28.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate28.setTextColor(Color.parseColor("#FFFFFF"));
+
+                                    } else {
+
+                                    }
+                                }
                                 entryTimeDate28.setText(entryTime);
                                 exitTimeDate28.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -1433,22 +1559,26 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate29.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate29.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate29.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+
+
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate29.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate29.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
 
@@ -1460,25 +1590,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                if (entryTime != null) {
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    exitTimeDate30.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate30.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
-                                }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    exitTimeDate30.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    exitTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
                                 }
 
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate30.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate30.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
+                                }
                                 entryTimeDate30.setText(entryTime);
                                 exitTimeDate30.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
@@ -1487,24 +1620,28 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
-                                LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
-
-                                LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
-
-                                if (time1_entry.isBefore(time2_entry)) {
+                                if (entryTime!=null){
+                                    LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                                    LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
+                                    if (time1_entry.isBefore(time2_entry)) {
 //                                    Toast.makeText(getContext(), "time1 < time2", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    entryTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
+                                    } else {
+                                        entryTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        entryTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                if (time1_exit.isBefore(time2_exit)) {
-                                    entryTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                    entryTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
-                                }
+                              if (exitTime!=null){
+                                  LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                  LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
+
+                                  if (time1_exit.isBefore(time2_exit)) {
+                                      exitTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                      exitTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
+                                  }
+
+                              }
 
                                 entryTimeDate31.setText(entryTime);
                                 exitTimeDate31.setText(exitTime);

@@ -35,7 +35,10 @@ import org.json.JSONObject;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,6 +89,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
     }
 
     @Override
@@ -94,8 +98,9 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             callDate_Start_Method();
 
         } else if (view.getId() == R.id.leave_END_Time_TV_ID) {
-            callDate_END_Method();
-
+            
+                callDate_END_Method();
+           
 
         } else if (view.getId() == R.id.submit_leave_btn_ID) {
 //save value to Database
@@ -109,10 +114,6 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             Toasty.info(getContext(), "check Internet Connection").show();
             return;
         }
-//show loading
-        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
-        kAlertDialog.setTitleText("Sending Information");
-        kAlertDialog.show();
 
 
         String leave_Title = leaveTitleETID.getText().toString();
@@ -138,6 +139,12 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
             leaveENDTimeTVID.requestFocus();
             return;
         }
+
+
+//show loading
+        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        kAlertDialog.setTitleText("Saving Information");
+        kAlertDialog.show();
 
         Check_User_information check_user_information = new Check_User_information();
         String user_ID_employee = check_user_information.getUserID();
@@ -209,14 +216,16 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         datePickerDialog.show();
     }
 
-    private void callDate_END_Method() {
+    private void callDate_END_Method()   {
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DATE);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
+        datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) ->
+                leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
         datePickerDialog.show();
+        
     }
 
     private void initView(View rootView) {
@@ -233,6 +242,7 @@ public class Leave_Application_Employee_F extends Fragment implements View.OnCli
         databaseReference = firebaseDatabase.getReference();
 
     }
+
 
 
     //set title

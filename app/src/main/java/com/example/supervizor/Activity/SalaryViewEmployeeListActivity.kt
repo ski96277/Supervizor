@@ -77,7 +77,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
                         additionByTaka = salaryPolicy.amountSt.toInt().plus(additionByTaka)
 
-                        Log.e("TAG - - : ", "Addition TK " + additionByTaka)
+                        Log.e("TAG - - : ", "Addition TK $additionByTaka")
 
                     }
                     if (salaryPolicy.calculateTypeSpinner_plus == "Addition"

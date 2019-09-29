@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
@@ -85,10 +86,13 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                 @SuppressLint("SetTextI18n")
                 override fun onDataChange(p0: DataSnapshot) {
 
+
+
                     var latecount = p0.child("late_count")
                             .child(addemployeePojoclass.employee_User_id)
                             .child("TotalDays")
                             .getValue(String::class.java)
+
                     var salaryAddByPersentage: Long
 
                     if (additionByPersentage != null) {
@@ -120,6 +124,10 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                         itemView.total_salary_salary_list.text = "${(basicSalary + additionByTaka + salaryAddByPersentage) -
                                 (total_subtractionByTaka + salarySubstractionByPersentage)} Tk"
 
+                    }
+
+                    itemView.setOnClickListener {
+                        Toast.makeText(itemView.context, "$adapterPosition", Toast.LENGTH_SHORT).show();
                     }
                 }
 
