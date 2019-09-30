@@ -1,12 +1,12 @@
 package com.example.supervizor.AdapterClass
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
@@ -50,7 +50,9 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                 subtractionByHour,
                 subtractionByPersentage,
                 subtractionByTaka,
+                totalWorkeingDays_company,
                 attendancecountperemployeeList[position])
+
     }
 
 
@@ -64,6 +66,7 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                      subtractionByHour: Int,
                      subtractionByPersentage: Int,
                      subtractionByTaka: Int,
+                     totalWorkeingDays_company: String?,
                      attendancecountperemployee: Long
         ) {
 
@@ -84,7 +87,6 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
 
                 @SuppressLint("SetTextI18n")
                 override fun onDataChange(p0: DataSnapshot) {
-
 
                     var latecount = p0.child("late_count")
                             .child(addemployeePojoclass.employee_User_id)
@@ -114,7 +116,6 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                         total_subtractionByTaka = 0
                     }
 
-                    Log.e("TAG - - : ", "attendancecountperemployee : $attendancecountperemployee");
                     if (attendancecountperemployee.toInt() == 0) {
                         itemView.total_salary_salary_list.text = "0 TK"
                     } else {
@@ -125,14 +126,31 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                     }
 
                     itemView.setOnClickListener {
-                        Toast.makeText(itemView.context, "$adapterPosition", Toast.LENGTH_SHORT).show();
+
+                        // custom dialog
+                        var dialog = Dialog(itemView.context)
+                        dialog.setContentView(R.layout.salary_list_details_item)
+
+                        dialog.setTitle("Salary Details")
+                        var attendanceCount = dialog.findViewById<TextView>(R.id.attendance_count_TV_ID)
+                        var totalWorkeingDays_companyCount = dialog.findViewById<TextView>(R.id.company_office_Days_TV_ID)
+                        var basicSalaryCount = dialog.findViewById<TextView>(R.id.basic_Salary_count_TV_ID)
+                        var totalSalaryOfThisMontg = dialog.findViewById<TextView>(R.id.total_Salary_of_this_month_count_TV_ID)
+                        var fineSalary = dialog.findViewById<TextView>(R.id.Salary_Fine_of_this_month_count_TV_ID)
+                        var salaryOfThisMonth = dialog.findViewById<TextView>(R.id.salary_of_this_month_count_TV_ID)
+                        var bonusSalary = dialog.findViewById<TextView>(R.id.Bonus_Salary_of_this_month_count_TV_ID);
+                        attendanceCount.append("  $attendancecountperemployee Days")
+                        totalWorkeingDays_companyCount.append("  $totalWorkeingDays_company Days")
+                        basicSalaryCount.append("  ${addemployeePojoclass.employee_salary} Tk")
+                        totalSalaryOfThisMontg.append("  $basicSalary Tk")
+                        bonusSalary.append("  +${additionByTaka + salaryAddByPersentage} Tk")
+                        fineSalary.append("  -${total_subtractionByTaka + salarySubstractionByPersentage} Tk")
+                        salaryOfThisMonth.append("  ${itemView.total_salary_salary_list.text}")
+                        dialog.show()
+
                     }
                 }
-
             })
-
         }
-
-
     }
 }

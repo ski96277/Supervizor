@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
@@ -12,7 +13,9 @@ import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
 import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_salary_generate_dash_board.*
 import kotlinx.android.synthetic.main.activity_salary_view_employee_list.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +40,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
     var subtractionByHour = 0
     var subtractionByTaka = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_salary_view_employee_list)
@@ -44,6 +48,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         initView()
+
 
         //get year month
         val calendar = Calendar.getInstance(TimeZone.getDefault())
@@ -215,8 +220,8 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
                     var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(
                             addemployeePojoclassList,
-                            total_workeing_Days_Compnay
-                            , totalSalaryList,
+                            total_workeing_Days_Compnay,
+                            totalSalaryList,
                             attendanceCountPerEmployee_List,
                             additionByTaka,
                             additionByHour,

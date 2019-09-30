@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8sp">
+
+        <TextView
+            android:id="@+id/company_office_Days_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Total Working Days    : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/attendance_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Attendance Count      : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/basic_Salary_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Basic Salary                  : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/total_Salary_of_this_month_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Total Salary                  : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/Bonus_Salary_of_this_month_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Bonus Salary                : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/Salary_Fine_of_this_month_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Salary  Fine                   : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/salary_of_this_month_count_TV_ID"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_margin="7sp"
+            android:text="Salary of this month  : "
+            android:textColor="#000"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>
