@@ -229,18 +229,28 @@ public class CompanyMainActivity extends AppCompatActivity
                     profile_company_email_nav.setText(email);
 
                     leaveApplication_pojoClasses_list.clear();
-                    for (DataSnapshot snapshot :
-                            dataSnapshot.child("leave_application")
-                                    .child(check_user_information.getUserID())
-                                    .child("pending").getChildren()) {
 
-                        LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot.getValue(LeaveApplication_PojoClass.class);
-                        if (leaveApplication_pojoClass.isLeave_seen()) {
+                    for (DataSnapshot snapshot : dataSnapshot.child("leave_application")
+                            .child(check_user_information.getUserID())
+                            .getChildren()) {
+                        String userID_Key = snapshot.getKey();
 
-                        } else {
-                            leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
+                        for (DataSnapshot snapshot1:dataSnapshot.child("leave_application")
+                                .child(check_user_information.getUserID())
+                                .child(userID_Key)
+                                .getChildren()){
+                            LeaveApplication_PojoClass leaveApplication_pojoClass = snapshot1.getValue(LeaveApplication_PojoClass.class);
+
+                            if (leaveApplication_pojoClass.isLeave_seen()) {
+
+                            } else {
+                                leaveApplication_pojoClasses_list.add(leaveApplication_pojoClass);
+
+                            }
                         }
                     }
+                    //set count update nav bar number
+
                     leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_list.size()));
 
                 }

@@ -680,6 +680,7 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 if (entryTime != null) {
+                                    Log.e("TAG", "onDataChange: "+entryTime );
                                     LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                     LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
                                     if (time1_entry.isBefore(time2_entry)) {

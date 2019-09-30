@@ -107,7 +107,7 @@ public class LeaveApplication_Approved_F extends Fragment {
                 if (leaveApplication_pojoClasses_seen_list.isEmpty()) {
                     Toasty.info(getContext(), "No Data Found.....").show();
                 }
-                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_seen_list.size()));
+//                CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_seen_list.size()));
 
                 Leave_Application_Accepted_Adapter_Company leave_application_pending_adapterCompany = new Leave_Application_Accepted_Adapter_Company(leaveApplication_pojoClasses_seen_list);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

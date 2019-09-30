@@ -95,7 +95,7 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
 
                     var salaryAddByPersentage: Long
 
-                    if (additionByPersentage != null) {
+                    if (additionByPersentage != null && additionByPersentage!=0) {
                         salaryAddByPersentage = (basicSalary * additionByPersentage) / 100
 
                     } else {
@@ -103,7 +103,7 @@ class SalaryListEmployeeListAdapter(var addemployeePojoclassList: ArrayList<AddE
                     }
                     var salarySubstractionByPersentage: Long
 
-                    if (subtractionByPersentage != null) {
+                    if (subtractionByPersentage != null && subtractionByPersentage!=0) {
                         salarySubstractionByPersentage = (basicSalary * subtractionByPersentage) / 100
 
                     } else {
