@@ -1,5 +1,6 @@
 package com.example.supervizor.Activity
 
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
+import com.example.supervizor.DataBase.DataInsert
+import com.example.supervizor.DataBase.SalaryDataBasePojoClass
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
@@ -40,6 +43,10 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
     var subtractionByHour = 0
     var subtractionByTaka = 0
 
+    private lateinit var sqliteDatabse: SQLiteDatabase
+    private lateinit var DataInsert: DataInsert
+    private lateinit var salaryDataBasePojoClass: SalaryDataBasePojoClass
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +56,9 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
         initView()
 
+        floatbtnPrintXlsSheet.setOnClickListener {
+            Toast.makeText(applicationContext, "text", Toast.LENGTH_SHORT).show();
+        }
 
         //get year month
         val calendar = Calendar.getInstance(TimeZone.getDefault())
@@ -217,6 +227,36 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
                     Log.e("TAG - - : ", ": $total_workeing_Days_Compnay");
                     Log.e("TAG - - : ", ": $totalSalaryList")
+//insert data to Database POJO class Start
+                    var i = 0
+                    for (addemployeePojoClass in addemployeePojoclassList) {
+
+                        salaryDataBasePojoClass = SalaryDataBasePojoClass(
+                                addemployeePojoClass.employee_name,
+                                addemployeePojoClass.employee_email,
+                                addemployeePojoClass.user_phone_number,
+                                total_workeing_Days_Compnay,
+                                attendanceCountPerEmployee_List[i].toString(),
+                                addemployeePojoClass.employee_salary,
+                                "",
+                                "",
+                                "",
+                                ""
+
+                        )
+                        i++
+
+
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.name}");
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.email}");
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.phone}");
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.companyiesWorkingDays}");
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.attendanceCount}");
+                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.basicSalary}");
+
+                    }
+
+//insert data to Database POJO class END
 
                     var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(
                             addemployeePojoclassList,

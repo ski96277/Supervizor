@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="20sp"
             android:layout_margin="7sp"
-            android:text="Attendance Count      : "
+            android:text="Attendance Till Date  : "
             android:textColor="#000"
             android:textSize="15sp" />
         <TextView
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="20sp"
             android:layout_margin="7sp"
-            android:text="Total Salary                  : "
+            android:text="Salary Till Date             : "
             android:textColor="#000"
             android:textSize="15sp" />
         <TextView
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="20sp"
             android:layout_margin="7sp"
-            android:text="Bonus Salary                : "
+            android:text="Bonus                             : "
             android:textColor="#000"
             android:textSize="15sp" />
         <TextView
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="20sp"
             android:layout_margin="7sp"
-            android:text="Salary  Fine                   : "
+            android:text="Penalty                           : "
             android:textColor="#000"
             android:textSize="15sp" />
         <TextView
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="20sp"
             android:layout_margin="7sp"
-            android:text="Salary of this month  : "
+            android:text="Total Salary                  : "
             android:textColor="#000"
             android:textSize="15sp" />
     </LinearLayout>
