@@ -411,6 +411,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                             curCSV.getString(10))
                     csvWrite.writeNext(arrStr)
                 }
+
                 csvWrite.close()
                 curCSV.close()
                 return true
