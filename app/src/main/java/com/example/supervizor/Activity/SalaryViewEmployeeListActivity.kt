@@ -1,14 +1,18 @@
 package com.example.supervizor.Activity
 
+import android.app.ProgressDialog
+import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
+import com.example.supervizor.DataBase.DataBaseHelper
 import com.example.supervizor.DataBase.DataInsert
 import com.example.supervizor.DataBase.SalaryDataBasePojoClass
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
@@ -16,10 +20,13 @@ import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
 import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_salary_generate_dash_board.*
+import com.opencsv.CSVWriter
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_salary_view_employee_list.*
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,7 +51,8 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
     var subtractionByTaka = 0
 
     private lateinit var sqliteDatabse: SQLiteDatabase
-    private lateinit var DataInsert: DataInsert
+    private lateinit var dataInsert: DataInsert
+    private lateinit var dataBaseHelper: DataBaseHelper
     private lateinit var salaryDataBasePojoClass: SalaryDataBasePojoClass
 
 
@@ -56,10 +64,12 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
         initView()
 
-        floatbtnPrintXlsSheet.setOnClickListener {
-            Toast.makeText(applicationContext, "text", Toast.LENGTH_SHORT).show();
-        }
 
+        /*floatbtnPrintXlsSheet.setOnClickListener {
+
+            Toast.makeText(applicationContext, "Toast", Toast.LENGTH_SHORT).show();
+
+        }*/
         //get year month
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
@@ -231,31 +241,71 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     var i = 0
                     for (addemployeePojoClass in addemployeePojoclassList) {
 
-                        salaryDataBasePojoClass = SalaryDataBasePojoClass(
-                                addemployeePojoClass.employee_name,
-                                addemployeePojoClass.employee_email,
-                                addemployeePojoClass.user_phone_number,
-                                total_workeing_Days_Compnay,
-                                attendanceCountPerEmployee_List[i].toString(),
-                                addemployeePojoClass.employee_salary,
-                                "",
-                                "",
-                                "",
-                                ""
+                        if (addemployeePojoClass.user_phone_number==null) {
+                            addemployeePojoClass.user_phone_number = "No Number"
+                        }
 
-                        )
+
+                        if (attendanceCountPerEmployee_List[i].toInt() == 0) {
+
+                            salaryDataBasePojoClass = SalaryDataBasePojoClass(
+                                    addemployeePojoClass.employee_name,
+                                    addemployeePojoClass.employee_email,
+                                    addemployeePojoClass.user_phone_number,
+                                    total_workeing_Days_Compnay,
+                                    attendanceCountPerEmployee_List[i].toString(),
+                                    addemployeePojoClass.employee_salary,
+                                    totalSalaryList[i].toString(),
+                                    (additionByTaka + additionByPersentage).toString(),
+                                    (subtractionByTaka + subtractionByPersentage).toString(),
+                                    "0"
+
+                            )
+                        } else {
+                            salaryDataBasePojoClass = SalaryDataBasePojoClass(
+                                    addemployeePojoClass.employee_name,
+                                    addemployeePojoClass.employee_email,
+                                    addemployeePojoClass.user_phone_number,
+                                    total_workeing_Days_Compnay,
+                                    attendanceCountPerEmployee_List[i].toString(),
+                                    addemployeePojoClass.employee_salary,
+                                    totalSalaryList[i].toString(),
+                                    (additionByTaka + additionByPersentage).toString(),
+                                    (subtractionByTaka + subtractionByPersentage).toString(),
+                                    ((totalSalaryList[i].toInt() + additionByTaka.toInt() + additionByPersentage.toInt()) -
+                                            (subtractionByTaka + subtractionByPersentage)).toString()
+
+                            )
+                        }
+
                         i++
+                        //Insert Data Start
 
+                        var status = dataInsert.insertData(salaryDataBasePojoClass)
 
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.name}");
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.email}");
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.phone}");
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.companyiesWorkingDays}");
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.attendanceCount}");
-                        Log.e("TAG - - : ", ": ${salaryDataBasePojoClass.basicSalary}");
+                        if (status) {
+                            Log.e("TAG", "Sqlite Data Saved")
+//                            Toast.makeText(applicationContext, "data insert", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Log.e("TAG", "Sqlite Data Not Saved")
+//                            Toast.makeText(applicationContext, "Sorry", Toast.LENGTH_SHORT).show();
+
+                        }
+                        //insert Data end
+
+                        Log.e("TAG - - : ", "Name = : ${salaryDataBasePojoClass.name}");
+                        Log.e("TAG - - : ", "Email = : ${salaryDataBasePojoClass.email}");
+                        Log.e("TAG - - : ", "Phone = : ${salaryDataBasePojoClass.phone}");
+                        Log.e("TAG - - : ", "company office days = : ${salaryDataBasePojoClass.companyiesWorkingDays}");
+                        Log.e("TAG - - : ", "Attendance count = : ${salaryDataBasePojoClass.attendanceCount}");
+                        Log.e("TAG - - : ", "Basic salary = : ${salaryDataBasePojoClass.basicSalary}");
+                        Log.e("TAG - - : ", "Total salary of this month = : ${salaryDataBasePojoClass.totalSalary}");
+                        Log.e("TAG - - : ", "Bonus salary = : ${salaryDataBasePojoClass.bonusSalary}");
+                        Log.e("TAG - - : ", "Fine salary = : ${salaryDataBasePojoClass.salaryFine}");
+                        Log.e("TAG - - : ", "Payable Salary  = : ${salaryDataBasePojoClass.payAbleSalary}");
 
                     }
-
 //insert data to Database POJO class END
 
                     var salaryListEmployeeListAdapter = SalaryListEmployeeListAdapter(
@@ -288,6 +338,103 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
         checkUserInformation = Check_User_information()
 
+//make the database table
+        dataInsert = DataInsert(applicationContext)
+        dataBaseHelper = DataBaseHelper(this)
+
+        //initialize the sqlite database and delete the Data from Table
+        sqliteDatabse = dataBaseHelper.readableDatabase
+        sqliteDatabse.delete(DataBaseHelper.DATABASE_TABLE_NAME, null, null)
+
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.salary_view_in_xls_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            R.id.xlsMenu -> {
+                val exportDatabaseCSVTask = ExportDatabaseCSVTask()
+                exportDatabaseCSVTask.execute()
+            }
+        }
+
+        return true
+    }
+
+
+    inner class ExportDatabaseCSVTask : AsyncTask<String, Void, Boolean>() {
+//        private val dialog = ProgressDialog(applicationContext)
+
+
+        override fun onPreExecute() {
+//            this.dialog.setMessage("Exporting database...")
+//            this.dialog.show()
+        }
+
+        override fun doInBackground(vararg args: String): Boolean? {
+            val dbFile = getDatabasePath(DataBaseHelper.DATABASE_NAME)
+            //            File dbFile = getDatabasePath("Information.db");
+            Log.e("MainActivity", "doInBackground:  dbfile $dbFile")
+            println(dbFile)  // displays the data base path in your logcat
+            val exportDir = File(Environment.getExternalStorageDirectory(), "")
+
+            if (!exportDir.exists()) {
+                exportDir.mkdirs()
+            }
+
+            val file = File(exportDir, "SalarySheet.csv")
+            try {
+                file.createNewFile()
+                val csvWrite = CSVWriter(FileWriter(file))
+                val dataBaseHelperyh = DataBaseHelper(applicationContext)
+                sqliteDatabse = dataBaseHelperyh.readableDatabase
+                val curCSV = sqliteDatabse.rawQuery("select * from " + DataBaseHelper.DATABASE_TABLE_NAME, null)
+                csvWrite.writeNext(curCSV.getColumnNames())
+                while (curCSV.moveToNext()) {
+
+                    val arrStr = arrayOf<String>(
+                            curCSV.getString(0),
+                            curCSV.getString(1),
+                            curCSV.getString(2),
+                            curCSV.getString(3),
+                            curCSV.getString(4),
+                            curCSV.getString(5),
+                            curCSV.getString(6),
+                            curCSV.getString(7),
+                            curCSV.getString(8),
+                            curCSV.getString(9),
+                            curCSV.getString(10))
+                    csvWrite.writeNext(arrStr)
+                }
+                csvWrite.close()
+                curCSV.close()
+                return true
+            } catch (sqlEx: SQLException) {
+                Log.e("MainActivity", sqlEx.message, sqlEx)
+                return false
+            } catch (e: IOException) {
+                Log.e("MainActivity", e.message, e)
+                return false
+            }
+
+        }
+
+        override fun onPostExecute(success: Boolean?) {
+//            if (this.dialog.isShowing) {
+//                this.dialog.dismiss()
+//            }
+            if (success!!) {
+                Toast.makeText(applicationContext, "Export successful!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(applicationContext, "Export failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 }
