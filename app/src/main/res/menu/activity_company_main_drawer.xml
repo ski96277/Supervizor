@@ -61,7 +61,7 @@
             android:id="@+id/nav_salary_report"
             android:icon="@drawable/salary_generate_icon"
             android:title="Salary Report"
-            android:visible="true"/>
+            android:visible="false" />
     </group>
 
     <group android:checkableBehavior="single"

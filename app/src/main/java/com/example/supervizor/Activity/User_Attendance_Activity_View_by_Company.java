@@ -3,6 +3,7 @@ package com.example.supervizor.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
@@ -1728,14 +1729,17 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
     }
 
     private void openGeneratedPDF() {
+        requestSroragePermissions();
         File file = new File("/sdcard/OfficeManagement_APP/" + designation_TV.getText().toString() + "_" + year_spinner.getSelectedItem().toString() + "_" + month_spinner.getSelectedItem().toString() + ".pdf");
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.fromFile(file);
             intent.setDataAndType(uri, "application/pdf");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             try {
+                requestSroragePermissions();
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 Toast.makeText(User_Attendance_Activity_View_by_Company.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
@@ -1743,7 +1747,14 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
         }
     }
 
+    private void requestSroragePermissions() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
 
+    }
     private void initView() {
         dateTV1 = (TextView) findViewById(R.id.date_TV_1);
         entryTimeDate1 = (TextView) findViewById(R.id.entry_time_date_1);

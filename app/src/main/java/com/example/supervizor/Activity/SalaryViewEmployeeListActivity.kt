@@ -1,15 +1,21 @@
 package com.example.supervizor.Activity
 
+import android.Manifest
 import android.app.ProgressDialog
+import android.content.pm.PackageManager
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.os.AsyncTask
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
 import com.example.supervizor.DataBase.DataBaseHelper
@@ -241,7 +247,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                     var i = 0
                     for (addemployeePojoClass in addemployeePojoclassList) {
 
-                        if (addemployeePojoClass.user_phone_number==null) {
+                        if (addemployeePojoClass.user_phone_number == null) {
                             addemployeePojoClass.user_phone_number = "No Number"
                         }
 
@@ -363,7 +369,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
             }
         }
 
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -377,24 +383,32 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         }
 
         override fun doInBackground(vararg args: String): Boolean? {
-            val dbFile = getDatabasePath(DataBaseHelper.DATABASE_NAME)
-            //            File dbFile = getDatabasePath("Information.db");
-            Log.e("MainActivity", "doInBackground:  dbfile $dbFile")
-            println(dbFile)  // displays the data base path in your logcat
-            val exportDir = File(Environment.getExternalStorageDirectory(), "")
 
-            if (!exportDir.exists()) {
-                exportDir.mkdirs()
-            }
-
-            val file = File(exportDir, "SalarySheet.csv")
             try {
+                Log.e("TAG - - : ", ": android Imran");
+                val dbFile = getDatabasePath(DataBaseHelper.DATABASE_NAME)
+
+                Log.e("MainActivity", "doInBackground:  dbfile $dbFile")
+                println(dbFile) // displays the data base path in your logcat
+
+                val exportDir = File(Environment.getExternalStorageDirectory().absolutePath + "/Rocketechit_Salary")
+
+                if (exportDir.exists()) {
+//                            exportDir.mkdirs()
+                    exportDir.delete()
+                    exportDir.mkdirs()
+                } else {
+                    exportDir.mkdirs()
+                }
+
+                val file = File(exportDir, "SalarySheet.csv")
                 file.createNewFile()
+                requestSroragePermissions()
                 val csvWrite = CSVWriter(FileWriter(file))
-                val dataBaseHelperyh = DataBaseHelper(applicationContext)
-                sqliteDatabse = dataBaseHelperyh.readableDatabase
+                val dataBaseHelpery = DataBaseHelper(applicationContext)
+                sqliteDatabse = dataBaseHelpery.readableDatabase
                 val curCSV = sqliteDatabse.rawQuery("select * from " + DataBaseHelper.DATABASE_TABLE_NAME, null)
-                csvWrite.writeNext(curCSV.getColumnNames())
+                csvWrite.writeNext(curCSV.columnNames)
                 while (curCSV.moveToNext()) {
 
                     val arrStr = arrayOf<String>(
@@ -415,6 +429,8 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                 csvWrite.close()
                 curCSV.close()
                 return true
+
+
             } catch (sqlEx: SQLException) {
                 Log.e("MainActivity", sqlEx.message, sqlEx)
                 return false
@@ -422,7 +438,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                 Log.e("MainActivity", e.message, e)
                 return false
             }
-
+            return true
         }
 
         override fun onPostExecute(success: Boolean?) {
@@ -437,5 +453,12 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
         }
     }
 
+    private fun requestSroragePermissions() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this@SalaryViewEmployeeListActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(applicationContext, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(this@SalaryViewEmployeeListActivity, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1);
+        }
 
+    }
 }
