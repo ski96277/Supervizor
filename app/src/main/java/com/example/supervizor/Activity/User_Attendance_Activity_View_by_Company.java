@@ -7,10 +7,13 @@ import androidx.core.app.ActivityCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -681,7 +684,7 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 if (entryTime != null) {
-                                    Log.e("TAG", "onDataChange: "+entryTime );
+                                    Log.e("TAG", "onDataChange: " + entryTime);
                                     LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                     LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
                                     if (time1_entry.isBefore(time2_entry)) {
@@ -1622,7 +1625,7 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
-                                if (entryTime!=null){
+                                if (entryTime != null) {
                                     LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                     LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
                                     if (time1_entry.isBefore(time2_entry)) {
@@ -1633,17 +1636,17 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 //                                    Toast.makeText(getContext(), "time1 > time2", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                              if (exitTime!=null){
-                                  LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
-                                  LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
+                                if (exitTime != null) {
+                                    LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
+                                    LocalTime time2_exit = LocalTime.parse(company_exit_time, timeFormatter);
 
 
-                                  if (time1_exit.isBefore(time2_exit)) {
-                                      exitTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
-                                      exitTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
-                                  }
+                                    if (time1_exit.isBefore(time2_exit)) {
+                                        exitTimeDate31.setBackgroundColor(Color.parseColor("#E61A5F"));
+                                        exitTimeDate31.setTextColor(Color.parseColor("#FFFFFF"));
+                                    }
 
-                              }
+                                }
 
                                 entryTimeDate31.setText(entryTime);
                                 exitTimeDate31.setText(exitTime);
@@ -1716,9 +1719,9 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
             // close the document
             document.close();
             Toasty.success(User_Attendance_Activity_View_by_Company.this, "PDF is created!!!", Toast.LENGTH_SHORT).show();
-            Toast.makeText(User_Attendance_Activity_View_by_Company.this, targetPdf, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(User_Attendance_Activity_View_by_Company.this, targetPdf, Toast.LENGTH_SHORT).show();
 
-            openGeneratedPDF();
+//            openGeneratedPDF();
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("TAG - ", "createPdf: " + e.toString());
@@ -1728,33 +1731,32 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
 
     }
 
-    private void openGeneratedPDF() {
-        requestSroragePermissions();
+/*    private void openGeneratedPDF() {
+//        requestSroragePermissions();
         File file = new File("/sdcard/OfficeManagement_APP/" + designation_TV.getText().toString() + "_" + year_spinner.getSelectedItem().toString() + "_" + month_spinner.getSelectedItem().toString() + ".pdf");
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.fromFile(file);
             intent.setDataAndType(uri, "application/pdf");
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             try {
-                requestSroragePermissions();
+//                requestSroragePermissions();
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 Toast.makeText(User_Attendance_Activity_View_by_Company.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
 
-    private void requestSroragePermissions() {
+   /* private void requestSroragePermissions() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText(this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-    }
+    }*/
+
     private void initView() {
         dateTV1 = (TextView) findViewById(R.id.date_TV_1);
         entryTimeDate1 = (TextView) findViewById(R.id.entry_time_date_1);
@@ -1879,19 +1881,49 @@ public class User_Attendance_Activity_View_by_Company extends AppCompatActivity 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pdf_generate_to_this_employee:
-                KAlertDialog kAlertDialog = new KAlertDialog(User_Attendance_Activity_View_by_Company.this);
-                kAlertDialog.setTitleText("Alert !!");
 
-                kAlertDialog.setContentText("Do You want to create pdf ?");
-                kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                    Log.d("size", " " + tableLayout.getWidth() + "  " + tableLayout.getWidth());
-                    bitmap = loadBitmapFromView(tableLayout, tableLayout.getWidth(), tableLayout.getHeight());
-                    createPdf();
-                    kAlertDialog1.dismiss();
-                });
-                kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog.dismiss());
-                kAlertDialog.show();
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                            checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                        KAlertDialog kAlertDialog = new KAlertDialog(User_Attendance_Activity_View_by_Company.this);
+                        kAlertDialog.setTitleText("Alert !!");
+
+                        kAlertDialog.setContentText("Do You want to create pdf ?");
+                        kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+
+                            Log.d("size", " " + tableLayout.getWidth() + "  " + tableLayout.getWidth());
+                            bitmap = loadBitmapFromView(tableLayout, tableLayout.getWidth(), tableLayout.getHeight());
+                            createPdf();
+                            kAlertDialog1.dismiss();
+                        });
+                        kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog.dismiss());
+                        kAlertDialog.show();
+                    }else {
+                        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE},1);
+                    }
+
+                } else {
+
+                    KAlertDialog kAlertDialog = new KAlertDialog(User_Attendance_Activity_View_by_Company.this);
+                    kAlertDialog.setTitleText("Alert !!");
+
+                    kAlertDialog.setContentText("Do You want to create pdf ?");
+                    kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
+
+                        Log.d("size", " " + tableLayout.getWidth() + "  " + tableLayout.getWidth());
+                        bitmap = loadBitmapFromView(tableLayout, tableLayout.getWidth(), tableLayout.getHeight());
+                        createPdf();
+                        kAlertDialog1.dismiss();
+                    });
+                    kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog.dismiss());
+                    kAlertDialog.show();
+
+
+                }
+
 
 
                 break;

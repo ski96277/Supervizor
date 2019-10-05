@@ -616,7 +616,7 @@ public class Employee_Attendance_F extends Fragment {
 
                     String date = snapshot.getKey();
 
-                    databaseReference2.addValueEventListener(new ValueEventListener() {
+                    databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

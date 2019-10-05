@@ -36,7 +36,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kinda.alert.KAlertDialog;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -52,7 +57,7 @@ public class Employee_list_F extends Fragment {
 
     private Button plus_icon_button;
     private SearchView search_ET;
-//    private Spinner spinner_ET;
+    //    private Spinner spinner_ET;
     private int count = 0;
     private Button add_employee_btn;
     private Button add_receptionist_btn;
@@ -62,7 +67,7 @@ public class Employee_list_F extends Fragment {
 
     private ArrayList<AddEmployee_PojoClass> addEmployee_pojoClasses;
 
-    private  All_Employee_List_Adapter all_employee_list_adapter;
+    private All_Employee_List_Adapter all_employee_list_adapter;
 
 
     // Write a message to the database
@@ -94,7 +99,6 @@ public class Employee_list_F extends Fragment {
         plus_icon_button.requestFocus();
         search_ET.requestFocus();
 //        spinner_ET.requestFocus();
-
 
         plus_icon_button.setOnClickListener(v -> {
             count++;
@@ -208,7 +212,7 @@ public class Employee_list_F extends Fragment {
 
                 }
 
-                if (addEmployee_pojoClasses.isEmpty()){
+                if (addEmployee_pojoClasses.isEmpty()) {
                     no_employee_found_TV_ID.setVisibility(View.VISIBLE);
                     recyclerview_all_employee_ID.setVisibility(View.GONE);
 //                    Toasty.info(getActivity(),"No Data Found").show();
@@ -254,7 +258,7 @@ public class Employee_list_F extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                    all_employee_list_adapter.getFilter().filter(newText);
+                all_employee_list_adapter.getFilter().filter(newText);
 
                 return true;
             }
@@ -263,7 +267,7 @@ public class Employee_list_F extends Fragment {
 
 
     private void initialization(View view) {
-        no_employee_found_TV_ID=view.findViewById(R.id.no_employee_found_TV_ID);
+        no_employee_found_TV_ID = view.findViewById(R.id.no_employee_found_TV_ID);
         plus_icon_button = view.findViewById(R.id.plus_icon_button);
         search_ET = view.findViewById(R.id.search_ET_ID);
 //        spinner_ET = view.findViewById(R.id.spinner_ID);

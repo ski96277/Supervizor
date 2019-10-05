@@ -3,6 +3,7 @@ package com.example.supervizor.Fragment.Company;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Registartion_page_2 extends Fragment implements View.OnClickListener {
 
@@ -222,6 +226,24 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                 String exit_Time = exit_time_TV.getText().toString();
                 String penalty_time = penalty_time_TV.getText().toString();
 
+                /*//calculate the time difference
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm a");
+                try {
+                   Date date1 = simpleDateFormat.parse("08:00 AM");
+                   Date date2 = simpleDateFormat.parse("04:00 PM");
+                    long difference = date2.getTime() - date1.getTime();
+                   int  days = (int) (difference / (1000*60*60*24));
+                    int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+                    int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+                    hours = (hours < 0 ? -hours : hours);
+                    Log.i("======= Hours"," :: "+hours);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }*/
+
+
+
                 if (entry_Time.isEmpty()) {
 
  //vibrator Start
@@ -254,7 +276,8 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                     penalty_time_TV.requestFocus();
                     penalty_time_TV.setError("Set Penalty Time");
                     return;
-                } else {
+                }
+
 
                     SignUp_Pojo signUp_pojo = new SignUp_Pojo(company_name, company_location, company_contact_number, company_email, company_password, entry_Time, exit_Time, penalty_time);
 
@@ -271,9 +294,6 @@ public class Registartion_page_2 extends Fragment implements View.OnClickListene
                         fragmentTransaction.commit();
                     }
 
-                }
-
-                break;
         }
     }
 
