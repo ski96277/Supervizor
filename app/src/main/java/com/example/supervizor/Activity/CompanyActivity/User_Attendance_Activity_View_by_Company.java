@@ -61,6 +61,7 @@ import java.util.Locale;
 public class User_Attendance_Activity_View_by_Company extends AppCompatActivity {
     ScrollView linearLayout_attendance;
     Bitmap bitmap;
+
     Spinner month_spinner;
     Spinner year_spinner;
     TextView name_TV;
