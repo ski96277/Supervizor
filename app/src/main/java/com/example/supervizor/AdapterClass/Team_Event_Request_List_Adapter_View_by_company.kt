@@ -1,14 +1,15 @@
 package com.example.supervizor.AdapterClass
 
 import android.app.Dialog
+import android.content.Intent
 import android.net.Uri
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.supervizor.Activity.CompanyActivity.Team_RequestListActivity
 import com.example.supervizor.Fragment.Company.Employee_list_F
-import com.example.supervizor.Fragment.Company.Team_Request
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
 import com.google.firebase.database.DatabaseReference
@@ -41,6 +42,7 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
 
         return holder.setData(team_name_list[position], team_leader_user_id[position])
     }
+
     class ViewHolder(var itemview: View) : RecyclerView.ViewHolder(itemview) {
 
         fun setData(team_name: String, team_leader_user_ID: String) {
@@ -66,7 +68,7 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                     val addemployeePojoclass: AddEmployee_PojoClass? = dataSnapshot.child("employee_list")
-                           .child(teamLeaderUserId).getValue(AddEmployee_PojoClass::class.java)
+                            .child(teamLeaderUserId).getValue(AddEmployee_PojoClass::class.java)
 
                     var image_link = addemployeePojoclass!!.employee_profile_image_link
                     if (!image_link.equals("null")) {
@@ -95,8 +97,9 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
                                 .setValue("1")
                                 .addOnCompleteListener {
                                     dialog.dismiss()
-
-                                    loadTeamRequestList()
+                                    itemview.context.startActivity(Intent(itemview.context, Team_RequestListActivity::class.java)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                                    Toasty.info(itemview.context, "Approved").show()
                                 }
                     }
 
@@ -113,19 +116,19 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
             dialog.show()
         }
 
-        private fun loadTeamRequestList() {
+        /*  private fun loadTeamRequestList() {
 
 
-            var fragment: Fragment?
-            fragment = Team_Request()
+              var fragment: Fragment?
+              fragment = Team_Request()
 
-            if (fragment != null) {
+              if (fragment != null) {
 
-                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
-                fragmentTransaction.commit()
-            }
+                  val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                  fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                  fragmentTransaction.commit()
+              }
 
-        }
+          }*/
     }
 }

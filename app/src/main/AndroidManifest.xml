@@ -21,8 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.EmployeeActivity.Team_Event_View_As_A_MemberActivity"
-            android:parentActivityName=".Activity.EmployeeActivity.Team_List_As_A_Member_Activity"/>
+        <activity
+            android:name=".Activity.CompanyActivity.Team_RequestListActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
+        <activity
+            android:name=".Activity.EmployeeActivity.Team_Event_View_As_A_MemberActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.Team_List_As_A_Member_Activity" />
         <activity
             android:name=".Activity.EmployeeActivity.Team_List_As_A_Member_Activity"
             android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />

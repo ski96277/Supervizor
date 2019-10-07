@@ -13,7 +13,6 @@ import com.example.supervizor.Fragment.Company.Employee_list_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
 import com.example.supervizor.Fragment.Company.TeamLeader_F;
-import com.example.supervizor.Fragment.Company.Team_Request;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -513,9 +512,11 @@ public class CompanyMainActivity extends AppCompatActivity
             startActivity(new Intent(this, SalaryReportAllActivity.class));
 
         } else if (id == R.id.nav_team_request_pending) {
-            Bundle bundle = new Bundle();
+            /*Bundle bundle = new Bundle();
             bundle.putString("error_handel_when_event_create", "1");
-            load_Team_Request(bundle);
+            load_Team_Request(bundle);*/
+            startActivity(new
+                    Intent(this,Team_RequestListActivity.class));
 
         } else if (id == R.id.nav_logOut) {
             //try to unsubscribe
@@ -539,7 +540,7 @@ public class CompanyMainActivity extends AppCompatActivity
         return true;
     }
 
-    private void load_Team_Request(Bundle bundle) {
+  /*  private void load_Team_Request(Bundle bundle) {
 
         fragment = new Team_Request();
         if (fragment != null) {
@@ -550,7 +551,7 @@ public class CompanyMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
     private void load_Team_leader_F() {
         fragment = new TeamLeader_F();

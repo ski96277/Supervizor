@@ -1,12 +1,15 @@
-/*
-package com.example.supervizor.Fragment.Company;
+package com.example.supervizor.Activity.CompanyActivity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 
-import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.Team_Event_Request_List_Adapter_View_by_company;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
@@ -20,13 +23,8 @@ import com.kinda.alert.KAlertDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+public class Team_RequestListActivity extends AppCompatActivity {
 
-public class Team_Request extends Fragment {
 
     private RecyclerView recyclerViewTeamRequestID;
     private Check_User_information check_user_information;
@@ -35,25 +33,17 @@ public class Team_Request extends Fragment {
     List<String> team_name_list = new ArrayList<>();
     List<String> team_leader_User_ID = new ArrayList<>();
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.team_request_f);
 
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
+//hide Notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("Team Request List");
+        initView();
 
-        return inflater.inflate(R.layout.team_request_f, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-
-//        Bundle bundle=getArguments();
-//        String value = bundle.getString("error_handel_when_event_create");
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerViewTeamRequestID.setLayoutManager(gridLayoutManager);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,8 +80,8 @@ public class Team_Request extends Fragment {
                         }
                     }
                 }
-                if (team_name_list.size() <=0) {
-                    KAlertDialog no_team_request_Alert = new KAlertDialog(view.getContext(), KAlertDialog.WARNING_TYPE);
+                if (team_name_list.size() <= 0) {
+                    KAlertDialog no_team_request_Alert = new KAlertDialog(Team_RequestListActivity.this, KAlertDialog.WARNING_TYPE);
                     no_team_request_Alert.setTitleText("No Team Request Yet");
                     no_team_request_Alert.show();
                     no_team_request_Alert.setConfirmClickListener(kAlertDialog -> {
@@ -112,18 +102,17 @@ public class Team_Request extends Fragment {
         });
     }
 
-    private void initView(View rootView) {
-        recyclerViewTeamRequestID = rootView.findViewById(R.id.recycler_view_team_request_ID);
+
+    private void initView() {
+        recyclerViewTeamRequestID = findViewById(R.id.recycler_view_team_request_ID);
         check_user_information = new Check_User_information();
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Team Request List");
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, CompanyMainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        super.onBackPressed();
     }
 }
-*/
