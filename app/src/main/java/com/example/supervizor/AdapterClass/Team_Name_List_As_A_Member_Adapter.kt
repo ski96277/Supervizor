@@ -1,16 +1,13 @@
 package com.example.supervizor.AdapterClass
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.R
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.Fragment
-import com.example.supervizor.Fragment.Employee.Team_Event_View_As_A_Member
-import com.example.supervizor.Fragment.Employee.Team_Member_List_F
+import com.example.supervizor.Activity.EmployeeActivity.Team_Event_View_As_A_MemberActivity
 import kotlinx.android.synthetic.main.item_team_name_list_as_a_member.view.*
 
 
@@ -40,11 +37,14 @@ class Team_Name_List_As_A_Member_Adapter(var team_name_list: MutableList<String>
 
             itemView.setOnClickListener {
 
-                var bundle = Bundle()
+             /*   var bundle = Bundle()
                 bundle.putString("team_leader_id", team_leader_id_list)
-                bundle.putString("team_name", team_name)
+                bundle.putString("team_name", team_name)*/
 
-                load_Team_Member_List_Fragment(bundle)
+//                load_Team_Member_List_Fragment(bundle)
+                itemView.context.startActivity(Intent(itemView.context, Team_Event_View_As_A_MemberActivity::class.java)
+                        .putExtra("team_name", team_name)
+                        .putExtra("team_leader_id", team_leader_id_list))
 
 
             }
@@ -52,7 +52,7 @@ class Team_Name_List_As_A_Member_Adapter(var team_name_list: MutableList<String>
         }
 
 
-        private fun load_Team_Member_List_Fragment(bundle: Bundle) {
+      /*  private fun load_Team_Member_List_Fragment(bundle: Bundle) {
 
 
             var fragment: Fragment?
@@ -64,7 +64,7 @@ class Team_Name_List_As_A_Member_Adapter(var team_name_list: MutableList<String>
                 fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment!!)
                 fragmentTransaction.commit()
             }
-        }
+        }*/
 
 
     }

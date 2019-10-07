@@ -1,10 +1,9 @@
-package com.example.supervizor.Activity
+package com.example.supervizor.Activity.CompanyActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import com.example.supervizor.JavaPojoClass.SalaryPolicyPojoClass
 import com.example.supervizor.Java_Class.CheckInternet
 import com.example.supervizor.Java_Class.Check_User_information

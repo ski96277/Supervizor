@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Employee;
 
 import android.content.SharedPreferences;
@@ -10,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -153,12 +153,14 @@ public class Employee_profile_View_By_Leader_F extends Fragment implements View.
             String team_name = preferences.getString("team_name", "");
 
             //
-      /*      databaseReference.child("event_list_by_user")
+      */
+/*      databaseReference.child("event_list_by_user")
                     .child(user_id_employee)
                     .child(check_user_information.getUserID())
                     .child(team_name)
                     .setValue(team_name);
-*/
+*//*
+
       //Set request Pending status
 
 //            get company ID
@@ -313,3 +315,4 @@ public class Employee_profile_View_By_Leader_F extends Fragment implements View.
 
 
 }
+*/

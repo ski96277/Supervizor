@@ -1,12 +1,8 @@
-package com.example.supervizor.Activity
+package com.example.supervizor.Activity.CompanyActivity
 
-import android.Manifest
-import android.app.ProgressDialog
-import android.content.pm.PackageManager
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.os.AsyncTask
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -14,8 +10,6 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.supervizor.AdapterClass.SalaryListEmployeeListAdapter
 import com.example.supervizor.DataBase.DataBaseHelper
@@ -28,7 +22,6 @@ import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.R
 import com.google.firebase.database.*
 import com.opencsv.CSVWriter
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_salary_view_employee_list.*
 import java.io.File
 import java.io.FileWriter

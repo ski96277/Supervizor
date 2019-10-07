@@ -1,8 +1,5 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.EmployeeActivity;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,13 +7,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.example.supervizor.Fragment.Employee.Employee_Attendance_F;
+import com.example.supervizor.Activity.CommanActivity.ChangePasswordActivity;
+import com.example.supervizor.Activity.CommanActivity.Login_Activity;
 import com.example.supervizor.Fragment.Employee.Employee_Calender_Home_Page_F;
-import com.example.supervizor.Fragment.Employee.Leave_Application_Employee_F;
-import com.example.supervizor.Fragment.Employee.MyLeaveApplication_Employee_F;
-import com.example.supervizor.Fragment.Employee.My_Team_F;
 import com.example.supervizor.Fragment.Employee.Scan_Employee_F;
-import com.example.supervizor.Fragment.Employee.Team_List_As_A_Member;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -59,7 +53,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EmployeeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -89,13 +82,6 @@ public class EmployeeMainActivity extends AppCompatActivity
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String password;
-
-    //general event Notification
-
-    public static final int JOB_ID = 102;
-    private static final long REFRESH_INTERVAL = 3 * 1000; // 1 seconds
-    private JobScheduler jobScheduler;
-    private JobInfo jobInfo;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -229,7 +215,7 @@ public class EmployeeMainActivity extends AppCompatActivity
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
                 editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
-                editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                editor.putString("company_penalty_time", signUp_pojo.getCompany_penalty_time());
                 editor.apply();
 
 
@@ -282,13 +268,13 @@ public class EmployeeMainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 //                loadProfileFragment();
-                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
+                startActivity(new Intent(EmployeeMainActivity.this, ViewProfileByEmployeeActivity.class));
             }
         });
         name_TV_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
+                startActivity(new Intent(EmployeeMainActivity.this, ViewProfileByEmployeeActivity.class));
 
             }
         });
@@ -296,7 +282,7 @@ public class EmployeeMainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 //                loadProfileFragment();
-                startActivity(new Intent(EmployeeMainActivity.this,ViewProfileByEmployeeActivity.class));
+                startActivity(new Intent(EmployeeMainActivity.this, ViewProfileByEmployeeActivity.class));
 
 
             }
@@ -431,16 +417,22 @@ public class EmployeeMainActivity extends AppCompatActivity
             load_Attendance_employee_Fragment();
 
         } else if (id == R.id.nav_leave_application_employee) {
-            leave_application_Fragment();
+//            leave_application_Fragment();
+            startActivity(new Intent(this, LeaveApplicationFormEmployeeActivity.class));
 
         } else if (id == R.id.nav_My_leave_application_employee) {
-            my_leave_application_Fragment();
+//            my_leave_application_Fragment();
 
+            startActivity(new Intent(this, MyLeaveApplicationListActivity.class));
         } else if (id == R.id.nav_My_Team_as_member_application_employee) {
-            load_as_a_team_member_Fragment();
+//            load_as_a_team_member_Fragment();
+
+            startActivity(new Intent(this,Team_List_As_A_Member_Activity.class));
 
         } else if (id == R.id.nav_My_Team_application_employee) {
-            load_my_team_employee_Fragment();
+//            load_my_team_employee_Fragment();
+
+            startActivity(new Intent(this,My_Team_List_Activity.class));
 
         } else if (id == R.id.nav_logout) {
 
@@ -468,7 +460,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         return true;
     }
 
-    private void load_as_a_team_member_Fragment() {
+/*    private void load_as_a_team_member_Fragment() {
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
         fragment = new Team_List_As_A_Member();
@@ -477,9 +469,9 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
-    private void load_my_team_employee_Fragment() {
+  /*  private void load_my_team_employee_Fragment() {
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
         fragment = new My_Team_F();
@@ -488,9 +480,9 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
-    private void my_leave_application_Fragment() {
+  /*  private void my_leave_application_Fragment() {
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
         fragment = new MyLeaveApplication_Employee_F();
@@ -499,9 +491,9 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
-    private void leave_application_Fragment() {
+   /* private void leave_application_Fragment() {
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
         fragment = new Leave_Application_Employee_F();
@@ -511,7 +503,7 @@ public class EmployeeMainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
     }
-
+*/
 /*    private void loadProfileFragment() {
         scan_calender_layout.setVisibility(View.GONE);
 
@@ -535,12 +527,13 @@ public class EmployeeMainActivity extends AppCompatActivity
 
         scan_calender_layout.setVisibility(View.GONE);
         //load default Fragment
-        fragment = new Employee_Attendance_F();
+        startActivity(new Intent(EmployeeMainActivity.this, EmployeeAttendanceActivityViewByUser.class));
+        /*fragment = new Employee_Attendance_F();
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
             fragmentTransaction.commit();
-        }
+        }*/
     }
 
     private void loadDefault_Home_Fragment() {
@@ -563,6 +556,7 @@ public class EmployeeMainActivity extends AppCompatActivity
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment);
+//           fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
     }

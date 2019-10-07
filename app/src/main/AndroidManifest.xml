@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -22,69 +21,99 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.SalaryReportAllActivity"
-            android:parentActivityName=".Activity.CompanyMainActivity"/>
+        <activity android:name=".Activity.EmployeeActivity.Team_Event_View_As_A_MemberActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.Team_List_As_A_Member_Activity"/>
         <activity
-            android:name=".Activity.SalaryViewEmployeeListActivity"
-            android:parentActivityName=".Activity.CompanyMainActivity" />
+            android:name=".Activity.EmployeeActivity.Team_List_As_A_Member_Activity"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
         <activity
-            android:name=".Activity.PolicyFormActivity"
-            android:parentActivityName=".Activity.SalaryGenerateDashBoardActivity" />
+            android:name=".Activity.EmployeeActivity.Event_list_and_Add_by_Team_Leader_Activity"
+            android:parentActivityName=".Activity.EmployeeActivity.My_Team_List_Activity" />
         <activity
-            android:name=".Activity.SalaryGenerateDashBoardActivity"
-            android:parentActivityName=".Activity.CompanyMainActivity" />
+            android:name=".Activity.EmployeeActivity.Team_Member_List_Activity"
+            android:parentActivityName=".Activity.EmployeeActivity.My_Team_List_Activity" />
         <activity
-            android:name=".Activity.ViewProfileByEmployeeActivity"
-            android:parentActivityName=".Activity.EmployeeMainActivity" />
+            android:name=".Activity.EmployeeActivity.My_Team_List_Activity"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
         <activity
-            android:name=".Activity.UpdateProfileByEmployeeActivity"
-            android:parentActivityName=".Activity.ViewProfileByEmployeeActivity" />
+            android:name=".Activity.EmployeeActivity.AddNewTeamMateFrom_ListActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.My_Team_List_Activity" />
         <activity
-            android:name=".Activity.View_Company_Profile_Activity"
-            android:parentActivityName=".Activity.CompanyMainActivity" />
+            android:name=".Activity.EmployeeActivity.EmployeeProfileViewByLeaderActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.AddNewTeamMateFrom_ListActivity" />
         <activity
-            android:name=".Activity.Add_Receptionist_Activity_by_Admin"
-            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:name=".Activity.EmployeeActivity.MyLeaveApplicationListActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
+        <activity
+            android:name=".Activity.EmployeeActivity.LeaveApplicationFormEmployeeActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
+        <activity
+            android:name=".Activity.EmployeeActivity.EmployeeAttendanceActivityViewByUser"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.SalaryReportAllActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.SalaryViewEmployeeListActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.PolicyFormActivity"
+            android:parentActivityName=".Activity.CompanyActivity.SalaryGenerateDashBoardActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.SalaryGenerateDashBoardActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
+        <activity
+            android:name=".Activity.EmployeeActivity.ViewProfileByEmployeeActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
+        <activity
+            android:name=".Activity.EmployeeActivity.UpdateProfileByEmployeeActivity"
+            android:parentActivityName=".Activity.EmployeeActivity.ViewProfileByEmployeeActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.View_Company_Profile_Activity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.Add_Receptionist_Activity_by_Admin"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.Add_Employee_Activity_by_Admin"
-            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:name=".Activity.CompanyActivity.Add_Employee_Activity_by_Admin"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.User_Attendance_Activity_View_by_Company"
-            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:name=".Activity.CompanyActivity.User_Attendance_Activity_View_by_Company"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.User_Profile_Activity_View_by_Company"
-            android:parentActivityName=".Activity.CompanyMainActivity"
+            android:name=".Activity.CompanyActivity.User_Profile_Activity_View_by_Company"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.Update_Company_Profile"
-            android:parentActivityName=".Activity.View_Company_Profile_Activity"
+            android:name=".Activity.CompanyActivity.Update_Company_Profile"
+            android:parentActivityName=".Activity.CompanyActivity.View_Company_Profile_Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ScanResult_Activiy" />
+        <activity android:name=".Activity.EmployeeActivity.ScanResult_Activiy" />
         <activity
-            android:name=".Activity.ChangePasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.Forget_Password"
-            android:parentActivityName=".Activity.Login_Activity"
+            android:name=".Activity.CommanActivity.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.ReceptionistMainActivity"
+            android:name=".Activity.CommanActivity.Forget_Password"
+            android:parentActivityName=".Activity.CommanActivity.Login_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.ReceptionistMainActivity"
             android:label="@string/title_activity_receptionist_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.EmployeeMainActivity"
+            android:name=".Activity.EmployeeActivity.EmployeeMainActivity"
             android:label="@string/title_activity_employee_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.RegistrationActivity"
+            android:name=".Activity.CommanActivity.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.CompanyMainActivity"
+            android:name=".Activity.CompanyActivity.CompanyMainActivity"
             android:label="@string/title_activity_company_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -93,7 +122,7 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".Activity.Login_Activity"
+            android:name=".Activity.CommanActivity.Login_Activity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

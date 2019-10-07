@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
-import com.example.supervizor.Activity.ReceptionistMainActivity;
-import com.example.supervizor.AdapterClass.All_Leave_Application_List_Employee_Adapter;
+import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.AdapterClass.All_Leave_Application_List_Receptionist_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;

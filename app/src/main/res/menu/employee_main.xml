@@ -19,7 +19,7 @@
         android:title="Change Password"
         app:showAsAction="never"
         android:visible="false"/>-->
-    <item
+   <!-- <item
         android:id="@+id/add_team_mate"
         android:orderInCategory="100"
         android:title="Add Team Mate"
@@ -30,5 +30,5 @@
         android:orderInCategory="100"
         android:title="Add Event"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 </menu>

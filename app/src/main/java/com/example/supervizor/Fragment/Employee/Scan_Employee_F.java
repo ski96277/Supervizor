@@ -9,10 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
-import com.example.supervizor.Activity.ScanResult_Activiy;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.ScanResult_Activiy;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
 import com.kinda.alert.KAlertDialog;

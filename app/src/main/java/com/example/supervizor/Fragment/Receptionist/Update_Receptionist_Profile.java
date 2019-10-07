@@ -11,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
-import com.example.supervizor.Activity.ReceptionistMainActivity;
+import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;

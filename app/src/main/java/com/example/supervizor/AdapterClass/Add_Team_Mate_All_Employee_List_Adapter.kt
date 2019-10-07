@@ -1,7 +1,7 @@
 package com.example.supervizor.AdapterClass
 
+import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +10,11 @@ import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.Fragment
-import com.example.supervizor.Fragment.Employee.Employee_profile_View_By_Leader_F
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeProfileViewByLeaderActivity
 import kotlinx.android.synthetic.main.item_add_team_mate_all_employee.view.*
 
 
-class Add_Team_Mate_All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>)  : RecyclerView.Adapter<Add_Team_Mate_All_Employee_List_Adapter.ViewHolderClass>() {
+class Add_Team_Mate_All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>, var team_name: String) : RecyclerView.Adapter<Add_Team_Mate_All_Employee_List_Adapter.ViewHolderClass>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -31,12 +29,12 @@ class Add_Team_Mate_All_Employee_List_Adapter(var addEmployee_pojoClasses: Array
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
 
-        return holder.setData(addEmployee_pojoClasses[position])
+        return holder.setData(addEmployee_pojoClasses[position],team_name)
     }
 
 
     class ViewHolderClass(itemview: View) : RecyclerView.ViewHolder(itemview) {
-        fun setData(addEmployee_PojoClass: AddEmployee_PojoClass) {
+        fun setData(addEmployee_PojoClass: AddEmployee_PojoClass, teamName: String) {
 
             var image_link = addEmployee_PojoClass.employee_profile_image_link
             var name = addEmployee_PojoClass.employee_name
@@ -54,14 +52,21 @@ class Add_Team_Mate_All_Employee_List_Adapter(var addEmployee_pojoClasses: Array
 
             itemView.setOnClickListener {
 
-                var bundle=Bundle()
+                /*var bundle=Bundle()
                 bundle.putString("user_id", addEmployee_PojoClass.employee_User_id)
-                load_Profile_Fragment(bundle)
+//                load_Profile_Fragment(bundle)*/
+
+                var intent = Intent(itemView.context, EmployeeProfileViewByLeaderActivity::class.java)
+
+                intent.putExtra("userID", addEmployee_PojoClass.employee_User_id)
+                intent.putExtra("team_name",teamName)
+                itemView.context.startActivity(intent)
 
             }
 
         }
 
+/*
 
         private fun load_Profile_Fragment(bundle: Bundle) {
 
@@ -77,6 +82,7 @@ class Add_Team_Mate_All_Employee_List_Adapter(var addEmployee_pojoClasses: Array
                 fragmentTransaction.commit()
             }
         }
+*/
 
 
     }

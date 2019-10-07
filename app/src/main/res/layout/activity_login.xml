@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="#010C18"
-    tools:context=".Activity.Login_Activity">
+    tools:context=".Activity.CommanActivity.Login_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"

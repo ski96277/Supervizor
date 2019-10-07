@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Employee;
 
 import android.os.Bundle;
@@ -6,9 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
 import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_View_by_Team_member;
-import com.example.supervizor.AdapterClass.Team_Event_List_Adapter_by_Team_Leader;
 import com.example.supervizor.JavaPojoClass.Event_Details_Team_PojoClass;
 import com.example.supervizor.R;
 import com.google.firebase.database.DataSnapshot;
@@ -102,3 +102,4 @@ public class Team_Event_View_As_A_Member extends Fragment {
                 .setActionBarTitle("Team Event");
     }
 }
+*/

@@ -20,8 +20,8 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import android.widget.Filter
-import com.example.supervizor.Activity.User_Attendance_Activity_View_by_Company
-import com.example.supervizor.Activity.User_Profile_Activity_View_by_Company
+import com.example.supervizor.Activity.CompanyActivity.User_Attendance_Activity_View_by_Company
+import com.example.supervizor.Activity.CompanyActivity.User_Profile_Activity_View_by_Company
 import com.example.supervizor.Fragment.Company.Employee_list_F
 
 

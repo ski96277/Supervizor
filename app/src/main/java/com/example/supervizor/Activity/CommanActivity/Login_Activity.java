@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.CommanActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import es.dmoral.toasty.Toasty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +17,9 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
+import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.R;
 import com.google.firebase.auth.FirebaseAuth;

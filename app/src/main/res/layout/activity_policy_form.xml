@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#C2C2C2"
     android:fillViewport="true"
-    tools:context=".Activity.PolicyFormActivity">
+    tools:context=".Activity.CompanyActivity.PolicyFormActivity">
 
 
         <LinearLayout

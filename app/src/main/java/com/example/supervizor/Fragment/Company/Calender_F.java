@@ -20,7 +20,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.All_Event_List_Adapter;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.JavaPojoClass.Holiday_information;

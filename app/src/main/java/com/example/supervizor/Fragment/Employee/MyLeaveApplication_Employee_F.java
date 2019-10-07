@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Employee;
 
 import android.os.Bundle;
@@ -6,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
 import com.example.supervizor.AdapterClass.All_Leave_Application_List_Employee_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
@@ -67,7 +68,9 @@ public class MyLeaveApplication_Employee_F extends Fragment {
             Toasty.error(getContext(), "Check internet Connection").show();
             kAlertDialog.dismissWithAnimation();
         }
-        /* get user company ID */
+        */
+/* get user company ID *//*
+
         databaseReference_for_company_UI.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,3 +145,4 @@ public class MyLeaveApplication_Employee_F extends Fragment {
                 .setActionBarTitle("My Leave application");
     }
 }
+*/

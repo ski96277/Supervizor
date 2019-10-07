@@ -1,7 +1,6 @@
 package com.example.supervizor.AdapterClass
 
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.R
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.Fragment
-import com.example.supervizor.Fragment.Employee.Team_Member_List_F
+import com.example.supervizor.Activity.EmployeeActivity.Team_Member_List_Activity
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.Java_Class.Check_User_information
 import com.google.firebase.database.DatabaseReference
@@ -66,7 +65,7 @@ class Team_Member_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploye
 
                 val team_name = sharedPreferences.getString("team_name","defaultname")
 
-                Log.e("Tag","Team name = "+team_name)
+                Log.e("Tag", "Team name = $team_name")
 
                 var kAlertDialog = KAlertDialog(itemView.context, KAlertDialog.WARNING_TYPE);
                 kAlertDialog.titleText = "Do you want to Remove"
@@ -86,10 +85,12 @@ class Team_Member_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploye
                             .addOnSuccessListener {
                                 kAlertDialog.dismissWithAnimation()
                                 Toasty.info(itemView.context, "Removed").show()
-                                var bundle=Bundle()
-                                bundle.putString("team_name",team_name)
-                                load_Team_Member_List_Fragment(bundle)
-                            }
+
+                             /*   itemView.context.startActivity(
+                                        Intent(itemView.context,Team_Member_List_Activity::class.java)
+                                        .putExtra("team_name",team_name)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+                           */ }
 
                 }
             }
@@ -97,7 +98,7 @@ class Team_Member_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploye
         }
 
 
-        private fun load_Team_Member_List_Fragment(bundle: Bundle) {
+     /*   private fun load_Team_Member_List_Fragment(bundle: Bundle) {
 
 
             var fragment: Fragment?
@@ -110,7 +111,7 @@ class Team_Member_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploye
                 fragmentTransaction.replace(R.id.employee_main_layout_ID, fragment!!)
                 fragmentTransaction.commit()
             }
-        }
+        }*/
 
 
     }

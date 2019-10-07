@@ -15,7 +15,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.supervizor.Activity.Login_Activity;
+import com.example.supervizor.Activity.CommanActivity.Login_Activity;
 import com.example.supervizor.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

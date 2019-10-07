@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.Team_Event_Request_List_Adapter_View_by_company;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;

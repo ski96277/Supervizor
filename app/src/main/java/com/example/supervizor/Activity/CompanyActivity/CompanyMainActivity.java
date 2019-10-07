@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.CompanyActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.supervizor.Activity.CommanActivity.Login_Activity;
 import com.example.supervizor.Fragment.Company.Calender_F;
 import com.example.supervizor.Fragment.Company.Employee_list_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;

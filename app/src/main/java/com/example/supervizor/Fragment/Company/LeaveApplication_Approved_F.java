@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.Leave_Application_Accepted_Adapter_Company;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;

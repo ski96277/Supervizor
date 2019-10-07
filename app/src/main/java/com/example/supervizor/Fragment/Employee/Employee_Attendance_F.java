@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Employee;
 
 import android.content.SharedPreferences;
@@ -17,7 +18,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.supervizor.Activity.EmployeeMainActivity;
+import com.example.supervizor.Activity.EmployeeActivity.EmployeeMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -654,7 +655,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate1,
                                         exitTimeDate1);
 
-                           /*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                           */
+/*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -678,7 +680,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate1.setText(entryTime);
                                 exitTimeDate1.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(2))) {
 
                                 setDataToTable(entryTime,
@@ -688,7 +691,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate2,
                                         exitTimeDate2);
 
-                                /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -713,7 +717,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate2.setText(entryTime);
                                 exitTimeDate2.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          */  }
+                          *//*
+  }
                             if (date.equals(String.valueOf(3))) {
 
                                 setDataToTable(entryTime,
@@ -723,7 +728,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate3,
                                         exitTimeDate3);
 
-                          /*      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                          */
+/*      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -748,7 +754,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate3.setText(entryTime);
                                 exitTimeDate3.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(4))) {
 
 
@@ -761,7 +768,8 @@ public class Employee_Attendance_F extends Fragment {
 
 
 
-                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               */
+/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -786,7 +794,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate4.setText(entryTime);
                                 exitTimeDate4.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                     */       }
+                     *//*
+       }
                             if (date.equals(String.valueOf(5))) {
 
                                 setDataToTable(entryTime,
@@ -797,6 +806,7 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate5);
 
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -823,7 +833,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate5.setText(entryTime);
                                 exitTimeDate5.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(6))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -832,7 +843,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate6,
                                         exitTimeDate6);
 
-                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -857,7 +869,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate6.setText(entryTime);
                                 exitTimeDate6.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                      */      }
+                      *//*
+      }
                             if (date.equals(String.valueOf(7))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -866,7 +879,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate7,
                                         exitTimeDate7);
 
-                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -890,7 +904,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate7.setText(entryTime);
                                 exitTimeDate7.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(8))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -899,7 +914,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate8,
                                         exitTimeDate8);
 
-                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -923,7 +939,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate8.setText(entryTime);
                                 exitTimeDate8.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(9))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -932,7 +949,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate9,
                                         exitTimeDate9);
 
-                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -957,7 +975,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate9.setText(entryTime);
                                 exitTimeDate9.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          */  }
+                          *//*
+  }
                             if (date.equals(String.valueOf(10))) {
 
                                 setDataToTable(entryTime,
@@ -968,6 +987,7 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate10);
 
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -994,7 +1014,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate10.setText(entryTime);
                                 exitTimeDate10.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(11))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1003,7 +1024,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate11,
                                         exitTimeDate11);
 
-                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               */
+/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1027,7 +1049,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate11.setText(entryTime);
                                 exitTimeDate11.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(12))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1036,6 +1059,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate12,
                                         exitTimeDate12);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1061,7 +1085,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate12.setText(entryTime);
                                 exitTimeDate12.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(13))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1071,7 +1096,8 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate13);
 
 
-                            /*    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                            */
+/*    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1096,7 +1122,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate13.setText(entryTime);
                                 exitTimeDate13.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(14))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1105,6 +1132,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate14,
                                         exitTimeDate14);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1131,7 +1159,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate14.setText(entryTime);
                                 exitTimeDate14.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(15))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1139,6 +1168,7 @@ public class Employee_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate15,
                                         exitTimeDate15);
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1165,7 +1195,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate15.setText(entryTime);
                                 exitTimeDate15.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(16))) {
 
                                 setDataToTable(entryTime,
@@ -1175,6 +1206,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate16,
                                         exitTimeDate16);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1201,7 +1233,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate16.setText(entryTime);
                                 exitTimeDate16.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(17))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1211,7 +1244,8 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate17);
 
 
-                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               */
+/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1236,7 +1270,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate17.setText(entryTime);
                                 exitTimeDate17.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(18))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1245,6 +1280,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate18,
                                         exitTimeDate18);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1271,7 +1307,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate18.setText(entryTime);
                                 exitTimeDate18.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(19))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1280,6 +1317,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate19,
                                         exitTimeDate19);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1306,7 +1344,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate19.setText(entryTime);
                                 entryTimeDate19.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(20))) {
 
                                 setDataToTable(entryTime,
@@ -1315,6 +1354,7 @@ public class Employee_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate20,
                                         exitTimeDate20);
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1341,7 +1381,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate20.setText(entryTime);
                                 exitTimeDate20.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(21))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1350,6 +1391,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate21,
                                         exitTimeDate21);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1376,7 +1418,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate21.setText(entryTime);
                                 exitTimeDate21.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(22))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1386,7 +1429,8 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate22);
 
 
-                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               */
+/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1411,7 +1455,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate22.setText(entryTime);
                                 exitTimeDate22.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         */   }
+                         *//*
+   }
                             if (date.equals(String.valueOf(23))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1420,6 +1465,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate23,
                                         exitTimeDate23);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1446,7 +1492,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate23.setText(entryTime);
                                 exitTimeDate23.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          */  }
+                          *//*
+  }
                             if (date.equals(String.valueOf(24))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1455,6 +1502,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate24,
                                         exitTimeDate24);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1481,7 +1529,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate24.setText(entryTime);
                                 exitTimeDate24.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                        */    }
+                        *//*
+    }
                             if (date.equals(String.valueOf(25))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1490,6 +1539,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate25,
                                         exitTimeDate25);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1516,7 +1566,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate25.setText(entryTime);
                                 exitTimeDate25.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(26))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1525,6 +1576,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate26,
                                         exitTimeDate26);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1551,7 +1603,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate26.setText(entryTime);
                                 exitTimeDate26.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            */}
+                            *//*
+}
                             if (date.equals(String.valueOf(27))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1560,6 +1613,7 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate27,
                                         exitTimeDate27);
 
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1586,7 +1640,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate27.setText(entryTime);
                                 exitTimeDate27.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          */  }
+                          *//*
+  }
                             if (date.equals(String.valueOf(28))) {
 
 
@@ -1599,7 +1654,8 @@ public class Employee_Attendance_F extends Fragment {
                                         exitTimeDate28);
 
 
-                               /* LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
+                               */
+/* LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
 
                                 LocalTime time1_exit = LocalTime.parse(exitTime, timeFormatter);
@@ -1621,7 +1677,8 @@ public class Employee_Attendance_F extends Fragment {
 
                                 entryTimeDate28.setText(entryTime);
                                 exitTimeDate28.setText(exitTime);
-                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);*/
+                                Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);*//*
+
                             }
                             if (date.equals(String.valueOf(29))) {
 
@@ -1631,6 +1688,7 @@ public class Employee_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate29,
                                         exitTimeDate29);
+*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1657,7 +1715,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate29.setText(entryTime);
                                 exitTimeDate29.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           */ }
+                           *//*
+ }
                             if (date.equals(String.valueOf(30))) {
 
                                 setDataToTable(entryTime,
@@ -1667,7 +1726,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate30,
                                         exitTimeDate30);
 
-                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                */
+/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1692,7 +1752,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate30.setText(entryTime);
                                 exitTimeDate30.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         */   }
+                         *//*
+   }
                             if (date.equals(String.valueOf(31))) {
 
                                 setDataToTable(entryTime,
@@ -1702,7 +1763,8 @@ public class Employee_Attendance_F extends Fragment {
                                         entryTimeDate31,
                                         exitTimeDate31);
 
-                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              */
+/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1727,7 +1789,8 @@ public class Employee_Attendance_F extends Fragment {
                                 entryTimeDate31.setText(entryTime);
                                 exitTimeDate31.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         */   }
+                         *//*
+   }
 
                         }
 
@@ -1894,3 +1957,4 @@ public class Employee_Attendance_F extends Fragment {
         designationTVID = (TextView) rootView.findViewById(R.id.designation_TV_ID);
     }
 }
+*/

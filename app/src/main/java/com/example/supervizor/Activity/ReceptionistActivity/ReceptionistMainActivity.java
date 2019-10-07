@@ -1,7 +1,5 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.ReceptionistActivity;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -13,6 +11,8 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.supervizor.Activity.CommanActivity.ChangePasswordActivity;
+import com.example.supervizor.Activity.CommanActivity.Login_Activity;
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
 import com.example.supervizor.Fragment.Receptionist.General_Event_List_Receptionist;
 import com.example.supervizor.Fragment.Receptionist.Leave_Application_Receptionist_F;

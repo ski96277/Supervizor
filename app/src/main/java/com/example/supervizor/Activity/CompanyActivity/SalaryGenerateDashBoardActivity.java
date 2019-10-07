@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.CompanyActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

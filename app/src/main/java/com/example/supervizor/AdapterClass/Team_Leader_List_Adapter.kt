@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.R
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.Fragment
-import com.example.supervizor.Fragment.Employee.Team_Member_List_F
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.Java_Class.CheckInternet
 import com.google.firebase.database.FirebaseDatabase
 import com.kinda.alert.KAlertDialog
-import com.kinda.alert.SuccessTickView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_all_team_leader.view.*
 

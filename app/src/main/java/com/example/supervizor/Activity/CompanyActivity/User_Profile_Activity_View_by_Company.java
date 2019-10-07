@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.CompanyActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

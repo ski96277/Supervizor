@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_team_mate"
+        android:orderInCategory="100"
+        android:title="Add Team Mate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/event_List_this_Group"
+        android:orderInCategory="100"
+        android:title="Event List"
+        app:showAsAction="never" />
+</menu>

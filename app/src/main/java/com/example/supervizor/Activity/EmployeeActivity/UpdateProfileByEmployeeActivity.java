@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity;
+package com.example.supervizor.Activity.EmployeeActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

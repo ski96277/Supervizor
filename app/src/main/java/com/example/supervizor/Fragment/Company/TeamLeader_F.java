@@ -1,6 +1,5 @@
 package com.example.supervizor.Fragment.Company;
 
-import android.graphics.LinearGradient;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.supervizor.Activity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
 import com.example.supervizor.AdapterClass.Team_Leader_List_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;

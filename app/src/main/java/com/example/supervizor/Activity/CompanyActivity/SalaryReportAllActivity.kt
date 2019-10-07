@@ -1,4 +1,4 @@
-package com.example.supervizor.Activity
+package com.example.supervizor.Activity.CompanyActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
