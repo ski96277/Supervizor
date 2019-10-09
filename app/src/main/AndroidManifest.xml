@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.CompanyActivity.TeamLeaderListActivity"
+        <activity android:name=".Activity.CompanyActivity.LeaveApplicationListActivity"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"/>
+        <activity
+            android:name=".Activity.CompanyActivity.TeamLeaderListActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
         <activity
             android:name=".Activity.CompanyActivity.Team_RequestListActivity"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />

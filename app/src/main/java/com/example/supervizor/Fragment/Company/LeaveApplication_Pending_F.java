@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.LeaveApplicationListActivity;
 import com.example.supervizor.AdapterClass.Leave_Application_Pending_Adapter_Company;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -33,19 +35,17 @@ import es.dmoral.toasty.Toasty;
 public class LeaveApplication_Pending_F extends Fragment {
     private View rootView;
     private RecyclerView leavePendingApplicationList;
+    private TextView noApplicationFound_TV_ID;
     private DatabaseReference databaseReference;
     private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses_Unseen_list = new ArrayList<>();
     private Check_User_information check_user_information;
-    long count_leave_Application;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.VISIBLE);
 
-        CompanyMainActivity.pending_button_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
-        CompanyMainActivity.approved_button_layout.setBackgroundColor(Color.parseColor("#000000"));
+        LeaveApplicationListActivity.pending_button_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
+        LeaveApplicationListActivity.approved_button_layout.setBackgroundColor(Color.parseColor("#000000"));
 //check nav leave application button
         CompanyMainActivity.navigationView.setCheckedItem(R.id.nav_leave_application);
 
@@ -102,8 +102,13 @@ public class LeaveApplication_Pending_F extends Fragment {
                 }
                 //set count update nav bar number
 
-                //if recycler view is empty
+                //if rec
+                // ycler view is empty
                 if (leaveApplication_pojoClasses_Unseen_list.isEmpty()) {
+
+                    noApplicationFound_TV_ID.setVisibility(View.VISIBLE);
+                    leavePendingApplicationList.setVisibility(View.GONE);
+
                     Toasty.info(rootView.getContext(), "No Data Found.....").show();
                 }
                 CompanyMainActivity.leave_notification_nav.setText(String.valueOf(leaveApplication_pojoClasses_Unseen_list.size()));
@@ -126,15 +131,8 @@ public class LeaveApplication_Pending_F extends Fragment {
 
     }
 
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Leave Application");
-    }
-
     private void initView(View rootView) {
+        noApplicationFound_TV_ID=rootView.findViewById(R.id.noApplicationFound_TV_ID);
         leavePendingApplicationList = rootView.findViewById(R.id.leave_pending_application_list);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();

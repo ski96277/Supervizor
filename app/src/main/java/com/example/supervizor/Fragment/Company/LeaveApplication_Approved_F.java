@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
+import com.example.supervizor.Activity.CompanyActivity.LeaveApplicationListActivity;
 import com.example.supervizor.AdapterClass.Leave_Application_Accepted_Adapter_Company;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -35,19 +36,18 @@ public class LeaveApplication_Approved_F extends Fragment {
     private DatabaseReference databaseReference;
     private List<LeaveApplication_PojoClass> leaveApplication_pojoClasses_seen_list = new ArrayList<>();
     private Check_User_information check_user_information;
-    long count_leave_Application;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
+       /* CompanyMainActivity.employee_and_calender_layout.setVisibility(View.GONE);
         CompanyMainActivity.pending_and_approved_layout.setVisibility(View.VISIBLE);
-
-        CompanyMainActivity.pending_button_layout
+*/
+        LeaveApplicationListActivity.pending_button_layout
                 .setBackgroundColor(Color.parseColor("#000000"));
-        CompanyMainActivity.approved_button_layout
+        LeaveApplicationListActivity.approved_button_layout
                 .setBackgroundColor(Color.parseColor("#00CCCC"));
 //check nav leave application buttton
         CompanyMainActivity.navigationView.setCheckedItem(R.id.nav_leave_application);
@@ -178,13 +178,6 @@ public class LeaveApplication_Approved_F extends Fragment {
     */}
 
 
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((CompanyMainActivity) getActivity())
-                .setActionBarTitle("Leave Application");
-    }
 
     private void initView(View rootView) {
 

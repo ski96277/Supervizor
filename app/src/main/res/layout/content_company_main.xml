@@ -55,7 +55,8 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!--Pending & Approval Button of leave Application-->
+    <!--
+    &lt;!&ndash;Pending & Approval Button of leave Application&ndash;&gt;
     <LinearLayout
         android:id="@+id/pending_and_Approval_layout_ID"
         android:layout_width="match_parent"
@@ -100,7 +101,7 @@
                 android:textColor="@color/text_white_color" />
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <FrameLayout
         android:id="@+id/company_main_screen"

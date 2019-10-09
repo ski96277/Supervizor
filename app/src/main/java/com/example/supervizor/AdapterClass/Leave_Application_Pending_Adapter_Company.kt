@@ -6,14 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass
@@ -21,7 +18,6 @@ import com.example.supervizor.Java_Class.CheckInternet
 import com.example.supervizor.Java_Class.Check_User_information
 import com.example.supervizor.NOtification_Firebase.MySingleton
 import com.example.supervizor.R
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
@@ -29,9 +25,7 @@ import kotlinx.android.synthetic.main.custom_alert_dialog_leave_application_pend
 import kotlinx.android.synthetic.main.item_all_pending_leave_application_company.view.*
 import org.json.JSONException
 import org.json.JSONObject
-import java.security.AccessController.getContext
 import java.util.HashMap
-import java.util.concurrent.Executor
 
 class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses: MutableList<LeaveApplication_PojoClass>) : RecyclerView.Adapter<Leave_Application_Pending_Adapter_Company.viewHolder>() {
 
@@ -82,14 +76,19 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
             dialog.leave_duration_TV_ID_company.text = "${leaveApplication_PojoClas.leave_start_date} to ${leaveApplication_PojoClas.leave_End_Date}"
             dialog.leave_details_details_TV_ID_company.text = leaveApplication_PojoClas.leave_description
 
-            if (leaveApplication_PojoClas.profile_image_link != "null") {
+            Picasso.get()
+                    .load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
+                    .error(R.drawable.profile)
+                    .into(dialog.leave_applicant_profile_image)
+
+           /* if (leaveApplication_PojoClas.profile_image_link != "null") {
 
                 Picasso.get().load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
                         .into(dialog.leave_applicant_profile_image)
 
             } else {
                 dialog.leave_applicant_profile_image.setImageResource(R.drawable.profile)
-            }
+            }*/
 
             dialog.cancel_btn_alert_show_ID_company.setOnClickListener {
                 dialog.dismiss()
@@ -103,10 +102,10 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
                 }
 
                 var firebseDatabase = FirebaseDatabase.getInstance()
-                var check_User_information = Check_User_information()
-                var databaseReference = firebseDatabase.getReference()
+                var checkUserInformation = Check_User_information()
+                var databaseReference = firebseDatabase.reference
                         .child("leave_application")
-                        .child(check_User_information.userID)
+                        .child(checkUserInformation.userID)
                         .child(leaveApplication_PojoClas.user_ID_Employee)
                         .child(leaveApplication_PojoClas.leave_Title)
                         .child("leave_seen").setValue(true)
@@ -134,7 +133,7 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
             if (fragment != null) {
 
                 val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                fragmentTransaction.replace(R.id.screenAreaForLeaveApplication_Layout, fragment!!)
                 fragmentTransaction.commit()
             }
         }

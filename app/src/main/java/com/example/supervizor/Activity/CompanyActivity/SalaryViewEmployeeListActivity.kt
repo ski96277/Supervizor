@@ -381,7 +381,7 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
                 Log.e("TAG - - : ", ": android Imran");
                 val dbFile = getDatabasePath(DataBaseHelper.DATABASE_NAME)
 
-                Log.e("MainActivity", "doInBackground:  dbfile $dbFile")
+                Log.e("LeaveApplicationListActivity", "doInBackground:  dbfile $dbFile")
                 println(dbFile) // displays the data base path in your logcat
 
                 val exportDir = File(Environment.getExternalStorageDirectory().absolutePath + "/Rocketechit_Salary")
@@ -425,10 +425,10 @@ class SalaryViewEmployeeListActivity : AppCompatActivity() {
 
 
             } catch (sqlEx: SQLException) {
-                Log.e("MainActivity", sqlEx.message, sqlEx)
+                Log.e("LeaveApplicationListActivity", sqlEx.message, sqlEx)
                 return false
             } catch (e: IOException) {
-                Log.e("MainActivity", e.message, e)
+                Log.e("LeaveApplicationListActivity", e.message, e)
                 return false
             }
             return true

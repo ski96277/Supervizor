@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CompanyActivity.LeaveApplicationListActivity">
+
+    <!--Pending & Approval Button of leave Application-->
+    <LinearLayout
+        android:id="@+id/pending_and_Approval_layout_ID"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#000"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/pending_button_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/pending_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5sp"
+                android:background="#000"
+                android:text="Pending"
+                android:fontFamily="@font/raleway_bold"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/approved_button_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/approved_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5sp"
+                android:background="#000"
+                android:text="Approved"
+                android:fontFamily="@font/raleway_bold"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white_color" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/screenAreaForLeaveApplication_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

@@ -70,4 +70,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_receptionist_main">ReceptionistMainActivity</string>
+    <string name="title_activity_leave_application_list">LeaveApplicationListActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -67,7 +67,7 @@ public class Employee_list_F extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CompanyMainActivity.employee_and_calender_layout.setVisibility(View.VISIBLE);
-        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
+//        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
 //set Button background color
         CompanyMainActivity.employee_button_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
         CompanyMainActivity.calender_button_layout.setBackgroundColor(Color.parseColor("#000000"));
@@ -232,12 +232,7 @@ public class Employee_list_F extends Fragment {
 
                 all_employee_list_adapter.getFilter().filter(query);
 
-              /*  if(addEmployee_pojoClasses.contains(query)){
 
-
-                }else{
-                    Toast.makeText(getActivity(), "No Match found",Toast.LENGTH_LONG).show();
-                }*/
                 return false;
             }
 

@@ -69,7 +69,7 @@ public class CompanyMainActivity extends AppCompatActivity
     Fragment fragment = null;
 
     private Button button_employee, button_calender;
-    private Button button_pending, button_approved;
+//    private Button button_pending, button_approved;
     private ImageView profile_image_nav;
     private TextView profile_company_name_nav;
     private TextView profile_company_email_nav;
@@ -84,11 +84,12 @@ public class CompanyMainActivity extends AppCompatActivity
 
     public static NavigationView navigationView;
     public static LinearLayout employee_and_calender_layout;
-    public static LinearLayout pending_and_approved_layout;
+//    public static LinearLayout pending_and_approved_layout;
     public static LinearLayout employee_button_layout;
     public static LinearLayout calender_button_layout;
-    public static LinearLayout pending_button_layout;
-    public static LinearLayout approved_button_layout;
+
+   /* public static LinearLayout pending_button_layout;
+    public static LinearLayout approved_button_layout;*/
 
     Toolbar toolbar;
 
@@ -172,9 +173,9 @@ public class CompanyMainActivity extends AppCompatActivity
 //Calender View show button_login
         button_calender.setOnClickListener(v -> calender_Fragment());
 //load leave application Pending
-        button_pending.setOnClickListener(v -> leave_application_pending_fragment());
+//        button_pending.setOnClickListener(v -> leave_application_pending_fragment());
 //load leave application Approve
-        button_approved.setOnClickListener(v -> leave_application_approved_fragment());
+//        button_approved.setOnClickListener(v -> leave_application_approved_fragment());
 
     }
 
@@ -271,19 +272,19 @@ public class CompanyMainActivity extends AppCompatActivity
         button_employee = findViewById(R.id.employee_button);
         button_calender = findViewById(R.id.calender_button);
 
-        button_pending = findViewById(R.id.pending_button);
-        button_approved = findViewById(R.id.approved_button);
+       /* button_pending = findViewById(R.id.pending_button);
+        button_approved = findViewById(R.id.approved_button);*/
 
 
         employee_and_calender_layout = findViewById(R.id.employee_and_calender_layout_ID);
-        pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
+//        pending_and_approved_layout = findViewById(R.id.pending_and_Approval_layout_ID);
 
         employee_button_layout = findViewById(R.id.employee_button_layout);
         calender_button_layout = findViewById(R.id.calender_button_layout);
 
-        pending_button_layout = findViewById(R.id.pending_button_layout);
+      /*  pending_button_layout = findViewById(R.id.pending_button_layout);
         approved_button_layout = findViewById(R.id.approved_button_layout);
-
+*/
         database = FirebaseDatabase.getInstance();
         myDatabaseRef = database.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -347,7 +348,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
 //replace leave approved fragment in main screen of Company
 
-    private void leave_application_approved_fragment() {
+ /*   private void leave_application_approved_fragment() {
         fragment = new LeaveApplication_Approved_F();
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -359,7 +360,7 @@ public class CompanyMainActivity extends AppCompatActivity
 
 
         }
-    }
+    }*/
 
 
     private void show_Alert_to_Exit_The_App() {
@@ -494,7 +495,9 @@ public class CompanyMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_leave_application) {
 
-            leave_application_pending_fragment();
+            startActivity(new Intent(this,LeaveApplicationListActivity.class));
+
+//            leave_application_pending_fragment();
 
         } else if (id == R.id.nav_Team_Leader) {
 
