@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<ScrollView--><!--xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:background="#EAEAEA"--><!--android:fillViewport="true">-->
-
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:fillViewport="true">
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    android:fillViewport="true"
+    android:layout_gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_marginTop="25sp"
         android:orientation="vertical"
         android:paddingLeft="35sp"
         android:paddingRight="35sp"
@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="25sp"
             android:layout_marginRight="6dp"
             app:cardElevation="10dp">
 
@@ -42,7 +41,7 @@
 
 
                 <EditText
-                    android:id="@+id/Employee_name_ET_ID"
+                    android:id="@+id/Receptionist_name_ET_ID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
@@ -50,7 +49,8 @@
                     android:backgroundTint="#DDDCDC"
                     android:hint="Name"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textSize="20sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -58,9 +58,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="25sp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="6dp"
             app:cardElevation="10dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,15 +79,16 @@
 
 
                 <EditText
-                    android:id="@+id/Employee_designation_ET_ID"
+                    android:id="@+id/Receptionist_designation_ET_ID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
                     android:backgroundTint="#DDDCDC"
-                    android:hint="Designation"
+                    android:focusable="false"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="Receptionist" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -94,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="6dp"
             app:cardElevation="10dp">
 
@@ -112,9 +114,8 @@
                     android:padding="3sp"
                     android:src="@drawable/email_icon" />
 
-
                 <EditText
-                    android:id="@+id/Employee_email_ET_ID"
+                    android:id="@+id/Receptionist_email_ET_ID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
@@ -127,13 +128,15 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/Employee_join_Date_ET_ID_layout"
+            android:id="@+id/Receptionist_join_Date_ET_ID_layout"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="6dp"
             app:cardElevation="10dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,22 +154,23 @@
 
 
                 <EditText
-                    android:id="@+id/Employee_join_Date_ET_ID"
+                    android:id="@+id/Receptionist_join_Date_ET_ID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
                     android:backgroundTint="#DDDCDC"
                     android:focusable="false"
-                    android:hint="Join date" />
+                    android:hint="Join Date" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="6dp"
             app:cardElevation="10dp">
 
@@ -187,9 +191,9 @@
 
 
                 <EditText
-                    android:id="@+id/Employee_salary_ET_ID"
+                    android:id="@+id/Receptionist_salary_ET_ID"
                     android:layout_width="0dp"
-                    android:layout_height="50sp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:layout_weight="8"
                     android:backgroundTint="#DDDCDC"
@@ -198,54 +202,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <Button
-                android:id="@+id/probationary_btn_ID"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5sp"
-                android:layout_weight="1"
-                android:background="@drawable/button_background_employee_type_dark"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Probationary"
-                android:textAllCaps="true"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/parmanent_btn_ID"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_background_employee_type"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Permanent"
-
-                android:textAllCaps="true"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
         <androidx.cardview.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="6dp"
             app:cardElevation="10dp">
 
             <LinearLayout
@@ -262,7 +225,6 @@
                     android:orientation="vertical">
 
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Contract Period"
@@ -278,24 +240,22 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/Employee_contact_pried_number_ET_ID"
+                        android:id="@+id/Receptionist_contact_pried_number_ET_ID"
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
+                        android:fontFamily="@font/ebrima"
                         android:gravity="center"
                         android:hint="01"
-
                         android:inputType="numberDecimal"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <Spinner
-                        android:id="@+id/Employee_spinner_year_month"
+                        android:id="@+id/Receptionist_spinner_year_month"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:entries="@array/contact_period"
-
-                        android:fontFamily="@font/raleway_italic"
                         android:textAlignment="textStart" />
                 </LinearLayout>
             </LinearLayout>
@@ -305,26 +265,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/add_Employee_button_ID"
-                android:layout_width="150dp"
+                android:id="@+id/add_Receptionist_button_ID"
+                android:layout_width="175dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/add_employee_btn_bg"
-                android:text="+ Add Employee"
+                android:text="+ Add Receptionist"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/text_white_color"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
     </LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>
-
-
-    <!--</ScrollView>-->

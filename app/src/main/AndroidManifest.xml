@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.CompanyActivity.TeamLeaderListActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"/>
         <activity
             android:name=".Activity.CompanyActivity.Team_RequestListActivity"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
@@ -54,9 +56,6 @@
         <activity
             android:name=".Activity.EmployeeActivity.EmployeeAttendanceActivityViewByUser"
             android:parentActivityName=".Activity.EmployeeActivity.EmployeeMainActivity" />
-        <activity
-            android:name=".Activity.CompanyActivity.SalaryReportAllActivity"
-            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
         <activity
             android:name=".Activity.CompanyActivity.SalaryViewEmployeeListActivity"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />

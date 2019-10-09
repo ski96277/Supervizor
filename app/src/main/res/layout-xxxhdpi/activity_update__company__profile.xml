@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/registration_bg_Color"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:text="Update Company Profile"
+            android:textColor="@color/text_black_color"
+            android:textSize="25sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/company_profile_image_update"
+            android:layout_width="112dp"
+            android:layout_height="115dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10sp"
+            android:src="@drawable/upload_logo"
+            app:civ_border_color="@color/border_color_profile_image"
+            app:civ_border_width="2dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="1sp"
+                android:layout_marginRight="15sp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <TextView
+                    android:id="@+id/email_save_In_update_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:visibility="gone"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <TextView
+                    android:id="@+id/image_download_link_update_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:visibility="gone"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <TextView
+                    android:id="@+id/password_update_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:visibility="gone"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <TextView
+                    android:id="@+id/user_ID_update_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:visibility="gone"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <TextView
+                    android:id="@+id/user_Type_update_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:visibility="gone"
+                    android:textSize="17sp"
+                    android:text="Name:"
+                    />
+                <EditText
+                    android:id="@+id/company_name_ET_ID_update"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="4sp"
+                    android:layout_weight="2"
+                    android:drawablePadding="15dp"
+                    android:hint="@string/company_name_hint"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="1sp"
+                android:layout_marginRight="15sp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:text="Location:"
+                    />
+                <EditText
+                    android:id="@+id/company_location_ET_ID_update"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="4sp"
+                    android:layout_weight="2"
+                    android:drawablePadding="15dp"
+                    android:hint="Location"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="1sp"
+                android:layout_marginRight="15sp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4sp"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:text="Phone:"
+                    />
+
+                <EditText
+                    android:id="@+id/company_contact_ET_ID_update"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="4sp"
+                    android:layout_weight="2"
+                    android:drawablePadding="15dp"
+                    android:hint="Contact"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+<!--
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5.5sp"
+                    android:src="@drawable/email_icon" />
+
+                <EditText
+                    android:id="@+id/company_email_ET_ID_update"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="4sp"
+                    android:layout_weight="7"
+                    android:drawablePadding="15dp"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5.5sp"
+                    android:src="@drawable/pass_icon" />
+
+                <EditText
+                    android:id="@+id/company_password_ET_ID_update"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="4sp"
+                    android:layout_weight="7"
+                    android:drawablePadding="15dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:id="@+id/entry_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="@string/entry_time_signup"
+                    android:textColor="@color/text_black_color"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/entry_time_TV_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/doppio_one_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="#284A81"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:id="@+id/exit_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="@string/exit_time_signup"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textColor="@color/text_black_color"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/exit_time_TV_ID"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/doppio_one_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="#284A81"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:id="@+id/penalty_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:fontFamily="@font/raleway_regular"
+                    android:text="@string/penalty_time_signup"
+                    android:textColor="@color/text_black_color"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/penalty_time_TV_ID"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:paddingLeft="5dp"
+                    android:fontFamily="@font/doppio_one_regular"
+                    android:textColor="#284A81"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/doppio_one_regular"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="Working Days"
+
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/working_days_ET_ID_update"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="26"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/doppio_one_regular"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="Delay Count"
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/delay_count_ET_ID_update"
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/raleway_regular"
+                android:gravity="center"
+                android:hint="3"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/text_black_color"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/update_btn_company"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/signup_btn_bg"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white_color"
+            android:textSize="20sp"
+            android:layout_marginBottom="10sp"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Company;
 
 import android.os.Bundle;
@@ -103,3 +104,4 @@ public class TeamLeader_F extends Fragment {
                 .setActionBarTitle("Team Leader");
     }
 }
+*/

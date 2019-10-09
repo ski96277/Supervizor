@@ -22,7 +22,6 @@ class PolicyFormActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_policy_form)
         //hide notificationbar
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         supportActionBar?.title = "Add salary Policy"
 
         if (!CheckInternet.isInternet(this@PolicyFormActivity)) {

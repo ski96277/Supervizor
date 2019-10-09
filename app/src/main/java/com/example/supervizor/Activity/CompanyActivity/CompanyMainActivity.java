@@ -12,7 +12,6 @@ import com.example.supervizor.Fragment.Company.Calender_F;
 import com.example.supervizor.Fragment.Company.Employee_list_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Approved_F;
 import com.example.supervizor.Fragment.Company.LeaveApplication_Pending_F;
-import com.example.supervizor.Fragment.Company.TeamLeader_F;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -499,7 +498,8 @@ public class CompanyMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Team_Leader) {
 
-            load_Team_leader_F();
+//            load_Team_leader_F();
+            startActivity(new Intent(this,TeamLeaderListActivity.class));
 
 
         } else if (id == R.id.nav_salary_Policies) {
@@ -508,13 +508,8 @@ public class CompanyMainActivity extends AppCompatActivity
         }  else if (id == R.id.nav_salary_list) {
             startActivity(new Intent(this, SalaryViewEmployeeListActivity.class));
 
-        }  else if (id == R.id.nav_salary_report) {
-            startActivity(new Intent(this, SalaryReportAllActivity.class));
-
         } else if (id == R.id.nav_team_request_pending) {
-            /*Bundle bundle = new Bundle();
-            bundle.putString("error_handel_when_event_create", "1");
-            load_Team_Request(bundle);*/
+
             startActivity(new
                     Intent(this,Team_RequestListActivity.class));
 
@@ -553,12 +548,12 @@ public class CompanyMainActivity extends AppCompatActivity
         }
     }*/
 
-    private void load_Team_leader_F() {
+  /*  private void load_Team_leader_F() {
         fragment = new TeamLeader_F();
         if (fragment != null) {
-           /* FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+           *//* FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
-            fragmentTransaction.replace(R.id.company_main_screen, fragment);*/
+            fragmentTransaction.replace(R.id.company_main_screen, fragment);*//*
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
@@ -569,7 +564,7 @@ public class CompanyMainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
 
-    }
+    }*/
 
     /*private void load_User_Attendance() {
         fragment = new User_Attendance_F();
