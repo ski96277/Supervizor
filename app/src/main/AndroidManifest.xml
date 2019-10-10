@@ -21,8 +21,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.CompanyActivity.LeaveApplicationListActivity"
-            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"/>
+        <activity android:name=".Activity.ReceptionistActivity.TeamEventListReceptionActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.TeamListReceptionActivity"/>
+        <activity
+            android:name=".Activity.ReceptionistActivity.TeamListReceptionActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.MyLeaveApplicationReceptionistActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.LeaveApplicationReceptionistActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.AttandenceReceptionistActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.GeneralEventListReceptionistActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.EditReceptionistProfileActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ProfileViewReceptionistActivity" />
+        <activity
+            android:name=".Activity.ReceptionistActivity.ProfileViewReceptionistActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />
+        <activity
+            android:name=".Activity.CompanyActivity.LeaveApplicationListActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
         <activity
             android:name=".Activity.CompanyActivity.TeamLeaderListActivity"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />

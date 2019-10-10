@@ -1,5 +1,9 @@
-/*
-package com.example.supervizor.Fragment.Receptionist;
+package com.example.supervizor.Activity.ReceptionistActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,9 +11,8 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -17,7 +20,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
@@ -31,17 +33,10 @@ import com.squareup.picasso.Picasso;
 import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import java.util.Calendar;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
-
-public class Receptionist_Attendance_F extends Fragment {
+public class AttandenceReceptionistActivity extends AppCompatActivity {
 
     protected View rootView;
     protected TextView nameTVAttendance;
@@ -151,26 +146,26 @@ public class Receptionist_Attendance_F extends Fragment {
     private DatabaseReference databaseReference;
     Check_User_information check_user_information;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.receptionist_attendance_f, container, false);
-    }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.receptionist_attendance_f);
+        //hide notification ba
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("Attendance");
 
-        Spinner month_spinner = view.findViewById(R.id.month_spinner_ID_Reception_Attendance);
-        Spinner year_spinner = view.findViewById(R.id.year_spinner_ID_Reception_Attendance);
+        initView();
+
+        Spinner month_spinner = findViewById(R.id.month_spinner_ID_Reception_Attendance);
+        Spinner year_spinner = findViewById(R.id.year_spinner_ID_Reception_Attendance);
 
         month_spinner.getBackground().setColorFilter(getResources().getColor(R.color.text_white_color), PorterDuff.Mode.SRC_ATOP);
         year_spinner.getBackground().setColorFilter(getResources().getColor(R.color.text_white_color), PorterDuff.Mode.SRC_ATOP);
 
         String[] month_array = {"January", "February", "March", "April", "May", "june", "July", "August", "September", "October", "November", "December"};
         ArrayAdapter<String> adapter_month =
-                new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, month_array);
+                new ArrayAdapter<>(this, R.layout.simple_spinner_item, month_array);
         adapter_month.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         month_spinner.setAdapter(adapter_month);
 
@@ -182,7 +177,7 @@ public class Receptionist_Attendance_F extends Fragment {
 
         String[] year_array = {"2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
         ArrayAdapter<String> adapter_year =
-                new ArrayAdapter<>(getContext(), R.layout.simple_spinner_item, year_array);
+                new ArrayAdapter<>(this, R.layout.simple_spinner_item, year_array);
         adapter_year.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         year_spinner.setAdapter(adapter_year);
 
@@ -197,7 +192,7 @@ public class Receptionist_Attendance_F extends Fragment {
                 String designation = addEmployee_pojoClass.getEmployee_designation();
                 String image_link = addEmployee_pojoClass.getEmployee_profile_image_link();
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AttandenceReceptionistActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("company_user_ID",addEmployee_pojoClass.getCompany_User_id());
                 editor.apply();
@@ -252,121 +247,114 @@ public class Receptionist_Attendance_F extends Fragment {
 
     }
 
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((ReceptionistMainActivity) getActivity())
-                .setActionBarTitle("Attendance");
-    }
 
-    private void initView(View rootView) {
-        profileImage = (CircleImageView) rootView.findViewById(R.id.profile_image);
-        monthSpinnerIDReceptionAttendance = (Spinner) rootView.findViewById(R.id.month_spinner_ID_Reception_Attendance);
-        yearSpinnerIDReceptionAttendance = (Spinner) rootView.findViewById(R.id.year_spinner_ID_Reception_Attendance);
-        dateTV1 = (TextView) rootView.findViewById(R.id.date_TV_1);
-        entryTimeDate1 = (TextView) rootView.findViewById(R.id.entry_time_date_1);
-        exitTimeDate1 = (TextView) rootView.findViewById(R.id.exit_time_date_1);
-        dateTV2 = (TextView) rootView.findViewById(R.id.date_TV_2);
-        entryTimeDate2 = (TextView) rootView.findViewById(R.id.entry_time_date_2);
-        exitTimeDate2 = (TextView) rootView.findViewById(R.id.exit_time_date_2);
-        dateTV3 = (TextView) rootView.findViewById(R.id.date_TV_3);
-        entryTimeDate3 = (TextView) rootView.findViewById(R.id.entry_time_date_3);
-        exitTimeDate3 = (TextView) rootView.findViewById(R.id.exit_time_date_3);
-        dateTV4 = (TextView) rootView.findViewById(R.id.date_TV_4);
-        entryTimeDate4 = (TextView) rootView.findViewById(R.id.entry_time_date_4);
-        exitTimeDate4 = (TextView) rootView.findViewById(R.id.exit_time_date_4);
-        dateTV5 = (TextView) rootView.findViewById(R.id.date_TV_5);
-        entryTimeDate5 = (TextView) rootView.findViewById(R.id.entry_time_date_5);
-        exitTimeDate5 = (TextView) rootView.findViewById(R.id.exit_time_date_5);
-        dateTV6 = (TextView) rootView.findViewById(R.id.date_TV_6);
-        entryTimeDate6 = (TextView) rootView.findViewById(R.id.entry_time_date_6);
-        exitTimeDate6 = (TextView) rootView.findViewById(R.id.exit_time_date_6);
-        dateTV7 = (TextView) rootView.findViewById(R.id.date_TV_7);
-        entryTimeDate7 = (TextView) rootView.findViewById(R.id.entry_time_date_7);
-        exitTimeDate7 = (TextView) rootView.findViewById(R.id.exit_time_date_7);
-        dateTV8 = (TextView) rootView.findViewById(R.id.date_TV_8);
-        entryTimeDate8 = (TextView) rootView.findViewById(R.id.entry_time_date_8);
-        exitTimeDate8 = (TextView) rootView.findViewById(R.id.exit_time_date_8);
-        dateTV9 = (TextView) rootView.findViewById(R.id.date_TV_9);
-        entryTimeDate9 = (TextView) rootView.findViewById(R.id.entry_time_date_9);
-        exitTimeDate9 = (TextView) rootView.findViewById(R.id.exit_time_date_9);
-        dateTV10 = (TextView) rootView.findViewById(R.id.date_TV_10);
-        entryTimeDate10 = (TextView) rootView.findViewById(R.id.entry_time_date_10);
-        exitTimeDate10 = (TextView) rootView.findViewById(R.id.exit_time_date_10);
-        dateTV11 = (TextView) rootView.findViewById(R.id.date_TV_11);
-        entryTimeDate11 = (TextView) rootView.findViewById(R.id.entry_time_date_11);
-        exitTimeDate11 = (TextView) rootView.findViewById(R.id.exit_time_date_11);
-        dateTV12 = (TextView) rootView.findViewById(R.id.date_TV_12);
-        entryTimeDate12 = (TextView) rootView.findViewById(R.id.entry_time_date_12);
-        exitTimeDate12 = (TextView) rootView.findViewById(R.id.exit_time_date_12);
-        dateTV13 = (TextView) rootView.findViewById(R.id.date_TV_13);
-        entryTimeDate13 = (TextView) rootView.findViewById(R.id.entry_time_date_13);
-        exitTimeDate13 = (TextView) rootView.findViewById(R.id.exit_time_date_13);
-        dateTV14 = (TextView) rootView.findViewById(R.id.date_TV_14);
-        entryTimeDate14 = (TextView) rootView.findViewById(R.id.entry_time_date_14);
-        exitTimeDate14 = (TextView) rootView.findViewById(R.id.exit_time_date_14);
-        dateTV15 = (TextView) rootView.findViewById(R.id.date_TV_15);
-        entryTimeDate15 = (TextView) rootView.findViewById(R.id.entry_time_date_15);
-        exitTimeDate15 = (TextView) rootView.findViewById(R.id.exit_time_date_15);
-        dateTV16 = (TextView) rootView.findViewById(R.id.date_TV_16);
-        entryTimeDate16 = (TextView) rootView.findViewById(R.id.entry_time_date_16);
-        exitTimeDate16 = (TextView) rootView.findViewById(R.id.exit_time_date_16);
-        dateTV17 = (TextView) rootView.findViewById(R.id.date_TV_17);
-        entryTimeDate17 = (TextView) rootView.findViewById(R.id.entry_time_date_17);
-        exitTimeDate17 = (TextView) rootView.findViewById(R.id.exit_time_date_17);
-        dateTV18 = (TextView) rootView.findViewById(R.id.date_TV_18);
-        entryTimeDate18 = (TextView) rootView.findViewById(R.id.entry_time_date_18);
-        exitTimeDate18 = (TextView) rootView.findViewById(R.id.exit_time_date_18);
-        dateTV19 = (TextView) rootView.findViewById(R.id.date_TV_19);
-        entryTimeDate19 = (TextView) rootView.findViewById(R.id.entry_time_date_19);
-        exitTimeDate19 = (TextView) rootView.findViewById(R.id.exit_time_date_19);
-        dateTV20 = (TextView) rootView.findViewById(R.id.date_TV_20);
-        entryTimeDate20 = (TextView) rootView.findViewById(R.id.entry_time_date_20);
-        exitTimeDate20 = (TextView) rootView.findViewById(R.id.exit_time_date_20);
-        dateTV21 = (TextView) rootView.findViewById(R.id.date_TV_21);
-        entryTimeDate21 = (TextView) rootView.findViewById(R.id.entry_time_date_21);
-        exitTimeDate21 = (TextView) rootView.findViewById(R.id.exit_time_date_21);
-        dateTV22 = (TextView) rootView.findViewById(R.id.date_TV_22);
-        entryTimeDate22 = (TextView) rootView.findViewById(R.id.entry_time_date_22);
-        exitTimeDate22 = (TextView) rootView.findViewById(R.id.exit_time_date_22);
-        dateTV23 = (TextView) rootView.findViewById(R.id.date_TV_23);
-        entryTimeDate23 = (TextView) rootView.findViewById(R.id.entry_time_date_23);
-        exitTimeDate23 = (TextView) rootView.findViewById(R.id.exit_time_date_23);
-        dateTV24 = (TextView) rootView.findViewById(R.id.date_TV_24);
-        entryTimeDate24 = (TextView) rootView.findViewById(R.id.entry_time_date_24);
-        exitTimeDate24 = (TextView) rootView.findViewById(R.id.exit_time_date_24);
-        dateTV25 = (TextView) rootView.findViewById(R.id.date_TV_25);
-        entryTimeDate25 = (TextView) rootView.findViewById(R.id.entry_time_date_25);
-        exitTimeDate25 = (TextView) rootView.findViewById(R.id.exit_time_date_25);
-        dateTV26 = (TextView) rootView.findViewById(R.id.date_TV_26);
-        entryTimeDate26 = (TextView) rootView.findViewById(R.id.entry_time_date_26);
-        exitTimeDate26 = (TextView) rootView.findViewById(R.id.exit_time_date_26);
-        dateTV27 = (TextView) rootView.findViewById(R.id.date_TV_27);
-        entryTimeDate27 = (TextView) rootView.findViewById(R.id.entry_time_date_27);
-        exitTimeDate27 = (TextView) rootView.findViewById(R.id.exit_time_date_27);
-        dateTV28 = (TextView) rootView.findViewById(R.id.date_TV_28);
-        entryTimeDate28 = (TextView) rootView.findViewById(R.id.entry_time_date_28);
-        exitTimeDate28 = (TextView) rootView.findViewById(R.id.exit_time_date_28);
-        tableRow28 = (TableRow) rootView.findViewById(R.id.table_row_28);
-        dateTV29 = (TextView) rootView.findViewById(R.id.date_TV_29);
-        entryTimeDate29 = (TextView) rootView.findViewById(R.id.entry_time_date_29);
-        exitTimeDate29 = (TextView) rootView.findViewById(R.id.exit_time_date_29);
-        tableRow29 = (TableRow) rootView.findViewById(R.id.table_row_29);
-        dateTV30 = (TextView) rootView.findViewById(R.id.date_TV_30);
-        entryTimeDate30 = (TextView) rootView.findViewById(R.id.entry_time_date_30);
-        exitTimeDate30 = (TextView) rootView.findViewById(R.id.exit_time_date_30);
-        tableRow30 = (TableRow) rootView.findViewById(R.id.table_row_30);
-        dateTV31 = (TextView) rootView.findViewById(R.id.date_TV_31);
-        entryTimeDate31 = (TextView) rootView.findViewById(R.id.entry_time_date_31);
-        exitTimeDate31 = (TextView) rootView.findViewById(R.id.exit_time_date_31);
-        tableRow31 = (TableRow) rootView.findViewById(R.id.table_row_31);
-        table = (TableLayout) rootView.findViewById(R.id.table);
+    private void initView( ) {
+        profileImage = (CircleImageView) findViewById(R.id.profile_image);
+        monthSpinnerIDReceptionAttendance = (Spinner) findViewById(R.id.month_spinner_ID_Reception_Attendance);
+        yearSpinnerIDReceptionAttendance = (Spinner) findViewById(R.id.year_spinner_ID_Reception_Attendance);
+        dateTV1 = (TextView) findViewById(R.id.date_TV_1);
+        entryTimeDate1 = (TextView) findViewById(R.id.entry_time_date_1);
+        exitTimeDate1 = (TextView) findViewById(R.id.exit_time_date_1);
+        dateTV2 = (TextView) findViewById(R.id.date_TV_2);
+        entryTimeDate2 = (TextView) findViewById(R.id.entry_time_date_2);
+        exitTimeDate2 = (TextView) findViewById(R.id.exit_time_date_2);
+        dateTV3 = (TextView) findViewById(R.id.date_TV_3);
+        entryTimeDate3 = (TextView) findViewById(R.id.entry_time_date_3);
+        exitTimeDate3 = (TextView) findViewById(R.id.exit_time_date_3);
+        dateTV4 = (TextView) findViewById(R.id.date_TV_4);
+        entryTimeDate4 = (TextView) findViewById(R.id.entry_time_date_4);
+        exitTimeDate4 = (TextView) findViewById(R.id.exit_time_date_4);
+        dateTV5 = (TextView) findViewById(R.id.date_TV_5);
+        entryTimeDate5 = (TextView) findViewById(R.id.entry_time_date_5);
+        exitTimeDate5 = (TextView) findViewById(R.id.exit_time_date_5);
+        dateTV6 = (TextView) findViewById(R.id.date_TV_6);
+        entryTimeDate6 = (TextView) findViewById(R.id.entry_time_date_6);
+        exitTimeDate6 = (TextView) findViewById(R.id.exit_time_date_6);
+        dateTV7 = (TextView) findViewById(R.id.date_TV_7);
+        entryTimeDate7 = (TextView) findViewById(R.id.entry_time_date_7);
+        exitTimeDate7 = (TextView) findViewById(R.id.exit_time_date_7);
+        dateTV8 = (TextView) findViewById(R.id.date_TV_8);
+        entryTimeDate8 = (TextView) findViewById(R.id.entry_time_date_8);
+        exitTimeDate8 = (TextView) findViewById(R.id.exit_time_date_8);
+        dateTV9 = (TextView) findViewById(R.id.date_TV_9);
+        entryTimeDate9 = (TextView) findViewById(R.id.entry_time_date_9);
+        exitTimeDate9 = (TextView) findViewById(R.id.exit_time_date_9);
+        dateTV10 = (TextView) findViewById(R.id.date_TV_10);
+        entryTimeDate10 = (TextView) findViewById(R.id.entry_time_date_10);
+        exitTimeDate10 = (TextView) findViewById(R.id.exit_time_date_10);
+        dateTV11 = (TextView) findViewById(R.id.date_TV_11);
+        entryTimeDate11 = (TextView) findViewById(R.id.entry_time_date_11);
+        exitTimeDate11 = (TextView) findViewById(R.id.exit_time_date_11);
+        dateTV12 = (TextView) findViewById(R.id.date_TV_12);
+        entryTimeDate12 = (TextView) findViewById(R.id.entry_time_date_12);
+        exitTimeDate12 = (TextView) findViewById(R.id.exit_time_date_12);
+        dateTV13 = (TextView) findViewById(R.id.date_TV_13);
+        entryTimeDate13 = (TextView) findViewById(R.id.entry_time_date_13);
+        exitTimeDate13 = (TextView) findViewById(R.id.exit_time_date_13);
+        dateTV14 = (TextView) findViewById(R.id.date_TV_14);
+        entryTimeDate14 = (TextView) findViewById(R.id.entry_time_date_14);
+        exitTimeDate14 = (TextView) findViewById(R.id.exit_time_date_14);
+        dateTV15 = (TextView) findViewById(R.id.date_TV_15);
+        entryTimeDate15 = (TextView) findViewById(R.id.entry_time_date_15);
+        exitTimeDate15 = (TextView) findViewById(R.id.exit_time_date_15);
+        dateTV16 = (TextView) findViewById(R.id.date_TV_16);
+        entryTimeDate16 = (TextView) findViewById(R.id.entry_time_date_16);
+        exitTimeDate16 = (TextView) findViewById(R.id.exit_time_date_16);
+        dateTV17 = (TextView) findViewById(R.id.date_TV_17);
+        entryTimeDate17 = (TextView) findViewById(R.id.entry_time_date_17);
+        exitTimeDate17 = (TextView) findViewById(R.id.exit_time_date_17);
+        dateTV18 = (TextView) findViewById(R.id.date_TV_18);
+        entryTimeDate18 = (TextView) findViewById(R.id.entry_time_date_18);
+        exitTimeDate18 = (TextView) findViewById(R.id.exit_time_date_18);
+        dateTV19 = (TextView) findViewById(R.id.date_TV_19);
+        entryTimeDate19 = (TextView) findViewById(R.id.entry_time_date_19);
+        exitTimeDate19 = (TextView) findViewById(R.id.exit_time_date_19);
+        dateTV20 = (TextView) findViewById(R.id.date_TV_20);
+        entryTimeDate20 = (TextView) findViewById(R.id.entry_time_date_20);
+        exitTimeDate20 = (TextView) findViewById(R.id.exit_time_date_20);
+        dateTV21 = (TextView) findViewById(R.id.date_TV_21);
+        entryTimeDate21 = (TextView) findViewById(R.id.entry_time_date_21);
+        exitTimeDate21 = (TextView) findViewById(R.id.exit_time_date_21);
+        dateTV22 = (TextView) findViewById(R.id.date_TV_22);
+        entryTimeDate22 = (TextView) findViewById(R.id.entry_time_date_22);
+        exitTimeDate22 = (TextView) findViewById(R.id.exit_time_date_22);
+        dateTV23 = (TextView) findViewById(R.id.date_TV_23);
+        entryTimeDate23 = (TextView) findViewById(R.id.entry_time_date_23);
+        exitTimeDate23 = (TextView) findViewById(R.id.exit_time_date_23);
+        dateTV24 = (TextView) findViewById(R.id.date_TV_24);
+        entryTimeDate24 = (TextView) findViewById(R.id.entry_time_date_24);
+        exitTimeDate24 = (TextView) findViewById(R.id.exit_time_date_24);
+        dateTV25 = (TextView) findViewById(R.id.date_TV_25);
+        entryTimeDate25 = (TextView) findViewById(R.id.entry_time_date_25);
+        exitTimeDate25 = (TextView) findViewById(R.id.exit_time_date_25);
+        dateTV26 = (TextView) findViewById(R.id.date_TV_26);
+        entryTimeDate26 = (TextView) findViewById(R.id.entry_time_date_26);
+        exitTimeDate26 = (TextView) findViewById(R.id.exit_time_date_26);
+        dateTV27 = (TextView) findViewById(R.id.date_TV_27);
+        entryTimeDate27 = (TextView) findViewById(R.id.entry_time_date_27);
+        exitTimeDate27 = (TextView) findViewById(R.id.exit_time_date_27);
+        dateTV28 = (TextView) findViewById(R.id.date_TV_28);
+        entryTimeDate28 = (TextView) findViewById(R.id.entry_time_date_28);
+        exitTimeDate28 = (TextView) findViewById(R.id.exit_time_date_28);
+        tableRow28 = (TableRow) findViewById(R.id.table_row_28);
+        dateTV29 = (TextView) findViewById(R.id.date_TV_29);
+        entryTimeDate29 = (TextView) findViewById(R.id.entry_time_date_29);
+        exitTimeDate29 = (TextView) findViewById(R.id.exit_time_date_29);
+        tableRow29 = (TableRow) findViewById(R.id.table_row_29);
+        dateTV30 = (TextView) findViewById(R.id.date_TV_30);
+        entryTimeDate30 = (TextView) findViewById(R.id.entry_time_date_30);
+        exitTimeDate30 = (TextView) findViewById(R.id.exit_time_date_30);
+        tableRow30 = (TableRow) findViewById(R.id.table_row_30);
+        dateTV31 = (TextView) findViewById(R.id.date_TV_31);
+        entryTimeDate31 = (TextView) findViewById(R.id.entry_time_date_31);
+        exitTimeDate31 = (TextView) findViewById(R.id.exit_time_date_31);
+        tableRow31 = (TableRow) findViewById(R.id.table_row_31);
+        table = (TableLayout) findViewById(R.id.table);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         check_user_information = new Check_User_information();
-        nameTVAttendance = (TextView) rootView.findViewById(R.id.name_TV_attendance);
-        designationTVIDAttandence = (TextView) rootView.findViewById(R.id.designation_TV_ID_attandence);
+        nameTVAttendance = (TextView) findViewById(R.id.name_TV_attendance);
+        designationTVIDAttandence = (TextView) findViewById(R.id.designation_TV_ID_attandence);
 
     }
 
@@ -598,7 +586,7 @@ public class Receptionist_Attendance_F extends Fragment {
         int monthNumber;
         int i = 0;
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String entry_time_company =preferences.getString("company_entry_time","");
         String company_exit_time =preferences.getString("company_exit_time","");
         String company_penalty_time =preferences.getString("company_penalty_time","");
@@ -717,7 +705,7 @@ public class Receptionist_Attendance_F extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //clear the date_list for reduce the data replete
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AttandenceReceptionistActivity.this);
                 String company_user_ID = preferences.getString("company_user_ID", "");
 
                 for (DataSnapshot snapshot : dataSnapshot
@@ -734,7 +722,7 @@ public class Receptionist_Attendance_F extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AttandenceReceptionistActivity.this);
                             String company_user_ID = preferences.getString("company_user_ID", "");
 
                             String entryTime = dataSnapshot
@@ -768,7 +756,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate1,
                                         exitTimeDate1);
 
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -794,8 +781,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate1.setText(entryTime);
                                 exitTimeDate1.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(2))) {
 
 
@@ -805,8 +791,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate2,
                                         exitTimeDate2);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -831,8 +816,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate2.setText(entryTime);
                                 exitTimeDate2.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(3))) {
 
 
@@ -843,8 +827,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate3,
                                         exitTimeDate3);
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -869,8 +852,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate3.setText(entryTime);
                                 exitTimeDate3.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(4))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -878,8 +860,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate4,
                                         exitTimeDate4);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -904,8 +885,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate4.setText(entryTime);
                                 exitTimeDate4.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            *//*
-}
+                            */}
                             if (date.equals(String.valueOf(5))) {
 
                                 setDataToTable(entryTime,
@@ -914,7 +894,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate5,
                                         exitTimeDate5);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -941,8 +920,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate5.setText(entryTime);
                                 exitTimeDate5.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(6))) {
 
                                 setDataToTable(entryTime,
@@ -951,8 +929,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate6,
                                         exitTimeDate6);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -977,8 +954,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate6.setText(entryTime);
                                 exitTimeDate6.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                        *//*
-    }
+                        */    }
                             if (date.equals(String.valueOf(7))) {
 
                                 setDataToTable(entryTime,
@@ -988,8 +964,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate7,
                                         exitTimeDate7);
 
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1013,8 +988,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate7.setText(entryTime);
                                 exitTimeDate7.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(8))) {
 
                                 setDataToTable(entryTime,
@@ -1023,8 +997,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate8,
                                         exitTimeDate8);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1048,8 +1021,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate8.setText(entryTime);
                                 exitTimeDate8.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(9))) {
 
                                 setDataToTable(entryTime,
@@ -1058,8 +1030,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate9,
                                         exitTimeDate9);
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1084,8 +1055,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate9.setText(entryTime);
                                 exitTimeDate9.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                            *//*
-}
+                            */}
                             if (date.equals(String.valueOf(10))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1093,7 +1063,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate10,
                                         exitTimeDate10);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1120,8 +1089,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate10.setText(entryTime);
                                 exitTimeDate10.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(11))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1129,8 +1097,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate11,
                                         exitTimeDate11);
-                             */
-/*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                             /*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1154,8 +1121,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate11.setText(entryTime);
                                 exitTimeDate11.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(12))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1163,8 +1129,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate12,
                                         exitTimeDate12);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1188,8 +1153,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate12.setText(entryTime);
                                 exitTimeDate12.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(13))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1197,8 +1161,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate13,
                                         exitTimeDate13);
-                                */
-/*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                                /*DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1224,8 +1187,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate13.setText(entryTime);
                                 exitTimeDate13.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(14))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1233,7 +1195,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate14,
                                         exitTimeDate14);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1260,8 +1221,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate14.setText(entryTime);
                                 exitTimeDate14.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(15))) {
 
                                 setDataToTable(entryTime,
@@ -1270,7 +1230,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate15,
                                         exitTimeDate15);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1297,8 +1256,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate15.setText(entryTime);
                                 exitTimeDate15.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(16))) {
 
                                 setDataToTable(entryTime,
@@ -1308,8 +1266,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate16,
                                         exitTimeDate16);
 
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1334,8 +1291,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate16.setText(entryTime);
                                 exitTimeDate16.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(17))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1344,8 +1300,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate17,
                                         exitTimeDate17);
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1370,8 +1325,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate17.setText(entryTime);
                                 exitTimeDate17.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
                             if (date.equals(String.valueOf(18))) {
 
                                 setDataToTable(entryTime,
@@ -1380,8 +1334,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate18,
                                         exitTimeDate18);
-                              */
-/*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                              /*  DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1406,8 +1359,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate18.setText(entryTime);
                                 exitTimeDate18.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(19))) {
 
                                 setDataToTable(entryTime,
@@ -1416,7 +1368,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate19,
                                         exitTimeDate19);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1443,8 +1394,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate19.setText(entryTime);
                                 entryTimeDate19.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
                             if (date.equals(String.valueOf(20))) {
 
                                 setDataToTable(entryTime,
@@ -1453,7 +1403,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate20,
                                         exitTimeDate20);
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1480,8 +1429,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate20.setText(entryTime);
                                 exitTimeDate20.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
                             if (date.equals(String.valueOf(21))) {
 
                                 setDataToTable(entryTime,
@@ -1491,8 +1439,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate21,
                                         exitTimeDate21);
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1517,8 +1464,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate21.setText(entryTime);
                                 exitTimeDate21.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(22))) {
 
                                 setDataToTable(entryTime,
@@ -1528,8 +1474,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate22,
                                         exitTimeDate22);
 
-                            */
-/*    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                            /*    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1554,8 +1499,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate22.setText(entryTime);
                                 exitTimeDate22.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(23))) {
 
                                 setDataToTable(entryTime,
@@ -1565,8 +1509,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate23,
                                         exitTimeDate23);
 
-                           */
-/*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                           /*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1591,8 +1534,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate23.setText(entryTime);
                                 exitTimeDate23.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(24))) {
 
                                 setDataToTable(entryTime,
@@ -1602,8 +1544,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate24,
                                         exitTimeDate24);
 
-                             */
-/*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                             /*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1629,8 +1570,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate24.setText(entryTime);
                                 exitTimeDate24.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(25))) {
 
                                 setDataToTable(entryTime,
@@ -1640,8 +1580,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate25,
                                         exitTimeDate25);
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1667,8 +1606,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate25.setText(entryTime);
                                 exitTimeDate25.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
                             if (date.equals(String.valueOf(26))) {
 
 
@@ -1678,8 +1616,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         company_exit_time,
                                         entryTimeDate26,
                                         exitTimeDate26);
-                             */
-/*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                             /*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1705,8 +1642,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate26.setText(entryTime);
                                 exitTimeDate26.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(27))) {
                                 setDataToTable(entryTime,
                                         exitTime,
@@ -1716,8 +1652,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         exitTimeDate27);
 
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1743,8 +1678,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate27.setText(entryTime);
                                 exitTimeDate27.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
                             if (date.equals(String.valueOf(28))) {
 
                                 setDataToTable(entryTime,
@@ -1754,8 +1688,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate28,
                                         exitTimeDate28);
 
-                             */
-/*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                             /*   DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1780,8 +1713,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate28.setText(entryTime);
                                 exitTimeDate28.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                          *//*
-  }
+                          */  }
                             if (date.equals(String.valueOf(29))) {
 
                                 setDataToTable(entryTime,
@@ -1791,8 +1723,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate29,
                                         exitTimeDate29);
 
-                           */
-/*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                           /*     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1818,8 +1749,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate29.setText(entryTime);
                                 exitTimeDate29.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                       *//*
-     }
+                       */     }
                             if (date.equals(String.valueOf(30))) {
 
                                 setDataToTable(entryTime,
@@ -1829,8 +1759,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate30,
                                         exitTimeDate30);
 
-                               */
-/* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+                               /* DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
                                 LocalTime time1_entry = LocalTime.parse(entryTime, timeFormatter);
                                 LocalTime time2_entry = LocalTime.parse(company_penalty_time, timeFormatter);
@@ -1856,8 +1785,7 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate30.setText(entryTime);
                                 exitTimeDate30.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                           *//*
- }
+                           */ }
                             if (date.equals(String.valueOf(31))) {
 
                                 setDataToTable(entryTime,
@@ -1867,7 +1795,6 @@ public class Receptionist_Attendance_F extends Fragment {
                                         entryTimeDate31,
                                         exitTimeDate31);
 
-*/
 /*
                                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 
@@ -1895,15 +1822,14 @@ public class Receptionist_Attendance_F extends Fragment {
                                 entryTimeDate31.setText(entryTime);
                                 exitTimeDate31.setText(exitTime);
                                 Log.e("TAG", "Date :  " + date + " : " + exitTime + " : " + exitTime);
-                         *//*
-   }
+                         */   }
 
 
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toasty.error(getContext(), "Data Error", Toasty.LENGTH_SHORT).show();
+                            Toasty.error(AttandenceReceptionistActivity.this, "Data Error", Toasty.LENGTH_SHORT).show();
                         }
                     });//second Data coming end
                 }
@@ -1911,7 +1837,7 @@ public class Receptionist_Attendance_F extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toasty.error(getContext(), "date not Found", Toasty.LENGTH_SHORT).show();
+                Toasty.error(AttandenceReceptionistActivity.this, "date not Found", Toasty.LENGTH_SHORT).show();
             }
         });
 //first data (date) END
@@ -1960,4 +1886,3 @@ public class Receptionist_Attendance_F extends Fragment {
 
 
 }
-*/

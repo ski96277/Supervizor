@@ -1,18 +1,21 @@
-/*
-package com.example.supervizor.Fragment.Receptionist;
+package com.example.supervizor.Activity.ReceptionistActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.AddReceptionist_PojoClass;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -33,15 +36,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
+public class EditReceptionistProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-import static android.app.Activity.RESULT_OK;
-
-public class Update_Receptionist_Profile extends Fragment implements View.OnClickListener {
     private CircleImageView profileImageReceptionID;
     private EditText receptionNameETID;
     private EditText receptionDesignationETID;
@@ -55,17 +51,15 @@ public class Update_Receptionist_Profile extends Fragment implements View.OnClic
     private Uri filePath;
 
     private StorageReference storageReference;
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.update_receptionist_profile, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.update_receptionist_profile);
+        //hide notification
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("Edit Profile");
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
+        initView();
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +91,7 @@ public class Update_Receptionist_Profile extends Fragment implements View.OnClic
                     String phone = receptionPhoneETID.getText().toString();
 
                     if (filePath == null) {
-                        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.ERROR_TYPE);
+                        KAlertDialog kAlertDialog = new KAlertDialog(EditReceptionistProfileActivity.this, KAlertDialog.ERROR_TYPE);
                         kAlertDialog.setTitleText("Select user image");
                         kAlertDialog.show();
                         kAlertDialog.setConfirmClickListener(kAlertDialog1 -> {
@@ -110,11 +104,11 @@ public class Update_Receptionist_Profile extends Fragment implements View.OnClic
 
 
                     if (name.isEmpty() || designation.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-                        Toasty.info(getContext(), "fill the all input field").show();
+                        Toasty.info(EditReceptionistProfileActivity.this, "fill the all input field").show();
                         return;
                     }
 
-                    KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+                    KAlertDialog kAlertDialog = new KAlertDialog(EditReceptionistProfileActivity.this, KAlertDialog.PROGRESS_TYPE);
                     kAlertDialog.setTitleText("Uploading..");
                     kAlertDialog.show();
 
@@ -180,7 +174,8 @@ public class Update_Receptionist_Profile extends Fragment implements View.OnClic
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
-                                                            startActivity(new Intent(getContext(), ReceptionistMainActivity.class)
+
+                                                            startActivity(new Intent(EditReceptionistProfileActivity.this, ProfileViewReceptionistActivity.class)
                                                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
 
@@ -216,18 +211,18 @@ public class Update_Receptionist_Profile extends Fragment implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.profile_image_reception_ID) {
-chooseImage();
+            chooseImage();
         }
     }
 
-    private void initView(View rootView) {
-        profileImageReceptionID = (CircleImageView) rootView.findViewById(R.id.profile_image_reception_ID);
-        profileImageReceptionID.setOnClickListener(Update_Receptionist_Profile.this);
-        receptionNameETID = (EditText) rootView.findViewById(R.id.reception_name_ET_ID);
-        receptionDesignationETID = (EditText) rootView.findViewById(R.id.reception_designation_ET_ID);
-        receptionEmailETID = (EditText) rootView.findViewById(R.id.reception_email_ET_ID);
-        receptionPhoneETID = (EditText) rootView.findViewById(R.id.reception_phone_ET_ID);
-        updateBtnReceptionID = (Button) rootView.findViewById(R.id.update_btn_reception_ID);
+    private void initView( ) {
+        profileImageReceptionID = (CircleImageView) findViewById(R.id.profile_image_reception_ID);
+        profileImageReceptionID.setOnClickListener(this);
+        receptionNameETID = (EditText) findViewById(R.id.reception_name_ET_ID);
+        receptionDesignationETID = (EditText) findViewById(R.id.reception_designation_ET_ID);
+        receptionEmailETID = (EditText) findViewById(R.id.reception_email_ET_ID);
+        receptionPhoneETID = (EditText) findViewById(R.id.reception_phone_ET_ID);
+        updateBtnReceptionID = (Button) findViewById(R.id.update_btn_reception_ID);
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -244,7 +239,7 @@ chooseImage();
                 && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
                 profileImageReceptionID.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -253,4 +248,3 @@ chooseImage();
     }
 
 }
-*/

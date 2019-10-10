@@ -1,3 +1,4 @@
+/*
 package com.example.supervizor.Fragment.Receptionist;
 
 import android.os.Bundle;
@@ -67,7 +68,9 @@ public class MyLeaveApplication_Receptionist_F extends Fragment {
             Toasty.error(getContext(), "Check internet Connection").show();
             kAlertDialog.dismissWithAnimation();
         }
-        /* get user company ID */
+        */
+/* get user company ID *//*
+
         databaseReference_for_company_UI.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -143,3 +146,4 @@ public class MyLeaveApplication_Receptionist_F extends Fragment {
                 .setActionBarTitle("My Leave application");
     }
 }
+*/

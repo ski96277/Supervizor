@@ -1,15 +1,17 @@
-/*
-package com.example.supervizor.Fragment.Receptionist;
+package com.example.supervizor.Activity.ReceptionistActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import es.dmoral.toasty.Toasty;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.WindowManager;
 
 import com.example.supervizor.AdapterClass.General_Event_List_view_receptionist_Adapter;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
-import com.example.supervizor.JavaPojoClass.Event_Details_Team_PojoClass;
 import com.example.supervizor.JavaPojoClass.Event_details_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
 import com.example.supervizor.Java_Class.Check_User_information;
@@ -24,14 +26,8 @@ import com.kinda.alert.KAlertDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import es.dmoral.toasty.Toasty;
+public class GeneralEventListReceptionistActivity extends AppCompatActivity {
 
-public class General_Event_List_Receptionist extends Fragment {
 
     protected RecyclerView recyclerViewGeneralEventListViewReceptionist;
     private DatabaseReference databaseReference;
@@ -41,26 +37,27 @@ public class General_Event_List_Receptionist extends Fragment {
 
     KAlertDialog dataLoading_alert;
 
-    @Nullable
+    
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.general_event_list_view_receptionist, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.general_event_list_view_receptionist);
+//hide notification
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("General Event");
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        initView();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewGeneralEventListViewReceptionist.setLayoutManager(linearLayoutManager);
 
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.error(getContext(), "Check Internet Connection").show();
+        if (!CheckInternet.isInternet(this)) {
+            Toasty.error(this, "Check Internet Connection").show();
             return;
         }
-        dataLoading_alert = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        dataLoading_alert = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
         dataLoading_alert.setTitleText("Loading...");
         dataLoading_alert.show();
         //get general event list
@@ -87,7 +84,7 @@ public class General_Event_List_Receptionist extends Fragment {
                 dataLoading_alert.dismissWithAnimation();
 
                 if (event_details_pojoClassList.isEmpty()) {
-                    KAlertDialog noEventDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                    KAlertDialog noEventDialog = new KAlertDialog(GeneralEventListReceptionistActivity.this, KAlertDialog.WARNING_TYPE);
                     noEventDialog.setTitleText("NO Event Found");
                     noEventDialog.show();
                     noEventDialog.setConfirmClickListener(kAlertDialog -> {
@@ -96,22 +93,22 @@ public class General_Event_List_Receptionist extends Fragment {
 
                     return;
                 }
-                general_event_list_view_receptionist_adapter = new General_Event_List_view_receptionist_Adapter(getContext(), event_details_pojoClassList);
+                general_event_list_view_receptionist_adapter = new General_Event_List_view_receptionist_Adapter(GeneralEventListReceptionistActivity.this, event_details_pojoClassList);
                 recyclerViewGeneralEventListViewReceptionist.setAdapter(general_event_list_view_receptionist_adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toasty.info(getContext(), "Failed to Load Data").show();
+                Toasty.info(GeneralEventListReceptionistActivity.this, "Failed to Load Data").show();
                 dataLoading_alert.dismissWithAnimation();
             }
         });
+
     }
 
-    private void initView(View rootView) {
-        recyclerViewGeneralEventListViewReceptionist = (RecyclerView) rootView.findViewById(R.id.recyclerView_general_event_list_view_receptionist);
+    private void initView( ) {
+        recyclerViewGeneralEventListViewReceptionist = (RecyclerView)findViewById(R.id.recyclerView_general_event_list_view_receptionist);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         check_user_information = new Check_User_information();
     }
 }
-*/

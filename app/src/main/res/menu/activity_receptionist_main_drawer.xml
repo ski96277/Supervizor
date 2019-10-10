@@ -37,6 +37,14 @@
             android:title="Leave Application" />
     </group>
     <group
+        android:id="@+id/nav_Team_Event-group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Team_Event"
+            android:icon="@drawable/team_member"
+            android:title="Team Event" />
+    </group>
+    <group
         android:id="@+id/nav_My_leave_application"
         android:checkableBehavior="single">
         <item

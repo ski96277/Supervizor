@@ -1,12 +1,15 @@
-/*
-package com.example.supervizor.Fragment.Receptionist;
+package com.example.supervizor.Activity.ReceptionistActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,7 +20,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.supervizor.Activity.ReceptionistActivity.ReceptionistMainActivity;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.LeaveApplication_PojoClass;
 import com.example.supervizor.Java_Class.CheckInternet;
@@ -39,13 +41,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import es.dmoral.toasty.Toasty;
-
-public class Leave_Application_Receptionist_F extends Fragment implements View.OnClickListener {
+public class LeaveApplicationReceptionistActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText leaveTitleETID;
     private EditText leaveDescriptionETID;
@@ -74,18 +70,18 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
     String TOPIC;
     static String TOPIC_NAME;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.leave_application_receptionist_f, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.leave_application_receptionist_f);
+        //hide notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("Leave Application List");
+
+        initView();
+
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-    }
 
     @Override
     public void onClick(View view) {
@@ -104,12 +100,12 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
 
     private void saveValueToDatabase() {
 
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.info(getContext(), "check Internet Connection").show();
+        if (!CheckInternet.isInternet(LeaveApplicationReceptionistActivity.this)) {
+            Toasty.info(LeaveApplicationReceptionistActivity.this, "check Internet Connection").show();
             return;
         }
 //show loading
-        KAlertDialog kAlertDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        KAlertDialog kAlertDialog = new KAlertDialog(LeaveApplicationReceptionistActivity.this, KAlertDialog.PROGRESS_TYPE);
         kAlertDialog.setTitleText("Sending Information");
         kAlertDialog.show();
 
@@ -162,7 +158,7 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                                 startDate,
                                 endDate,
                                 String.valueOf(day),
-                                String.valueOf(month+1),
+                                String.valueOf(month + 1),
                                 String.valueOf(year),
                                 current_Date.toString(),
                                 addEmployee_pojoClass.getEmployee_profile_image_link(),
@@ -171,16 +167,16 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                                 false);
                 databaseReference.child("leave_application")
                         .child(addEmployee_pojoClass.getCompany_User_id())
-.child(check_user_information.getUserID())
+                        .child(check_user_information.getUserID())
                         .child(leave_Title)
                         .setValue(leaveApplication_pojoClass)
                         .addOnCompleteListener(task -> {
 
- //send the notification data Start
-                            TOPIC_NAME=addEmployee_pojoClass.getCompany_User_id()+"leave";
+                            //send the notification data Start
+                            TOPIC_NAME = addEmployee_pojoClass.getCompany_User_id() + "leave";
 
-                            sendDataToFireabase(TOPIC_NAME,leave_Title,description);
- //send the notification data END
+                            sendDataToFireabase(TOPIC_NAME, leave_Title, description);
+                            //send the notification data END
 
                             kAlertDialog.changeAlertType(KAlertDialog.SUCCESS_TYPE);
                             kAlertDialog.setTitleText("Uploaded...");
@@ -188,7 +184,9 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                                 @Override
                                 public void onClick(KAlertDialog kAlertDialog) {
                                     kAlertDialog.dismissWithAnimation();
-                                    loadMyLeaveApplication();
+//                                    loadMyLeaveApplication();
+                                    startActivity(new Intent(LeaveApplicationReceptionistActivity.this, MyLeaveApplicationReceptionistActivity.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 }
                             });
                         });
@@ -196,20 +194,20 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toasty.info(getContext(), "try later, somethings is wrong").show();
+                Toasty.info(LeaveApplicationReceptionistActivity.this, "try later, somethings is wrong").show();
             }
         });
 
     }
 
-    private void loadMyLeaveApplication() {
+  /*  private void loadMyLeaveApplication() {
         Fragment fragment=new MyLeaveApplication_Receptionist_F();
         if (fragment!=null){
             FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.receptionist_main_layout_ID,fragment);
             fragmentTransaction.commit();
         }
-    }
+    }*/
 
     private void callDate_Start_Method() {
         calendar = Calendar.getInstance();
@@ -217,7 +215,7 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(LeaveApplicationReceptionistActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 leaveStartTimeTVID.setText(dayOfMonth + "/" + month + "/" + year);
@@ -232,38 +230,29 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
+        datePickerDialog = new DatePickerDialog(LeaveApplicationReceptionistActivity.this, (view, year, month, dayOfMonth) -> leaveENDTimeTVID.setText(dayOfMonth + "/" + month + "/" + year), year, month, day);
         datePickerDialog.show();
     }
 
-    private void initView(View rootView) {
-        leaveTitleETID = (EditText) rootView.findViewById(R.id.leave_title_ET_ID);
-        leaveDescriptionETID = (EditText) rootView.findViewById(R.id.leave_description_ET_ID);
-        leaveStartTimeTVID = (TextView) rootView.findViewById(R.id.leave_start_Time_TV_ID);
-        leaveStartTimeTVID.setOnClickListener(Leave_Application_Receptionist_F.this);
-        leaveENDTimeTVID = (TextView) rootView.findViewById(R.id.leave_END_Time_TV_ID);
-        leaveENDTimeTVID.setOnClickListener(Leave_Application_Receptionist_F.this);
-        leaveSubmitBtnID = (Button) rootView.findViewById(R.id.submit_leave_btn_ID);
-        leaveSubmitBtnID.setOnClickListener(Leave_Application_Receptionist_F.this);
+    private void initView() {
+        leaveTitleETID = (EditText) findViewById(R.id.leave_title_ET_ID);
+        leaveDescriptionETID = (EditText) findViewById(R.id.leave_description_ET_ID);
+        leaveStartTimeTVID = (TextView) findViewById(R.id.leave_start_Time_TV_ID);
+        leaveStartTimeTVID.setOnClickListener(this);
+        leaveENDTimeTVID = (TextView) findViewById(R.id.leave_END_Time_TV_ID);
+        leaveENDTimeTVID.setOnClickListener(this);
+        leaveSubmitBtnID = (Button) findViewById(R.id.submit_leave_btn_ID);
+        leaveSubmitBtnID.setOnClickListener(this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
     }
 
-
-    //set title
-    public void onResume() {
-        super.onResume();
-        // Set title bar
-        ((ReceptionistMainActivity) getActivity())
-                .setActionBarTitle("Leave application");
-    }
-
     //Notification Data send
     private void sendDataToFireabase(String topicName, String event_title, String event_details) {
 
-        TOPIC = "/topics/"+topicName; //topic must match with what the receiver subscribed to
+        TOPIC = "/topics/" + topicName; //topic must match with what the receiver subscribed to
         NOTIFICATION_TITLE = event_title;
         NOTIFICATION_MESSAGE = event_details;
 
@@ -277,7 +266,7 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
             notification.put("data", notifcationBody);
 
         } catch (JSONException e) {
-            Log.e(TAG, "onCreate: " + e.getMessage() );
+            Log.e(TAG, "onCreate: " + e.getMessage());
         }
         sendNotification(notification);
 
@@ -296,10 +285,10 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LeaveApplicationReceptionistActivity.this, "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
-                }){
+                }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -308,8 +297,7 @@ public class Leave_Application_Receptionist_F extends Fragment implements View.O
                 return params;
             }
         };
-        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+        MySingleton.getInstance(LeaveApplicationReceptionistActivity.this).addToRequestQueue(jsonObjectRequest);
     }
 
 }
-*/

@@ -14,11 +14,6 @@ import android.os.Bundle;
 import com.example.supervizor.Activity.CommanActivity.ChangePasswordActivity;
 import com.example.supervizor.Activity.CommanActivity.Login_Activity;
 import com.example.supervizor.Fragment.Receptionist.Attandence_Form_Receptionist_F;
-import com.example.supervizor.Fragment.Receptionist.General_Event_List_Receptionist;
-import com.example.supervizor.Fragment.Receptionist.Leave_Application_Receptionist_F;
-import com.example.supervizor.Fragment.Receptionist.MyLeaveApplication_Receptionist_F;
-import com.example.supervizor.Fragment.Receptionist.Profile_view_receptionist_F;
-import com.example.supervizor.Fragment.Receptionist.Receptionist_Attendance_F;
 import com.example.supervizor.Fragment.Receptionist.Receptionist_Home_page;
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
 import com.example.supervizor.JavaPojoClass.SignUp_Pojo;
@@ -60,7 +55,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ReceptionistMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -82,13 +76,13 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
 
     public static final int JOB_ID = 101;
-    private static final long REFRESH_INTERVAL  = 3 * 1000; // 1 seconds
+    private static final long REFRESH_INTERVAL = 3 * 1000; // 1 seconds
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
     Check_User_information check_user_information;
 
     SharedPreferences preferences;
-    SharedPreferences.Editor editor ;
+    SharedPreferences.Editor editor;
 
     String comany_user_ID;
 
@@ -165,22 +159,29 @@ public class ReceptionistMainActivity extends AppCompatActivity
         nav_Image_profile_receptionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ReceptionistMainActivity.this, "name TV", Toast.LENGTH_SHORT).show();
-                loadProfileFragment();
+
+//                loadProfileFragment();
+                startActivity(new Intent(ReceptionistMainActivity.this, ProfileViewReceptionistActivity.class));
+
             }
         });
 
         nav_name_profile_receptionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProfileFragment();
+//                loadProfileFragment();
+                startActivity(new Intent(ReceptionistMainActivity.this, ProfileViewReceptionistActivity.class));
+
             }
         });
         nav_email_profile_receptionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProfileFragment();
+//                loadProfileFragment();
+                startActivity(new Intent(ReceptionistMainActivity.this, ProfileViewReceptionistActivity.class));
+
             }
+
         });
         //get user information and set to nav bar view
         Check_User_information check_user_information = new Check_User_information();
@@ -197,17 +198,17 @@ public class ReceptionistMainActivity extends AppCompatActivity
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("company_entry_time", signUp_pojo.getCompany_entry_time());
                 editor.putString("company_exit_time", signUp_pojo.getCompany_exit_time());
-                editor.putString("company_penalty_time",  signUp_pojo.getCompany_penalty_time());
+                editor.putString("company_penalty_time", signUp_pojo.getCompany_penalty_time());
                 editor.apply();
 
 //save company userID to local database
-                editor.putString("company_userID",addEmployee_pojoClass.getCompany_User_id());
-                editor.putString("userID_employee",addEmployee_pojoClass.getEmployee_User_id());
-                editor.putString("user_type","receptionist");
+                editor.putString("company_userID", addEmployee_pojoClass.getCompany_User_id());
+                editor.putString("userID_employee", addEmployee_pojoClass.getEmployee_User_id());
+                editor.putString("user_type", "receptionist");
                 editor.apply();
 //notification subscribe topic
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getCompany_User_id());
-                comany_user_ID=addEmployee_pojoClass.getCompany_User_id();
+                comany_user_ID = addEmployee_pojoClass.getCompany_User_id();
 //for personal event notification
                 FirebaseMessaging.getInstance().subscribeToTopic(addEmployee_pojoClass.getEmployee_User_id());
 
@@ -270,39 +271,39 @@ public class ReceptionistMainActivity extends AppCompatActivity
                         .setConfirmClickListener(kAlertDialog1 ->
 
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                String company_alert_status=dataSnapshot
-                                .child("alert_status_company")
-                                        .child(company_userID)
-                                        .child("alert_status")
-                                        .getValue(String.class);
+                                        String company_alert_status = dataSnapshot
+                                                .child("alert_status_company")
+                                                .child(company_userID)
+                                                .child("alert_status")
+                                                .getValue(String.class);
 
-                                if (company_alert_status.equals("0")){
+                                        if (company_alert_status.equals("0")) {
                                     /*kAlertDialog.dismissWithAnimation();
                                     kAlertDialog.show();*/
-                                    kAlertDialog.setTitleText("Call already Accepted, wait for next call");
-                                    kAlertDialog.setConfirmClickListener(kAlertDialog2 -> kAlertDialog.dismissWithAnimation());
+                                            kAlertDialog.setTitleText("Call already Accepted, wait for next call");
+                                            kAlertDialog.setConfirmClickListener(kAlertDialog2 -> kAlertDialog.dismissWithAnimation());
 
-                                }else if (company_alert_status.equals("1")){
+                                        } else if (company_alert_status.equals("1")) {
 
-                                    databaseReference.child("alert_status_company")
-                                            .child(company_userID)
-                                            .child("alert_status")
-                                            .setValue("0");
-                                    kAlertDialog.dismiss();
-                                    mp.stop();
-                                    mp.release();
+                                            databaseReference.child("alert_status_company")
+                                                    .child(company_userID)
+                                                    .child("alert_status")
+                                                    .setValue("0");
+                                            kAlertDialog.dismiss();
+                                            mp.stop();
+                                            mp.release();
 
-                                }
-                            }
+                                        }
+                                    }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        }));
+                                    }
+                                }));
             }
         }
         //check if the activity start from job service  END
@@ -315,19 +316,19 @@ public class ReceptionistMainActivity extends AppCompatActivity
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
 //                        .setMinimumLatency(REFRESH_INTERVAL)
-                        .setPeriodic(REFRESH_INTERVAL)
-                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                        .setPersisted(true)
-                        .build();
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
         } else {
-                jobInfo = new JobInfo.Builder(JOB_ID, componentName)
+            jobInfo = new JobInfo.Builder(JOB_ID, componentName)
 //                        .setMinimumLatency(REFRESH_INTERVAL)
-                        .setPeriodic(REFRESH_INTERVAL)
-                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                        .setPersisted(true)
-                        .build();
+                    .setPeriodic(REFRESH_INTERVAL)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .build();
         }
 
   /*      JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, componentName);
@@ -370,7 +371,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
         jobScheduler.schedule(jobInfo);
     }*/
 
-
+/*
     //Profile Fragment Call
     private void loadProfileFragment() {
         linearLayout_qr_code_form_btn.setVisibility(View.GONE);
@@ -387,7 +388,7 @@ public class ReceptionistMainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-    }
+    }*/
 
     private void receptionistHomeFragment() {
         fragment = new Receptionist_Home_page();
@@ -396,13 +397,13 @@ public class ReceptionistMainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    private void receptionist_Attandence_Fragment() {
-        fragment = new Receptionist_Attendance_F();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
-        fragmentTransaction.commit();
-    }
-
+    /*   private void receptionist_Attandence_Fragment() {
+           fragment = new Receptionist_Attendance_F();
+           FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+           fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
+           fragmentTransaction.commit();
+       }
+   */
     private void receptionist_Form_Fragment() {
         fragment = new Attandence_Form_Receptionist_F();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -498,23 +499,35 @@ public class ReceptionistMainActivity extends AppCompatActivity
             receptionistHomeFragment();
 
         } else if (id == R.id.nav_event_reception) {
-            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
-            receptionist_General_Event_Fragment();
+//            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+//            receptionist_General_Event_Fragment();
+            startActivity(new Intent(ReceptionistMainActivity.this, GeneralEventListReceptionistActivity.class));
 
 
         } else if (id == R.id.nav_attandence_receptionist) {
-            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
-            receptionist_Attandence_Fragment();
+//            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+//            receptionist_Attandence_Fragment();
+            startActivity(new Intent(this, AttandenceReceptionistActivity.class));
 
 
         } else if (id == R.id.nav_leave_form_receptionist) {
-            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
-            leave_application_form_Fragment();
+
+            startActivity(new Intent(ReceptionistMainActivity.this, LeaveApplicationReceptionistActivity.class));
+
+           /* linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            leave_application_form_Fragment();*/
 
 
-        }else if (id == R.id.nav_My_leave_application_reception) {
-            linearLayout_qr_code_form_btn.setVisibility(View.GONE);
-            leave_application_list_Fragment();
+        } else if (id == R.id.nav_Team_Event) {
+
+            startActivity(new Intent(ReceptionistMainActivity.this, TeamListReceptionActivity.class));
+
+
+        } else if (id == R.id.nav_My_leave_application_reception) {
+
+            startActivity(new Intent(ReceptionistMainActivity.this, MyLeaveApplicationReceptionistActivity.class));
+            /*     linearLayout_qr_code_form_btn.setVisibility(View.GONE);
+            leave_application_list_Fragment();*/
 
 
         } else if (id == R.id.nav_log_out) {
@@ -542,28 +555,28 @@ public class ReceptionistMainActivity extends AppCompatActivity
         return true;
     }
 
-    private void receptionist_General_Event_Fragment() {
+  /*  private void receptionist_General_Event_Fragment() {
         fragment = new General_Event_List_Receptionist();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
-    private void leave_application_form_Fragment() {
+   /* private void leave_application_form_Fragment() {
 
         fragment = new Leave_Application_Receptionist_F();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
-    private void leave_application_list_Fragment() {
+/*    private void leave_application_list_Fragment() {
 
         fragment = new MyLeaveApplication_Receptionist_F();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

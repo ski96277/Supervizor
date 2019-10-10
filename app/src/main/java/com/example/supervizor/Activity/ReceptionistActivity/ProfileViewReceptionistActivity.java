@@ -1,13 +1,16 @@
-/*
-package com.example.supervizor.Fragment.Receptionist;
+package com.example.supervizor.Activity.ReceptionistActivity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass;
@@ -21,14 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
-
-public class Profile_view_receptionist_F extends Fragment {
+public class ProfileViewReceptionistActivity extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -43,29 +39,25 @@ public class Profile_view_receptionist_F extends Fragment {
     TextView email_TV_ID;
     TextView calender_TV_ID;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profile_view_receptionist_f, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.profile_view_receptionist_f);
 
-    }
+        //hide notification bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setTitle("Profile View");
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-        initialize(view);
+        initialize();
 
-        if (!CheckInternet.isInternet(getContext())) {
-            Toasty.info(getContext(), "Check Internet Connection").show();
+        if (!CheckInternet.isInternet(getApplicationContext())) {
+            Toasty.info(this, "Check Internet Connection").show();
             return;
         }
         check_user_information = new Check_User_information();
         user_ID = check_user_information.getUserID();
 
         getProfile_Information(user_ID);
-
 
     }
 
@@ -100,46 +92,37 @@ public class Profile_view_receptionist_F extends Fragment {
         });
     }
 
-    private void initialize(View view) {
+    private void initialize( ) {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        circleImageView_profile = view.findViewById(R.id.receptionist_profile_image_user_profile);
-        name_TV_head = view.findViewById(R.id.receptionist_name_tv_profile_view);
-        designation_TV_head = view.findViewById(R.id.receptionist_designation_profile_view);
-        name_TV_ID = view.findViewById(R.id.receptionist_name_tv_profile_view_page_1);
-        phone_TV_ID = view.findViewById(R.id.receptionist_phone_number_tv_profile_view_page_1);
-        email_TV_ID = view.findViewById(R.id.receptionist_email_tv_profile_view_page_1);
-        calender_TV_ID = view.findViewById(R.id.receptionist_date_tv_profile_view_page_1);
+        circleImageView_profile = findViewById(R.id.receptionist_profile_image_user_profile);
+        name_TV_head = findViewById(R.id.receptionist_name_tv_profile_view);
+        designation_TV_head = findViewById(R.id.receptionist_designation_profile_view);
+        name_TV_ID = findViewById(R.id.receptionist_name_tv_profile_view_page_1);
+        phone_TV_ID = findViewById(R.id.receptionist_phone_number_tv_profile_view_page_1);
+        email_TV_ID = findViewById(R.id.receptionist_email_tv_profile_view_page_1);
+        calender_TV_ID = findViewById(R.id.receptionist_date_tv_profile_view_page_1);
 
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.findItem(R.id.edit_profile_receptionsit).setVisible(true);
-
-        super.onCreateOptionsMenu(menu, inflater);
+        getMenuInflater().inflate(R.menu.receptionist_profile_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.edit_profile_receptionsit:
-                load_Edit_profile_Fragment();
+//                load_Edit_profile_Fragment();
+                startActivity(new Intent(ProfileViewReceptionistActivity.this,EditReceptionistProfileActivity.class));
 
                 break;
         }
-        return false;
-    }
-
-    private void load_Edit_profile_Fragment() {
-        Fragment fragment = new Update_Receptionist_Profile();
-        if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.receptionist_main_layout_ID, fragment);
-            fragmentTransaction.commit();
-        }
+        return super.onOptionsItemSelected(item);
     }
 }
-*/
