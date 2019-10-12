@@ -54,6 +54,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class EmployeeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -96,6 +101,28 @@ public class EmployeeMainActivity extends AppCompatActivity
         setActionBarTitle("Dashboard");
 //initialize the view
         initialize();
+
+        //test time Difference Start
+
+//        String time1 = "12:00:00";
+        String time1 = "9:56 AM";
+        String time2 = "9:56 PM";
+//        String time2 = "12:01:00";
+
+//        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+        Date date1;
+        try {
+            date1 = format.parse(time1);
+            Date date2 = format.parse(time2);
+            long difference = date2.getTime() - date1.getTime();
+            Log.e("TAG", "onCreate: Minute = "+(difference/1000)/60 );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //test time Difference END
+
 
         Intent intent = getIntent();
         password = intent.getStringExtra("password");
