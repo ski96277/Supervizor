@@ -56,7 +56,6 @@
                     android:layout_height="wrap_content"
                     android:text="Loading..."
                     android:textColor="#FFF"
-                    android:fontFamily="@font/raleway_italic"
                     android:textSize="20sp" />
             </LinearLayout>
 

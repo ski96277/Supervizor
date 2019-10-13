@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#C2C2C2"
     android:fillViewport="true"
+    android:background="@drawable/bg_image_salary_policy"
     android:layout_gravity="center"
     tools:context=".Activity.CompanyActivity.PolicyFormActivity">
 
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="top"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="15sp"
                 android:backgroundTint="#FFF"
                 android:elevation="10sp"
@@ -61,9 +62,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="15sp"
-                android:backgroundTint="#FFF"
+                android:backgroundTint="#FFFCFC"
                 android:elevation="10sp"
                 app:cardCornerRadius="10sp"
                 app:cardElevation="10sp">
@@ -78,7 +79,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2.3"
                         android:paddingLeft="5sp"
                         android:text="Amount :"
                         android:textColor="#000"
@@ -88,11 +89,20 @@
                         android:id="@+id/amountET_ID"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="500"
 
                         android:inputType="numberDecimal" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/calculateTypeSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
+                        android:entries="@array/typeOfSalary"
+                        android:hint="policy name"
+                        android:spinnerMode="dialog" />
 
 
                 </LinearLayout>
@@ -102,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="15sp"
                 android:backgroundTint="#FFF"
                 android:elevation="10sp"
@@ -138,7 +148,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+          <!--  <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginLeft="15sp"
@@ -165,7 +175,7 @@
                         android:textColor="#000"
                         android:textSize="17sp" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                   &lt;!&ndash; <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/calculateTypeSpinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -173,15 +183,15 @@
                         android:entries="@array/typeOfSalary"
                         android:hint="policy name"
                         android:spinnerMode="dialog" />
-
+&ndash;&gt;
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="15sp"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -224,12 +234,13 @@
             <Button
                 android:id="@+id/submit_salary_information_btn"
                 android:layout_width="match_parent"
-                android:layout_height="45sp"
+                android:layout_height="55sp"
                 android:layout_marginLeft="90sp"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="90sp"
                 android:background="@drawable/green_color_submit_button_bg"
                 android:text="Submit"
+                android:textSize="25sp"
                 android:textAllCaps="false"
                 android:textColor="#FFF" />
 

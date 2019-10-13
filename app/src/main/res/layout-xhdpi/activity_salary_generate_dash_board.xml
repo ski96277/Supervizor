@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_image_salary_policy_list"
     tools:context=".Activity.CompanyActivity.SalaryGenerateDashBoardActivity">
 
     <com.github.ybq.android.spinkit.SpinKitView

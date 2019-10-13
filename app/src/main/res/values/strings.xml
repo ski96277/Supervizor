@@ -60,7 +60,7 @@
     </string-array>
 
     <string-array name="typeOfSalary">
-        <item>Percentage</item>
+        <item>%</item>
         <item>TK</item>
     </string-array>
 

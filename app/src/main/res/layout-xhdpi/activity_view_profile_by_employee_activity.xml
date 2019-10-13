@@ -13,8 +13,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/employee_profile_image_user_profile"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
             android:layout_gravity="center"
             android:src="@drawable/profile_white"
             app:civ_border_color="#F3EFEF"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="loading...."
+            android:text="Loading...."
             android:textColor="#FFF"
             android:textSize="20sp" />
 
@@ -36,9 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/raleway_italic"
             android:padding="5dp"
-            android:text="loading..."
+            android:text="Loading..."
             android:textColor="#FFF"
             android:textSize="20sp" />
 

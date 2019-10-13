@@ -123,7 +123,7 @@ class All_Event_List_Adapter(var context: Context?, var event_date_list: Mutable
             wlp.gravity = Gravity.CENTER
             wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
             wlp.windowAnimations = R.style.DialogAnimation_right_TO_Center
-            window.setAttributes(wlp)
+            window?.setAttributes(wlp)
 
             dialog.show()
         }

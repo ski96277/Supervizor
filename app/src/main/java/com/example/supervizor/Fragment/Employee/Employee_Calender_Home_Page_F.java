@@ -236,6 +236,7 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.all_event_btn_ID:
+
                 recyclerView_all_event.setVisibility(View.VISIBLE);
                 recyclerView_personal_Event.setVisibility(View.GONE);
                 allEventBtnID.setBackground(getResources().getDrawable(R.drawable.button_background_event_type_dark));
@@ -243,6 +244,7 @@ public class Employee_Calender_Home_Page_F extends Fragment implements View.OnCl
 
                 break;
             case R.id.personal_event_btn_ID:
+
                 recyclerView_all_event.setVisibility(View.GONE);
                 recyclerView_personal_Event.setVisibility(View.VISIBLE);
                 allEventBtnID.setBackground(getResources().getDrawable(R.drawable.button_background_event));

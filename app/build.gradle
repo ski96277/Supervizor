@@ -75,6 +75,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     //loading library ( https://github.com/ybq/Android-SpinKit )
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    //Boom Menu ( https://github.com/Nightonke/BoomMenu )
+    implementation 'com.nightonke:boommenu:2.1.1'
 
     // for excel 
     implementation 'com.opencsv:opencsv:4.1'

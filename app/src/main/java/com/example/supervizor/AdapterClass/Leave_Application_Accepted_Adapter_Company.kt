@@ -35,14 +35,14 @@ class Leave_Application_Accepted_Adapter_Company(val leaveApplication_pojoClasse
 
         fun setview(leaveApplication_PojoClas: LeaveApplication_PojoClass) {
 
-            if (leaveApplication_PojoClas.profile_image_link != "null") {
+//            if (leaveApplication_PojoClas.profile_image_link != "null") {
 
                 Picasso.get().load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
-                        .error(R.drawable.profile_item).into(itemView.leave_approved_item_profile_photo_imageView_leave)
+                        .error(R.drawable.profile).into(itemView.leave_approved_item_profile_photo_imageView_leave)
 
-            } else {
+            /*} else {
                 itemView.leave_approved_item_profile_photo_imageView_leave.setImageResource(R.drawable.profile)
-            }
+            }*/
             itemView.leave_approved_title_item_application.text = leaveApplication_PojoClas.leave_Title
             itemView.leave_approved_details_item_application.text = leaveApplication_PojoClas.leave_description
 
@@ -57,6 +57,7 @@ class Leave_Application_Accepted_Adapter_Company(val leaveApplication_pojoClasse
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.custom_alert_dialog_accepted_application_show_by_company)
             dialog.leave_accepted_applicant_name_date_company.text = leaveApplication_PojoClas.leave_employee_name
+            dialog.leave_applicationDate_TV_ID.text = leaveApplication_PojoClas.leave_applying_Date
             dialog.leave_accepted_title_TV_ID_company.text = leaveApplication_PojoClas.leave_Title
             dialog.leave_accepted_duration_TV_ID_company.text = "${leaveApplication_PojoClas.leave_start_date} to ${leaveApplication_PojoClas.leave_End_Date}"
             dialog.leave_accepted_details_details_TV_ID_company.text = leaveApplication_PojoClas.leave_description

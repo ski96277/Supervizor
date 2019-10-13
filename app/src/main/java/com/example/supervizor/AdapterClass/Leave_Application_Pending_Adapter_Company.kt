@@ -72,10 +72,10 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.custom_alert_dialog_leave_application_pending_show_company)
             dialog.leave_applicant_name_date_company.text = leaveApplication_PojoClas.leave_applying_Date
-            dialog.leave_title_TV_ID_company.text = leaveApplication_PojoClas.leave_Title
+            dialog.leave_accepted_title_TV_ID_company.text = leaveApplication_PojoClas.leave_Title
             dialog.name_Applicent_TV_ID.text = leaveApplication_PojoClas.leave_employee_name
-            dialog.leave_duration_TV_ID_company.text = "${leaveApplication_PojoClas.leave_start_date} to ${leaveApplication_PojoClas.leave_End_Date}"
-            dialog.leave_details_details_TV_ID_company.text = leaveApplication_PojoClas.leave_description
+            dialog.leave_accepted_duration_TV_ID_company.text = "${leaveApplication_PojoClas.leave_start_date} to ${leaveApplication_PojoClas.leave_End_Date}"
+            dialog.leave_accepted_details_details_TV_ID_company.text = leaveApplication_PojoClas.leave_description
 
             Picasso.get()
                     .load(Uri.parse(leaveApplication_PojoClas.profile_image_link))
