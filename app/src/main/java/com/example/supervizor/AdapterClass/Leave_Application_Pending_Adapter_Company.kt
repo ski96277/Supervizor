@@ -69,7 +69,7 @@ class Leave_Application_Pending_Adapter_Company(val leaveApplication_pojoClasses
 
 
             var dialog = Dialog(itemView.context)
-            dialog.setCancelable(false)
+            dialog.setCancelable(true)
             dialog.setContentView(R.layout.custom_alert_dialog_leave_application_pending_show_company)
             dialog.leave_applicant_name_date_company.text = leaveApplication_PojoClas.leave_applying_Date
             dialog.leave_accepted_title_TV_ID_company.text = leaveApplication_PojoClas.leave_Title

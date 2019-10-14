@@ -74,7 +74,8 @@ public class Scan_Employee_F extends Fragment implements View.OnClickListener {
             kAlertDialog.show();
             kAlertDialog.showCancelButton(true);
             //set alert dialog action
-            kAlertDialog.setConfirmClickListener(kAlertDialog1 -> startActivity(new Intent(getContext(), ScanResult_Activiy.class)
+            kAlertDialog.setConfirmClickListener(kAlertDialog1 ->
+                    startActivity(new Intent(getContext(), ScanResult_Activiy.class)
                     .putExtra("value", "entry")));
             kAlertDialog.setCancelClickListener(kAlertDialog12 -> kAlertDialog12.dismissWithAnimation());
 

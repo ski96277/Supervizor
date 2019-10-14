@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.ReceptionistActivity.TeamEventListReceptionActivity"
-            android:parentActivityName=".Activity.ReceptionistActivity.TeamListReceptionActivity"/>
+        <activity android:name=".Activity.CompanyActivity.AllEventToThisEmployee"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"/>
+        <activity
+            android:name=".Activity.ReceptionistActivity.TeamEventListReceptionActivity"
+            android:parentActivityName=".Activity.ReceptionistActivity.TeamListReceptionActivity" />
         <activity
             android:name=".Activity.ReceptionistActivity.TeamListReceptionActivity"
             android:parentActivityName=".Activity.ReceptionistActivity.ReceptionistMainActivity" />

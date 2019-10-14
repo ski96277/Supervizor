@@ -7,6 +7,11 @@
         android:title="Add Event"
         app:showAsAction="never" />
     <item
+        android:id="@+id/all_event_to_this_employee"
+        android:orderInCategory="100"
+        android:title="All Event"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/make_Team_Leader_this_employee"
         android:orderInCategory="100"
         android:title="Make Team Leader"

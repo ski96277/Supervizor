@@ -54,7 +54,7 @@ class Leave_Application_Accepted_Adapter_Company(val leaveApplication_pojoClasse
         private fun showDialog_details(leaveApplication_PojoClas: LeaveApplication_PojoClass) {
 
             var dialog = Dialog(itemView.context)
-            dialog.setCancelable(false)
+            dialog.setCancelable(true)
             dialog.setContentView(R.layout.custom_alert_dialog_accepted_application_show_by_company)
             dialog.leave_accepted_applicant_name_date_company.text = leaveApplication_PojoClas.leave_employee_name
             dialog.leave_applicationDate_TV_ID.text = leaveApplication_PojoClas.leave_applying_Date

@@ -45,6 +45,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
@@ -59,9 +60,11 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
     private TextView calender_TV;
     private TextView name_profile_TV;
     private TextView designation_profile_TV;
-   private CircleImageView circleImageView;
+    private CircleImageView circleImageView;
 
     String user_id_employee;
+    String profile_image_link;
+
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -98,6 +101,8 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
 
         Intent intent = getIntent();
         user_id_employee = intent.getStringExtra("employee_User_id");
+
+
 
         //get user information
 
@@ -185,7 +190,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
 
                 //if user is receptionist then hide the team leader menu
                 if (dataSnapshot.child("receptionist_list")
-                        .hasChild(user_id_employee)){
+                        .hasChild(user_id_employee)) {
 
                     menu.findItem(R.id.make_Team_Leader_this_employee).setVisible(false);
                     menu.findItem(R.id.remove_team_Leader_this_employee).setVisible(false);
@@ -208,6 +213,32 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
             case R.id.set_event_to_this_employee:
 
                 showCustomAlertDialog_setEvent_for_Employee();
+
+                break;
+            case R.id.all_event_to_this_employee:
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String image_link= dataSnapshot.child("employee_list")
+                                .child(user_id_employee)
+                                .child("employee_profile_image_link")
+                                .getValue(String.class);
+
+                        startActivity(new Intent(User_Profile_Activity_View_by_Company.this,
+                                AllEventToThisEmployee.class)
+                                .putExtra("user_ID_employee",user_id_employee)
+                                .putExtra("profileimage_link",image_link));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
 
                 break;
             case R.id.make_Team_Leader_this_employee:
@@ -514,7 +545,7 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
                 break;
             case R.id.whatsApp_btn:
                 String phoneNumber_whatsApp = phone_TV.getText().toString();
-                String url = "https://api.whatsapp.com/send?phone=+88" +phoneNumber_whatsApp;
+                String url = "https://api.whatsapp.com/send?phone=+88" + phoneNumber_whatsApp;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

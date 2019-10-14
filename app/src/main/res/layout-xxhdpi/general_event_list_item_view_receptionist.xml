@@ -30,7 +30,7 @@
                 android:maxLines="1"
                 android:text="Event - event name"
                 android:textColor="#000"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/event_Date_TV_item_ID"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="2019/07/31"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
