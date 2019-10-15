@@ -409,13 +409,26 @@ public class User_Profile_Activity_View_by_Company extends AppCompatActivity imp
                 month_select = month + 1;
                 year_select = year;
 
-                if (month < 10) {
+               /* if (month < 9) {
                     date_ET.setText(year + "-0" + (month + 1) + "-" + dayOfMonth);
                 } else if (dayOfMonth < 10) {
                     date_ET.setText(year + "-" + (month + 1) + "-0" + dayOfMonth);
                 } else {
                     date_ET.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                }*/
+
+                  if (month < 9 ) {
+                    month= Integer.parseInt("0"+(month+1));
+//                    date_ET.setText(year + "-0" + (month + 1) + "-" + dayOfMonth);
+                } else {
+                    month=month+1;
                 }
+
+                if (dayOfMonth < 10) {
+                    dayOfMonth=Integer.parseInt("0"+dayOfMonth);
+//                    date_ET.setText(year + "-" + (month + 1) + "-0" + dayOfMonth);
+                }
+                    date_ET.setText(year + "-" + (month) + "-" + dayOfMonth);
             }
         }, year, month, day);
         datePickerDialog.show();

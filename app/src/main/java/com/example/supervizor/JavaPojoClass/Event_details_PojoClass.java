@@ -1,6 +1,8 @@
 package com.example.supervizor.JavaPojoClass;
 
-public class Event_details_PojoClass {
+import java.io.Serializable;
+
+public class Event_details_PojoClass implements Serializable {
 
     String date;
     String day;

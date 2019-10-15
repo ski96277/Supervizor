@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.AdapterClass.EventListAdapterPersonal
@@ -17,8 +16,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_all_event_to_this_employee.*
-import kotlinx.android.synthetic.main.event_list_and_add_by_team_leader.*
-import org.apache.commons.lang3.builder.ToStringBuilder
 
 
 class AllEventToThisEmployee : AppCompatActivity() {
@@ -70,10 +67,12 @@ class AllEventToThisEmployee : AppCompatActivity() {
                 }//for Loop End
                 if (eventDetailsPojoclasList.size > 0) {
                     eventList_recyclerView.visibility = View.VISIBLE
-                    var eventListAdapterPersonal = EventListAdapterPersonal(eventDetailsPojoclasList, profileImageLink_employee)
+                    var eventListAdapterPersonal = EventListAdapterPersonal(userID_employee,eventDetailsPojoclasList, profileImageLink_employee)
                     eventList_recyclerView.adapter = eventListAdapterPersonal
                 } else {
                     noEventID_TV.visibility = View.VISIBLE
+
+
                 }
 
 
@@ -81,6 +80,20 @@ class AllEventToThisEmployee : AppCompatActivity() {
 
         })
 
+//recyclerView onclick
+   /*     eventList_recyclerView.addOnItemTouchListener(
+                RecyclerItemClickListenr(this,
+                        eventList_recyclerView,
+                        object : RecyclerItemClickListenr.OnItemClickListener {
+                            override fun onItemClick(view: View, position: Int) {
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
 
+                            override fun onItemLongClick(view: View?, position: Int) {
+                                Toast.makeText(applicationContext, ""+position, Toast.LENGTH_SHORT).show();
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
+
+                        }))*/
     }
 }

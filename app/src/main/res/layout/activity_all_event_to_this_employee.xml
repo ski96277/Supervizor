@@ -15,7 +15,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginEnd="176dp"
         android:layout_marginBottom="294dp"
-        android:text='"TextView  asd  sdaf  s f sdf asfsdf"'
+        android:text='"No Event Found"'
+        android:gravity="center"
         android:textSize="25sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
