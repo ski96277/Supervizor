@@ -1,149 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
 
 
-    <!--All & search & Plus icon-->
-    <LinearLayout
-        android:id="@+id/all_search_plus_layout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal">
-
-      <!--  <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner_ID"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:entries="@array/employee_home" />
--->
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_ET_ID"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:fontFamily="@font/raleway_italic"
-            app:queryHint="search.."
-            android:layout_marginLeft="10sp"
-            android:inputType="text"
-            android:maxLines="1" />
-
-        <Button
-            android:id="@+id/plus_icon_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#0076FE"
-            android:text="+"
-            android:textAllCaps="false"
-            android:gravity="center"
-            android:textSize="35sp"
-            android:textColor="#FFF"/>
-
-
-    </LinearLayout>
-    <!--add,  Employee , Moderator,Receptionist-->
-    <LinearLayout
-        android:id="@+id/add_emplo_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/no_employee_found_TV_ID"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000"
-        android:orientation="vertical"
+        android:layout_marginTop="232dp"
+        android:gravity="center"
+        android:text="No Employees yet \n use the '+' button to add employees"
+        android:textSize="25sp"
         android:visibility="gone"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#000"
-            android:fontFamily="@font/doppio_one_regular"
-            android:gravity="center"
-            android:text="Add"
-            android:textColor="#00C0FF"
-            android:textSize="20dp" />-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_ET_ID"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="5"
+        android:fontFamily="@font/raleway_italic"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="search.." />
 
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#FFF" />-->
-
-        <Button
-            android:id="@+id/add_employee_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#000"
-            android:fontFamily="@font/raleway_semibold"
-            android:gravity="center"
-            android:text="Employee"
-            android:textAllCaps="false"
-            android:textColor="@color/text_white_color"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#FFF"
-            android:textColor="@color/text_white_color" />
-
-        <Button
-            android:id="@+id/add_receptionist_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#000"
-            android:fontFamily="@font/raleway_semibold"
-            android:gravity="center"
-            android:text="Receptionist"
-            android:textAllCaps="false"
-
-            android:textColor="@color/text_white_color"
-            android:textSize="20sp" />
-
-      <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FFF"
-            android:textColor="@color/text_white_color" />-->
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_all_employee_ID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_ET_ID" />
 
-        <TextView
-            android:id="@+id/no_employee_found_TV_ID"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:gravity="center"
-            android:text="No Employees yet \n use the '+' button to add employees"
-            android:textSize="25sp"/>
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb"
+        android:layout_width="84dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        app:bmb_buttonEnum="ham"
+        app:bmb_buttonPlaceEnum="buttonPlace_ham_2"
+        app:bmb_piecePlaceEnum="piecePlace_ham_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_all_employee_ID"
-            android:layout_width="match_parent"
-
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
