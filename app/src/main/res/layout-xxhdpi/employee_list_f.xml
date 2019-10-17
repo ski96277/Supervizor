@@ -26,10 +26,11 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_ET_ID"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_weight="5"
+        app:iconifiedByDefault="false"
         android:fontFamily="@font/raleway_italic"
         android:inputType="text"
         android:maxLines="1"

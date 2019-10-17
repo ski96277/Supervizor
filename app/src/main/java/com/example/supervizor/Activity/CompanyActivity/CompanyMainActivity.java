@@ -302,7 +302,8 @@ public class CompanyMainActivity extends AppCompatActivity
         if (fragment != null) {
             fragment.setArguments(bundle);
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentTransaction fragmentTransaction =
+                    fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.commit();
@@ -319,11 +320,11 @@ public class CompanyMainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-            fragment.setEnterTransition(new Slide(Gravity.RIGHT));
-            fragment.setExitTransition(new Slide(Gravity.LEFT));
+//            fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+//            fragment.setExitTransition(new Slide(Gravity.LEFT));
 
             fragmentTransaction.replace(R.id.company_main_screen, fragment);
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }

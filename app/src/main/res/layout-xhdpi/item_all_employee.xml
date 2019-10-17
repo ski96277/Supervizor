@@ -3,29 +3,31 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp"
+        card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_photo_item_imageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile"
-                card_view:civ_border_color="#000"
-                card_view:civ_border_width="2dp" />
+                android:layout_marginLeft="10sp"
+                android:src="@drawable/profile" />
 
             <TextView
                 android:id="@+id/employee_name_item"
@@ -37,7 +39,7 @@
                 android:paddingLeft="20sp"
                 android:text="Employee name"
                 android:textColor="@color/text_black_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
 
             <TextView
@@ -50,7 +52,7 @@
                 android:paddingLeft="20sp"
                 android:text="Employee Designation"
                 android:textColor="@color/text_black_color"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:id="@+id/item_action_layout"
@@ -72,20 +74,21 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@drawable/round_button_shape"
-                        android:padding="25dp"
+                        android:padding="20dp"
                         android:src="@drawable/profile_item" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
                         android:text="Profile"
+                        android:textSize="12sp"
                         android:textColor="#000" />
                 </LinearLayout>
 
@@ -98,11 +101,11 @@
 
                     <ImageView
 
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@drawable/round_button_shape"
-                        android:padding="25dp"
+                        android:padding="20dp"
                         android:src="@drawable/calendar_32" />
 
                     <TextView
@@ -111,6 +114,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
+                        android:textSize="12sp"
                         android:text="Attendance"
                         android:textColor="#000" />
 
@@ -125,11 +129,11 @@
 
                     <ImageView
 
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@drawable/round_button_shape"
-                        android:padding="25dp"
+                        android:padding="20dp"
                         android:src="@drawable/cross_32" />
 
                     <TextView
@@ -138,7 +142,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/raleway_regular"
                         android:gravity="center"
-                        android:text="Remove User"
+                        android:textSize="12sp"
+                        android:text="Remove"
                         android:textColor="#000" />
                 </LinearLayout>
 

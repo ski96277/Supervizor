@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -72,12 +74,14 @@ public class Employee_list_F extends Fragment {
     DatabaseReference myDatabaseRef;
 
     RecyclerView recyclerview_all_employee_ID;
+    Context context;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CompanyMainActivity.employee_and_calender_layout.setVisibility(View.VISIBLE);
+        context=getContext();
 //        CompanyMainActivity.pending_and_approved_layout.setVisibility(View.GONE);
 //set Button background color
         CompanyMainActivity.employee_button_layout.setBackgroundColor(Color.parseColor("#00CCCC"));
@@ -92,9 +96,17 @@ public class Employee_list_F extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialization(view);
-        //set focus able
-        search_ET.requestFocus();
-
+            //set focus able
+//        search_ET.requestFocus();
+/*
+        //hide keybord
+// Check if no view has focus:
+        View keybord_view = getActivity().getCurrentFocus();
+        if (keybord_view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }//end hide keybord
+*/
 
         assert bmb != null;
 
@@ -184,8 +196,12 @@ public class Employee_list_F extends Fragment {
 
                 all_employee_list_adapter.notifyDataSetChanged();
 
+
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
+                int resId = R.anim.layout_animation_fall_down;
+                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context,resId);
+                recyclerview_all_employee_ID.setLayoutAnimation(animation); /*(https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213)*/
 
                 recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
                 //dismiss alert dialog

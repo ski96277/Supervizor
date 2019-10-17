@@ -13,7 +13,7 @@
     <LinearLayout
         android:id="@+id/employee_and_calender_layout_ID"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="#000"
         android:orientation="horizontal">
 
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5sp"
-                android:background="#000"
+                android:background="@color/colorPrimary"
                 android:text="Employee"
                 android:fontFamily="@font/raleway_bold"
                 android:textAllCaps="false"
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5sp"
-                android:background="#000"
+                android:background="@color/colorPrimary"
                 android:fontFamily="@font/raleway_bold"
 
                 android:text="Calender"
