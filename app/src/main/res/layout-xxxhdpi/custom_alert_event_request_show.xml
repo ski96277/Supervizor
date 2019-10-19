@@ -4,75 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="50dp">
+    android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_circleImageView_alert_ID"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="165dp"
+        android:layout_width="89dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp"
+        android:padding="5sp"
         android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name_TV_ID_custom_alert"
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center"
-        android:text="name"
+        android:layout_width="248dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:text="Name"
+        android:paddingLeft="5sp"
         android:textColor="#000"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_circleImageView_alert_ID" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/team_name_ID_custom_alert_dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="246dp"
+        android:paddingLeft="5sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="7dp"
+        android:gravity="left"
         android:text="Event Name"
         android:textColor="#000"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_TV_ID_custom_alert" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamMemberList_recyclerView_ID"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_btn_custom_alert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />
 
     <Button
         android:id="@+id/cancel_btn_custom_alert"
         android:layout_width="133dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:background="#010D1B"
         android:text="Cancel"
         android:textColor="#FFF"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/approve_btn_custom_alert"
         android:layout_width="133dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="#010D1B"
         android:text="Approve"
         android:textColor="#FFF"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

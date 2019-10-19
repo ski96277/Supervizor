@@ -116,19 +116,5 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
             dialog.show()
         }
 
-        /*  private fun loadTeamRequestList() {
-
-
-              var fragment: Fragment?
-              fragment = Team_Request()
-
-              if (fragment != null) {
-
-                  val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                  fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
-                  fragmentTransaction.commit()
-              }
-
-          }*/
     }
 }
