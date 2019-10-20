@@ -10,9 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.example.supervizor.AdapterClass.Team_Event_Request_List_Adapter_View_by_company;
+import com.example.supervizor.AdapterClass.Team_Request_List_Adapter_View_by_company;
 import com.example.supervizor.Java_Class.Check_User_information;
 import com.example.supervizor.R;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,8 @@ public class Team_RequestListActivity extends AppCompatActivity {
 
 
     private RecyclerView recyclerViewTeamRequestID;
+    private SpinKitView loader;
+
     private Check_User_information check_user_information;
     private DatabaseReference databaseReference;
 
@@ -81,6 +84,7 @@ public class Team_RequestListActivity extends AppCompatActivity {
                     }
                 }
                 if (team_name_list.size() <= 0) {
+                    loader.setVisibility(View.GONE);
                     KAlertDialog no_team_request_Alert = new KAlertDialog(Team_RequestListActivity.this, KAlertDialog.WARNING_TYPE);
                     no_team_request_Alert.setTitleText("No Team Request Yet");
                     no_team_request_Alert.show();
@@ -88,12 +92,16 @@ public class Team_RequestListActivity extends AppCompatActivity {
                         no_team_request_Alert.dismissWithAnimation();
 
                     });
+                }else {
+                    loader.setVisibility(View.GONE);
+                    recyclerViewTeamRequestID.setVisibility(View.VISIBLE);
+                    Team_Request_List_Adapter_View_by_company team__request_list_adapter_view_by_company
+                            = new Team_Request_List_Adapter_View_by_company(team_name_list, team_leader_User_ID);
+                    recyclerViewTeamRequestID.setAdapter(team__request_list_adapter_view_by_company);
+
                 }
 
-                Team_Event_Request_List_Adapter_View_by_company team_event_request_list_adapter_view_by_company
-                        = new Team_Event_Request_List_Adapter_View_by_company(team_name_list, team_leader_User_ID);
-                recyclerViewTeamRequestID.setAdapter(team_event_request_list_adapter_view_by_company);
-            }
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -104,6 +112,7 @@ public class Team_RequestListActivity extends AppCompatActivity {
 
 
     private void initView() {
+        loader=findViewById(R.id.loader_teamList);
         recyclerViewTeamRequestID = findViewById(R.id.recycler_view_team_request_ID);
         check_user_information = new Check_User_information();
         databaseReference = FirebaseDatabase.getInstance().getReference();

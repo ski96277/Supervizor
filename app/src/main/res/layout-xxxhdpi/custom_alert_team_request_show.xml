@@ -18,32 +18,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_TV_ID_custom_alert"
-        android:layout_width="248dp"
+        android:id="@+id/name_TeamDetails_TV_ID"
+        android:layout_width="289dp"
         android:layout_height="43dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:gravity="left"
-        android:text="Name"
         android:paddingLeft="5sp"
+        android:text="Name"
         android:textColor="#000"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/team_name_ID_custom_alert_dialog"
-        android:layout_width="246dp"
-        android:paddingLeft="5sp"
+        android:id="@+id/team_name_TeamDetails_ID"
+        android:layout_width="287dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="7dp"
         android:gravity="left"
-        android:text="Event Name"
+        android:paddingLeft="5sp"
+        android:text="Team Name"
         android:textColor="#000"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_TV_ID_custom_alert" />
+        app:layout_constraintTop_toBottomOf="@+id/name_TeamDetails_TV_ID" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/teamMemberList_recyclerView_ID"
@@ -53,35 +53,43 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_btn_custom_alert"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_btn__TeamDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/team_name_ID_custom_alert_dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID" />
 
     <Button
-        android:id="@+id/cancel_btn_custom_alert"
+        android:id="@+id/cancel_btn__TeamDetails"
         android:layout_width="133dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="450dp"
         android:layout_marginBottom="16dp"
         android:background="#010D1B"
         android:text="Cancel"
         android:textColor="#FFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID" />
 
     <Button
         android:id="@+id/approve_btn_custom_alert"
         android:layout_width="133dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="16dp"
         android:background="#010D1B"
         android:text="Approve"
         android:textColor="#FFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toEndOf="@+id/cancel_btn__TeamDetails"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID"
+        app:layout_constraintVertical_bias="0.53" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
 import com.example.supervizor.Activity.CompanyActivity.CompanyMainActivity;
@@ -116,6 +118,11 @@ public class LeaveApplication_Pending_F extends Fragment {
                 Leave_Application_Pending_Adapter_Company leave_application_pending_adapterCompany = new Leave_Application_Pending_Adapter_Company(leaveApplication_pojoClasses_Unseen_list);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 leavePendingApplicationList.setLayoutManager(linearLayoutManager);
+
+                int resId = R.anim.layout_animation_fall_down;
+                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(),resId);
+                leavePendingApplicationList.setLayoutAnimation(animation); /*(https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213)*/
+
                 leavePendingApplicationList.setAdapter(leave_application_pending_adapterCompany);
                 kAlertDialog.dismissWithAnimation();
 

@@ -3,13 +3,11 @@ package com.example.supervizor.AdapterClass
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.*
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.supervizor.Activity.CompanyActivity.TeamRequestDetailsActivity
 import com.example.supervizor.Activity.CompanyActivity.Team_RequestListActivity
-import com.example.supervizor.Fragment.Company.Employee_list_F
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
 import com.google.firebase.database.DatabaseReference
@@ -20,12 +18,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.custom_alert_event_request_show.*
-import kotlinx.android.synthetic.main.custom_alert_event_request_show.view.*
-import kotlinx.android.synthetic.main.custom_alert_event_request_show.view.image_circleImageView_alert_ID
+import kotlinx.android.synthetic.main.custom_alert_team_request_show.*
 
 
-class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: MutableList<String>, var team_leader_user_id: MutableList<String>) : RecyclerView.Adapter<Team_Event_Request_List_Adapter_View_by_company.ViewHolder>() {
+class Team_Request_List_Adapter_View_by_company(var team_name_list: MutableList<String>, var team_leader_user_id: MutableList<String>) : RecyclerView.Adapter<Team_Request_List_Adapter_View_by_company.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_event_request_view_company, parent, false)
@@ -45,41 +42,45 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
 
     class ViewHolder(var itemview: View) : RecyclerView.ViewHolder(itemview) {
 
+
+
         fun setData(team_name: String, team_leader_user_ID: String) {
 
             itemview.team_name_TV_Item_ID_as_a_company.text = team_name
 
             itemview.setOnClickListener {
-
-                show_Event_Information(team_name, team_leader_user_ID)
-
+//                show_Event_Information(team_name, team_leader_user_ID)
+               itemview.context.startActivity(Intent(itemview.context, TeamRequestDetailsActivity::class.java)
+                       .putExtra("team_name",team_name)
+                       .putExtra("team_leader_user_ID",team_leader_user_ID))
             }
         }
 
-        private fun show_Event_Information(teamName: String, teamLeaderUserId: String) {
+      /*  private fun show_Event_Information(teamName: String, teamLeaderUserId: String) {
+
 
             var dialog = Dialog(itemview.context)
             dialog.setCancelable(false)
-            dialog.setContentView(R.layout.custom_alert_event_request_show)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.custom_alert_team_request_show)
 
             var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
             // Read from the database
             databaseReference.addValueEventListener(object : ValueEventListener {
+
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+
 
                     val addemployeePojoclass: AddEmployee_PojoClass? = dataSnapshot.child("employee_list")
                             .child(teamLeaderUserId).getValue(AddEmployee_PojoClass::class.java)
 
                     var image_link = addemployeePojoclass!!.employee_profile_image_link
-                    if (!image_link.equals("null")) {
+                    if (image_link != "null") {
 
                         Picasso.get().load(Uri.parse(image_link)).into(dialog.image_circleImageView_alert_ID)
                     } else {
-//                        itemView.image_circleImageView_alert_ID.setImageResource(R.drawable.profile)
-                        /*val imgResId = R.drawable.profile
-
-                        dialog.image_circleImageView_alert_ID.setImageResource(imgResId)*/
                     }
+
                     dialog.name_TV_ID_custom_alert.text = addemployeePojoclass.employee_name
                     dialog.team_name_ID_custom_alert_dialog.text = teamName
 
@@ -114,7 +115,7 @@ class Team_Event_Request_List_Adapter_View_by_company(var team_name_list: Mutabl
             })
 
             dialog.show()
-        }
+        }*/
 
     }
 }

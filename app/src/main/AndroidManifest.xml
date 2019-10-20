@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.CompanyActivity.PersonalEventDetailsActivity"
-            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity"/>
+        <activity android:name=".Activity.CompanyActivity.TeamRequestDetailsActivity"
+            android:parentActivityName=".Activity.CompanyActivity.Team_RequestListActivity"/>
+        <activity
+            android:name=".Activity.CompanyActivity.PersonalEventDetailsActivity"
+            android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />
         <activity
             android:name=".Activity.CompanyActivity.AllEventToThisEmployee"
             android:parentActivityName=".Activity.CompanyActivity.CompanyMainActivity" />

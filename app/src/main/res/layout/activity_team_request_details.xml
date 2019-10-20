@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_circleImageView__TeamDetails"
+        android:layout_width="89dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="5sp"
+        android:src="@drawable/profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_TeamDetails_TV_ID"
+        android:layout_width="248dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:paddingLeft="5sp"
+        android:text="Name"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/team_name_TeamDetails_ID"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="7dp"
+        android:gravity="left"
+        android:paddingLeft="5sp"
+        android:text="Team Name"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_TeamDetails_TV_ID" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamMemberList_details_recyclerView_ID"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_btn__TeamDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/loader_teamMemberList"
+        style="@style/SpinKitView.Wave"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:padding="150sp"
+        app:SpinKit_Color="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_btn__TeamDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID" />
+
+    <Button
+        android:id="@+id/cancel_btn__TeamDetails"
+        android:layout_width="133dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginBottom="16dp"
+        android:background="#010D1B"
+        android:text="Cancel"
+        android:textColor="#FFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID" />
+
+    <Button
+        android:id="@+id/approve_btn__TeamDetails"
+        android:layout_width="133dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="16dp"
+        android:background="#010D1B"
+        android:text="Approve"
+        android:textColor="#FFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toEndOf="@+id/cancel_btn__TeamDetails"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_TeamDetails_ID"
+        app:layout_constraintVertical_bias="0.53" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90sp"
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
@@ -22,6 +22,7 @@
                 android:id="@+id/leave_item_profile_photo_imageView_leave"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="8sp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile"
                 card_view:civ_border_color="#000"
@@ -31,7 +32,7 @@
                 android:id="@+id/leave_title_item_application"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:layout_toRightOf="@id/leave_item_profile_photo_imageView_leave"
                 android:gravity="left"
                 android:paddingLeft="20sp"
