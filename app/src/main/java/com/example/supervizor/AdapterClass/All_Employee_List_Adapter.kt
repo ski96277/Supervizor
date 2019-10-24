@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supervizor.JavaPojoClass.AddEmployee_PojoClass
 import com.example.supervizor.R
@@ -28,6 +29,7 @@ import com.example.supervizor.Fragment.Company.Employee_list_F
 class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmployee_PojoClass>) : RecyclerView.Adapter<All_Employee_List_Adapter.ViewHolderClass>() {
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_employee, parent, false);
         return ViewHolderClass(view)
@@ -42,6 +44,8 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
 
         return holder.setData(addEmployee_pojoClasses[position])
     }
+
+
 
 
     class ViewHolderClass(itemview: View) : RecyclerView.ViewHolder(itemview) {
@@ -65,7 +69,7 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             //profile View By company
             itemView.profile_view_item_layout.setOnClickListener {
 
-               var intent = Intent(itemView.context, User_Profile_Activity_View_by_Company::class.java)
+                var intent = Intent(itemView.context, User_Profile_Activity_View_by_Company::class.java)
                 intent.putExtra("employee_User_id", addEmployee_PojoClass.employee_User_id)
                 itemView.context.startActivity(intent)
 
@@ -153,35 +157,35 @@ class All_Employee_List_Adapter(var addEmployee_pojoClasses: ArrayList<AddEmploy
             }
         }
 
-       /* private fun load_attandence_Fragment(bundle: Bundle) {
+        /* private fun load_attandence_Fragment(bundle: Bundle) {
 
 
-            var fragment: Fragment?
-            fragment = User_Attendance_F()
+             var fragment: Fragment?
+             fragment = User_Attendance_F()
 
-            if (fragment != null) {
-                fragment.arguments = bundle
+             if (fragment != null) {
+                 fragment.arguments = bundle
 
-                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
-                fragmentTransaction.commit()
-            }
-        }
-*/
-   /*     private fun load_Profile_Fragment(bundle: Bundle) {
+                 val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                 fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                 fragmentTransaction.commit()
+             }
+         }
+ */
+        /*     private fun load_Profile_Fragment(bundle: Bundle) {
 
 
-            var fragment: Fragment?
-            fragment = User_Profile()
+                 var fragment: Fragment?
+                 fragment = User_Profile()
 
-            if (fragment != null) {
-                fragment.arguments = bundle
+                 if (fragment != null) {
+                     fragment.arguments = bundle
 
-                val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
-                fragmentTransaction.commit()
-            }
-        }*/
+                     val fragmentTransaction = (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                     fragmentTransaction.replace(R.id.company_main_screen, fragment!!)
+                     fragmentTransaction.commit()
+                 }
+             }*/
 
         init {
             itemview.setOnClickListener {

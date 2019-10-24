@@ -46,7 +46,6 @@
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
-        android:layoutAnimation="@anim/layout_animation_fall_down"
         android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

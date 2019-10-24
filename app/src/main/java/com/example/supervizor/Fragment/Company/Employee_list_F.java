@@ -199,10 +199,10 @@ public class Employee_list_F extends Fragment {
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 recyclerview_all_employee_ID.setLayoutManager(linearLayoutManager);
+                //animation start
                 int resId = R.anim.layout_animation_fall_down;
                 LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context,resId);
-                recyclerview_all_employee_ID.setLayoutAnimation(animation); /*(https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213)*/
-
+                recyclerview_all_employee_ID.setLayoutAnimation(animation); //(https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213)
                 recyclerview_all_employee_ID.setAdapter(all_employee_list_adapter);
                 //dismiss alert dialog
                 kAlertDialog.dismiss();

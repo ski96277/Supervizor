@@ -90,6 +90,8 @@ public class Team_RequestListActivity extends AppCompatActivity {
                     no_team_request_Alert.show();
                     no_team_request_Alert.setConfirmClickListener(kAlertDialog -> {
                         no_team_request_Alert.dismissWithAnimation();
+                        startActivity(new Intent(Team_RequestListActivity.this,CompanyMainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
                     });
                 }else {
